@@ -1,0 +1,431 @@
+h1, h2, h3, h4, h5, span {
+    color: #212121;
+}
+
+body {
+    background: #fafafa;
+}
+
+a {
+    text-decoration: none;
+}
+
+.section-sub-head {
+    min-height: 310px;
+    background: linear-gradient(180deg, #FFFFFF 50%, #FAFAFA 100%);
+    /* margin-top: -70px; */
+}
+
+.section-detail-produk {
+    margin-top: -210px;
+    /* min-height: 100vh; */
+}
+
+.card {
+    background: #FFFFFF;
+    box-shadow: 0px 0px 4px 1px rgba(0, 0, 0, 0.25);
+}
+
+.btn-daftar-regis {
+    background: #1B5E20;
+    color: #FFFFFF;
+}
+
+.btn-primary1 {
+    background-color: #3B6CB6;
+    color: #FFFFFF;
+}
+
+.btn-secondary1 {
+    background-color: #3BB6B1;
+    color: #FFFFFF;
+}
+.btn-card-obat{
+    background-color: #3B6CB6;
+    color: #FFFFFF;
+}
+.btn-search{
+    background-color: #F1F1F1;
+    border: #212121;
+    color: #FFFFFF;
+}
+.btn-login{
+background: #3B6CB6;
+border-radius: 5px;
+/* identical to box height */
+display: flex;
+align-items: center;
+color: #FFFFFF;
+}
+.btn-register{
+background-color: #FFFFFF;
+border: #3B6CB6;
+border-radius: 5px;
+}
+
+
+    
+
+.bg-img-login {
+    background-image: url("../images/bg-login.jpg");
+    min-height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.bg-img-artikel{
+    background-image: url("../images/icon/bg-artikel-home.png");
+    min-height: 100vh;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.together {
+    font-family: PT Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 50px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.img-login {
+    width: 214px;
+    height: 214px;
+}
+
+.img-regis {
+    width: 150px;
+    height: 150px;
+}
+
+.text {
+    font-family: PT Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 40px;
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.bg-form {
+    background-image: url("../images/bg-form.png");
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card.bg-form {
+    font-family: 'Open Sans', sans-serif;
+}
+
+.lupa-pass {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    color: #3BB6B1;
+}
+
+.bpa {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+}
+
+.ba {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+}
+
+.large_bottom_margin {
+    margin-bottom: 2rem !important;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.bg-verifikasi {
+    background-image: url("../images/bg-form.png");
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-reg-phy {
+    background-image: url("../images/bg-reg-phy.png");
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-register {
+    background-image: url("../images/bg-form.png");
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg-register_otp {
+    background-image: url("../images/bg-form.png");
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.code_sms {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    text-align: center;
+}
+
+.number_sms {
+    font-family: Open Sans;
+    font-style: bold;
+    font-weight: normal;
+    font-size: 18px;
+    text-align: center;
+}
+
+.inline_input_ {
+    font-size: 30px;
+    font-weight: 600;
+    color: #3B6CB6;
+    border-radius: 0;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .26);
+    padding: 0;
+    margin: 0 .625rem;
+    outline: none;
+    background-color: transparent;
+    width: 2.25rem;
+    text-align: center;
+}
+
+.img-reg-phy {
+    width: 60px;
+    height: 60px;
+}
+
+.head-reg-phy {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 26px;
+}
+
+.detail-img-produk {
+    width: 280px;
+    height: 280px;
+    margin: 40px;
+}
+
+.img-serupa {
+    width: 80px;
+    height: 80px;
+    margin: 10px;
+}
+
+.judul_produk {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: #212121;
+}
+
+.name-produk-lainnya {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.price {
+    margin-top: 5px;
+}
+
+.text__harga {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    color: #464646;
+}
+
+.price_ {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    color: #B71C1C;
+}
+
+.deskripsi__produk {
+    padding: 40px;
+}
+
+.head-detail-produk {
+    margin-bottom: 10px;
+}
+
+.nama_produk-detail {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    color: #212121;
+    margin-bottom: 20px;
+}
+
+.harga__produk {
+    margin-top: 20px;
+}
+
+.harga__ {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    color: #464646;
+    margin-bottom: 5px;
+}
+
+.price__produk {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: #B71C1C;
+}
+
+.qty {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.sub {
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+    letter-spacing: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: background-color .1s cubic-bezier(.4, 0, .6, 1);
+    transition: background-color .1s cubic-bezier(.4, 0, .6, 1);
+    border: 1px solid rgba(0, 0, 0, .09);
+    border-radius: 100%;
+    background: transparent;
+    color: rgba(0, 0, 0, .8);
+    width: 32px;
+    height: 32px;
+}
+
+.qty__number {
+    outline: none;
+    cursor: pointer;
+    border: none !important;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: background-color .1s cubic-bezier(.4, 0, .6, 1);
+    transition: background-color .1s cubic-bezier(.4, 0, .6, 1);
+    border: 1px solid rgba(0, 0, 0, .09);
+    background: transparent;
+    color: #0D47A1;
+    font-weight: 600;
+    font-size: 18px;
+    width: 50px;
+    height: 32px;
+}
+
+.add {
+    outline: none;
+    cursor: pointer;
+    line-height: 1;
+    letter-spacing: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -moz-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-transition: background-color .1s cubic-bezier(.4, 0, .6, 1);
+    transition: background-color .1s cubic-bezier(.4, 0, .6, 1);
+    border: 1px solid rgba(0, 0, 0, .09);
+    border-radius: 100%;
+    background: transparent;
+    color: rgba(0, 0, 0, .8);
+    width: 32px;
+    height: 32px;
+}
+
+.add__wishlist {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    color: #B71C1C;
+}
+
+.deskripsi-detail-produk {
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+/* footer */
+
+.img-footer {
+    width: 168px;
+    height: 193px;
+}
+
+.img-sosmed-footer {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.footer-copyright {
+    background: #006064;
+}
+
+.copyright-color {
+    color: #FFFFFF;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+}
