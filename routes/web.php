@@ -191,7 +191,6 @@ Route::get('/pembayaran-sukses', function ()
 
 Route::group(['middleware' => ['user', 'verified','unbanned']], function(){
 	Route::get('/profile', 'HomeController@profile')->name('profile');
-	Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
 	Route::post('/new-user-verification', 'HomeController@new_verify')->name('user.new.verify');
 	Route::post('/new-user-email', 'HomeController@update_email')->name('user.change.email');
 	Route::post('/customer/update-profile', 'HomeController@customer_update_profile')->name('customer.profile.update');

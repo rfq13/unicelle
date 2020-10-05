@@ -67,28 +67,31 @@
         </div>
         <!-- <a  class="btn btn-outline-success mr-2 my-sm-2" type="button" role="button">Logout</a> -->
     </div>
-        <!-- <li>
-            <a href="{{ route('dashboard') }}" class="top-bar-item">{{ translate('My Panel')}}</a>
-        </li> -->
-        <!-- <li>
-            <a href="{{ route('logout') }}" class="top-bar-item">{{ translate('Logout')}}</a>
-        </li> -->
+    {{--
+            <!-- <li>
+                <a href="{{ route('dashboard') }}" class="top-bar-item">{{ translate('My Panel')}}</a>
+            </li> -->
+            <!-- <li>
+                <a href="{{ route('logout') }}" class="top-bar-item">{{ translate('Logout')}}</a>
+            </li> -->
+            
+            <!-- <li>
+                <a href="{{ route('user.login') }}" class="top-bar-item">{{ translate('Login')}}</a>
+            </li>
+            <li>
+                <a href="{{ route('user.registration') }}" class="top-bar-item">{{ translate('Registration')}}</a>
+            </li> -->
         
-        <!-- <li>
-            <a href="{{ route('user.login') }}" class="top-bar-item">{{ translate('Login')}}</a>
-        </li>
-        <li>
-            <a href="{{ route('user.registration') }}" class="top-bar-item">{{ translate('Registration')}}</a>
-        </li> -->
-    
-    <!-- <a type="button" href="{{ route('user.login') }}" class="btn btn-primary mr-2" role="button">Login</a>
-    <a href="{{ route('user.registration') }}" class="btn btn-outline-primary mr-2 my-sm-2" type="button" role="button">Daftar</a>      -->
+        <!-- <a type="button" href="{{ route('user.login') }}" class="btn btn-primary mr-2" role="button">Login</a>
+        <a href="{{ route('user.registration') }}" class="btn btn-outline-primary mr-2 my-sm-2" type="button" role="button">Daftar</a>      -->
+    --}}
 </nav>
 
 
 
 
-<!-- <div class="header bg-white"> -->
+{{--
+    <!-- <div class="header bg-white"> -->
     <!-- Top Bar -->
     <!-- <div class="top-navbar">
         <div class="container">
@@ -742,4 +745,5 @@
             </div>
         </nav>
     </div> 
-</div>-->
+    </div>-->
+--}}

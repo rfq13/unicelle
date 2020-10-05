@@ -41,7 +41,7 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
+        
         $address = new Address;
         if($request->has('customer_id')){
             $address->user_id = $request->customer_id;
@@ -52,7 +52,7 @@ class AddressController extends Controller
 
         $address->address = $request->address;
         $address->receiver = $request->receiver;
-        $address->country = '$request->country';
+        //$address->country = '$request->country';
         $address->province = $request->province;
         $address->city = $request->city;
         $address->subdistrict = $request->subdistrict;
@@ -102,7 +102,7 @@ class AddressController extends Controller
             $address['address'] = $request->address;
             $address['receiver'] = $request->receiver;
             $address['province'] = $request->province;
-            $address['country'] = '$request->country';
+            // $address['country'] = '$request->country';
             $address['city'] = $request->city;
             $address['subdistrict'] = $request->subdistrict;
             $address['postal_code'] = $request->postal_code;

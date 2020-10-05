@@ -107,7 +107,7 @@ class LoginController extends Controller
             return redirect(session('link'));
         }
         else{
-            return redirect()->route('dashboard');
+            return redirect()->route('/');
         }
     }
 
@@ -141,7 +141,7 @@ class LoginController extends Controller
                 return redirect(session('link'));
             }
             else{
-                return redirect()->route('dashboard');
+                return redirect()->route('/');
             }
         }
     }
