@@ -40,11 +40,11 @@
                             </div>
 
                             <div class="form-group">
-                                <!-- @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
+                                {{--<!-- @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
                                     <div class="form-group">
                                         <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
                                     </div>
-                                @endif  -->
+                                @endif  -->--}}
                                 <div id="recaptcha-container"></div>
                             </div>
 
@@ -111,7 +111,7 @@
     </section>
 
 
-    <!-- <section class="gry-bg py-5">
+    {{--<!-- <section class="gry-bg py-5">
         <div class="profile">
             <div class="container">
                 <div class="row">
@@ -215,7 +215,7 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section> -->--}}
 @endsection
 
 @section('script')
@@ -241,6 +241,23 @@
                 //do the rest of your validations here
                 $("#reg-form").submit();
             });
+
+            $(".inline_input_").click(function (e) {
+                e.preventDefault()
+                if ($("#satu").val().length == 0) {
+                    $("#satu").focus()
+                    // if ( $this.val().length >= parseInt($this.attr("maxlength"),10) ){
+                    //     $this.next("input").focus();
+                    // }
+                }
+
+            })
+                $(".inline_input_ input").focus(function () {
+                    if ($(this).val().length > 0) {
+                        $(this).next()
+                    }
+                })
+
         });
 
         var isPhoneShown = true;

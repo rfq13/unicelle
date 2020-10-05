@@ -96,7 +96,7 @@
     </section>
 
 
-    <!-- <section class="gry-bg py-5">
+    {{--<!-- <section class="gry-bg py-5">
         <div class="profile">
             <div class="container">
                 <div class="row">
@@ -200,7 +200,7 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section> -->--}}
 @endsection
 
 @section('script')
