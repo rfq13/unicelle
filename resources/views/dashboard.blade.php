@@ -8,6 +8,8 @@
                 <h4 class="text-light mar-btm">{{translate('Please Configure SMTP Setting to work all email sending funtionality')}}.</h4>
                 <a class="btn btn-info btn-rounded" href="{{ route('smtp_settings.index') }}">Configure Now</a>
             </div>
+
+            
         </div>
     </div>
 @endif
