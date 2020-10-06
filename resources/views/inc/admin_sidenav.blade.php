@@ -151,6 +151,15 @@
                         </li>
                         @endif
 
+                        @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
+                        <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
+                            <a class="nav-link" href="{{ route('regular-physician-member.index') }}">
+                                <i class="fa fa-users"></i>
+                                <span class="menu-title">{{translate('Regular Physician Membership')}}</span>
+                            </a>
+                        </li>
+                        @endif
+
                         @if(Auth::user()->user_type == 'admin' || in_array('3', json_decode(Auth::user()->staff->role->permissions)))
                             @php
                                 $orders = DB::table('orders')

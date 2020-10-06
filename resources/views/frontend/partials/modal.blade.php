@@ -12,7 +12,7 @@
 
             <div class="modal-header">
                 {{-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button> --}}
-                <h4 class="modal-title" id="myModalLabel">{{ translate('Confirmation')}}</h4>
+                <h4 class="modal-title" id="myModalLabel">{{ translate('Konfirmasi')}}</h4>
             </div>
 
             <div class="modal-body">
@@ -20,9 +20,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ translate('Cancel')}}</button>
-                <a id="delete_link" class="btn btn-danger btn-ok">{{ translate('Delete')}}</a>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ translate('Batal')}}</button>
+                <a id="delete_link" class="btn btn-danger btn-ok">{{ translate('Hapus')}}</a>
             </div>
         </div>
     </div>
 </div>
+
+
