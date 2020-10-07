@@ -115,4 +115,8 @@ class memberController extends Controller
         flash("Berhasil menghapus jenis member")->success();
         return back();
     }
+
+    public function updateMember()
+    {
+    }
 }

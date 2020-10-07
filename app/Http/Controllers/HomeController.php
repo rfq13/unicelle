@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 use Auth;
+use Carbon\Carbon;
 use Hash;
+use Session;
 use App\Category;
 use App\FlashDeal;
 use App\Brand;
@@ -121,11 +122,8 @@ class HomeController extends Controller
 
     public function test()
     {
-        $member = \App\Member::orderBy("min")->first();
-        $periode = json_decode($member->periode);
-        $unit = $periode[1];
-        $periode = $periode[0];
-        dd(["unit" => $unit, "periode" => $periode]);
+        $order = Auth::user()->orders;
+        dd($order);
     }
 
     /**
