@@ -14,7 +14,6 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Cookie;
-use Carbon\Carbon;
 use Session;
 use Nexmo;
 use Twilio\Rest\Client;
@@ -167,28 +166,29 @@ class RegisterController extends Controller
     public function membership($user_id)
     {
         $member = \App\Member::orderBy("min")->first();
-        $periode = json_decode($member->periode);
-        $unit = $periode[1];
-        $periode = $periode[0];
-        // $endedAt = 0;
-        switch ($unit) {
-            case 'hari':
-                $endedAt = 1;
-                break;
-            case 'bulan':
-                $endedAt = 30;
-                break;
-            case 'tahun':
-                $endedAt = 360;
-                break;
-            default:
-                $endedAt = 0;
-                break;
-        }
+        $tgl_berakhir = app('\App\Http\Controllers\memberController')->ended_at($member);
+        // $periode = json_decode($member->periode);
+        // $unit = $periode[1];
+        // $periode = $periode[0];
+        // // $endedAt = 0;
+        // switch ($unit) {
+        //     case 'hari':
+        //         $endedAt = 1;
+        //         break;
+        //     case 'bulan':
+        //         $endedAt = 30;
+        //         break;
+        //     case 'tahun':
+        //         $endedAt = 360;
+        //         break;
+        //     default:
+        //         $endedAt = 0;
+        //         break;
+        // }
 
-        $endedAt = $periode * $endedAt;
-        $tgl = Carbon::now()->toDate()->format("Y-m-d");
-        $tgl_berakhir = date('Y-m-d', strtotime("+$endedAt days", strtotime($tgl)));
+        // $endedAt = $periode * $endedAt;
+        // $tgl = Carbon::now()->toDate()->format("Y-m-d");
+        // $tgl_berakhir = date('Y-m-d', strtotime("+$endedAt days", strtotime($tgl)));
 
         $userMember = new \App\userMember;
         $userMember->user_id = $user_id;

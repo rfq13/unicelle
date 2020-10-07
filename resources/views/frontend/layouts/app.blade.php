@@ -7,6 +7,10 @@
 <head>
 
 @php
+    if (Auth::check()) {
+        app('\App\Http\Controllers\memberController')->updateMember();
+    }
+    
     $seosetting = \App\SeoSetting::first();
 @endphp
 

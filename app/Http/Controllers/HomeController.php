@@ -122,8 +122,21 @@ class HomeController extends Controller
 
     public function test()
     {
-        $order = Auth::user()->orders;
-        dd($order);
+        $userMember = Auth::user()->member;
+        $from = date_format($userMember->created_at, "Y-m-d");
+        $to = $userMember->ended_at;
+        $orders = Auth::user()->orders;
+        $active_m_order = $orders->where("payment_status", "paid")->whereBetween('created_at', [$from, $to]);
+        $grand_total = $active_m_order->sum("grand_total");
+
+        $Current_tierMember = $userMember->member;
+        // dd($Current_tierMember);
+        $next_tierMember = \App\Member::where("min", ">", $grand_total)->orderBy("min")->first();
+        if ($next_tierMember != null && $next_tierMember->id != $Current_tierMember->id) {
+            $userMember->member_id = $next_tierMember->id;
+            $userMember->save();
+        }
+        dd([$userMember, $from, $to, $grand_total, "ctm" => $Current_tierMember]);
     }
 
     /**...

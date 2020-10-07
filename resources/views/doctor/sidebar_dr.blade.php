@@ -85,7 +85,3 @@
             
                         </ul>
                     </div> <!-- End Sidebar -->
-
-            <div class="col-lg-8">
-                @yield('sidebar')
-            </div>
