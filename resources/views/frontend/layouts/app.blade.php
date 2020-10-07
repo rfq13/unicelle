@@ -788,6 +788,7 @@
 <script src="{{ my_asset('frontend/js/fb-script.js') }}"></script>
 <script src="{{ my_asset('frontend/js/lazysizes.min.js') }}"></script>
 <script src="{{ my_asset('frontend/js/intlTelInput.min.js') }}"></script>
+<script src="{{ my_asset('frontend/js/jquery.blockUI.min.js') }}"></script>
 
 <!-- App JS -->
 <script src="{{ my_asset('frontend/js/active-shop.js') }}"></script>
@@ -795,6 +796,26 @@
 
 
 <script>
+    function blockui(refrence){
+        $(refrence).block({message: '<i class="icon-spinner4 spinner"></i> Mohon tunggu...',
+            // timeout: 2000, //unblock after 2 seconds
+            overlayCSS: {
+                backgroundColor: '#fff',
+                opacity: 0.8,
+                cursor: 'wait'
+            },
+            css: {
+                border: 0,
+                padding: 0,
+                backgroundColor: 'transparent'
+            }
+         }); 
+    }
+
+    function unblockui(refrence){
+        $(refrence).unblock();
+    }
+    
     function showFrontendAlert(type, message){
         if(type == 'danger'){
             type = 'error';

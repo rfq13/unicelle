@@ -109,6 +109,8 @@
     <!--Form Component [ SAMPLE ]-->
     <script src="{{my_asset('js/demo/form-wizard.js')}}"></script>
 
+    
+
     <!--Spectrum JavaScript [ REQUIRED ]-->
     <script src="{{ my_asset('js/spectrum.js')}}"></script>
 

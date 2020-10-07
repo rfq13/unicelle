@@ -219,6 +219,7 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function () {
 	Route::get('/adresses/get-province', 'AddressController@get_province')->name('addresses.get_province');
 	Route::get('/adresses/get-city/{id}', 'AddressController@get_city')->name('addresses.get_city');
 	Route::get('/adresses/get-subdistrict/{id}', 'AddressController@get_subdistrict')->name('addresses.get_subDistrict');
+	Route::post('/addresses/get-cost', 'AddressController@getCostDestination')->name('addresse.cost');
 });
 
 Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');

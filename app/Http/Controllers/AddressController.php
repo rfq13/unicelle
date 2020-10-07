@@ -41,6 +41,7 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->all());
         
         $address = new Address;
         if($request->has('customer_id')){
@@ -50,19 +51,26 @@ class AddressController extends Controller
             $address->user_id = Auth::user()->id;
         }
 
+        if(Auth::user()->addresses == null || count(Auth::user()->addresses)== 0)
+        {
+            $address->set_default = 1;
+        }
+
         $address->address = $request->address;
         $address->receiver = $request->receiver;
-        //$address->country = '$request->country';
         $address->province = $request->province;
         $address->city = $request->city;
         $address->subdistrict = $request->subdistrict;
         $address->postal_code = $request->postal_code;
         $address->phone = $request->phone;
+        $address->lat = $request->lat;
+        $address->lng = $request->lng;
         if($address->save()){
             flash("Address added successfully")->success();
-            return "sukses";
+            return redirect()->back();
         }
-        return "gagal";
+        flash(translate('Something went wrong'))->error();
+        return redirect()->back();
     }
 
     /**
@@ -219,4 +227,50 @@ class AddressController extends Controller
             return  response()->json($response, 500);
         }
     }
+
+
+    public function getCostDestination(Request $request)
+    {
+        try {
+
+            $items =[];
+
+            foreach (\Session::get('cart') as $key => $cartItem) {
+                # code...
+                $product = \App\Product::find($cartItem['id']);
+                array_push($items,[
+                    "name" => $product->name,
+                    "description" =>"",
+                    "length" => $product->length,
+                    "width" => $product->width,
+                    "height" => $product->height,
+                    "weight" => $product->weight,
+                    "quantity" => $cartItem['quantity'],
+                    "value" =>  $cartItem['price']*$cartItem['quantity']
+                ]);
+
+            }
+
+            $paramSwift=[
+                "origin_latitude" =>  floatval(env('SWIFT_ORIGIN_LAT')),
+                "origin_longitude" =>  floatval(env('SWIFT_ORIGIN_LNG')),
+                "destination_latitude" => floatval($request->lat),
+                "destination_longitude" => floatval($request->lng),
+                "couriers" => env("SWIFT_COURIER"),
+                "items" => $items
+            ];
+
+            // dd($paramSwift);
+            $swift= get_swift($paramSwift);
+          
+
+            $shiping_item = \View::make('frontend.partials.shiping_item',compact('swift'))->render();
+            // $shiping_summary = \View::make('frontend.partials.shiping_summary')->render();
+            return response()->json(compact('shiping_item'));
+            
+        } catch (Exception $e) {
+             return response()->json($e, 500);
+        }
+    }
+
 }

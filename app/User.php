@@ -126,6 +126,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Address::class);
     }
 
+    public function addresseDefault()
+    {
+        return $this->hasOne(Address::class)->where('set_default',1);
+    }
+
     public function member()
     {
         return $this->hasOne(userMember::class);
