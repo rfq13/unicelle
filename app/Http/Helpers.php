@@ -1108,5 +1108,39 @@ if (! function_exists('isUnique')) {
         }
     }
 }
+if(! function_exists('get_swift'))
+{
+    function get_swift($param)
+    {
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => "https://api.biteship.com/v1/rates/couriers",
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => json_encode($param),
+        CURLOPT_HTTPHEADER => array(
+            "Content-Type: application/json",
+            "Authorization: Bearer SFT.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicG9ubnkgYmVhdXR5IiwidXNlcklkIjoiNWYxNTNkZmEwMGY1NjgxOTdhMjljODZmIiwiaWF0IjoxNTk2NTk1MjAzfQ.QfUUwgoboz-w1aDyOEbS5fjPD4_5GLc7eC6k3B-fm3w",
+            "Accept: application/json" 
+          ),
+        ));
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+        curl_close($curl);
+        // dd(json_encode($param));
+        if ($err) {
+          return "cURL Error #:" . $err;
+        } else {
+           $_respose = json_decode($response);
+           return $_respose;
+        }
+    }
+}
 
 ?>

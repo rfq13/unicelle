@@ -18,7 +18,7 @@ div.pac-container {
              <nav aria-label="breadcrumb">
                 <ul class="breadcrumb mb-5">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Keranjang Belanda</a></li>
+                    <li class="breadcrumb-item"><a href="#">Keranjang Belanja</a></li>
                     <li class="breadcrumb-item active" style="color:#3BB6B1" aria-current="page">Checkout</li>
                 </ul>
             </nav>
@@ -39,12 +39,30 @@ div.pac-container {
                                     <input type="radio" style="display:none" name="address_id" value="{{ $address->id }}" {{$address->set_default == 1 ? 'checked' : ''}} required>
                                         <div class="d-flex align-items-center {{$key == 0 ? 'mt-2':''}}" style="padding-left: 0%; border-bottom:1px solid #C4C4C4">
                                             <div class="col-8 py-2">
-                                                <p class="name-address" style="text-transform:capitalize">@if($address->receiver) {{$address->receiver}} @else {{Auth::user()->name}} @endif </p>
-                                                <p class="address-user col-10">{{$address->address}}, {{json_decode($address->province)->province}}, {{json_decode($address->city)->city}}, {{json_decode($address->subdistrict)->subdistrict}}, {{$address->postal_code}} {{isset($address->phone) ? $address->phone : Auth::user()->phone}}</p>
+                                                <table style="width: 100%;font-size: xx-small;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td style="width: 40%" valign="top">Penerima</td>
+                                                            <td valign="top"><span style="text-transform:capitalize;font-weight: bold">@if($address->receiver) {{$address->receiver}} @else {{Auth::user()->name}} @endif</span></td>
+                                                        </tr>
+                                                         <tr>
+                                                            <td style="width: 40%" valign="top">No. Telepone</td>
+                                                            <td valign="top">{{$address->phone}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 40%" valign="top">Alamat<br>pengiriman</td>
+                                                            <td valign="top">{{$address->address}}</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td style="width: 40%" valign="top">Daerah<br>pengiriman</td>
+                                                            <td valign="top">{{$address->province}}, {{$address->city}}, {{$address->subdistrict}}, {{$address->postal_code}}</td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </div>
-                                            <div class="col-5 ml-4">
+                                            <div class="col-4 ml-4">
                                                 <div class="address"> 
-                                                    <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn {{$address->set_default ? 'btn-default' : 'btn-secondary'}} col-8 ml-2 mb-3">Default</a>
+                                                    <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn btn-sm {{$address->set_default ? 'btn-default' : 'btn-secondary'}} col-8 ml-2 mb-3" data-lat="{{ $address->lat }}" data-lng="{{ $address->lng }}">Default</a>
                                                 </div>
                                                 <div class="address">
                                                     <a href="#"><i class="fa fa-trash ml-5" ></i></a>
@@ -68,80 +86,8 @@ div.pac-container {
                         <div class="container" style="border-bottom:1px solid #C4C4C4">
                             <p class="mt-3 text-checkout">Metode Pengiriman</p>
                         </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items mt-3">
-                                <label class="mt-2 cb-pengiriman">
-                                    <input type="radio" checked="checked" name="radio">
-                                    <span class="cb-checkmark"></span>
-                                </label>
-                                <div class="col-6">
-                                    <p class="text-ekspedisi" style="margin-bottom: 0%;"> J&N Express</p>
-                                    <p class="date-ekspedisi"> 2-3 Hari</p>
-                                </div>
-                                <div class="mx-auto">
-                                    <p class="text-ekspedisi"> Rp. 18.000</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items mt-3">
-                                <label class="mt-2 cb-pengiriman">
-                                    <input type="radio" name="radio">
-                                    <span class="cb-checkmark"></span>
-                                </label>
-                                <div class="col-6">
-                                    <p class="text-ekspedisi" style="margin-bottom: 0%;"> JNE REG</p>
-                                    <p class="date-ekspedisi"> 2-3 Hari</p>
-                                </div>
-                                <div class="mx-auto">
-                                    <p class="text-ekspedisi"> Rp. 18.000</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items mt-3">
-                                <label class="mt-2 cb-pengiriman">
-                                    <input type="radio"name="radio">
-                                    <span class="cb-checkmark"></span>
-                                </label>
-                                <div class="col-6">
-                                    <p class="text-ekspedisi" style="margin-bottom: 0%;"> TIKI</p>
-                                    <p class="date-ekspedisi"> 2-3 Hari</p>
-                                </div>
-                                <div class="mx-auto">
-                                    <p class="text-ekspedisi"> Rp. 18.000</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items mt-3">
-                                <label class="mt-2 cb-pengiriman">
-                                    <input type="radio" name="radio">
-                                    <span class="cb-checkmark"></span>
-                                </label>
-                                <div class="col-6">
-                                    <p class="text-ekspedisi" style="margin-bottom: 0%;"> POS Indonesia</p>
-                                    <p class="date-ekspedisi"> 2-3 Hari</p>
-                                </div>
-                                <div class="mx-auto">
-                                    <p class="text-ekspedisi"> Rp. 18.000</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items mt-3">
-                                <label class="mt-2 cb-pengiriman">
-                                    <input type="radio" name="radio">
-                                    <span class="cb-checkmark"></span>
-                                </label>
-                                <div class="col-6">
-                                    <p class="text-ekspedisi" style="margin-bottom: 0%;"> Si Cepat Express</p>
-                                    <p class="date-ekspedisi"> 2-3 Hari</p>
-                                </div>
-                                <div class="mx-auto">
-                                    <p class="text-ekspedisi"> Rp. 18.000</p>
-                                </div>
-                            </div>
+                        <div id="data-ongkir" style="min-height: 150px;">
+                            
                         </div>
 
                     </div>
@@ -226,204 +172,6 @@ div.pac-container {
     </div>
     </section>
     <!--X END X-->
-    <div id="page-content">
-        <section class="slice-xs sct-color-2 border-bottom">
-            <div class="container container-sm">
-                <div class="row cols-delimited justify-content-center">
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center ">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-shopping-cart"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">{{ translate('1. My Csssart')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center active">
-                            <div class="block-icon mb-0">
-                                <i class="la la-map-o"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">{{ translate('2. Shipping info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon mb-0 c-gray-light">
-                                <i class="la la-truck"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">{{ translate('3. Delivery info')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-credit-card"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">{{ translate('4. Payment')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="icon-block icon-block--style-1-v5 text-center">
-                            <div class="block-icon c-gray-light mb-0">
-                                <i class="la la-check-circle"></i>
-                            </div>
-                            <div class="block-content d-none d-md-block">
-                                <h3 class="heading heading-sm strong-300 c-gray-light text-capitalize">{{ translate('5. Confirmation')}}</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-4 gry-bg">
-            <div class="container">
-                <div class="row cols-xs-space cols-sm-space cols-md-space">
-                    <div class="col-lg-8">
-                        <form class="form-default" data-toggle="validator" action="{{ route('checkout.store_shipping_infostore') }}" role="form" method="POST">
-                            @csrf
-                            <input type="text" id="address_id" name="address_id" value="0" required>
-                                @if(Auth::check())
-                                    <div class="row gutters-5">
-                                        @foreach (Auth::user()->addresses as $key => $address)
-                                            <div class="col-md-6">
-                                                <label class="aiz-megabox d-block bg-white">
-                                                    <span class="d-flex p-3 aiz-megabox-elem">
-                                                        <span class="aiz-rounded-check flex-shrink-0 mt-1"></span>
-                                                        <span class="flex-grow-1 pl-3">
-                                                            <div>
-                                                                <span class="alpha-6">{{ translate('Address') }}:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->address }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">{{ translate('Postal Code') }}:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->postal_code }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">{{ translate('City') }}:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->city }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">{{ translate('Country') }}:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->country }}</span>
-                                                            </div>
-                                                            <div>
-                                                                <span class="alpha-6">{{ translate('Phone') }}:</span>
-                                                                <span class="strong-600 ml-2">{{ $address->phone }}</span>
-                                                            </div>
-                                                        </span>
-                                                    </span>
-                                                </label>
-                                            </div>
-                                        @endforeach
-                                        <input type="hidden" name="checkout_type" value="logged">
-                                        <div class="col-md-6 mx-auto" onclick="add_new_address()">
-                                            <div class="border p-3 rounded mb-3 c-pointer text-center bg-white">
-                                                <i class="la la-plus la-2x"></i>
-                                                <div class="alpha-7">{{ translate('Add New Address') }}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @else
-                                    <div class="card">
-                                    <div class="card-body">
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{ translate('Name')}}</label>
-                                                    <input type="text" class="form-control" name="name" placeholder="{{ translate('Name')}}" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{ translate('Email')}}</label>
-                                                    <input type="text" class="form-control" name="email" placeholder="{{ translate('Email')}}" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{ translate('Address')}}</label>
-                                                    <input type="text" class="form-control" name="address" placeholder="{{ translate('Address')}}" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label class="control-label">{{ translate('Select your country')}}</label>
-                                                    <select class="form-control custome-control" data-live-search="true" name="country">
-                                                        @foreach (\App\Country::where('status', 1)->get() as $key => $country)
-                                                            <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{ translate('City')}}</label>
-                                                    <input type="text" class="form-control" placeholder="{{ translate('City')}}" name="city" required>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{ translate('Postal code')}}</label>
-                                                    <input type="text" class="form-control" placeholder="{{ translate('Postal code')}}" name="postal_code" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group has-feedback">
-                                                    <label class="control-label">{{ translate('Phone')}}</label>
-                                                    <input type="number" min="0" class="form-control" placeholder="{{ translate('Phone')}}" name="phone" required>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" name="checkout_type" value="guest">
-                                    </div>
-                                    </div>
-                                @endif
-                            <div class="row align-items-center pt-4">
-                                <div class="col-md-6">
-                                    <a href="{{ route('home') }}" class="link link--style-3">
-                                        <i class="ion-android-arrow-back"></i>
-                                        {{ translate('Return to shop')}}
-                                    </a>
-                                </div>
-                                <div class="col-md-6 text-right">
-                                    <button type="submit" class="btn btn-styled btn-base-1">{{ translate('Continue to Delivery Info')}}</a>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-
-                    <div class="col-lg-4 ml-lg-auto">
-                        @include('frontend.partials.cart_summary')
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
 
     <div class="modal fade" id="new-address-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -449,7 +197,7 @@ div.pac-container {
                                 <label>{{ translate('Provinsi')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Provinsi')}}" name="provinsi" id="provinsi"  value="" readonly>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Provinsi')}}" name="province" id="provinsi"  value="" readonly>
                             </div>
                         </div>
                         <div class="row">
@@ -457,7 +205,7 @@ div.pac-container {
                                 <label>{{ translate('Kota/Kabupaten')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kota/Kabupaten')}}" name="Kota" id="Kota" value="" readonly>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kota/Kabupaten')}}" name="city" id="Kota" value="" readonly>
                             </div>
                         </div>
                          <div class="row">
@@ -465,7 +213,7 @@ div.pac-container {
                                 <label>{{ translate('Kecamatan')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kecamatan')}}" name="kecamatan" id="kecamatan" value="" readonly>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kecamatan')}}" name="subdistrict" id="kecamatan" value="" readonly>
                             </div>
                         </div>
                         <div class="row">
@@ -478,10 +226,18 @@ div.pac-container {
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('nomor telepone')}}</label>
+                                <label>{{ translate('Nama')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('+62')}}" name="phone" value="" id="phone" required>
+                                <input type="text" class="form-control mb-3" placeholder="Nama penerima" name="receiver" value="" id="receiver" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Nomor telepone')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="Nomor telepon penerima" name="phone" value="" id="phone" required>
                             </div>
                         </div>
                          <div class="row">
@@ -501,7 +257,6 @@ div.pac-container {
         </div>
     </div>
 </div>
-
 @endsection
 
 @section('script')
@@ -515,6 +270,12 @@ function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: {lat: lat, lng: lng},
         zoom: 6
+    });
+
+    marker = new google.maps.Marker({
+        position: {lat: lat, lng: lng},
+        map,
+        title: "My addres"
     });
 
     infoWindow = new google.maps.InfoWindow();
@@ -531,11 +292,9 @@ function initMap() {
             // infoWindow.setContent("Location found.");
             // infoWindow.open(map);
             // map.setCenter(pos);
-            marker = new google.maps.Marker({
-                position: {lat: lat, lng: lng},
-                map,
-                title: "My addres"
-            });
+            $('input[name="lat"]').val(lat);
+            $('input[name="lng"]').val(lng);
+            marker.setPosition(pos);
             getAddress(lat,lng).then(function(result){
                 var place = result['address_components'];
                 $('#kode_pos_alamat').val("");
@@ -561,11 +320,6 @@ function initMap() {
         // Browser doesn't support Geolocation
        handleLocationError(false, infoWindow, map.getCenter());
     }
-
-    $('input[name="lat"]').val(lat);
-    $('input[name="lng"]').val(lng);
-
-   
 
 
     map.addListener('click', function(mapsMouseEvent) {
@@ -684,12 +438,21 @@ function setsearchbox(map,marker)
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 <script type="text/javascript">
+    function getCostAddress(lat,lng)
+    {   blockui("#data-ongkir");
+        $.post('{{ route('addresse.cost') }}', { _token:'{{ csrf_token() }}', lat: lat,lng: lng}, function(data){
+            $('#data-ongkir').html(data.shiping_item);
+            unblockui("#data-ongkir");
+        });
+    }
     $(document).ready(function () {
         $("#all-addr").on("click", "#setDefault", function (e) {
             e.preventDefault()
             let key = $(this).data("key")
             let urL = $(this).attr("href")
             let setDefault = $("#all-addr #setDefault")
+            let _lat = $(this).data("lat");
+            let _lng = $(this).data("lng");
             // alert(setDefault); return
             setDefault.removeClass("btn-default")
             setDefault.addClass("btn-secondary")
@@ -700,6 +463,7 @@ function setsearchbox(map,marker)
                     $("#defaulted"+key).html('')
                     setthis.removeClass("btn-secondary")
                     setthis.addClass("btn-default")
+                    getCostAddress(_lat,_lng);
                 }else{
                     showFrontendAlert("danger",data[0])
                 }
@@ -709,8 +473,14 @@ function setsearchbox(map,marker)
         $('#new-address-modal').on('shown.bs.modal', function(){
            $("#pac-input").css("top","50px");   
         });
+
+        @if(isset(Auth::user()->addresseDefault) && Auth::user()->addresseDefault != null)
+        var lat = {{ Auth::user()->addresseDefault->lat }};
+        var lng = {{ Auth::user()->addresseDefault->lng }};
+        getCostAddress(lat,lng);
+        @endif
         
-    })
+    });
 
     function add_new_address(){
         $('#new-address-modal').modal('show');
