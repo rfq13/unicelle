@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Member;
 
@@ -113,9 +114,5 @@ class memberController extends Controller
         $member->delete();
         flash("Berhasil menghapus jenis member")->success();
         return back();
-    }
-
-    public function membership()
-    {
     }
 }

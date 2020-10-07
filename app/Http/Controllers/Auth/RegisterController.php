@@ -87,12 +87,11 @@ class RegisterController extends Controller
             $customer = new Customer;
             $customer->user_id = $user->id;
             $customer->save();
-        }
-        else {
-            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated){
+        } else {
+            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated) {
                 $user = User::create([
                     'name' => $data['name'],
-                    'phone' => '+'.$data['country_code'].$data['phone'],
+                    'phone' => '+' . $data['country_code'] . $data['phone'],
                     'password' => Hash::make($data['password']),
                     'verification_code' => rand(100000, 999999)
                 ]);
@@ -106,10 +105,10 @@ class RegisterController extends Controller
             }
         }
 
-        if(Cookie::has('referral_code')){
+        if (Cookie::has('referral_code')) {
             $referral_code = Cookie::get('referral_code');
             $referred_by_user = User::where('referral_code', $referral_code)->first();
-            if($referred_by_user != null){
+            if ($referred_by_user != null) {
                 $user->referred_by = $referred_by_user->id;
                 $user->save();
             }
@@ -121,12 +120,11 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
-            if(User::where('email', $request->email)->first() != null){
+            if (User::where('email', $request->email)->first() != null) {
                 flash('Email atau Nomor Telepon telah terdaftar.')->error();
                 return redirect()->back();
             }
-        }
-        elseif (User::where('phone', $request->phone)->first() != null) {   
+        } elseif (User::where('phone', $request->phone)->first() != null) {
             flash(translate('Nomor Telepon telah terdaftar.'));
             return back();
         }
@@ -138,13 +136,12 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-        if($user->email != null){
-            if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
+        if ($user->email != null) {
+            if (BusinessSetting::where('type', 'email_verification')->first()->value != 1) {
                 $user->email_verified_at = date('Y-m-d H:m:s');
                 $user->save();
                 flash(translate('Pendaftaran Berhasil.'))->success();
-            }
-            else {
+            } else {
                 event(new Registered($user));
                 flash(translate('Registrasi Sukses. Mohon verifikasi email anda.'))->success();
             }
@@ -159,10 +156,18 @@ class RegisterController extends Controller
         if ($user->email == null) {
             return redirect()->route('verification');
             // return view('auth.verify');
-        }
-        else {
+        } else {
             // return redirect()->route('home');
             return view('auth.verify');
         }
+    }
+
+    public function membership()
+    {
+        $member = \App\Member::orderBy("min")->first();
+        $periode = json_decode($member->periode);
+        $unit = $periode[1];
+        $periode = $periode[0];
+        dd([$unit, $periode]);
     }
 }
