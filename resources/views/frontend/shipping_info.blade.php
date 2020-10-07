@@ -1,4 +1,14 @@
 @extends('frontend.layouts.app')
+@section('style')
+<style type="text/css">
+.select2-container{
+    background-color: red;
+}
+div.pac-container {
+    z-index: 99999999999 !important;
+}
+</style>
+@endsection
 
 @section('content')
 <section class="section-sub-head"></section>
@@ -48,7 +58,7 @@
                                 @endif
                         </form>
                         <div class="btn-add-address mt-2" style="border-bottom:1px solid #C4C4C4; border-top: 1px solid#c4c4c4;">
-                            <a href="">
+                            <a href="#"  onclick="add_new_address()">
                                 <li class="mb-2 mt-2" style="list-style-type: none; color: #006064;">+ Tambah</li>
                             </a>    
                         </div>
@@ -416,7 +426,7 @@
     </div>
 
     <div class="modal fade" id="new-address-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-zoom" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h6 class="modal-title" id="exampleModalLabel">{{ translate('New Address')}}</h6>
@@ -426,58 +436,66 @@
             </div>
             <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="lat">
+                <input type="hidden" name="lng">
                 <div class="modal-body">
                     <div class="p-3">
+                        <div class="form-group">
+                            <input id="pac-input"  class="controls" type="text" placeholder="Cari Lokasi" hidden>
+                            <div id="map" style="width: 100%;height: 350px;top: 8;font-size: 16pt;"></div>
+                        </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Address')}}</label>
+                                <label>{{ translate('Provinsi')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{ translate('Your Address')}}" rows="1" name="address" required></textarea>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Provinsi')}}" name="provinsi" id="provinsi"  value="" readonly>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Country')}}</label>
+                                <label>{{ translate('Kota/Kabupaten')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <div class="mb-3">
-                                    <select class="form-control mb-3 selectpicker" data-placeholder="{{ translate('Select your country')}}" name="country" required>
-                                        @foreach (\App\Country::where('status', 1)->get() as $key => $country)
-                                            <option value="{{ $country->name }}">{{ $country->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kota/Kabupaten')}}" name="Kota" id="Kota" value="" readonly>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kecamatan')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kecamatan')}}" name="kecamatan" id="kecamatan" value="" readonly>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('City')}}</label>
+                                <label>{{ translate('Kode Pos')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Your City')}}" name="city" value="" required>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Your Postal Code')}}" id="kode_pos_alamat" name="postal_code" value="" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Postal code')}}</label>
+                                <label>{{ translate('nomor telepone')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Your Postal Code')}}" name="postal_code" value="" required>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('+62')}}" name="phone" value="" id="phone" required>
                             </div>
                         </div>
-                        <div class="row">
+                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Phone')}}</label>
+                                <label>{{ translate('Detail Alamat')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('+880')}}" name="phone" value="" required>
+                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{ translate('detail alamat Pengiriman')}}" rows="3" name="address" required></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-base-1">{{  translate('Save') }}</button>
+                    <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
                 </div>
             </form>
         </div>
@@ -487,6 +505,184 @@
 @endsection
 
 @section('script')
+<script type="text/javascript">
+var drawingManager;
+var lat =  -7.20455898888842;
+var lng = 112.734314762056;
+var map,marker,infoWindow;
+function initMap() {
+   
+    map = new google.maps.Map(document.getElementById("map"), {
+        center: {lat: lat, lng: lng},
+        zoom: 6
+    });
+
+    infoWindow = new google.maps.InfoWindow();
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude,
+            };
+            lat = position.coords.latitude;
+            lng = position.coords.longitude;
+            // infoWindow.setPosition(pos);
+            // infoWindow.setContent("Location found.");
+            // infoWindow.open(map);
+            // map.setCenter(pos);
+            marker = new google.maps.Marker({
+                position: {lat: lat, lng: lng},
+                map,
+                title: "My addres"
+            });
+            getAddress(lat,lng).then(function(result){
+                var place = result['address_components'];
+                $('#kode_pos_alamat').val("");
+                $.each(place,function(index,value){
+                    console.log(value);
+                    if(value.types[0] == "administrative_area_level_1"){
+                        $('#provinsi').val(value.long_name);
+                    }else if(value.types[0] == "administrative_area_level_2"){
+                        $('#Kota').val(value.long_name);
+                    }else if(value.types[0] == "administrative_area_level_3"){
+                        $('#kecamatan').val(value.long_name);
+                    }else if(value.types[0] === "postal_code"){
+                        $('#kode_pos_alamat').val(value.long_name);
+                    }
+                });
+            });
+          },
+          () => {
+            handleLocationError(true, infoWindow, map.getCenter());
+          }
+        );
+      } else {
+        // Browser doesn't support Geolocation
+       handleLocationError(false, infoWindow, map.getCenter());
+    }
+
+    $('input[name="lat"]').val(lat);
+    $('input[name="lng"]').val(lng);
+
+   
+
+
+    map.addListener('click', function(mapsMouseEvent) {
+          // Close the current InfoWindow.
+
+       
+        marker.setPosition(mapsMouseEvent.latLng);
+        $('input[name="lat"]').val(mapsMouseEvent.latLng.lat());
+        $('input[name="lng"]').val(mapsMouseEvent.latLng.lng());
+        getAddress(mapsMouseEvent.latLng.lat(),mapsMouseEvent.latLng.lng()).then(function(result){
+            var place = result['address_components'];
+            $('#kode_pos_alamat').val("");
+            $.each(place,function(index,value){
+                console.log(value);
+                if(value.types[0] == "administrative_area_level_1"){
+                    $('#provinsi').val(value.long_name);
+                }else if(value.types[0] == "administrative_area_level_2"){
+                    $('#Kota').val(value.long_name);
+                }else if(value.types[0] == "administrative_area_level_3"){
+                    $('#kecamatan').val(value.long_name);
+                }else if(value.types[0] === "postal_code"){
+                    $('#kode_pos_alamat').val(value.long_name);
+                }
+            });
+        });
+       
+    });
+   
+    setsearchbox(map,marker);
+}
+function getAddress (latitude, longitude) {
+    return new Promise(function (resolve, reject) {
+        var request = new XMLHttpRequest();
+
+        var method = 'GET';
+        var url = 'https://maps.googleapis.com/maps/api/geocode/json?key={{ env("MAP_API") }}&latlng=' + latitude + ',' + longitude + '&sensor=true';
+        var async = true;
+
+        request.open(method, url, async);
+        request.onreadystatechange = function () {
+            if (request.readyState == 4) {
+                if (request.status == 200) {
+                    var data = JSON.parse(request.responseText);
+                    var address = data.results[0];
+                    resolve(address);
+                }
+                else {
+                    reject(request.status);
+                }
+            }
+        };
+        request.send();
+    });
+};
+
+function setsearchbox(map,marker)
+{
+    var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        
+        $("#pac-input").removeAttr('hidden');
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              console.log("Returned place contains no geometry");
+              return;
+            }
+             $('#kode_pos_alamat').val("");
+            $.each(place.address_components,function(index,value){
+                console.log(value);
+                if(value.types[0] == "administrative_area_level_1"){
+                    $('#provinsi').val(value.long_name);
+                }else if(value.types[0] == "administrative_area_level_2"){
+                    $('#Kota').val(value.long_name);
+                }else if(value.types[0] == "administrative_area_level_3"){
+                    $('#kecamatan').val(value.long_name);
+                }else if(value.types[0] === "postal_code"){
+                    $('#kode_pos_alamat').val(value.long_name);
+                }
+            });
+            console.log(place.geometry.location.lat());
+            $('input[name="lat"]').val(place.geometry.location.lat());
+            $('input[name="lng"]').val(place.geometry.location.lng());
+            marker.setPosition(place.geometry.location);
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 <script type="text/javascript">
     $(document).ready(function () {
         $("#all-addr").on("click", "#setDefault", function (e) {
@@ -507,7 +703,12 @@
                     showFrontendAlert("danger",data[0])
                 }
             })
-        })
+        });
+
+        $('#new-address-modal').on('shown.bs.modal', function(){
+           $("#pac-input").css("top","50px");   
+        });
+        
     })
 
     function add_new_address(){
