@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 use App\Member;
 
@@ -115,7 +116,7 @@ class memberController extends Controller
         return back();
     }
 
-    public function membership()
+    public function updateMember()
     {
     }
 }

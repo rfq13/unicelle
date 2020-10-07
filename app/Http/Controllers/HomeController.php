@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Session;
 use Auth;
+use Carbon\Carbon;
 use Hash;
+use Session;
 use App\Category;
 use App\FlashDeal;
 use App\Brand;
@@ -36,31 +37,33 @@ class HomeController extends Controller
 {
     public function login()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('home');
         }
         return view('frontend.user_login');
     }
 
-    
 
-    public function login_otp(){
+
+    public function login_otp()
+    {
         return view('frontend.user_login_otp');
     }
 
-    public function proses_login_otp(Request $request){
+    public function proses_login_otp(Request $request)
+    {
         $nomor = $request->input('nomor');
         $user = User::where('phone', $nomor)->first();
         // echo $nomor;
         // auth()->login($existingUser, true);
 
-        if(isset($user)){
+        if (isset($user)) {
             // auth()->login($user, true);
-             /* Mengatur Login */
+            /* Mengatur Login */
             return response()->json([
                 'success' => true
             ], 200);
-        }else{
+        } else {
             return response()->json([
                 'success' => false,
                 'message' => 'Login Gagal'
@@ -70,16 +73,17 @@ class HomeController extends Controller
 
     public function registration(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             return redirect()->route('home');
         }
-        if($request->has('referral_code')){
+        if ($request->has('referral_code')) {
             Cookie::queue('referral_code', $request->referral_code, 43200);
         }
         return view('frontend.user_registration');
     }
 
-    public function registration_otp(){
+    public function registration_otp()
+    {
         return view('frontend.user_registration_otp');
     }
 
@@ -103,18 +107,23 @@ class HomeController extends Controller
     public function cart_login(Request $request)
     {
         $user = User::whereIn('user_type', ['customer', 'seller'])->where('email', $request->email)->orWhere('phone', $request->email)->first();
-        if($user != null){
+        if ($user != null) {
             updateCartSetup();
-            if(Hash::check($request->password, $user->password)){
-                if($request->has('remember')){
+            if (Hash::check($request->password, $user->password)) {
+                if ($request->has('remember')) {
                     auth()->login($user, true);
-                }
-                else{
+                } else {
                     auth()->login($user, false);
                 }
             }
         }
         return back();
+    }
+
+    public function test()
+    {
+        $order = Auth::user()->orders;
+        dd($order);
     }
 
     /**
@@ -145,13 +154,11 @@ class HomeController extends Controller
     public function dashboard()
     {
         $listProvince = app('App\Http\Controllers\AddressController')->get_province();
-        if(Auth::user()->user_type == 'seller'){
+        if (Auth::user()->user_type == 'seller') {
             return view('frontend.seller.dashboard', compact('listProvince'));
-        }
-        elseif(Auth::user()->user_type == 'pasien reg'){
-            return view('frontend.customer.dashboard',compact('listProvince'));
-        }
-        else{
+        } elseif (Auth::user()->user_type == 'pasien reg') {
+            return view('frontend.customer.dashboard', compact('listProvince'));
+        } else {
             abort(404);
         }
     }
@@ -159,20 +166,20 @@ class HomeController extends Controller
     public function profile()
     {
         // dd(Auth::user()->user_type);
-        if(Auth::user()->user_type == 'pasien reg'){
+        if (Auth::user()->user_type == 'pasien reg') {
             return view('frontend.customer.profile');
-        }
-        elseif(Auth::user()->user_type == 'seller'){
+        } elseif (Auth::user()->user_type == 'seller') {
             return view('frontend.seller.profile');
         }
     }
 
-    public function mail_callback(Request $request){
-        if($request->has('new_email_verificiation_code') && $request->has('email')) {
+    public function mail_callback(Request $request)
+    {
+        if ($request->has('new_email_verificiation_code') && $request->has('email')) {
             $verification_code_of_url_param =  $request->input('new_email_verificiation_code');
             $user = User::where('new_email_verificiation_code', $verification_code_of_url_param)->first();
 
-            if($user != null) {
+            if ($user != null) {
 
                 $user->email = $request->input('email');
                 $user->new_email_verificiation_code = null;
@@ -187,12 +194,11 @@ class HomeController extends Controller
 
         flash(translate('Email was not verified. Please resend your mail!'))->error();
         return redirect()->route('dashboard');
-
     }
 
     public function customer_update_profile(Request $request)
     {
-        if(env('DEMO_MODE') == 'On'){
+        if (env('DEMO_MODE') == 'On') {
             flash(translate('Sorry! the action is not permitted in demo '))->error();
             return back();
         }
@@ -201,21 +207,21 @@ class HomeController extends Controller
         $user->name = $request->name;
         $user->gender = $request->gender;
         $user->phone = $request->phone;
-        $user->email = $request->email; 
+        $user->email = $request->email;
         $user->gender = $request->gender;
         $user->birth = $request->birth;
 
-        if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+        if ($request->new_password != null && ($request->new_password == $request->confirm_password)) {
             if (Hash::check($request->new_password, Auth::user()->password)) {
                 $user->password = Hash::make($request->new_password);
             }
         }
 
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $user->avatar_original = $request->photo->store('uploads/users');
         }
 
-        if($user->save()){
+        if ($user->save()) {
             flash(translate('Your Profile has been updated successfully!'))->success();
             return back();
         }
@@ -227,7 +233,7 @@ class HomeController extends Controller
 
     public function seller_update_profile(Request $request)
     {
-        if(env('DEMO_MODE') == 'On'){
+        if (env('DEMO_MODE') == 'On') {
             flash(translate('Sorry! the action is not permitted in demo '))->error();
             return back();
         }
@@ -240,11 +246,11 @@ class HomeController extends Controller
         $user->postal_code = $request->postal_code;
         $user->phone = $request->phone;
 
-        if($request->new_password != null && ($request->new_password == $request->confirm_password)){
+        if ($request->new_password != null && ($request->new_password == $request->confirm_password)) {
             $user->password = Hash::make($request->new_password);
         }
 
-        if($request->hasFile('photo')){
+        if ($request->hasFile('photo')) {
             $user->avatar_original = $request->photo->store('uploads');
         }
 
@@ -256,7 +262,7 @@ class HomeController extends Controller
         $seller->bank_acc_no = $request->bank_acc_no;
         $seller->bank_routing_no = $request->bank_routing_no;
 
-        if($user->save() && $seller->save()){
+        if ($user->save() && $seller->save()) {
             flash(translate('Your Profile has been updated successfully!'))->success();
             return back();
         }
@@ -278,34 +284,38 @@ class HomeController extends Controller
     public function flash_deal_details($slug)
     {
         $flash_deal = FlashDeal::where('slug', $slug)->first();
-        if($flash_deal != null)
+        if ($flash_deal != null)
             return view('frontend.flash_deal_details', compact('flash_deal'));
         else {
             abort(404);
         }
     }
 
-    public function load_featured_section(){
+    public function load_featured_section()
+    {
         return view('frontend.partials.featured_products_section');
     }
 
-    public function load_best_selling_section(){
+    public function load_best_selling_section()
+    {
         return view('frontend.partials.best_selling_section');
     }
 
-    public function load_home_categories_section(){
+    public function load_home_categories_section()
+    {
         return view('frontend.partials.home_categories_section');
     }
 
-    public function load_best_sellers_section(){
+    public function load_best_sellers_section()
+    {
         return view('frontend.partials.best_sellers_section');
     }
 
     public function trackOrder(Request $request)
     {
-        if($request->has('order_code')){
+        if ($request->has('order_code')) {
             $order = Order::where('code', $request->order_code)->first();
-            if($order != null){
+            if ($order != null) {
                 return view('frontend.track_order', compact('order'));
             }
         }
@@ -316,16 +326,15 @@ class HomeController extends Controller
     {
         $detailedProduct  = Product::where('slug', $slug)->first();
 
-        if($detailedProduct!=null && $detailedProduct->published){
+        if ($detailedProduct != null && $detailedProduct->published) {
             updateCartSetup();
-            if($request->has('product_referral_code')){
+            if ($request->has('product_referral_code')) {
                 Cookie::queue('product_referral_code', $request->product_referral_code, 43200);
                 Cookie::queue('referred_product_id', $detailedProduct->id, 43200);
             }
-            if($detailedProduct->digital == 1){
+            if ($detailedProduct->digital == 1) {
                 return view('frontend.digital_product_details', compact('detailedProduct'));
-            }
-            else {
+            } else {
                 return view('frontend.product_details', compact('detailedProduct'));
             }
             // return view('frontend.product_details', compact('detailedProduct'));
@@ -336,12 +345,11 @@ class HomeController extends Controller
     public function shop($slug)
     {
         $shop  = Shop::where('slug', $slug)->first();
-        if($shop!=null){
+        if ($shop != null) {
             $seller = Seller::where('user_id', $shop->user_id)->first();
-            if ($seller->verification_status != 0){
+            if ($seller->verification_status != 0) {
                 return view('frontend.seller_shop', compact('shop'));
-            }
-            else{
+            } else {
                 return view('frontend.seller_shop_without_verification', compact('shop', 'seller'));
             }
         }
@@ -351,7 +359,7 @@ class HomeController extends Controller
     public function filter_shop($slug, $type)
     {
         $shop  = Shop::where('slug', $slug)->first();
-        if($shop!=null && $type != null){
+        if ($shop != null && $type != null) {
             return view('frontend.seller_shop', compact('shop', 'type'));
         }
         abort(404);
@@ -377,12 +385,11 @@ class HomeController extends Controller
 
     public function show_product_upload_form(Request $request)
     {
-        if(\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated){
-            if(Auth::user()->seller->remaining_uploads > 0){
+        if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated) {
+            if (Auth::user()->seller->remaining_uploads > 0) {
                 $categories = Category::all();
                 return view('frontend.seller.product_upload', compact('categories'));
-            }
-            else {
+            } else {
                 flash(translate('Upload limit has been reached. Please upgrade your package.'))->warning();
                 return back();
             }
@@ -404,7 +411,7 @@ class HomeController extends Controller
         $products = Product::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc');
         if ($request->has('search')) {
             $search = $request->search;
-            $products = $products->where('name', 'like', '%'.$search.'%');
+            $products = $products->where('name', 'like', '%' . $search . '%');
         }
         $products = $products->paginate(10);
         return view('frontend.seller.products', compact('products', 'search'));
@@ -413,15 +420,14 @@ class HomeController extends Controller
     public function ajax_search(Request $request)
     {
         $keywords = array();
-        $products = Product::where('published', 1)->where('tags', 'like', '%'.$request->search.'%')->get();
+        $products = Product::where('published', 1)->where('tags', 'like', '%' . $request->search . '%')->get();
         foreach ($products as $key => $product) {
-            foreach (explode(',',$product->tags) as $key => $tag) {
-                if(stripos($tag, $request->search) !== false){
-                    if(sizeof($keywords) > 5){
+            foreach (explode(',', $product->tags) as $key => $tag) {
+                if (stripos($tag, $request->search) !== false) {
+                    if (sizeof($keywords) > 5) {
                         break;
-                    }
-                    else{
-                        if(!in_array(strtolower($tag), $keywords)){
+                    } else {
+                        if (!in_array(strtolower($tag), $keywords)) {
                             array_push($keywords, strtolower($tag));
                         }
                     }
@@ -429,13 +435,13 @@ class HomeController extends Controller
             }
         }
 
-        $products = filter_products(Product::where('published', 1)->where('name', 'like', '%'.$request->search.'%'))->get()->take(3);
+        $products = filter_products(Product::where('published', 1)->where('name', 'like', '%' . $request->search . '%'))->get()->take(3);
 
-        $subsubcategories = SubSubCategory::where('name', 'like', '%'.$request->search.'%')->get()->take(3);
+        $subsubcategories = SubSubCategory::where('name', 'like', '%' . $request->search . '%')->get()->take(3);
 
-        $shops = Shop::whereIn('user_id', verified_sellers_id())->where('name', 'like', '%'.$request->search.'%')->get()->take(3);
+        $shops = Shop::whereIn('user_id', verified_sellers_id())->where('name', 'like', '%' . $request->search . '%')->get()->take(3);
 
-        if(sizeof($keywords)>0 || sizeof($subsubcategories)>0 || sizeof($products)>0 || sizeof($shops) >0){
+        if (sizeof($keywords) > 0 || sizeof($subsubcategories) > 0 || sizeof($products) > 0 || sizeof($shops) > 0) {
             return view('frontend.partials.search_content', compact('products', 'subsubcategories', 'keywords', 'shops'));
         }
         return '0';
@@ -455,35 +461,35 @@ class HomeController extends Controller
 
         $conditions = ['published' => 1];
 
-        if($brand_id != null){
+        if ($brand_id != null) {
             $conditions = array_merge($conditions, ['brand_id' => $brand_id]);
         }
-        if($category_id != null){
+        if ($category_id != null) {
             $conditions = array_merge($conditions, ['category_id' => $category_id]);
         }
-        if($subcategory_id != null){
+        if ($subcategory_id != null) {
             $conditions = array_merge($conditions, ['subcategory_id' => $subcategory_id]);
         }
-        if($subsubcategory_id != null){
+        if ($subsubcategory_id != null) {
             $conditions = array_merge($conditions, ['subsubcategory_id' => $subsubcategory_id]);
         }
-        if($seller_id != null){
+        if ($seller_id != null) {
             $conditions = array_merge($conditions, ['user_id' => Seller::findOrFail($seller_id)->user->id]);
         }
 
         $products = Product::where($conditions);
 
-        if($min_price != null && $max_price != null){
+        if ($min_price != null && $max_price != null) {
             $products = $products->where('unit_price', '>=', $min_price)->where('unit_price', '<=', $max_price);
         }
 
-        if($query != null){
+        if ($query != null) {
             $searchController = new SearchController;
             $searchController->store($request);
-            $products = $products->where('name', 'like', '%'.$query.'%')->orWhere('tags', 'like', '%'.$query.'%');
+            $products = $products->where('name', 'like', '%' . $query . '%')->orWhere('tags', 'like', '%' . $query . '%');
         }
 
-        if($sort_by != null){
+        if ($sort_by != null) {
             switch ($sort_by) {
                 case '1':
                     $products->orderBy('created_at', 'desc');
@@ -510,33 +516,32 @@ class HomeController extends Controller
 
         $attributes = array();
         foreach ($non_paginate_products as $key => $product) {
-            if($product->attributes != null && is_array(json_decode($product->attributes))){
+            if ($product->attributes != null && is_array(json_decode($product->attributes))) {
                 foreach (json_decode($product->attributes) as $key => $value) {
                     $flag = false;
                     $pos = 0;
                     foreach ($attributes as $key => $attribute) {
-                        if($attribute['id'] == $value){
+                        if ($attribute['id'] == $value) {
                             $flag = true;
                             $pos = $key;
                             break;
                         }
                     }
-                    if(!$flag){
+                    if (!$flag) {
                         $item['id'] = $value;
                         $item['values'] = array();
                         foreach (json_decode($product->choice_options) as $key => $choice_option) {
-                            if($choice_option->attribute_id == $value){
+                            if ($choice_option->attribute_id == $value) {
                                 $item['values'] = $choice_option->values;
                                 break;
                             }
                         }
                         array_push($attributes, $item);
-                    }
-                    else {
+                    } else {
                         foreach (json_decode($product->choice_options) as $key => $choice_option) {
-                            if($choice_option->attribute_id == $value){
+                            if ($choice_option->attribute_id == $value) {
                                 foreach ($choice_option->values as $key => $value) {
-                                    if(!in_array($value, $attributes[$pos]['values'])){
+                                    if (!in_array($value, $attributes[$pos]['values'])) {
                                         array_push($attributes[$pos]['values'], $value);
                                     }
                                 }
@@ -550,14 +555,14 @@ class HomeController extends Controller
         $selected_attributes = array();
 
         foreach ($attributes as $key => $attribute) {
-            if($request->has('attribute_'.$attribute['id'])){
-                foreach ($request['attribute_'.$attribute['id']] as $key => $value) {
-                    $str = '"'.$value.'"';
-                    $products = $products->where('choice_options', 'like', '%'.$str.'%');
+            if ($request->has('attribute_' . $attribute['id'])) {
+                foreach ($request['attribute_' . $attribute['id']] as $key => $value) {
+                    $str = '"' . $value . '"';
+                    $products = $products->where('choice_options', 'like', '%' . $str . '%');
                 }
 
                 $item['id'] = $attribute['id'];
-                $item['values'] = $request['attribute_'.$attribute['id']];
+                $item['values'] = $request['attribute_' . $attribute['id']];
                 array_push($selected_attributes, $item);
             }
         }
@@ -569,7 +574,7 @@ class HomeController extends Controller
         foreach ($non_paginate_products as $key => $product) {
             if ($product->colors != null) {
                 foreach (json_decode($product->colors) as $key => $color) {
-                    if(!in_array($color, $all_colors)){
+                    if (!in_array($color, $all_colors)) {
                         array_push($all_colors, $color);
                     }
                 }
@@ -578,24 +583,25 @@ class HomeController extends Controller
 
         $selected_color = null;
 
-        if($request->has('color')){
-            $str = '"'.$request->color.'"';
-            $products = $products->where('colors', 'like', '%'.$str.'%');
+        if ($request->has('color')) {
+            $str = '"' . $request->color . '"';
+            $products = $products->where('colors', 'like', '%' . $str . '%');
             $selected_color = $request->color;
         }
 
 
         $products = filter_products($products)->paginate(12)->appends(request()->query());
 
-        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id','min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color'));
+        return view('frontend.product_listing', compact('products', 'query', 'category_id', 'subcategory_id', 'subsubcategory_id', 'brand_id', 'sort_by', 'seller_id', 'min_price', 'max_price', 'attributes', 'selected_attributes', 'all_colors', 'selected_color'));
     }
 
-    public function product_content(Request $request){
+    public function product_content(Request $request)
+    {
         $connector  = $request->connector;
         $selector   = $request->selector;
         $select     = $request->select;
         $type       = $request->type;
-        productDescCache($connector,$selector,$select,$type);
+        productDescCache($connector, $selector, $select, $type);
     }
 
     public function home_settings(Request $request)
@@ -606,22 +612,20 @@ class HomeController extends Controller
     public function top_10_settings(Request $request)
     {
         foreach (Category::all() as $key => $category) {
-            if(is_array($request->top_categories) && in_array($category->id, $request->top_categories)){
+            if (is_array($request->top_categories) && in_array($category->id, $request->top_categories)) {
                 $category->top = 1;
                 $category->save();
-            }
-            else{
+            } else {
                 $category->top = 0;
                 $category->save();
             }
         }
 
         foreach (Brand::all() as $key => $brand) {
-            if(is_array($request->top_brands) && in_array($brand->id, $request->top_brands)){
+            if (is_array($request->top_brands) && in_array($brand->id, $request->top_brands)) {
                 $brand->top = 1;
                 $brand->save();
-            }
-            else{
+            } else {
                 $brand->top = 0;
                 $brand->save();
             }
@@ -637,30 +641,28 @@ class HomeController extends Controller
         $str = '';
         $quantity = 0;
 
-        if($request->has('color')){
+        if ($request->has('color')) {
             $data['color'] = $request['color'];
             $str = Color::where('code', $request['color'])->first()->name;
         }
 
-        if(json_decode(Product::find($request->id)->choice_options) != null){
+        if (json_decode(Product::find($request->id)->choice_options) != null) {
             foreach (json_decode(Product::find($request->id)->choice_options) as $key => $choice) {
-                if($str != null){
-                    $str .= '-'.str_replace(' ', '', $request['attribute_id_'.$choice->attribute_id]);
-                }
-                else{
-                    $str .= str_replace(' ', '', $request['attribute_id_'.$choice->attribute_id]);
+                if ($str != null) {
+                    $str .= '-' . str_replace(' ', '', $request['attribute_id_' . $choice->attribute_id]);
+                } else {
+                    $str .= str_replace(' ', '', $request['attribute_id_' . $choice->attribute_id]);
                 }
             }
         }
 
 
 
-        if($str != null && $product->variant_product){
+        if ($str != null && $product->variant_product) {
             $product_stock = $product->stocks->where('variant', $str)->first();
             $price = $product_stock->price;
             $quantity = $product_stock->qty;
-        }
-        else{
+        } else {
             $price = $product->unit_price;
             $quantity = $product->current_stock;
         }
@@ -671,10 +673,9 @@ class HomeController extends Controller
         foreach ($flash_deals as $key => $flash_deal) {
             if ($flash_deal != null && $flash_deal->status == 1 && strtotime(date('d-m-Y')) >= $flash_deal->start_date && strtotime(date('d-m-Y')) <= $flash_deal->end_date && \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first() != null) {
                 $flash_deal_product = \App\FlashDealProduct::where('flash_deal_id', $flash_deal->id)->where('product_id', $product->id)->first();
-                if($flash_deal_product->discount_type == 'percent'){
-                    $price -= ($price*$flash_deal_product->discount)/100;
-                }
-                elseif($flash_deal_product->discount_type == 'amount'){
+                if ($flash_deal_product->discount_type == 'percent') {
+                    $price -= ($price * $flash_deal_product->discount) / 100;
+                } elseif ($flash_deal_product->discount_type == 'amount') {
                     $price -= $flash_deal_product->discount;
                 }
                 $inFlashDeal = true;
@@ -682,40 +683,43 @@ class HomeController extends Controller
             }
         }
         if (!$inFlashDeal) {
-            if($product->discount_type == 'percent'){
-                $price -= ($price*$product->discount)/100;
-            }
-            elseif($product->discount_type == 'amount'){
+            if ($product->discount_type == 'percent') {
+                $price -= ($price * $product->discount) / 100;
+            } elseif ($product->discount_type == 'amount') {
                 $price -= $product->discount;
             }
         }
 
-        if($product->tax_type == 'percent'){
-            $price += ($price*$product->tax)/100;
-        }
-        elseif($product->tax_type == 'amount'){
+        if ($product->tax_type == 'percent') {
+            $price += ($price * $product->tax) / 100;
+        } elseif ($product->tax_type == 'amount') {
             $price += $product->tax;
         }
-        return array('price' => single_price($price*$request->quantity), 'quantity' => $quantity, 'digital' => $product->digital);
+        return array('price' => single_price($price * $request->quantity), 'quantity' => $quantity, 'digital' => $product->digital);
     }
 
-    public function sellerpolicy(){
+    public function sellerpolicy()
+    {
         return view("frontend.policies.sellerpolicy");
     }
 
-    public function returnpolicy(){
+    public function returnpolicy()
+    {
         return view("frontend.policies.returnpolicy");
     }
 
-    public function supportpolicy(){
+    public function supportpolicy()
+    {
         return view("frontend.policies.supportpolicy");
     }
 
-    public function terms(){
+    public function terms()
+    {
         return view("frontend.policies.terms");
     }
 
-    public function privacypolicy(){
+    public function privacypolicy()
+    {
         return view("frontend.policies.privacypolicy");
     }
 
@@ -725,7 +729,8 @@ class HomeController extends Controller
         return view('frontend.partials.pick_up_points', compact('pick_up_points'));
     }
 
-    public function get_category_items(Request $request){
+    public function get_category_items(Request $request)
+    {
         $category = Category::findOrFail($request->id);
         return view('frontend.partials.category_elements', compact('category'));
     }
@@ -743,13 +748,12 @@ class HomeController extends Controller
     }
     public function show_digital_product_upload_form(Request $request)
     {
-        if(\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated){
-            if(Auth::user()->seller->remaining_digital_uploads > 0){
+        if (\App\Addon::where('unique_identifier', 'seller_subscription')->first() != null && \App\Addon::where('unique_identifier', 'seller_subscription')->first()->activated) {
+            if (Auth::user()->seller->remaining_digital_uploads > 0) {
                 $business_settings = BusinessSetting::where('type', 'digital_product_upload')->first();
                 $categories = Category::where('digital', 1)->get();
                 return view('frontend.seller.digitalproducts.product_upload', compact('categories'));
-            }
-            else {
+            } else {
                 flash(translate('Upload limit has been reached. Please upgrade your package.'))->warning();
                 return back();
             }
@@ -772,7 +776,7 @@ class HomeController extends Controller
     public function new_verify(Request $request)
     {
         $email = $request->email;
-        if(isUnique($email) == '0') {
+        if (isUnique($email) == '0') {
             $response['status'] = 2;
             $response['message'] = 'Email already exists!';
             return json_encode($response);
@@ -787,11 +791,10 @@ class HomeController extends Controller
     public function update_email(Request $request)
     {
         $email = $request->email;
-        if(isUnique($email)) {
+        if (isUnique($email)) {
             $this->send_verification_mail($request, $email);
             flash(translate('A verification mail has been sent to the mail you provided us with.'))->success();
             return back();
-
         }
 
         flash(translate('Email already exists!'))->warning();
@@ -808,7 +811,7 @@ class HomeController extends Controller
         $array['subject'] = 'Email Verification';
         $array['from'] = env('MAIL_USERNAME');
         $array['content'] = 'Verify your account';
-        $array['link'] = route('mail_callback').'?new_email_verificiation_code='.$verification_code.'&email='.$email;
+        $array['link'] = route('mail_callback') . '?new_email_verificiation_code=' . $verification_code . '&email=' . $email;
         $array['sender'] = Auth::user()->name;
         $array['details'] = "Email Second";
 
@@ -821,7 +824,6 @@ class HomeController extends Controller
 
             $response['status'] = 1;
             $response['message'] = translate("Your verification mail has been Sent to your email.");
-
         } catch (\Exception $e) {
             // return $e->getMessage();
             $response['status'] = 0;

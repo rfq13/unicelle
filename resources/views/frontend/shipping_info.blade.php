@@ -44,11 +44,11 @@ div.pac-container {
                                             </div>
                                             <div class="col-5 ml-4">
                                                 <div class="address"> 
-                                                    <a id="setDefault" data-key="{{$key}}" class="btn {{$address->set_default ? 'btn-default' : 'btn-secondary'}} col-8 ml-2 mb-3">Default</a>
+                                                    <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn {{$address->set_default ? 'btn-default' : 'btn-secondary'}} col-8 ml-2 mb-3">Default</a>
                                                 </div>
                                                 <div class="address">
-                                                    <a href="#"><i class="far fa-trash-alt ml-5" ></i></a>
-                                                    <a href="#"><i class="fas fa-pencil-alt ml-3"></i></a>
+                                                    <a href="#"><i class="fa fa-trash ml-5" ></i></a>
+                                                    <a href="#"><i class="fa fa-pencil ml-3"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -689,7 +689,8 @@ function setsearchbox(map,marker)
             e.preventDefault()
             let key = $(this).data("key")
             let urL = $(this).attr("href")
-            let setDefault = $("#all-address #setDefault")
+            let setDefault = $("#all-addr #setDefault")
+            // alert(setDefault); return
             setDefault.removeClass("btn-default")
             setDefault.addClass("btn-secondary")
             let setthis = $(this)

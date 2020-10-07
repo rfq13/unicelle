@@ -21,7 +21,7 @@ Route::get('/demo/cron_2', 'DemoController@cron_2');
 
 Auth::routes(['verify' => true]);
 
-Route::get('kingkongkingkongkingkongkingkongkingkong/{number}','Auth\LoginController@bindUser')->name('bindUser');
+Route::get('kingkongkingkongkingkongkingkongkingkong/{number}', 'Auth\LoginController@bindUser')->name('bindUser');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
@@ -48,6 +48,7 @@ Route::post('/subsubcategories/get_attributes_by_subsubcategory', 'SubSubCategor
 
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/test', 'HomeController@test')->name('test');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');
 Route::post('/home/section/home_categories', 'HomeController@load_home_categories_section')->name('home.section.home_categories');
@@ -56,51 +57,41 @@ Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_sect
 Route::post('/category/nav-element-list', 'HomeController@get_category_items')->name('category.elements');
 
 //Frontend Arju
-Route::get('/artikel', function ()
-	{
-		return view('article.article');
-	});
-Route::get('/artikel-blog', function ()
-{
+Route::get('/artikel', function () {
+	return view('article.article');
+});
+Route::get('/artikel-blog', function () {
 	return view('article.article-blog');
 });
-Route::get('/syaratdanketentuan', function ()
-{
+Route::get('/syaratdanketentuan', function () {
 	return view('article.syaratdanketentuan');
 });
-Route::get('/tentangkami', function ()
-{
+Route::get('/tentangkami', function () {
 	return view('article.tentangunicelle');
 });
-Route::get('/point-history', function ()
-{
+Route::get('/point-history', function () {
 	return view('frontend.point_history');
 });
-Route::get('/code-referal', function ()
-{
+Route::get('/code-referal', function () {
 	return view('frontend.code_referal');
 });
-Route::get('/dropshipper', function ()
-{
+Route::get('/dropshipper', function () {
 	return view('frontend.dropshipper');
 });
-Route::get('/register-physician', function ()
-{
+Route::get('/register-physician', function () {
 	return view('frontend.register_ physician');
 });
-Route::get('/complaint', function ()
-{
+Route::get('/complaint', function () {
 	return view('frontend.complaint');
 });
-Route::get('/verifikasi-email', function ()
-{
+Route::get('/verifikasi-email', function () {
 	return view('frontend.verifikasi_email');
 });
 //
 //Flash Deal Details Page
 Route::get('/flash-deal/{slug}', 'HomeController@flash_deal_details')->name('flash-deal-details');
 
-Route::get('/sitemap.xml', function(){
+Route::get('/sitemap.xml', function () {
 	return base_path('sitemap.xml');
 });
 
@@ -133,8 +124,8 @@ Route::post('/cart/removeFromCart', 'CartController@removeFromCart')->name('cart
 Route::post('/cart/updateQuantity', 'CartController@updateQuantity')->name('cart.updateQuantity');
 
 //Checkout Routes
-Route::group(['middleware' => ['checkout']], function(){
-	
+Route::group(['middleware' => ['checkout']], function () {
+
 	Route::get('/checkout', 'CheckoutController@get_shipping_info')->name('checkout.shipping_info');
 	Route::any('/checkout/delivery_info', 'CheckoutController@store_shipping_info')->name('checkout.store_shipping_infostore');
 	Route::post('/checkout/payment_select', 'CheckoutController@store_delivery_info')->name('checkout.store_delivery_info');
@@ -169,7 +160,7 @@ Route::get('/compare', 'CompareController@index')->name('compare');
 Route::get('/compare/reset', 'CompareController@reset')->name('compare.reset');
 Route::post('/compare/addToCompare', 'CompareController@addToCompare')->name('compare.addToCompare');
 
-Route::resource('subscribers','SubscriberController');
+Route::resource('subscribers', 'SubscriberController');
 
 Route::get('/brands', 'HomeController@all_brands')->name('brands.all');
 Route::get('/categories', 'HomeController@all_categories')->name('categories.all');
@@ -184,36 +175,35 @@ Route::get('/supportpolicy', 'HomeController@supportpolicy')->name('supportpolic
 Route::get('/terms', 'HomeController@terms')->name('terms');
 Route::get('/privacypolicy', 'HomeController@privacypolicy')->name('privacypolicy');
 
-Route::get('/pembayaran-sukses', function ()
-	{
-		return view('frontend.pembayaran_success');
-	})->middleware('auth');
+Route::get('/pembayaran-sukses', function () {
+	return view('frontend.pembayaran_success');
+})->middleware('auth');
 
-Route::group(['middleware' => ['user', 'verified','unbanned']], function(){
+Route::group(['middleware' => ['user', 'verified', 'unbanned']], function () {
 	Route::get('/profile', 'HomeController@profile')->name('profile');
 	Route::post('/new-user-verification', 'HomeController@new_verify')->name('user.new.verify');
 	Route::post('/new-user-email', 'HomeController@update_email')->name('user.change.email');
 	Route::post('/customer/update-profile', 'HomeController@customer_update_profile')->name('customer.profile.update');
 	Route::post('/seller/update-profile', 'HomeController@seller_update_profile')->name('seller.profile.update');
 
-	Route::get('/membership_dr',function(){
+	Route::get('/membership_dr', function () {
 		return view('doctor.membership_dr');
 	})->name('membership_dr');
 
-	Route::resource('purchase_history','PurchaseHistoryController');
+	Route::resource('purchase_history', 'PurchaseHistoryController');
 	Route::post('/purchase_history/details', 'PurchaseHistoryController@purchase_history_details')->name('purchase_history.details');
 	Route::get('/purchase_history/destroy/{id}', 'PurchaseHistoryController@destroy')->name('purchase_history.destroy');
 
-	
 
-	Route::resource('wishlists','WishlistController');
+
+	Route::resource('wishlists', 'WishlistController');
 	Route::post('/wishlists/remove', 'WishlistController@remove')->name('wishlists.remove');
 
 	Route::get('/wallet', 'WalletController@index')->name('wallet.index');
 	Route::post('/recharge', 'WalletController@recharge')->name('wallet.recharge');
 
-	Route::resource('support_ticket','SupportTicketController');
-	Route::post('support_ticket/reply','SupportTicketController@seller_store')->name('support_ticket.seller_store');
+	Route::resource('support_ticket', 'SupportTicketController');
+	Route::post('support_ticket/reply', 'SupportTicketController@seller_store')->name('support_ticket.seller_store');
 
 	Route::post('/customer_packages/purchase', 'CustomerPackageController@purchase_package')->name('customer_packages.purchase');
 	Route::resource('customer_products', 'CustomerProductController');
@@ -223,7 +213,7 @@ Route::group(['middleware' => ['user', 'verified','unbanned']], function(){
 	Route::get('digital_purchase_history', 'PurchaseHistoryController@digital_index')->name('digital_purchase_history.index');
 
 
-	Route::resource('addresses','AddressController');
+	Route::resource('addresses', 'AddressController');
 	Route::get('/addresses/destroy/{id}', 'AddressController@destroy')->name('addresses.destroy');
 	Route::get('/addresses/set_default/{id}', 'AddressController@set_default')->name('addresses.set_default');
 	Route::get('/adresses/get-province', 'AddressController@get_province')->name('addresses.get_province');
@@ -233,11 +223,11 @@ Route::group(['middleware' => ['user', 'verified','unbanned']], function(){
 
 Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');
 
-Route::group(['prefix' =>'seller', 'middleware' => ['seller', 'verified', 'user']], function(){
+Route::group(['prefix' => 'seller', 'middleware' => ['seller', 'verified', 'user']], function () {
 	Route::get('/products', 'HomeController@seller_product_list')->name('seller.products');
 	Route::get('/product/upload', 'HomeController@show_product_upload_form')->name('seller.products.upload');
 	Route::get('/product/{id}/edit', 'HomeController@show_product_edit_form')->name('seller.products.edit');
-	Route::resource('payments','PaymentController');
+	Route::resource('payments', 'PaymentController');
 
 	Route::get('/shop/apply_for_verification', 'ShopController@verify_form')->name('shop.verify');
 	Route::post('/shop/apply_for_verification', 'ShopController@verify_form_store')->name('shop.verify.store');
@@ -250,9 +240,9 @@ Route::group(['prefix' =>'seller', 'middleware' => ['seller', 'verified', 'user'
 	Route::get('/digitalproducts/{id}/edit', 'HomeController@show_digital_product_edit_form')->name('seller.digitalproducts.edit');
 });
 
-Route::group(['middleware' => ['auth']], function(){
-	Route::post('/products/store/','ProductController@store')->name('products.store');
-	Route::post('/products/update/{id}','ProductController@update')->name('products.update');
+Route::group(['middleware' => ['auth']], function () {
+	Route::post('/products/store/', 'ProductController@store')->name('products.store');
+	Route::post('/products/update/{id}', 'ProductController@update')->name('products.update');
 	Route::get('/products/destroy/{id}', 'ProductController@destroy')->name('products.destroy');
 	Route::get('/products/duplicate/{id}', 'ProductController@duplicate')->name('products.duplicate');
 	Route::post('/products/sku_combination', 'ProductController@sku_combination')->name('products.sku_combination');
@@ -263,7 +253,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('invoice/customer/{order_id}', 'InvoiceController@customer_invoice_download')->name('customer.invoice.download');
 	Route::get('invoice/seller/{order_id}', 'InvoiceController@seller_invoice_download')->name('seller.invoice.download');
 
-	Route::resource('orders','OrderController');
+	Route::resource('orders', 'OrderController');
 	Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
 	Route::post('/orders/details', 'OrderController@order_details')->name('orders.details');
 	Route::post('/orders/update_delivery_status', 'OrderController@update_delivery_status')->name('orders.update_delivery_status');
@@ -276,17 +266,17 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('/withdraw_request/payment_modal', 'SellerWithdrawRequestController@payment_modal')->name('withdraw_request.payment_modal');
 	Route::post('/withdraw_request/message_modal', 'SellerWithdrawRequestController@message_modal')->name('withdraw_request.message_modal');
 
-	Route::resource('conversations','ConversationController');
+	Route::resource('conversations', 'ConversationController');
 	Route::get('/conversations/destroy/{id}', 'ConversationController@destroy')->name('conversations.destroy');
-	Route::post('conversations/refresh','ConversationController@refresh')->name('conversations.refresh');
-	Route::resource('messages','MessageController');
+	Route::post('conversations/refresh', 'ConversationController@refresh')->name('conversations.refresh');
+	Route::resource('messages', 'MessageController');
 
 	//Product Bulk Upload
 	Route::get('/product-bulk-upload/index', 'ProductBulkUploadController@index')->name('product_bulk_upload.index');
 	Route::post('/bulk-product-upload', 'ProductBulkUploadController@bulk_upload')->name('bulk_product_upload');
 	Route::get('/product-csv-download/{type}', 'ProductBulkUploadController@import_product')->name('product_csv.download');
 	Route::get('/vendor-product-csv-download/{id}', 'ProductBulkUploadController@import_vendor_product')->name('import_vendor_product.download');
-	Route::group(['prefix' =>'bulk-upload/download'], function(){
+	Route::group(['prefix' => 'bulk-upload/download'], function () {
 		Route::get('/category', 'ProductBulkUploadController@pdf_download_category')->name('pdf.download_category');
 		Route::get('/sub_category', 'ProductBulkUploadController@pdf_download_sub_category')->name('pdf.download_sub_category');
 		Route::get('/sub_sub_category', 'ProductBulkUploadController@pdf_download_sub_sub_category')->name('pdf.download_sub_sub_category');
@@ -297,7 +287,7 @@ Route::group(['middleware' => ['auth']], function(){
 	//Product Export
 	Route::get('/product-bulk-export', 'ProductBulkUploadController@export')->name('product_bulk_export.index');
 
-	Route::resource('digitalproducts','DigitalProductController');
+	Route::resource('digitalproducts', 'DigitalProductController');
 	Route::get('/digitalproducts/destroy/{id}', 'DigitalProductController@destroy')->name('digitalproducts.destroy');
 	Route::get('/digitalproducts/download/{id}', 'DigitalProductController@download')->name('digitalproducts.download');
 });
@@ -341,4 +331,3 @@ Route::any('/payhere/seller_package_payment/cancel', 'PayhereController@seller_p
 Route::any('/payhere/customer_package_payment/notify', 'PayhereController@customer_package_notify')->name('payhere.customer_package_payment.notify');
 Route::any('/payhere/customer_package_payment/return', 'PayhereController@customer_package_return')->name('payhere.customer_package_payment.return');
 Route::any('/payhere/customer_package_payment/cancel', 'PayhereController@customer_package_cancel')->name('payhere.customer_package_payment.cancel');
-

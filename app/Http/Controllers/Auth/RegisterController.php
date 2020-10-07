@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Cookie;
+use Carbon\Carbon;
 use Session;
 use Nexmo;
 use Twilio\Rest\Client;
@@ -87,12 +88,11 @@ class RegisterController extends Controller
             $customer = new Customer;
             $customer->user_id = $user->id;
             $customer->save();
-        }
-        else {
-            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated){
+        } else {
+            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated) {
                 $user = User::create([
                     'name' => $data['name'],
-                    'phone' => '+'.$data['country_code'].$data['phone'],
+                    'phone' => '+' . $data['country_code'] . $data['phone'],
                     'password' => Hash::make($data['password']),
                     'verification_code' => rand(100000, 999999)
                 ]);
@@ -106,10 +106,10 @@ class RegisterController extends Controller
             }
         }
 
-        if(Cookie::has('referral_code')){
+        if (Cookie::has('referral_code')) {
             $referral_code = Cookie::get('referral_code');
             $referred_by_user = User::where('referral_code', $referral_code)->first();
-            if($referred_by_user != null){
+            if ($referred_by_user != null) {
                 $user->referred_by = $referred_by_user->id;
                 $user->save();
             }
@@ -121,12 +121,11 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
-            if(User::where('email', $request->email)->first() != null){
+            if (User::where('email', $request->email)->first() != null) {
                 flash('Email atau Nomor Telepon telah terdaftar.')->error();
                 return redirect()->back();
             }
-        }
-        elseif (User::where('phone', $request->phone)->first() != null) {   
+        } elseif (User::where('phone', $request->phone)->first() != null) {
             flash(translate('Nomor Telepon telah terdaftar.'));
             return back();
         }
@@ -135,16 +134,16 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         $user = $this->create($request->all());
+        $this->membership($user->id);
 
         $this->guard()->login($user);
 
-        if($user->email != null){
-            if(BusinessSetting::where('type', 'email_verification')->first()->value != 1){
+        if ($user->email != null) {
+            if (BusinessSetting::where('type', 'email_verification')->first()->value != 1) {
                 $user->email_verified_at = date('Y-m-d H:m:s');
                 $user->save();
                 flash(translate('Pendaftaran Berhasil.'))->success();
-            }
-            else {
+            } else {
                 event(new Registered($user));
                 flash(translate('Registrasi Sukses. Mohon verifikasi email anda.'))->success();
             }
@@ -159,10 +158,43 @@ class RegisterController extends Controller
         if ($user->email == null) {
             return redirect()->route('verification');
             // return view('auth.verify');
-        }
-        else {
+        } else {
             // return redirect()->route('home');
             return view('auth.verify');
         }
+    }
+
+    public function membership($user_id)
+    {
+        $member = \App\Member::orderBy("min")->first();
+        $periode = json_decode($member->periode);
+        $unit = $periode[1];
+        $periode = $periode[0];
+        // $endedAt = 0;
+        switch ($unit) {
+            case 'hari':
+                $endedAt = 1;
+                break;
+            case 'bulan':
+                $endedAt = 30;
+                break;
+            case 'tahun':
+                $endedAt = 360;
+                break;
+            default:
+                $endedAt = 0;
+                break;
+        }
+
+        $endedAt = $periode * $endedAt;
+        $tgl = Carbon::now()->toDate()->format("Y-m-d");
+        $tgl_berakhir = date('Y-m-d', strtotime("+$endedAt days", strtotime($tgl)));
+
+        $userMember = new \App\userMember;
+        $userMember->user_id = $user_id;
+        $userMember->member_id = $member->id;
+        $userMember->ended_at = $tgl_berakhir;
+        $userMember->save();
+        return;
     }
 }
