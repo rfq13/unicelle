@@ -126,7 +126,7 @@ class HomeController extends Controller
         dd($order);
     }
 
-    /**
+    /**...
      * Create a new controller instance.
      *
      * @return void
