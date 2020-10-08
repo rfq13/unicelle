@@ -140,4 +140,9 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(instansi_physicianModel::class);
     }
+
+    public function physician_verification()
+    {
+        return $this->hasOne(physician_verificationModel::class);
+    }
 }

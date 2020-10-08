@@ -48,6 +48,10 @@ class VerificationController extends Controller
             $user->email_verified_at = Carbon::now();
             $user->save();
 
+            if ($user->physician_verification != null && $user->physician_verification->verify == 0) {
+                flash('Email anda berhasil di verifikasi namun akun anda belum dapat digunakan, tunggu konfirmasi dari admin');
+                return redirect()->route('logout');
+            }
             flash(translate('Email anda berhasil di verifikasi'))->success();
         } else {
             flash(translate('Maaf, kami tidak dapat memverifikasi email anda. Silahkan di coba kembali'))->error();

@@ -17,7 +17,7 @@ class memberController extends Controller
 
     public function __construct()
     {
-        $this->middleware('user');
+        // $this->middleware('user');
     }
 
     public function index()
@@ -186,5 +186,30 @@ class memberController extends Controller
         $tgl = Carbon::now()->toDate()->format("Y-m-d");
         $tgl_berakhir = date('Y-m-d', strtotime("+$endedAt days", strtotime($tgl)));
         return $tgl_berakhir;
+    }
+
+    public function activation($id)
+    {
+        $user = \App\physician_verificationModel::with("user")->where("id", $id)->first();
+        $username = $user->user->name;
+        $return = '';
+        if ($user->verify == 0) {
+            $user->verify = 1;
+            $user->save();
+            $return = [
+                "stts" => 'sukses',
+                'btn' => 'Nonaktifkan',
+                "msg" => "berhasil mengaktifkan dr $username"
+            ];
+        } else {
+            $user->verify = 0;
+            $user->save();
+            $return = [
+                "stts" => 'sukses',
+                'btn' => "Aktifkan",
+                "msg" => "berhasil menonaktifkan dr $username"
+            ];
+        }
+        return $return;
     }
 }

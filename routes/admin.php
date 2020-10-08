@@ -123,7 +123,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 		Route::get('/{id}/delete', 'memberController@destroy')->name("admin.member.destroy");
 		Route::post('/{memberid}/add/submember', 'memberController@addSubmember')->name('admin.add.submember');
 	});
+
 	Route::resource('regular-physician-member', 'memberController');
+	Route::view('physician-verify', 'physician.verify')->name("physician.verify");
+	Route::get('activation/{id}', 'memberController@activation')->name('physician.activation');
 
 	Route::resource('roles', 'RoleController');
 	Route::get('/roles/destroy/{id}', 'RoleController@destroy')->name('roles.destroy');

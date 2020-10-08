@@ -90,7 +90,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // dd($data);
+        $userid = 0;
         if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
             // dd(gettype((object)$data));
             $udata = [
@@ -184,6 +184,7 @@ class RegisterController extends Controller
             }
         }
 
+
         return $this->registered($request, $user)
             ?: redirect($this->redirectPath());
     }
@@ -194,7 +195,7 @@ class RegisterController extends Controller
             return redirect()->route('verification');
             // return view('auth.verify');
         } else {
-            // return redirect()->route('home');
+
             return view('auth.verify');
         }
     }
@@ -221,5 +222,11 @@ class RegisterController extends Controller
         $instansi->izin = $data->izin;
         $instansi->fhoto = $data->fhoto->store('uploads/instansi');
         $instansi->save();
+
+        // sekalian input data untuk diverifikasi dari admin
+        $verify = new \App\physician_verificationModel;
+        $verify->user_id = $data->user_id;
+        $verify->verify = 0;
+        $verify->save();
     }
 }

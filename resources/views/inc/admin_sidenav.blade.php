@@ -152,11 +152,28 @@
                         @endif
 
                         @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
-                        <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
-                            <a class="nav-link" href="{{ route('regular-physician-member.index') }}">
-                                <i class="fa fa-users"></i>
-                                <span class="menu-title">{{translate('Regular Physician Membership')}}</span>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-user-md"></i>
+                                <span class="menu-title">{{translate('Physician')}}</span>
+                                <i class="arrow"></i>
                             </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li class="{{ areActiveRoutes(['physician.verify'])}}">
+                                    <a class="nav-link" href="{{ route('physician.verify') }}">
+                                        <i class="fa fa-check"></i>
+                                        <span class="menu-title">{{translate('Verify Physician')}}</span>
+                                    </a>
+                                </li>
+                                <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
+                                    <a class="nav-link" href="{{ route('regular-physician-member.index') }}">
+                                        <i class="fa fa-users"></i>
+                                        <span class="menu-title">{{translate('Regular Physician')}}</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         @endif
 
