@@ -16,10 +16,9 @@ class IsUser
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::check() && (Auth::user()->user_type == 'pasien reg' || Auth::user()->user_type == 'seller') ) {
+        if (Auth::check() && (Auth::user()->user_type == 'pasien reg' || Auth::user()->user_type == 'regular physician' || Auth::user()->user_type == 'partner physician' || Auth::user()->user_type == 'seller')) {
             return $next($request);
-        }
-        else{
+        } else {
             session(['link' => url()->current()]);
             return redirect()->route('user.login');
         }

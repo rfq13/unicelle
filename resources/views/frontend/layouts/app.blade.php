@@ -7,9 +7,9 @@
 <head>
 
 @php
-    if (Auth::check()) {
-        app('\App\Http\Controllers\memberController')->updateMember();
-    }
+    // if (Auth::check() && Auth::user()->user_type == "regular physician") {
+    //     app('\App\Http\Controllers\memberController')->updateMember();
+    // }
     
     $seosetting = \App\SeoSetting::first();
 @endphp

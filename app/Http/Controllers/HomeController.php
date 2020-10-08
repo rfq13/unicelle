@@ -71,7 +71,7 @@ class HomeController extends Controller
         }
     }
 
-    public function registration(Request $request)
+    public function registration(Request $request, $physician = null)
     {
         if (Auth::check()) {
             return redirect()->route('home');
@@ -79,7 +79,7 @@ class HomeController extends Controller
         if ($request->has('referral_code')) {
             Cookie::queue('referral_code', $request->referral_code, 43200);
         }
-        return view('frontend.user_registration');
+        return view('frontend.user_registration', compact("physician"));
     }
 
     public function registration_otp()
@@ -179,10 +179,10 @@ class HomeController extends Controller
     public function profile()
     {
         // dd(Auth::user()->user_type);
-        if (Auth::user()->user_type == 'pasien reg') {
-            return view('frontend.customer.profile');
-        } elseif (Auth::user()->user_type == 'seller') {
+        if (Auth::user()->user_type == 'seller') {
             return view('frontend.seller.profile');
+        } else {
+            return view('frontend.customer.profile');
         }
     }
 

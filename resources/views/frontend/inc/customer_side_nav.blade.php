@@ -172,7 +172,7 @@
                                 <div class="info-akun-role__">
                                     <span class="tag-username-akun__">{{ Auth::user()->user_type == "pasien reg"? "" : "Dr" }} <span>{{ Auth::user()->name }}</span></span>
                                     <div class="my-1">
-                                        <span class="role-user">Regular Physician</span>
+                                        <span class="role-user" style="text-transform: capitalize">{{ Auth::user()->user_type }}</span>
                                     </div>
                 
                                     <a href="" class="editprofil-pp__" style="text-decoration: none;"><i
@@ -245,14 +245,16 @@
                                         <span class="submenu-icon ml-auto"></span>
                                     </div>
                                 </a>
-                                <a href="{{route('membership')}}" class=" list-group-item list-group-item-action flex-column align-items-start">
-                                    <div class="d-flex w-100 justify-content-start align-items-center">
-                                        <img class="img-sidebar-akun__ mr-3" src="{{my_asset('images/icon/ic_membership.png')}}"
-                                            alt="">
-                                        <span class="menu-collapsed">Membership</span>
-                                        <span class="submenu-icon ml-auto"></span>
-                                    </div>
-                                </a>
+                                @if(Auth::user()->user_type == "regular physician")
+                                    <a href="{{route('membership')}}" class=" list-group-item list-group-item-action flex-column align-items-start mb-3">
+                                        <div class="d-flex w-100 justify-content-start align-items-center">
+                                            <img class="img-sidebar-akun__ mr-3" src="{{my_asset('images/icon/ic_membership.png')}}"
+                                                alt="">
+                                            <span class="menu-collapsed">Membership</span>
+                                            <span class="submenu-icon ml-auto"></span>
+                                        </div>
+                                    </a>
+                                @endif
                 
                             </ul>
                         </div>

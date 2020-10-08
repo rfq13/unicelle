@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
 use App\User;
 use App\Customer;
 use App\BusinessSetting;
@@ -58,13 +59,27 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+
+        $validate = [
             'nama_depan' => 'required|string|max:255',
             'nama_belakang' => 'required|string|max:255',
             'email' => 'required|email',
             'no_telepon' => 'required|numeric',
             'password' => 'required|string|min:6|confirmed',
-        ]);
+        ];
+
+        if (array_key_exists("user_type", $data)) {
+            $validate = array_merge($validate, [
+                'nama_instansi' => 'required|string|max:255',
+                'alamat_instansi' => 'required|string|max:255',
+                'izin' => 'required|string|max:255'
+            ]);
+        }
+        // dd([$validate, $data]);
+
+
+
+        return Validator::make($data, $validate);
     }
 
     /**
@@ -75,18 +90,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        // dd($data);
         if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $user = User::create([
+            // dd(gettype((object)$data));
+            $udata = [
                 'name' => $data['nama_depan'] . " " . $data['nama_belakang'],
-                'email' => $data['email'],
-                'user_type' => 'pasien regular',
-                'phone' => $data['no_telepon'],
                 'password' => Hash::make($data['password']),
-            ]);
+                'user_type' => array_key_exists("user_type", $data) ? $data['user_type'] : "pasien reg",
+                'email' => $data['email']
+            ];
+
+
+            $user = User::create($udata);
+            $userid = $user->id;
 
             $customer = new Customer;
-            $customer->user_id = $user->id;
+            $customer->user_id = $userid;
             $customer->save();
+
+            $data['user_id'] = $userid;
+            if (array_key_exists("user_type", $data)) {
+                $this->instansi((object)$data);
+            }
         } else {
             if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated) {
                 $user = User::create([
@@ -95,10 +120,16 @@ class RegisterController extends Controller
                     'password' => Hash::make($data['password']),
                     'verification_code' => rand(100000, 999999)
                 ]);
+                $userid = $user->id;
 
                 $customer = new Customer;
-                $customer->user_id = $user->id;
+                $customer->user_id = $userid;
                 $customer->save();
+
+                $data['user_id'] = $userid;
+                if (array_key_exists("user_type", $data)) {
+                    $this->instansi((object)$data);
+                }
 
                 $otpController = new OTPVerificationController;
                 $otpController->send_code($user);
@@ -119,6 +150,7 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
+
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             if (User::where('email', $request->email)->first() != null) {
                 flash('Email atau Nomor Telepon telah terdaftar.')->error();
@@ -131,9 +163,13 @@ class RegisterController extends Controller
 
 
         $this->validator($request->all())->validate();
-
+        // dd($request->fhoto);
         $user = $this->create($request->all());
-        $this->membership($user->id);
+        $userid = $user->id;
+
+        if ($request->user_type == "regular physician") {
+            $this->membership($userid);
+        }
 
         $this->guard()->login($user);
 
@@ -167,34 +203,23 @@ class RegisterController extends Controller
     {
         $member = \App\Member::orderBy("min")->first();
         $tgl_berakhir = app('\App\Http\Controllers\memberController')->ended_at($member);
-        // $periode = json_decode($member->periode);
-        // $unit = $periode[1];
-        // $periode = $periode[0];
-        // // $endedAt = 0;
-        // switch ($unit) {
-        //     case 'hari':
-        //         $endedAt = 1;
-        //         break;
-        //     case 'bulan':
-        //         $endedAt = 30;
-        //         break;
-        //     case 'tahun':
-        //         $endedAt = 360;
-        //         break;
-        //     default:
-        //         $endedAt = 0;
-        //         break;
-        // }
-
-        // $endedAt = $periode * $endedAt;
-        // $tgl = Carbon::now()->toDate()->format("Y-m-d");
-        // $tgl_berakhir = date('Y-m-d', strtotime("+$endedAt days", strtotime($tgl)));
 
         $userMember = new \App\userMember;
         $userMember->user_id = $user_id;
         $userMember->member_id = $member->id;
         $userMember->ended_at = $tgl_berakhir;
         $userMember->save();
-        return;
+    }
+
+    public function instansi($data)
+    {
+        // dd($data);
+        $instansi = new \App\instansi_physicianModel;
+        $instansi->user_id = $data->user_id;
+        $instansi->name = $data->nama_instansi;
+        $instansi->address = $data->alamat_instansi;
+        $instansi->izin = $data->izin;
+        $instansi->fhoto = $data->fhoto->store('uploads/instansi');
+        $instansi->save();
     }
 }

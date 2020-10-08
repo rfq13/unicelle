@@ -10,6 +10,147 @@
     <section class="bg-img-login">
         <div class="container">
             <div class="row">
+                @if ($physician == "physician")
+                <div class="col-lg my-5">
+                    <div class="card bg-form">
+                        <div class="bg-reg-phy">
+                            <form class="p-5 form-default" id="reg-form" role="form" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                <div class="d-flex mb-4 align-items-center">
+                                    <div class="p-2"><img class="img-reg-phy" src="{{my_asset('images\logo.png')}}" alt=""></div>
+                                    <div class="p-2">
+                                        <span class="head-reg-phy">
+                                            Pendaftaran Physician</span>
+                                    </div>
+                                </div>
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="user_type"
+                                                id="exampleRadios1" value="regular physician" checked>
+                                            <label class="form-check-label font-weight-bold" for="exampleRadios1">
+                                                Regular Physician
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="user_type"
+                                                id="exampleRadios2" value="partner physician">
+                                            <label class="form-check-label font-weight-bold" for="exampleRadios2">
+                                                Partner Physician
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan">
+                                        @if ($errors->has('nama_depan'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('nama_depan') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang">
+                                        @if ($errors->has('nama_belakang'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('nama_belakang') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <input type="text" class="form-control {{ $errors->has('nama_instansi') ? ' is-invalid' : '' }}" value="{{ old('nama_instansi') }}" placeholder="{{  translate('Nama Klinik / Rumah Sakit / Intitusi') }}" name="nama_instansi">
+                                        @if ($errors->has('nama_instansi'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('nama_instansi') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col">
+                                        <input type="text" class="form-control {{ $errors->has('alamat_instansi') ? ' is-invalid' : '' }}" value="{{ old('alamat_instansi') }}" placeholder="{{  translate('Alamat Klinik / Praktek Dokter') }}" name="alamat_instansi">
+                                        @if ($errors->has('alamat_instansi'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('alamat_instansi') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="row mb-4 align-items-center">
+                                    <div class="col">
+                                        <input type="number" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomer Klinik/Surat Izin Praktek Dokter') }}" name="izin">
+                                        @if ($errors->has('izin'))
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $errors->first('izin') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                    <div class="col">
+                                        <label for="exampleFormControlFile1" class="font-weight-light">Pilih File Foto</label>
+                                        <input type="file" class="form-control-file" name="fhoto" id="exampleFormControlFile1" required>
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <input type="text" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ old('no_telepon') }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
+                                    @if ($errors->has('no_telepon'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('no_telepon') }}</strong>
+                                        </span>
+                                    @endif
+                                    </div>
+                                    <div class="col">
+                                        <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="row mb-4">
+                                    <div class="col">
+                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Kata Sandi') }}" name="password">
+                                    @if ($errors->has('password'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <input type="password" class="form-control" placeholder="{{  translate('Konfirmasi Kata Sandi') }}" name="password_confirmation">
+                                        </div> 
+                                    </div>
+                                </div>
+                                <!--  -->
+                                <div class="text-center">
+                                    @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
+                                            <div class="form-group">
+                                                <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
+                                            </div>
+                                    @endif
+                                    <button type="submit" class="btn btn-secondary1 my-2" style="width: 50%;"><a
+                                            href="#"></a>Daftar</button>
+                                    <a href="{{route('user.registration')}}" class="btn btn-secondary1 my-2" style="width: 50%;">Daftar Sebagai Pasien</a>
+                                </div>
+                            </form>
+                            <div class="card-footer text-center mt-2 mb-0">
+                                <span class="bpa">Sudah Punya Akun? <a href="{{route('user.login')}}" class="ba">Login </a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                @else
 
                 <div class="col-lg-6 d-xl-block d-none" style="margin-top: 25%;">
                     <div class="justify-content-center text-center">
@@ -97,7 +238,7 @@
                                 <hr>
                                 <a type="button" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration-otp') }}">
                                        Daftar Via Nomer Telepon</a>
-                                <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;"  href="register-physician.html">
+                                <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration','physician') }}">
                                        Daftar Sebagai Physician
                                 </a>
                                     
@@ -111,6 +252,7 @@
                         </div>
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </section>

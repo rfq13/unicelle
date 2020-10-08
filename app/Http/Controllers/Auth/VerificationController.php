@@ -41,19 +41,19 @@ class VerificationController extends Controller
         $this->middleware('throttle:6,1')->only('verify', 'resend');
     }
 
-    public function verification_confirmation($code){
+    public function verification_confirmation($code)
+    {
         $user = User::where('verification_code', $code)->first();
-        if($user != null){
+        if ($user != null) {
             $user->email_verified_at = Carbon::now();
             $user->save();
 
             flash(translate('Email anda berhasil di verifikasi'))->success();
-        }
-        else {
+        } else {
             flash(translate('Maaf, kami tidak dapat memverifikasi email anda. Silahkan di coba kembali'))->error();
         }
 
-        // return redirect()->route('dashboard');
-        return redirect('/');
+        return redirect()->route('home');
+        // return redirect();
     }
 }

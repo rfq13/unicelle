@@ -56,12 +56,15 @@
                 <hr class=" mt-0 mb-0 mr-2 ml-2">
                 <a class="dropdown-item" href="#">Pesanan</a>
                 <hr class=" mt-0 mb-0 mr-2 ml-2">
-                <a class="dropdown-item" href="#">Membership</a>
-                <hr class=" mt-0 mb-0 mr-2 ml-2">
+                @if (Auth::user()->user_type == "regular physician")
+                    <a class="dropdown-item" href="{{route('membership')}}">Membership</a>
+                    <hr class=" mt-0 mb-0 mr-2 ml-2">
+                @endif
                 <a class="dropdown-item" style="background-color:#3B6CB6; color:#fff" href="{{ route('logout') }}">Logout</a>
             @else
             <a type="button" href="{{ route('user.login') }}" class="dropdown-item mt-3" role="button">Login</a>
             <a href="{{ route('user.registration') }}" class="dropdown-item" type="button" role="button">Daftar</a>
+            <a href="{{ route('user.registration','physician') }}" class="dropdown-item" type="button" role="button">Daftar Physician</a>
             @endauth
 
         </div>

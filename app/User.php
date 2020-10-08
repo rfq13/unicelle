@@ -128,11 +128,16 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function addresseDefault()
     {
-        return $this->hasOne(Address::class)->where('set_default',1);
+        return $this->hasOne(Address::class)->where('set_default', 1);
     }
 
     public function member()
     {
-        return $this->hasOne(userMember::class);
+        return $this->hasOne(userMember::class)->orderBy('created_at');
+    }
+
+    public function instansi()
+    {
+        return $this->hasOne(instansi_physicianModel::class);
     }
 }

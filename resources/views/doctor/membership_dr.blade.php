@@ -1,5 +1,10 @@
 @php
+    if (Auth::user()->user_type != "regular physician") {
+        abort(404);
+    }
+
     $usr = Auth::user();
+    // dd($usr);
     $from = date_format($usr->member->created_at, "Y-m-d");
     $to = $usr->member->ended_at;
     $my_member_tier = $usr->member;

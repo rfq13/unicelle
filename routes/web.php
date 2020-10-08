@@ -36,7 +36,7 @@ Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProv
 Route::get('/users/login', 'HomeController@login')->name('user.login');
 Route::get('/users/login-otp', 'HomeController@login_otp')->name('user.login-otp');
 Route::post('/users/proses-login-otp', 'HomeController@proses_login_otp')->name('user.proses-login-otp');
-Route::get('/users/registration', 'HomeController@registration')->name('user.registration');
+Route::get('/users/registration/{physician?}', 'HomeController@registration')->name('user.registration');
 Route::get('/users/registration-otp', 'HomeController@registration_otp')->name('user.registration-otp');
 //Route::post('/users/login', 'HomeController@user_login')->name('user.login.submit');
 Route::post('/users/login/cart', 'HomeController@cart_login')->name('cart.login.submit');
