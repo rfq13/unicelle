@@ -143,6 +143,9 @@ Route::get('/paypal/payment/done', 'PaypalController@getDone')->name('payment.do
 Route::get('/paypal/payment/cancel', 'PaypalController@getCancel')->name('payment.cancel');
 //Paypal END
 
+Route::view("/confirmation/manual-payment", "payment.confirm-manual-payment");
+Route::view("/manual-payment", "payment.manual-payment");
+
 // SSLCOMMERZ Start
 Route::get('/sslcommerz/pay', 'PublicSslCommerzPaymentController@index');
 Route::POST('/sslcommerz/success', 'PublicSslCommerzPaymentController@success');

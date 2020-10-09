@@ -1,1 +1,5 @@
 ﻿storage/logs/laravel-2020-10-07.log
+.env
+.env.*.php
+.env.php
+.htaccess
