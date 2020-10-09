@@ -18,21 +18,16 @@
     <div class="card-body">
         @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
             @php
-                $total_point = 0;
+                $total_point = Auth::user()->poin;
+                $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
             @endphp
-            @foreach (Session::get('cart') as $key => $cartItem)
+            @if (Session::has('poin_use'))
                 @php
-                    $product = \App\Product::find($cartItem['id']);
-                    $total_point += $product->earn_point*$cartItem['quantity'];
+                    $total_point -= Session::get('poin_use');
                 @endphp
-            @endforeach
+            @endif
             <span style="text-transform:capitalize;font-size:16px">tukar poin</span>
-            {{--
-                <div class="club-point mb-3 bg-soft-base-1 border-light-base-1 border" style="text-transform:capitalize;font-size:18px">
-                {{ translate("poin anda") }}:
-                <span class="strong-700 float-right">{{ $total_point }}</span>
-                </div>
-            --}}
+           
             <div class="row">
                 <div class="col-6">
                     <div class="point-cart__">
@@ -43,18 +38,21 @@
                     <span class="badge badge-md badge-success">{{ count(Session::get('cart')) }} {{translate('Items')}}</span>
                 </div>
             </div>
-            <div class="row">
-                <form style="width: 100%;">
-                    <div class="form-row align-items-center">
-                        <div class="col-8">
-                            <input type="text" class="form-control" id="inlineFormInputName2" placeholder="Masukkan Poin Anda">
-                        </div>
-                        <div class="col-4 my-3">
-                            <button type="submit" class="btn btn-primary1 px-4">Pakai</button>
-                        </div>
-                    </div>
-                </form>
+            <form  action="{{ route('use_poin') }}" method="POST">
+            @csrf
+            <div class="row" style="margin-top: 8px;margin-bottom: 16px;">
+               
+               <div class="col-8">
+                    <input type="number" min="1" name="jml" class="form-control" value="{{ Session::has('poin_use') ? Session::get('poin_use') : '' }}" id="inlineFormInputName2" placeholder="Masukkan Poin Anda">
+                </div>
+                <div class="col-4" style="text-align: end;">
+                    <button type="submit" class="btn btn-primary1 px-4">Pakai</button>
+                </div>
+              
+                        
+                
             </div>
+            </form>
         @endif
         <table class="table-cart table-cart-review">
             <thead>
@@ -127,10 +125,22 @@
                     </tr>
                 @endif
 
+                 @if (Session::has('poin_use'))
+                    <tr class="cart-shipping">
+                        <th>{{translate('Diskon Poin')}}</th>
+                        <td class="text-right">
+                            <span class="text-italic">{{ single_price(Session::get('poin_use')*$club_point_convert_rate->value) }}</span>
+                        </td>
+                    </tr>
+                @endif
+
                 @php
                     $total = $subtotal+$tax+$shipping;
                     if(Session::has('coupon_discount')){
                         $total -= Session::get('coupon_discount');
+                    }
+                    if(Session::has('poin_use')){
+                        $total -= Session::get('poin_use')*$club_point_convert_rate->value;
                     }
                 @endphp
 
