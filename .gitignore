@@ -2,3 +2,4 @@
 .env
 .env.*.php
 .env.php
+.htaccess
