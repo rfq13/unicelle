@@ -129,7 +129,7 @@
                                         @endphp
                                         @if ($qty > 0)
                                             <li>
-                                                <span class="badge badge-md badge-pill bg-green">{{ translate('In stock')}}</span>
+                                                <span class="badge badge-md badge-pill bg-green" style="font-weight: 900;">{{ translate('In stock')}}</span>
                                             </li>
                                         @else
                                             <li>
@@ -139,6 +139,7 @@
                                     </ul>
                                 </div>
                             </div>
+                            <span class="badge badge-pill badge-md badge-primary" style="font-weight: bold;">{{ $detailedProduct->earn_point > 0 ? $detailedProduct->earn_point : ''}} Point</span>
                             <div class="harga__produk">
                                 <span class="price__produk">
                                 @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
