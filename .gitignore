@@ -3,4 +3,4 @@
 .env.*.php
 .env.php
 .htaccess
-storage/logs/*
+storage/logs*
