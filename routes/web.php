@@ -12,6 +12,7 @@
 */
 // use App\Mail\SupportMailManager;
 //demo
+
 Route::get('/demo/cron_1', 'DemoController@cron_1');
 Route::get('/demo/cron_2', 'DemoController@cron_2');
 
@@ -95,6 +96,8 @@ Route::get('/sitemap.xml', function () {
 	return base_path('sitemap.xml');
 });
 
+Route::view("tentang-kami", "about.show")->name("about");
+Route::view("privacy-policy", "privacy-policy.show")->name("privacy.policy");
 
 Route::get('/customer-products', 'CustomerProductController@customer_products_listing')->name('customer.products');
 Route::get('/customer-products?subsubcategory={subsubcategory_slug}', 'CustomerProductController@search')->name('customer_products.subsubcategory');

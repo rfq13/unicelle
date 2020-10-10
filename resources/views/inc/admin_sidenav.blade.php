@@ -662,7 +662,14 @@
                                 </a>
                             </li>
                         @endif
-
+                        @if(Auth::user()->user_type == 'admin' || in_array('12', json_decode(Auth::user()->staff->role->permissions)))
+                        <li>
+                            <a class="nav-link" href="{{ route('about.index') }}">
+                                <i class="fa fa-info-circle"></i>
+                                <span class="menu-title">{{translate('About')}}</span>
+                            </a>
+                        </li>
+                        @endif
                     </ul>
                 </div>
             </div>
