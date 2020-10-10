@@ -49,7 +49,7 @@
                 </div>
                 <div class="col pl-0 mt-2" style="width:20px; text-align:left;">
                     <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">{{Auth::user()->name}}</p>
-                    <span class="text-dd-profile">20</span><span class="ml-2">point</span>
+                    <span class="text-dd-profile">{{ Auth::user()->poin }}</span><span class="ml-2">point</span>
                 </div>
             </div>
                 <a class="dropdown-item" href="{{route('profile')}}">Akun Saya</a>

@@ -225,4 +225,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 	Route::resource('countries', 'CountryController');
 	Route::post('/countries/status', 'CountryController@updateStatus')->name('countries.status');
+	Route::get('/bank_setup' ,'BusinessSettingsController@bank_setup')->name('bank_setup');
+	Route::post('/bank_setup_store','BusinessSettingsController@bank_setup_store')->name('bank_setup_store');
 });

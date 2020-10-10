@@ -197,9 +197,9 @@ class OrderController extends Controller
         else{
             $order->guest_id = mt_rand(100000, 999999);
         }
-
-        $order->shipping_address = json_encode($request->session()->get('shipping_info'));
-
+        $shipping_info = decrypt($request->shipping_info);
+        $order->shipping_address = Auth::user()->addresseDefault->id;
+        $order->shipping_info = json_encode($shipping_info);
         $order->payment_type = $request->payment_option;
         $order->delivery_viewed = '0';
         $order->payment_status_viewed = '0';
@@ -253,18 +253,18 @@ class OrderController extends Controller
                 $order_detail->variation = $product_variation;
                 $order_detail->price = $cartItem['price'] * $cartItem['quantity'];
                 $order_detail->tax = $cartItem['tax'] * $cartItem['quantity'];
-                $order_detail->shipping_type = $cartItem['shipping_type'];
+                // $order_detail->shipping_type = $cartItem['shipping_type'];
                 $order_detail->product_referral_code = $cartItem['product_referral_code'];
 
                 //Dividing Shipping Costs
-                if ($cartItem['shipping_type'] == 'home_delivery') {
-                    $order_detail->shipping_cost = getShippingCost($key);
-                    $shipping += $order_detail->shipping_cost;
-                }
-                else{
-                    $order_detail->shipping_cost = 0;
-                    $order_detail->pickup_point_id = $cartItem['pickup_point'];
-                }
+                // if ($cartItem['shipping_type'] == 'home_delivery') {
+                //     $order_detail->shipping_cost = getShippingCost($key);
+                //     $shipping += $order_detail->shipping_cost;
+                // }
+                // else{
+                //     $order_detail->shipping_cost = 0;
+                //     $order_detail->pickup_point_id = $cartItem['pickup_point'];
+                // }
                 //End of storing shipping cost
 
                 $order_detail->quantity = $cartItem['quantity'];
@@ -284,6 +284,30 @@ class OrderController extends Controller
                 $coupon_usage->user_id = Auth::user()->id;
                 $coupon_usage->coupon_id = Session::get('coupon_id');
                 $coupon_usage->save();
+            }
+            if(Session::has('poin_use')){
+                $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
+                $total = Session::get('poin_use')*$club_point_convert_rate->value;
+                $order->grand_total -= $total;
+                $order->poin_convert = $total;
+                $order->use_poin = Session::get('poin_use');
+                Auth::user()->poin -= Session::get('poin_use');
+                Auth::user()->save();
+                $order->save();
+            }
+
+            if(Session::has('data_dropshiper')){
+              
+                $dropshiper = Session::get('data_dropshiper');
+                $order->dropsiper = json_encode($dropshiper);
+                $order->save();
+            }
+
+            if(isset($shipping_info))
+            {
+                $order->grand_total += $shipping_info->cost;
+                $order->shipping_cost = $shipping_info->cost;
+                $order->save();
             }
 
             $order->save();

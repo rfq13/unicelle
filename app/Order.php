@@ -25,4 +25,9 @@ class Order extends Model
     {
         return $this->belongsTo(PickupPoint::class);
     }
+
+    public function addresse()
+    {
+        return $this->belongsTo(Address::class,'shipping_address');
+    }
 }

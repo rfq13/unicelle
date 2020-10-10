@@ -18,7 +18,7 @@
     <div class="card-body">
         @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
             @php
-                $total_point = Auth::user()->poin;
+                $total_point = Auth::check() ? Auth::user()->poin : 0;
                 $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
             @endphp
             @if (Session::has('poin_use'))
@@ -66,6 +66,10 @@
                     $subtotal = 0;
                     $tax = 0;
                     $shipping = 0;
+                    if(isset($ongkir))
+                    {
+                        $shipping = $ongkir->cost;
+                    }
                 @endphp
                 @foreach (Session::get('cart') as $key => $cartItem)
                     @php
@@ -176,13 +180,21 @@
                 </div>
             @endif
         @endif
-
+        <form action="{{ route('payment.checkout') }}" id="form-checkout" method="POST">
+        @csrf
+        <input type="hidden" name="shipping_info" id="shipping_info" @if(isset($ongkir)) value="{{ encrypt($ongkir) }}" @endif>
+        <input type="hidden" name="payment_option" value="manual_transfer">
         <div class="row text-center" >
             @if(Auth::check())
+                @if(isset($ongkir))
+                <button type="submit" class="btn btn-default" style="margin:auto;color:white;width:100%" class="py-2">{{ translate('Checkout')}}</button>
+                @else
                 <a href="{{ route('checkout.shipping_info') }}" class="btn btn-default" style="margin:auto;color:white;width:100%" class="py-2">{{ translate('Checkout')}}</a>
+                @endif
             @else
-                <button style="margin:auto;color:#006064" class="py-2" onclick="showCheckoutModal()">{{ translate('Checkout')}}</button>
+                <button type="button" style="margin:auto;color:#006064" class="py-2" onclick="showCheckoutModal()">{{ translate('Checkout')}}</button>
             @endif
         </div>
+        </form>
     </div>
 </div>

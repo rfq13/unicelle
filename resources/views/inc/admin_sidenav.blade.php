@@ -491,6 +491,11 @@
                                         <a class="nav-link" href="{{route('countries.index')}}">{{translate('Shipping Countries')}}</a>
                                     </li>
                                 </li>
+                                <li>
+                                    <li class="{{ areActiveRoutes(['bank_setup'])}}">
+                                        <a class="nav-link" href="{{route('bank_setup')}}">{{translate('Bank Setting')}}</a>
+                                    </li>
+                                </li>
                             </ul>
                         </li>
                         @endif

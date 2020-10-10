@@ -7,6 +7,7 @@ use App\Currency;
 use App\BusinessSetting;
 use Artisan;
 use CoreComponentRepository;
+use ImageOptimizer;
 
 class BusinessSettingsController extends Controller
 {
@@ -343,6 +344,32 @@ class BusinessSettingsController extends Controller
         $business_settings = BusinessSetting::where('type', $request->type)->first();
         $business_settings->value = $request[$request->type];
         $business_settings->save();
+        return back();
+    }
+
+    public function bank_setup(Request $request)
+    {
+
+        return view("bank_config.bank_config");
+    }
+
+    public function bank_setup_store(Request $request)
+    {
+        $bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
+        $_var['LOGO'] = $request->previous_logo;
+        $_var['BANK_NAME'] = $request->BANK_NAME;
+        $_var['BANK_NO_REK'] = $request->BANK_NO_REK;
+        $_var['BANK_ATAS_NAMA'] = $request->BANK_ATAS_NAMA;
+
+        if($request->hasFile('logo')){
+            $_var['LOGO'] = $request->logo->store('uploads/bank');
+            ImageOptimizer::optimize(base_path('public/').$_var['LOGO']);
+        }
+
+        $bank_setting->type = "bank_setting";
+        $bank_setting->value=  json_encode($_var);
+        $bank_setting->save();
+        flash(translate("Settings updated successfully"))->success();
         return back();
     }
 }
