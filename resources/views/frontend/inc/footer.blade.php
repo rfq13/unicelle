@@ -22,7 +22,7 @@
                             <h5>Tentang Kami</h5>
                             <ul class="list-unstyled">
                                 <li><a style="color:black" href="{{route('about')}}">Tentang Unicelle</a></li>
-                                <li><a style="color:black" href="#">Artikel / Blog</a></li>
+                                <li><a style="color:black" href="{{route('blog.article')}}">Artikel / Blog</a></li>
                                 <li><a style="color:black" href="{{route('privacy.policy')}}">Syarat & Ketentuan</a></li>
                             </ul>
                         </div>

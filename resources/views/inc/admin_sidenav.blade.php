@@ -441,6 +441,11 @@
                                     </ul>
 
                                 </li>
+                                <li>
+                                    <a class="nav-link" href="{{ route('about.index') }}">
+                                        <span class="menu-title">{{translate('About')}}</span>
+                                    </a>
+                                </li>
                                 <li class="{{ areActiveRoutes(['pages.index', 'pages.create', 'pages.edit'])}}">
                                     <a class="nav-link" href="{{route('pages.index')}}">{{translate('Custom Pages')}}</a>
                                 </li>
@@ -661,14 +666,6 @@
                                     <span class="menu-title">{{translate('Addon Manager')}}</span>
                                 </a>
                             </li>
-                        @endif
-                        @if(Auth::user()->user_type == 'admin' || in_array('12', json_decode(Auth::user()->staff->role->permissions)))
-                        <li>
-                            <a class="nav-link" href="{{ route('about.index') }}">
-                                <i class="fa fa-info-circle"></i>
-                                <span class="menu-title">{{translate('About')}}</span>
-                            </a>
-                        </li>
                         @endif
                     </ul>
                 </div>

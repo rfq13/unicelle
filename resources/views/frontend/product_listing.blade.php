@@ -49,21 +49,45 @@
     <section class="section-detail-produk">
         <div class="container">
             <div class="container mb-5">
-                <nav aria-label="breadcrumb">
-                    <ul class="breadcrumb mb-5">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" style="color:#3BB6B1" aria-current="page">Hasil Pencarian</li>
-                    </ul>
-                </nav>
+                <ul class="breadcrumb">
+                    <li><a href="{{ route('home') }}">{{ translate('Home')}}</a></li>
+                    <li><a href="{{ route('products') }}">{{ translate('All Categories')}}</a></li>
+                    @if(isset($category_id))
+                        <li class="active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></li>
+                    @endif
+                    @if(isset($subcategory_id))
+                        <li ><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ \App\SubCategory::find($subcategory_id)->category->name }}</a></li>
+                        <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ \App\SubCategory::find($subcategory_id)->name }}</a></li>
+                    @endif
+                    @if(isset($subsubcategory_id))
+                        <li ><a href="{{ route('products.category', \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name }}</a></li>
+                        <li ><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ \App\SubsubCategory::find($subsubcategory_id)->subcategory->name }}</a></li>
+                        <li class="active"><a href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
+                    @endif
+                </ul>
                 <div class="container ml-3">
                     <div class="row">
                         <p class="text-hasilpencarian mt-3">Hasil Pencarian :</p>
-                        <p class="text-hasil mt-3">Imboost</p>
+                        <ul>
+                            @if(isset($category_id))
+                                <p class="text-hasil mt-3 active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></p>
+                            @endif
+                            @if(isset($subcategory_id))
+                                <li ><a href="{{ route('products.category', \App\SubCategory::find($subcategory_id)->category->slug) }}">{{ \App\SubCategory::find($subcategory_id)->category->name }}</a></li>
+                                <li class="active"><a href="{{ route('products.subcategory', \App\SubCategory::find($subcategory_id)->slug) }}">{{ \App\SubCategory::find($subcategory_id)->name }}</a></li>
+                            @endif
+                            @if(isset($subsubcategory_id))
+                                <li ><a href="{{ route('products.category', \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->subcategory->category->name }}</a></li>
+                                <li ><a href="{{ route('products.subcategory', \App\SubsubCategory::find($subsubcategory_id)->subcategory->slug) }}">{{ \App\SubsubCategory::find($subsubcategory_id)->subcategory->name }}</a></li>
+                                <li class="active"><a href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
+                            @endif
+                        </ul>
+                        {{-- <p class="text-hasil mt-3">Imboost</p> --}}
                         <div class="row col ridge ml-5">
                             <p class="text-urutkan mt-4 ml-3">Urutkan</p>
                             <a class="col-3 btn btn-urutkan ml-3 mt-3 mb-3" href="">Terlaris</a>
                             <a class="col-3 btn btn-urutkan mt-3 mb-3"href="">Harga Tertinggi</a>
-                            <a class="col-3 btn btn-urutkan-active mt-3 mb-3" href="">Harga Terendah</a>
+                            <a class="col-3 btn btn-urutkan-active mt-3 mb-3" @isset($sort_by) @if ($sort_by == '3') selected @endif @endisset href="#">Harga Terendah</a>
                         </div>
                     </div>
                 </div> 

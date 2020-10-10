@@ -11,8 +11,12 @@
               <img class="img__ img-fluid" src="{{my_asset("images/img/banner-syarat&ketentuan.jpg")}}" alt="">
           </div>
       </div>
+      @php
+          $policy = \App\Policy::where('name', "privacy_policy")->first();
+        //   dd($policy);
+      @endphp
       <div class="text-syarat-ketentuan">
-          <p>
+          {{-- <p>
               Kebijakan Privasi Unicelle adalah penjelasan terkait data dan informasi pribadi Pengguna
               Unicelle, meliputi:
 
@@ -59,7 +63,8 @@
               KONTAK BUKALAPAK
 
               Pengguna dapat menghubungi Bukalapak terkait Kebijakan Privasi ini melalui BukaBantuan
-          </p>
+          </p> --}}
+        {!!$policy->content!!}
       </div>
   </div>
 </div>

@@ -45,7 +45,7 @@
             @auth
             <div class="row">
                 <div class="ml-4 mr-2 pr-0">
-                    <img class="profile-icon" src="{{ my_asset('img/header_dan_footer/icon/fb.png') }}" alt="">
+                    <img class="profile-icon" src="{{ Auth::user()->avatar_original != null ? my_asset(Auth::user()->avatar_original) : my_asset('img/header_dan_footer/icon/fb.png')  }}" alt="">
                 </div>
                 <div class="col pl-0 mt-2" style="width:20px; text-align:left;">
                     <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">{{Auth::user()->name}}</p>

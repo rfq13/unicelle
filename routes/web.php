@@ -63,7 +63,7 @@ Route::get('/artikel', function () {
 });
 Route::get('/artikel-blog', function () {
 	return view('article.article-blog');
-});
+})->name('blog.article');
 Route::get('/syaratdanketentuan', function () {
 	return view('article.syaratdanketentuan');
 });

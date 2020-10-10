@@ -49,15 +49,22 @@
                 <div class="mb-4">
                     <div class="container">
                         <div class="row gutters-10">
-                            <div class="col-md-2">
-                                <div class="margin:auto;" style="width: 8rem; margin:5px;">
-                                    <img src="{{ my_asset('img/homepage/icon/p3k.png') }}" style="width:100px; margin:auto;" class="card-img-top text-center" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">P3K</p>
+                            @php
+                                $category = \App\Category::orderBy('created_at', 'desc')->get();
+                            @endphp
+                            @foreach ($category as $key => $value)
+                                <div class="col-md-2">
+                                    <div class="margin:auto;" style="width: 8rem; margin:5px;">
+                                        <a href="{{route('products.category',$value->slug)}}">
+                                            <img src="{{ my_asset($value->banner) }}" style="width:100px; margin:auto;" class="card-img-top text-center" alt="...">
+                                            <div class="card-body">
+                                            <p class="card-text text-dark">{{$value->name}}</p>
+                                            </div>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
+                            @endforeach
+                            {{-- <div class="col-md-2">
                                 <div class="margin:auto;" style="width: 8rem; margin:10px">
                                     <img src="{{ my_asset('img/homepage/icon/jantung.png') }}" style="width:100px; margin:auto; " class="card-img-top" alt="...">
                                     <div class="card-body">
@@ -96,7 +103,7 @@
                                         <p class="card-text">Diet</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
 
@@ -107,8 +114,8 @@
                             @php
                                 $products = \App\Product::all();
                             @endphp
-                            @foreach($products as $p)
                             <div class="row gutters-10">
+                                @foreach($products as $p)
                                 <div class="col-md-2 mt-3">
                                     <div class="card text-center" >
                                         <div class="card-body">
@@ -129,8 +136,8 @@
                                         <a href="#" onclick="addToCart({{$p->id}})" class="btn btn-card-obat">Tambah</a>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         <div class="width:10px" style="text-align:center">
                                <a href="#" class="btn mt-5" style="background:#3BB6B1; color:#fff; width:20%;">Selanjutnya</a>
                         </div>
