@@ -45,7 +45,7 @@
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{ translate('Customer')}}:</td>
-                            <td>{{ json_decode($order->shipping_address)->name }}</td>
+                            <td>{{ $order->user->name }}</td>
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{ translate('Email')}}:</td>
@@ -55,7 +55,7 @@
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{ translate('Shipping address')}}:</td>
-                            <td>{{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, {{ json_decode($order->shipping_address)->postal_code }}, {{ json_decode($order->shipping_address)->country }}</td>
+                            <td>{{ $order->addresse->address }}, {{ $order->addresse->subdistrict }}, {{ $order->addresse->city }} {{ $order->addresse->postal_code }}</td>
                         </tr>
                     </table>
                 </div>
@@ -123,13 +123,19 @@
                                         {{ $orderDetail->quantity }}
                                     </td>
                                     <td>
-                                        @if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
+                                        @php
+                                        $shipping_info = json_decode($order->shipping_info);
+                                        @endphp 
+                                        {{--@if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
                                             {{  translate('Home Delivery') }}
                                         @elseif ($orderDetail->shipping_type == 'pickup_point')
                                             @if ($orderDetail->pickup_point != null)
                                                 {{ $orderDetail->pickup_point->name }} ({{  translate('Pickip Point') }})
                                             @endif
-                                        @endif
+                                        @endif--}}
+                                       
+                                        {{ $shipping_info->code }} {{ $shipping_info->services }}
+
                                     </td>
                                     <td>{{ single_price($orderDetail->price) }}</td>
                                     @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
@@ -174,7 +180,7 @@
                             <tr>
                                 <th>{{ translate('Shipping')}}</th>
                                 <td class="text-right">
-                                    <span class="text-italic">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</span>
+                                    <span class="text-italic">{{ single_price($order->shipping_cost) }}</span>
                                 </td>
                             </tr>
                             <tr>
@@ -187,6 +193,12 @@
                                 <th>{{ translate('Coupon Discount')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->coupon_discount) }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ translate('Point Discount')}}</th>
+                                <td class="text-right">
+                                    <span class="text-italic">{{ single_price($order->poin_convert) }}</span>
                                 </td>
                             </tr>
                             <tr>

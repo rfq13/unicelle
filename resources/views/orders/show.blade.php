@@ -35,18 +35,26 @@
     		<div class="invoice-bill row">
     			<div class="col-sm-6 text-xs-center">
     				<address>
-        				<strong class="text-main">{{ json_decode($order->shipping_address)->name }}</strong><br>
-                         {{ json_decode($order->shipping_address)->email }}<br>
-                         {{ json_decode($order->shipping_address)->phone }}<br>
-        				 {{ json_decode($order->shipping_address)->address }}, {{ json_decode($order->shipping_address)->city }}, {{ json_decode($order->shipping_address)->postal_code }}<br>
-                         {{ json_decode($order->shipping_address)->country }}
+                        
+                        <strong class="text-main">{{ translate('ALAMAT PENGIRIMAN') }}</strong>
+        				<strong class="text-main">{{ $order->addresse->name }}</strong><br>
+                         {{ $order->addresse->phone }}<br>
+        				 {{ $order->addresse->address }}, {{ $order->addresse->subdistrict }}, {{ $order->addresse->city }}<br>{{ $order->addresse->province }},{{ $order->addresse->postal_code }}
                     </address>
-                    @if ($order->manual_payment && is_array(json_decode($order->manual_payment_data, true)))
+                    @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
                         <br>
                         <strong class="text-main">{{ translate('Payment Information') }}</strong><br>
-                        Name: {{ json_decode($order->manual_payment_data)->name }}, Amount: {{ single_price(json_decode($order->manual_payment_data)->amount) }}, TRX ID: {{ json_decode($order->manual_payment_data)->trx_id }}
+                        No Rek. : {{ json_decode($order->manual_payment)->norek }}<br> A/n : {{ json_decode($order->manual_payment)->name }}
                         <br>
-                        <a href="{{ my_asset(json_decode($order->manual_payment_data)->photo) }}" target="_blank"><img src="{{ my_asset(json_decode($order->manual_payment_data)->photo) }}" alt="" height="100"></a>
+                        <a href="{{ my_asset(json_decode($order->manual_payment)->foto) }}" target="_blank"><img src="{{ my_asset(json_decode($order->manual_payment)->foto) }}" alt="" height="100"></a>
+                    @endif
+
+                    @if ($order->dropsiper && is_array(json_decode($order->dropsiper, true)))
+                        <br><br>
+                        <strong class="text-main">{{ translate('DROPSHIPPER') }}</strong><br>
+                        Name: {{ json_decode($order->dropsiper)->nama }}<br>Phone: {{ json_decode($order->dropsiper)->nomor_tlp }}
+                        <br>
+        
                     @endif
     			</div>
     			<div class="col-sm-6 text-xs-center">
@@ -198,11 +206,19 @@
     				</td>
     			</tr>
                 <tr>
+                    <td>
+                        <strong>{{translate('Shipping')}} :</strong>
+                    </td>
+                    <td>
+                        {{ single_price($order->shipping_cost) }}
+                    </td>
+                </tr>
+                <tr>
     				<td>
-    					<strong>{{translate('Shipping')}} :</strong>
+    					<strong>{{translate('Point Discount')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }}
+    					{{ single_price($order->poin_convert) }}
     				</td>
     			</tr>
     			<tr>
@@ -210,7 +226,7 @@
     					<strong>{{translate('TOTAL')}} :</strong>
     				</td>
     				<td class="text-bold h4">
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('shipping_cost')) }}
+    					{{ single_price($order->grand_total) }}
     				</td>
     			</tr>
     			</tbody>

@@ -98,21 +98,23 @@ div.pac-container {
                                     <p class="mt-3 text-checkout">Kirim Sebagai Dropshipper</p>
                                 </div>
                                 <label class="mt-3 cb-pengiriman">
-                                    <input type="checkbox" id="myCheck" onclick="myFunction()">
+                                    <input type="checkbox" id="myCheck" onclick="myFunction()" @if(!\Session::has('data_dropshiper')) checked @endif>
                                     <span class="cb-checkmark"></span>
                                 </label>
                             </div>
                             <hr>
-                            <div class="container"  id="form_dropshipper" style="display:none;">
+                            <div class="container"  id="form_dropshipper" @if(!\Session::has('data_dropshiper')) style="display:none;" @endif>
+                                <form action="{{ route('checkout.dropshipper') }}" method="post">
+                                @csrf
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group ">
-                                            <input type="name" class="form-control" placeholder="Nama">
+                                            <input type="text" name="nama" class="form-control" placeholder="Nama" value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['nama'] : '' }}" required>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group ">
-                                            <input type="name" class="form-control" placeholder="No.Telepon">
+                                            <input type="text" name="nomor_tlp" class="form-control" placeholder="No.Telepon"  value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['nomor_tlp'] : '' }}"  required>
                                         </div>
                                     </div>
                                     <div class="mx-auto">
@@ -121,48 +123,12 @@ div.pac-container {
                                             <a style="color: #424242;" href="#">Petunjuk Dropshipper</li></a>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>
                 
-                    <div class="col-sm-5 ml-4" style="padding-bottom: 50%;">
-                        {{--<div class="container card">
-                            <p class="mt-3 text-rincian-bayar" style="size: 20px;">Rincian Pembayaran</p>
-                            <div class="row">
-                                <div class="col-6">
-                                    <p class="text-rincian-harga">Subtotal</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-rincian-harga" style="text-align: right;">Rp. 13.000</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-rincian-harga">Biaya Pengiriman</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-rincian-harga" style="text-align: right;">Rp. 13.000</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-rincian-harga" style="color: #B71C1C;">Total</p>
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-rincian-harga" style="color: #B71C1C; text-align: right;">Rp. 13.000</p>
-                                </div>
-                            </div>
-                            <div class="container" style="border-bottom:1px solid #C4C4C4">
-                                
-                            </div>
-                            <div class="row">
-                                <div class="col-7">
-                                    <p class="text-ekspedisi">Point yang akan di dapat</p>
-                                </div>
-                                <div class="col-5">
-                                    <p class="price__produk" style="text-align: right;">+18</p>
-                                </div>
-                            </div>
-                            <button class="mb-2 btn btn-default">Lanjutkan Pembayaran</button>
-
-                            
-                        </div>--}}
+                    <div class="col-sm-5 ml-4" id="rincian_bayar" style="padding-bottom: 50%;">
                         @include('frontend.partials.cart_summary')
                     </div>
             </div>
@@ -299,7 +265,7 @@ function initMap() {
                 var place = result['address_components'];
                 $('#kode_pos_alamat').val("");
                 $.each(place,function(index,value){
-                    console.log(value);
+                    // console.log(value);
                     if(value.types[0] == "administrative_area_level_1"){
                         $('#provinsi').val(value.long_name);
                     }else if(value.types[0] == "administrative_area_level_2"){
@@ -333,7 +299,7 @@ function initMap() {
             var place = result['address_components'];
             $('#kode_pos_alamat').val("");
             $.each(place,function(index,value){
-                console.log(value);
+                // console.log(value);
                 if(value.types[0] == "administrative_area_level_1"){
                     $('#provinsi').val(value.long_name);
                 }else if(value.types[0] == "administrative_area_level_2"){
@@ -403,12 +369,12 @@ function setsearchbox(map,marker)
           var bounds = new google.maps.LatLngBounds();
           places.forEach(function(place) {
             if (!place.geometry) {
-              console.log("Returned place contains no geometry");
+              // console.log("Returned place contains no geometry");
               return;
             }
              $('#kode_pos_alamat').val("");
             $.each(place.address_components,function(index,value){
-                console.log(value);
+                // console.log(value);
                 if(value.types[0] == "administrative_area_level_1"){
                     $('#provinsi').val(value.long_name);
                 }else if(value.types[0] == "administrative_area_level_2"){
@@ -419,7 +385,7 @@ function setsearchbox(map,marker)
                     $('#kode_pos_alamat').val(value.long_name);
                 }
             });
-            console.log(place.geometry.location.lat());
+            // console.log(place.geometry.location.lat());
             $('input[name="lat"]').val(place.geometry.location.lat());
             $('input[name="lng"]').val(place.geometry.location.lng());
             marker.setPosition(place.geometry.location);
@@ -438,6 +404,15 @@ function setsearchbox(map,marker)
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 <script type="text/javascript">
+    function handle_ongkir(param){
+        console.log(param);
+        blockui("#rincian_bayar");
+        $.post('{{ route('checkout.set_ongkir') }}', { _token:'{{ csrf_token() }}', param: param }, function(data){
+            $('#rincian_bayar').html(data.cart_summary);
+            unblockui("#rincian_bayar");
+        });
+
+    }
     function getCostAddress(lat,lng)
     {   blockui("#data-ongkir");
         $.post('{{ route('addresse.cost') }}', { _token:'{{ csrf_token() }}', lat: lat,lng: lng}, function(data){

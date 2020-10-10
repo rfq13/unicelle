@@ -10,7 +10,7 @@
 <div class="col-12">
     <div class="d-flex align-items mt-3">
         <label class="mt-2 cb-pengiriman">
-            <input type="radio" name="radio" value="{{ $hasil }}">
+            <input type="radio" name="radio" value="{{ encrypt($hasil) }}" onclick="handle_ongkir($(this).val())">
             <span class="cb-checkmark"></span>
         </label>
         <div class="col-6">

@@ -1,6 +1,6 @@
 @extends("frontend.layouts.app")
 
-@section('style')
+{{--@section('style')
 <style>
   .uploader {
       display: block;
@@ -159,8 +159,11 @@
       cursor: pointer;
   }
 </style>
-@endsection
-
+@endsection--}}
+@php
+$bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
+$config =  json_decode( $bank_setting->value);
+@endphp
 @section('content')
   <div class="row">
       <div class="col-2"></div>
@@ -174,66 +177,86 @@
                           <table>
                               <tr>
                                   <td class="w-100" style="font-size: 18px;">Total Pembayaran</td>
-                                  <th style="color: #B71C1C; font-size: 18px;">Rp31.500</th>
+                                  <th style="color: #B71C1C; font-size: 18px;">{{ single_price($order->grand_total) }}</th>
                               </tr>
                           </table>
                       </div>
                       <div class="row mt-1 mt-lg-3">
                           <div class="col-4">
                               <span class="font-weight-bold">Metode Pembayaran</span>
-                              <img src="bni-02.png" alt="" class="text-center" style="width: 60px; height: 60px; ">
+                              <img src="{{ my_asset($config->LOGO) }}" alt="" class="text-center" style="width: 60px; height: 60px; ">
                           </div>
                           <div class="col-8 border-left">
                               <table>
                                   <tr>
                                       <th class="pr-5">Bank</th>
-                                      <td>: Bank BNI</td>
+                                      <td>: {{ $config->BANK_NAME }}</td>
                                   </tr>
                                   <tr>
                                       <th>No. Rek</th>
-                                      <td>: 54654 8845 2156</td>
+                                      <td>: {{ $config->BANK_NO_REK }}</td>
                                   </tr>
                                   <tr>
                                       <th>a/n</th>
-                                      <td>: Aninda Nitaa</td>
+                                      <td>: {{ $config->BANK_ATAS_NAMA }}</td>
                                   </tr>
                               </table>
                           </div>
                       </div>
-
-
+                      <hr>
+                      <form id="file-upload-form" class="uploader mt-lg-2 mt-1" action="{{ route('payment.store') }}" method="post" enctype="multipart/form-data">
+                          @csrf
+                       
+                          <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">No. Re</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" id="inputPassword" name="norek" placeholder="No Rekening." @if($order->manual_payment && is_array(json_decode($order->manual_payment, true))) value="{{ json_decode($order->manual_payment)->norek }}"  @endif required>
+                            </div>
+                          </div>
+                          <div class="form-group row">
+                            <label for="inputPassword" class="col-sm-2 col-form-label">A/n</label>
+                            <div class="col-sm-10">
+                              <input type="text" class="form-control" name="name" placeholder="Atas Nama Rek." @if($order->manual_payment && is_array(json_decode($order->manual_payment, true))) value="{{ json_decode($order->manual_payment)->name }}"  @endif required>
+                            </div>
+                          </div>
+                        
                       <div class="info-lanjut-konfirmasi__ my-5">
                           <!-- Upload  -->
-                          <span class="text-muted">Upload Bukti Pembayaran (max. 3MB)</span>
-                          <form id="file-upload-form" class="uploader mt-lg-2 mt-1">
-                              <input id="file-upload" type="file" name="fileUpload" accept="image/*" />
-
-                              <label for="file-upload" id="file-drag">
-                                  <img id="file-image" src="#" alt="Preview" class="hidden">
-                                  <div id="start">
-                                      <i class="fa fa-download" aria-hidden="true"></i>
-                                      <div>Select a file or drag here</div>
-                                      <div id="notimage" class="hidden">Please select an image</div>
-                                      <span id="file-upload-btn" class="btn btn-primary">Select a file</span>
-                                  </div>
-                                  <div id="response" class="hidden">
-                                      <div id="messages"></div>
-                                      <progress class="progress" id="file-progress" value="0">
-                                          <span>0</span>%
-                                      </progress>
-                                  </div>
-                              </label>
-                          </form>
+                          
+                          <input type="hidden" name="order_id" value="{{ $order->id }}">
+                          <div class="row" style="padding: 0 40px;">
+                            <p class="mx-0 my-2" style="font-weight: 600;">*Upload Bukti Pembayaran <span style="font-weight: 400;">(max. 5MB)</span></p>
+                            <div  class="rounded width-100 text-center" style="border: 1px solid #3B6CB6;height: 200px;">
+                                @if($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
+                                @php
+                                $img = my_asset(json_decode($order->manual_payment)->foto);
+                                @endphp
+                                <label for="photo" id="display-foto" class="mb-0 text-center" style="background-repeat: no-repeat;background-position: center center;background-size: contain; width: 100%;cursor: pointer;background-image: url({{$img}});">
+                                    <i class="fa fa-edit" aria-hidden="true" style="font-size: 36px; line-height: 200px;"></i>
+                                </label>
+                                <input type="file" id="photo" name="photo" style="display: none;" accept="image/x-png,image/gif,image/jpeg"/>
+                                @else
+                                <label for="photo" id="display-foto" class="mb-0 text-center" style="width: 100%;cursor: pointer;">
+                                    <i class="fa fa-download" aria-hidden="true" style="font-size: 36px; line-height: 200px;"></i>
+                                </label>
+                                <input type="file" id="photo" name="photo" style="display: none;" accept="image/x-png,image/gif,image/jpeg" required />
+                                @endif
+                                
+                            </div>
+                            
+                           
+                        </div>
                       </div>
 
                       <div class="row mt-3 mt-lg-5">
                           <div class="col-6 text-center">
-                              <a href="" class="btn btn-danger w-100">Batal</a>
+                              <a href="" class="btn btn-danger w-80">Batal</a>
                           </div>
                           <div class="col-6 text-center">
-                              <a href="" class="btn btn-primary1 w-100">Konfirmasi Pembayaran</a>
+                              <button type="submit" class="btn btn-primary1 w-80">Konfirmasi Pembayaran</button>
                           </div>
                       </div>
+                      </form>
 
                   </div>
               </div>
@@ -243,147 +266,30 @@
 @endsection
 
 @section('script')
-    <script>
+<script type="text/javascript">
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    
+    reader.onload = function(e) {
+      // $('#blah').attr('src', e.target.result);
+        $('#display-foto').css('background-image','url('+e.target.result+')');
+        $('#display-foto').css('background-size','contain');
+        $('#display-foto').css('background-repeat','no-repeat');
+        $('#display-foto').css('background-position','center center');
+        $('#display-foto').html('<i class="fa fa-edit" aria-hidden="true" style="font-size: 36px; line-height: 200px;"></i>');
 
-function ekUpload() {
-        function Init() {
-
-            console.log("Upload Initialised");
-
-            var fileSelect = document.getElementById('file-upload'),
-                fileDrag = document.getElementById('file-drag'),
-                submitButton = document.getElementById('submit-button');
-
-            fileSelect.addEventListener('change', fileSelectHandler, false);
-
-            // Is XHR2 available?
-            var xhr = new XMLHttpRequest();
-            if (xhr.upload) {
-                // File Drop
-                fileDrag.addEventListener('dragover', fileDragHover, false);
-                fileDrag.addEventListener('dragleave', fileDragHover, false);
-                fileDrag.addEventListener('drop', fileSelectHandler, false);
-            }
-        }
-
-        function fileDragHover(e) {
-            var fileDrag = document.getElementById('file-drag');
-
-            e.stopPropagation();
-            e.preventDefault();
-
-            fileDrag.className = (e.type === 'dragover' ? 'hover' : 'modal-body file-upload');
-        }
-
-        function fileSelectHandler(e) {
-            // Fetch FileList object
-            var files = e.target.files || e.dataTransfer.files;
-
-            // Cancel event and hover styling
-            fileDragHover(e);
-
-            // Process all File objects
-            for (var i = 0, f; f = files[i]; i++) {
-                parseFile(f);
-                uploadFile(f);
-            }
-        }
-
-        // Output
-        function output(msg) {
-            // Response
-            var m = document.getElementById('messages');
-            m.innerHTML = msg;
-        }
-
-        function parseFile(file) {
-
-            console.log(file.name);
-            output(
-                '<strong>' + encodeURI(file.name) + '</strong>'
-            );
-
-            // var fileType = file.type;
-            // console.log(fileType);
-            var imageName = file.name;
-
-            var isGood = (/\.(?=gif|jpg|png|jpeg)/gi).test(imageName);
-            if (isGood) {
-                document.getElementById('start').classList.add("hidden");
-                document.getElementById('response').classList.remove("hidden");
-                document.getElementById('notimage').classList.add("hidden");
-                // Thumbnail Preview
-                document.getElementById('file-image').classList.remove("hidden");
-                document.getElementById('file-image').src = URL.createObjectURL(file);
-            } else {
-                document.getElementById('file-image').classList.add("hidden");
-                document.getElementById('notimage').classList.remove("hidden");
-                document.getElementById('start').classList.remove("hidden");
-                document.getElementById('response').classList.add("hidden");
-                document.getElementById("file-upload-form").reset();
-            }
-        }
-
-        function setProgressMaxValue(e) {
-            var pBar = document.getElementById('file-progress');
-
-            if (e.lengthComputable) {
-                pBar.max = e.total;
-            }
-        }
-
-        function updateFileProgress(e) {
-            var pBar = document.getElementById('file-progress');
-
-            if (e.lengthComputable) {
-                pBar.value = e.loaded;
-            }
-        }
-
-        function uploadFile(file) {
-
-            var xhr = new XMLHttpRequest(),
-                fileInput = document.getElementById('class-roster-file'),
-                pBar = document.getElementById('file-progress'),
-                fileSizeLimit = 1024; // In MB
-            if (xhr.upload) {
-                // Check if file is less than x MB
-                if (file.size <= fileSizeLimit * 1024 * 1024) {
-                    // Progress bar
-                    pBar.style.display = 'inline';
-                    xhr.upload.addEventListener('loadstart', setProgressMaxValue, false);
-                    xhr.upload.addEventListener('progress', updateFileProgress, false);
-
-                    // File received / failed
-                    xhr.onreadystatechange = function (e) {
-                        if (xhr.readyState == 4) {
-                            // Everything is good!
-
-                            // progress.className = (xhr.status == 200 ? "success" : "failure");
-                            // document.location.reload(true);
-                        }
-                    };
-
-                    // Start upload
-                    xhr.open('POST', document.getElementById('file-upload-form').action, true);
-                    xhr.setRequestHeader('X-File-Name', file.name);
-                    xhr.setRequestHeader('X-File-Size', file.size);
-                    xhr.setRequestHeader('Content-Type', 'multipart/form-data');
-                    xhr.send(file);
-                } else {
-                    output('Please upload a smaller file (< ' + fileSizeLimit + ' MB).');
-                }
-            }
-        }
-
-        // Check for the various File API support.
-        if (window.File && window.FileList && window.FileReader) {
-            Init();
-        } else {
-            document.getElementById('file-drag').style.display = 'none';
-        }
     }
-    ekUpload();
+    
+    reader.readAsDataURL(input.files[0]); // convert to base64 string
+  }
+}
 
-    </script>
+$(document).ready(function(){
+    $("#photo").on('change',function(){
+        //do whatever you want
+       readURL(this);
+    })
+});
+</script> 
 @endsection

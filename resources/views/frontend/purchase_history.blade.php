@@ -175,13 +175,22 @@
                                             <p class="mb-0 text-left">
                                                 <span class="title-id-pesanan__">Pembayaran</span>
                                             </p>
+                                            @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
                                             <div class="jumlah-produk-pesanan mt-3">
                                                 @php( $norek = $order->payment_type == "cash_on_delivery" ? "" : "No. 40905398604" )
                                                 <span class="virtual-pembayaran-pesanan__" style="text-transform:uppercase">{{ str_replace("_"," ",$order->payment_type) }}</span>
                                                 <div class="jumlah-number-pesanan__">
-                                                    <span class="no-resi-pesanan__">{{$norek}}</span>
+                                                    <span class="no-resi-pesanan__"> No. Rek {{json_decode($order->manual_payment)->norek  }} <br> a/n {{json_decode($order->manual_payment)->name  }}</span>
                                                 </div>
+                                                <br>
+                                                <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Ubah</a>
                                             </div>
+                                            @else
+                                            <div class="jumlah-produk-pesanan mt-3">
+                                                <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Konfirmasi Pembayaran</a>
+                                            </div>
+                                            @endif
+                                            
                                         </div>
                                     </div>
                                     <div

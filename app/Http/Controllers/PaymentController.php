@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Payment;
 use Auth;
+use App\Order;
+use ImageOptimizer;
 
 class PaymentController extends Controller
 {
@@ -35,9 +37,11 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        $order = Order::findOrFail($id);
+        return view('payment.manual-payment',compact('order'));
     }
 
     /**
@@ -49,6 +53,21 @@ class PaymentController extends Controller
     public function store(Request $request)
     {
         //
+        // dd($request->all());
+        $order = Order::findOrFail($request->order_id);
+        if($request->hasFile('photo')){
+            $order->bukti_bayar = $request->photo->store('uploads/pembayaran');
+            ImageOptimizer::optimize(base_path('public/').$order->bukti_bayar);
+        }
+
+        $_param['norek'] = $request->norek;
+        $_param['name'] = $request->name;
+        $_param['foto'] = $order->bukti_bayar;
+
+        $order->manual_payment = json_encode($_param);
+        $order->save();
+        flash(translate('Bukti pembayaran berhasil diupload'))->success();
+        return redirect('purchase_history');
     }
 
     /**

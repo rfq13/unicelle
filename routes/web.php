@@ -132,6 +132,8 @@ Route::group(['middleware' => ['checkout']], function () {
 	Route::get('/checkout', 'CheckoutController@get_shipping_info')->name('checkout.shipping_info');
 	Route::any('/checkout/delivery_info', 'CheckoutController@store_shipping_info')->name('checkout.store_shipping_infostore');
 	Route::post('/checkout/payment_select', 'CheckoutController@store_delivery_info')->name('checkout.store_delivery_info');
+	Route::post('/checkout/set_ongkir','CheckoutController@set_ongkir')->name('checkout.set_ongkir');
+	Route::post('/checkout/dropshipper','CheckoutController@dropshipper')->name('checkout.dropshipper');
 });
 
 Route::get('/checkout/order-confirmed', 'CheckoutController@order_confirmed')->name('order_confirmed');
@@ -147,7 +149,8 @@ Route::get('/paypal/payment/cancel', 'PaypalController@getCancel')->name('paymen
 //Paypal END
 
 Route::view("/confirmation/manual-payment", "payment.confirm-manual-payment");
-Route::view("/manual-payment", "payment.manual-payment");
+Route::get("/manual-payment/{id}", "PaymentController@create")->name('payment.create');
+Route::post("/payment_store", "PaymentController@store")->name('payment.store');
 
 // SSLCOMMERZ Start
 Route::get('/sslcommerz/pay', 'PublicSslCommerzPaymentController@index');
@@ -265,6 +268,7 @@ Route::group(['middleware' => ['auth']], function () {
 	Route::post('/orders/details', 'OrderController@order_details')->name('orders.details');
 	Route::post('/orders/update_delivery_status', 'OrderController@update_delivery_status')->name('orders.update_delivery_status');
 	Route::post('/orders/update_payment_status', 'OrderController@update_payment_status')->name('orders.update_payment_status');
+
 
 	Route::resource('/reviews', 'ReviewController');
 

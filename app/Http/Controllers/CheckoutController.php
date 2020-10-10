@@ -33,12 +33,14 @@ class CheckoutController extends Controller
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
-        if ($request->payment_option != null) {
+        // dd($request->all());
+        if ($request->payment_option != null && $request->shipping_info != null) {
 
             $orderController = new OrderController;
             $orderController->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
+            $request->session()->put('shipping_info',$request->shipping_info);
 
             if($request->session()->get('order_id') != null){
                 if($request->payment_option == 'paypal'){
@@ -101,6 +103,17 @@ class CheckoutController extends Controller
                     flash(translate("Your order has been placed successfully"))->success();
                 	return redirect()->route('order_confirmed');
                 }
+                elseif ($request->payment_option == 'manual_transfer') {
+                    $request->session()->put('cart', collect([]));
+                    $request->session()->forget('delivery_info');
+                    // $request->session()->forget('order_id');
+                    $request->session()->forget('delivery_info');
+                    $request->session()->forget('coupon_id');
+                    $request->session()->forget('coupon_discount');
+
+                    flash(translate("Your order has been placed successfully"))->success();
+                    return redirect()->route('order_confirmed');
+                }
                 elseif ($request->payment_option == 'wallet') {
                     $user = Auth::user();
                     $user->balance -= Order::findOrFail($request->session()->get('order_id'))->grand_total;
@@ -123,7 +136,7 @@ class CheckoutController extends Controller
                 }
             }
         }else {
-            flash(translate('Select Payment Option.'))->warning();
+            flash(translate('Mohon pilih metode pengiriman terlebih dahulu.'))->warning();
             return back();
         }
     }
@@ -193,6 +206,8 @@ class CheckoutController extends Controller
         Session::forget('delivery_info');
         Session::forget('coupon_id');
         Session::forget('coupon_discount');
+        Session::forget('poin_use');
+        Session::forget('data_dropshiper');
 
         flash(translate('Payment completed'))->success();
         return view('frontend.order_confirmed', compact('order'));
@@ -418,5 +433,19 @@ class CheckoutController extends Controller
     public function order_confirmed(){
         $order = Order::findOrFail(Session::get('order_id'));
         return view('frontend.order_confirmed', compact('order'));
+    }
+
+    public function set_ongkir(Request $request)
+    {
+        $ongkir = json_decode( decrypt($request->param));
+        $cart_summary = \View::make('frontend.partials.cart_summary',compact('ongkir'))->render();
+        return response()->json(compact('cart_summary'));
+    }
+
+    public function dropshipper(Request $request)
+    {
+        $request->session()->put("data_dropshiper",$request->all());
+        flash(translate('Dropshipper has been applied'))->success();
+        return back();
     }
 }

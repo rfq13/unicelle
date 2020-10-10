@@ -81,7 +81,7 @@
                                 @endif
                             </td>
                             <td>
-                                {{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price') + $order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }}
+                                {{ single_price($order->grand_total) }}
                             </td>
                             <td>
                                 @php
