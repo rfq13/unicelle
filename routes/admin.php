@@ -229,4 +229,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::post('/countries/status', 'CountryController@updateStatus')->name('countries.status');
 	Route::get('/bank_setup' ,'BusinessSettingsController@bank_setup')->name('bank_setup');
 	Route::post('/bank_setup_store','BusinessSettingsController@bank_setup_store')->name('bank_setup_store');
+
+	Route::get('/toko_setup','BusinessSettingsController@toko_setup')->name('toko_setup');
+	Route::post('/toko_setup_store', 'BusinessSettingsController@toko_setup_store')->name('toko_setup_store');
+
 });

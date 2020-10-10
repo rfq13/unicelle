@@ -1125,7 +1125,7 @@ if(! function_exists('get_swift'))
         CURLOPT_POSTFIELDS => json_encode($param),
         CURLOPT_HTTPHEADER => array(
             "Content-Type: application/json",
-            "Authorization: Bearer SFT.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicG9ubnkgYmVhdXR5IiwidXNlcklkIjoiNWYxNTNkZmEwMGY1NjgxOTdhMjljODZmIiwiaWF0IjoxNTk2NTk1MjAzfQ.QfUUwgoboz-w1aDyOEbS5fjPD4_5GLc7eC6k3B-fm3w",
+            "Authorization: Bearer ".env("SWIFT_KEY"),
             "Accept: application/json" 
           ),
         ));

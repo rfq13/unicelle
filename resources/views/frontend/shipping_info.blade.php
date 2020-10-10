@@ -65,8 +65,8 @@ div.pac-container {
                                                     <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn btn-sm {{$address->set_default ? 'btn-default' : 'btn-secondary'}} col-8 ml-2 mb-3" data-lat="{{ $address->lat }}" data-lng="{{ $address->lng }}">Default</a>
                                                 </div>
                                                 <div class="address">
-                                                    <a href="#"><i class="fa fa-trash ml-5" ></i></a>
-                                                    <a href="#"><i class="fa fa-pencil ml-3"></i></a>
+                                                    <a href="{{route('addresses.destroy', $address->id)}}"><i class="fa fa-trash ml-5" ></i></a>
+                                                    <a id="btnedit" data-value="{{ json_encode($address) }}" href="#"><i class="fa fa-pencil ml-3"></i></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,7 +98,7 @@ div.pac-container {
                                     <p class="mt-3 text-checkout">Kirim Sebagai Dropshipper</p>
                                 </div>
                                 <label class="mt-3 cb-pengiriman">
-                                    <input type="checkbox" id="myCheck" onclick="myFunction()" @if(!\Session::has('data_dropshiper')) checked @endif>
+                                    <input type="checkbox" id="myCheck" onclick="myFunction()" @if(\Session::has('data_dropshiper')) checked @endif>
                                     <span class="cb-checkmark"></span>
                                 </label>
                             </div>
@@ -139,7 +139,7 @@ div.pac-container {
     </section>
     <!--X END X-->
 
-    <div class="modal fade" id="new-address-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="new-address-modal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -150,6 +150,7 @@ div.pac-container {
             </div>
             <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="id">
                 <input type="hidden" name="lat">
                 <input type="hidden" name="lng">
                 <div class="modal-body">
@@ -211,7 +212,7 @@ div.pac-container {
                                 <label>{{ translate('Detail Alamat')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{ translate('detail alamat Pengiriman')}}" rows="3" name="address" required></textarea>
+                                <textarea class="form-control textarea-autogrow mb-3" id="txtaddress" placeholder="{{ translate('detail alamat Pengiriman')}}" rows="3" name="address" required></textarea>
                             </div>
                         </div>
                     </div>
@@ -443,6 +444,28 @@ function setsearchbox(map,marker)
                     showFrontendAlert("danger",data[0])
                 }
             })
+        });
+
+        $("#all-addr").on("click","#btnedit", function (e) {
+            e.preventDefault()
+            var data = $(this).data("value");
+            $('input[name="id"]').val(data.id);
+            $('input[name="province"]').val(data.province);
+            $('input[name="city"]').val(data.city);
+            $('input[name="phone"]').val(data.phone);
+            $('input[name="lat"]').val(data.lat);
+            $('input[name="lng"]').val(data.lng);
+            $('input[name="receiver"]').val(data.receiver);
+            $('input[name="subdistrict"]').val(data.subdistrict);
+            $("#txtaddress").html(data.address);
+            const pos = {
+              lat: parseFloat(data.lat),
+              lng: parseFloat(data.lng)
+            };
+            marker.setPosition(pos);
+            $("#exampleModalLabel").html("Edit Address")
+
+            $("#new-address-modal").modal("show")
         });
 
         $('#new-address-modal').on('shown.bs.modal', function(){
