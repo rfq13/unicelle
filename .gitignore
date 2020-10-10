@@ -3,4 +3,4 @@
 .env.*.php
 .env.php
 .htaccess
-storage/logs/laravel-2020-10-09.log
+storage/logs/*
