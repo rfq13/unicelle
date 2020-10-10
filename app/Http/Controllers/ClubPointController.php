@@ -125,4 +125,22 @@ class ClubPointController extends Controller
             return 0;
         }
     }
+
+    public function cart_club_poin(Request $request)
+    {
+        if($request->has('jml'))
+        {
+            if($request->jml <= Auth::user()->poin)
+            {
+                flash(__('sukses'))->success();
+                $request->session()->put('poin_use',$request->jml);
+            }else{
+                flash("Poin yang anda masukan melebih poin yang anda.")->error();
+            }
+        }else{
+            $request->session()->forget('poin_use');
+        }
+        
+        return redirect()->back();
+    } 
 }
