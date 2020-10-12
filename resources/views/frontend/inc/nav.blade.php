@@ -5,14 +5,17 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <input class="form-control" id="inputSearchNav" style="width: 50%;" type="search" placeholder="Cari Produk" aria-label="Search">
-        
-    <div class="btn btn-search mr-3 ml-3">
-        <a href="{{route('suggestion.search','slug')}}" class="nav-box-link" id="btnSearchNav">
-            <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}"> </img>
-        </a>
+    <div class="row py-1 px-1 mr-2" style="border-color:#F1F1F1;border-style:solid;width:60%;border-radius:6px">
+        <input class="form-control" id="inputSearchNav" style="width:762px;border:none;border-radius:6px" type="search" placeholder="Cari Produk" aria-label="Search">
+        <div class="btn btn-search">
+            <a href="{{route('suggestion.search','slug')}}" class="nav-box-link" id="btnSearchNav">
+                <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}"> </img>
+            </a>
+        </div>
     </div>
+        
 
+    @auth
         <i id="" type="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
         class="fa fa-bell-o icon-footer" aria-hidden="true"></i>
@@ -70,6 +73,10 @@
         </div>
         <!-- <a  class="btn btn-outline-success mr-2 my-sm-2" type="button" role="button">Logout</a> -->
     </div>
+        @else
+        <a href="{{ route('user.login') }}" class="btn btn-primary mr-2" style="width:80px">Login</a>
+        <a href="{{ route('user.registration') }}" class="btn btn-outline-primary" style="width:80px">Daftar</a>
+        @endauth
     {{--
             <!-- <li>
                 <a href="{{ route('dashboard') }}" class="top-bar-item">{{ translate('My Panel')}}</a>
