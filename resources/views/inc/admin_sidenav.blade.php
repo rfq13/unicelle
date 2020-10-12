@@ -501,6 +501,11 @@
                                         <a class="nav-link" href="{{route('bank_setup')}}">{{translate('Bank Setting')}}</a>
                                     </li>
                                 </li>
+                                <li>
+                                    <li class="{{ areActiveRoutes(['toko_setup'])}}">
+                                        <a class="nav-link" href="{{route('toko_setup')}}">{{translate('Toko Setting')}}</a>
+                                    </li>
+                                </li>
                             </ul>
                         </li>
                         @endif

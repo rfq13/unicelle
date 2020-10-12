@@ -372,4 +372,18 @@ class BusinessSettingsController extends Controller
         flash(translate("Settings updated successfully"))->success();
         return back();
     }
+
+    public function toko_setup(Request $request)
+    {
+
+        return view("business_settings.toko_setting");
+    }
+
+    public function toko_setup_store(Request $request)
+    {
+        $this->overWriteEnvFile("SWIFT_ORIGIN_LAT", $request->lat);
+        $this->overWriteEnvFile("SWIFT_ORIGIN_LNG", $request->lng);
+        flash(translate("Settings updated successfully"))->success();
+        return back();
+    }
 }

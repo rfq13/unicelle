@@ -42,8 +42,13 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
+        if ($request->has('id')) {
+            # code...
+            $address = Address::findOrFail($request->id);
+        }else{
+            $address = new Address;
+        }
         
-        $address = new Address;
         if($request->has('customer_id')){
             $address->user_id = $request->customer_id;
         }

@@ -106,7 +106,8 @@ class CheckoutController extends Controller
                 elseif ($request->payment_option == 'manual_transfer') {
                     $request->session()->put('cart', collect([]));
                     $request->session()->forget('delivery_info');
-                    // $request->session()->forget('order_id');
+                    $request->session()->forget('data_dropshiper');
+                    $request->session()->forget('poin_use');
                     $request->session()->forget('delivery_info');
                     $request->session()->forget('coupon_id');
                     $request->session()->forget('coupon_discount');
@@ -215,6 +216,7 @@ class CheckoutController extends Controller
 
     public function get_shipping_info(Request $request)
     {
+        
         if(Session::has('cart') && count(Session::get('cart')) > 0){
             $categories = Category::all();
             return view('frontend.shipping_info', compact('categories'));
