@@ -23,9 +23,12 @@
         <h3 class="panel-title pull-left pad-no">{{translate('About')}}</h3>
     </div>
     <div class="panel-body">
-      <form action="{{route('about.update',$id)}}" method="post">
-        @method('put')
+      <form action="{{ $id != 0 ? route('about.update',$id) : route('about.store') }}" method="post">
+        @if($id !== 0)
+            @method('put')
+        @endif
         @csrf
+        
         <textarea name="content" id="editor" cols="30" rows="10"></textarea>
         <div class="clearfix" style="float:right;margin:12px">
             <button type="submit" class="btn btn-primary">simpan</button>

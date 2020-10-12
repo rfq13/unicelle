@@ -34,6 +34,11 @@ class aboutController extends Controller
      */
     public function store(Request $request)
     {
+        $about = new \App\about;
+        $about->content = $request->content;
+        $about->save();
+        flash("berhasil menambahkan tentang " . env('APP_NAME'))->success();
+        return back();
     }
 
     /**
@@ -68,9 +73,11 @@ class aboutController extends Controller
     public function update(Request $request, $id)
     {
         $about = \App\about::findOrFail($id);
-        $about->content = $request->content;
-        $about->save();
-        flash("berhasil merubah tentang " . env('APP_NAME'))->success();
+        if (isset($about)) {
+            $about->content = $request->content;
+            $about->save();
+            flash("berhasil merubah tentang " . env('APP_NAME'))->success();
+        }
         return back();
     }
 

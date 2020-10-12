@@ -454,7 +454,7 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="btn btn-default" style="width: 100%">Tambah</div>
+                                            <a class="btn btn-default" onclick="addToCart({{ $product->id }})" style="width: 100%">Tambah</a>
                                         </div>
                                     </div>
                                 @endforeach
