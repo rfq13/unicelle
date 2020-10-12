@@ -2160,3 +2160,49 @@ a {
     color: #B71C1C;
     font-weight: 600;
 }
+
+/* banner */
+
+.img-banner{
+	height:400px;
+	border-radius:25px 25px 25px 25px;
+}
+.slider-banner-left{
+    left: -85px;
+    color:#424242;
+}
+
+.slider-banner-right{
+    right: -85px;
+    color:#424242;
+	
+}
+.radius-slider{
+	border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+.slider-button-left{
+    left: -85px;
+ 	width: 60px;
+	height:60px;
+    border: 3px solid #424242;
+    border-radius: 50%;
+	
+}.slider-button-right{
+    right: -85px;
+	width: 60px;
+	height:60px;
+    border: 3px solid #424242;
+    border-radius: 50%;
+}
+.carousel-indicators li.active{
+	width:100px !important;
+	height:20px !important;
+	border: 1px !important;
+	margin-top:10px !important;
+	border-radius: 10px 10px 10px 10px !important;
+	background-color:#3BB6B1;
+}
+
+/* end banner */

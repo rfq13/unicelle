@@ -5,7 +5,7 @@
 @endsection -->
 
 @section('content')
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    {{-- <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
           <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
           <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
@@ -42,6 +42,45 @@
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="sr-only">Next</span>
         </a>
+    </div> --}}
+
+    <div class="container">
+		<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+			<ol class="carousel-indicators ">
+			  <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active " style="border-radius: 50%; height: 20px; width: 20px;"></li>
+			  <li data-target="#carouselExampleCaptions" data-slide-to="1" style="border-radius: 50%; height: 20px; width: 20px;"></li>
+			  <li data-target="#carouselExampleCaptions" data-slide-to="2" style="border-radius: 50%; height: 20px; width: 20px;"></li>
+			</ol>
+			<div class="carousel-inner img-banner">
+			  <div class="carousel-item active">
+				<img src="{{ my_asset('images\img\banner.jpg') }}" class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+				</div>
+			  </div>
+			  <div class="carousel-item img-banner">
+				<img src="{{ my_asset('images\img\banner2.jpg') }}" class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+				</div>
+			  </div>
+			  <div class="carousel-item img-banner">
+				<img src="{{ my_asset('images\img\banner3.jpg') }}" class="d-block w-100" alt="...">
+				<div class="carousel-caption d-none d-md-block">
+				</div>
+			  </div>
+			</div>
+			<a class="carousel-control-prev slider-banner-left" href="#carouselExampleCaptions" role="button" data-slide="prev">
+				<div class=" slider-button-right">
+					<i class="fa fa-angle-left" aria-hidden="true" style="font-size:50px;"></i>
+				</div>
+			  <span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next slider-banner-right" href="#carouselExampleCaptions" role="button" data-slide="next">
+			  <div class=" slider-button-right">
+				<i class="fa fa-angle-right" aria-hidden="true" style="font-size:50px; border:"></i>
+			  </div>
+			  <span class="sr-only">Next</span>
+			</a>
+		</div>
     </div>
 
         <div class="container">
