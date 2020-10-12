@@ -73,9 +73,7 @@ Route::get('/tentangkami', function () {
 Route::get('/point-history', function () {
 	return view('frontend.point_history');
 });
-Route::get('/code-referal', function () {
-	return view('frontend.code_referal');
-});
+Route::view('/kode-referral', 'frontend.code_referal')->name("referral.code")->middleware('auth');
 Route::get('/dropshipper', function () {
 	return view('frontend.dropshipper');
 });

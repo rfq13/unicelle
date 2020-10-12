@@ -123,6 +123,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 	Route::group(['prefix' => 'member'], function () {
 		Route::get('/{id}/delete', 'memberController@destroy')->name("admin.member.destroy");
+		Route::get('user-member/{id}/delete', 'memberController@deleteUsermember')->name("admin.usermember.destroy");
 		Route::post('/{memberid}/add/submember', 'memberController@addSubmember')->name('admin.add.submember');
 	});
 

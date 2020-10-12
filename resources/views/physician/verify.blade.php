@@ -41,9 +41,9 @@
                             <tr id="row{{$user->id}}">
                                 <td>{{ ($key+1) + ($users->currentPage() - 1)*$users->perPage() }}</td>
                                 <td>
-                                    <span id="title">{{$user->user->name}}</span>
+                                    <span id="title">{{isset($user->user) ? $user->user->name :""}}</span>
                                 </td>
-                                <td class="text-center">{{ $user->user->email_verified_at }}</td>
+                                <td class="text-center">{{ isset($user->user) ? $user->user->email_verified_at :""}}</td>
                                 <td>
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
@@ -56,7 +56,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a onclick="confirm_modal(`{{route('admin.member.destroy', $user->id)}}`);" style="background-color:#428df5;color:white">{{translate('Delete')}}</a>
+                                                <a onclick="confirm_modal(`{{route('admin.usermember.destroy', $user->id)}}`);" style="background-color:#428df5;color:white">{{translate('Delete')}}</a>
                                             </li>
                                         </ul>
                                     </div>

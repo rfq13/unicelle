@@ -1,10 +1,23 @@
+@php
+    if(Auth::user()->referral_code == null){
+        flash("verifikasi email anda terlebih dahulu untuk mendapatkan kode referal");
+            echo '<script>window.location = "'.route('home').'";</script>';
+    }
+@endphp
 @extends('frontend.layouts.app')
 @section('content')
     <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card"></div>
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="card mr-2">
+                        @if(Auth::user()->user_type == 'seller')
+                            @include('frontend.inc.seller_side_nav')
+                        @elseif(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'pasien reg' || Auth::user()->user_type == 'regular physician' || Auth::user()->user_type == 'partner physician') 
+                            @include('frontend.inc.customer_side_nav')
+                        @endif
+
+                    </div>
                 </div>
                 <div class="col-lg-8">
                     <div class="card">
@@ -22,7 +35,7 @@
                             </div>
 
                             <input readonly class="form-control float-left" type="text"
-                                value="https://unicelle.com/users/registration?referral_code=13Dks211D5i6" id="myInput">
+                                value="{{ route('user.registration') }}?referral_code={{ urlencode(Auth::user()->referral_code) }}" id="myInput">
                             <button class="btn float-right" onclick="myFunction()"> 
                                 <i class="fas fa-clipboard-list mr-2"></i>
                                 <span class=" copy-text__">Copy</span>
@@ -58,7 +71,7 @@
         copyText.select();
         copyText.setSelectionRange(0, 99999)
         document.execCommand("copy");
-        alert("Copied the text: " + copyText.value);
+        showFrontendAlert("success","Copied the text: \n" + copyText.value);
     }
     
 </script>

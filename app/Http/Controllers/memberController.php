@@ -17,7 +17,7 @@ class memberController extends Controller
 
     public function __construct()
     {
-        // $this->middleware('user');
+        
     }
 
     public function index()
@@ -44,22 +44,28 @@ class memberController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        unset($request->_token);
         $member = new Member;
-        if ($request->min < $member->max("min")) {
-            flash("rentan minimal pembelian sudah ada pada member sebelumnya")->error();
-            return back();
-        }
+        // $members = $member->get();
+        // if ($members->count > 0) {
+        //     foreach ($members as $key => $member_min) {
+        //         if ($min > $member_min->min && $min < $member[$key+1]->min) {
+        //             flash("rentan minimal pembelian sudah ada pada member sebelumnya")->error();
+        //             return back();
+        //         }
+        //     }
+        // }
+        $min = str_replace("Rp.", "", $request->min);
+        $min = str_replace(".", "", $min);
+        $min = str_replace(" ", "", $min);
         $data = [
             "title" => $request->title,
-            "min" => $request->min,
+            "min" => $min,
             "periode" => json_encode([$request->periode, $request->unit])
         ];
 
         $member->create($data);
         flash("berhasil menambah jenis member")->success();
-        return back();
+        return redirect(route('regular-physician-member.index'));
     }
 
     /**
@@ -133,23 +139,24 @@ class memberController extends Controller
         $grand_total = $active_m_order->sum("grand_total");
         $Current_tierMember = $userMember->member;
         $next_tierMember = \App\Member::where("min", ">", $grand_total)->orderBy("min")->first();
-
-        if ($next_tierMember != null && $next_tierMember->id != $Current_tierMember->id) {
+        // dd($Current_tierMember);
+        if ($next_tierMember != null && $Current_tierMember != null && $next_tierMember->id != $Current_tierMember->id) {
             $userMember->member_id = $next_tierMember->id;
             $userMember->save();
-
+            
             $newTier = new \App\userMember;
             $newTier->user_id = Auth::user()->id;
             $newTier->member_id = $next_tierMember->id;
             $newTier->ended_at = $this->ended_at($next_tierMember);
             $newTier->save();
         }
-
+        
         $now = Carbon::now();
-        $to = Carbon::createFromFormat('Y-m-d', "$userMember->ended_at");
+        $to = Carbon::createFromFormat('Y-m-d H:i:s', "$userMember->ended_at");
         $from = Carbon::now()->toDate()->format("Y-m-d");
         $diff_in_days = $to->diffInDays($from);
-
+        // dd($diff_in_days);
+        
         if ($diff_in_days == 0 && $next_tierMember->id == $Current_tierMember->id) {
             $ended_at = $this->ended_at($userMember->member);
             $userMember->ended_at = $ended_at;
@@ -211,5 +218,16 @@ class memberController extends Controller
             ];
         }
         return $return;
+    }
+
+    public function deleteUsermember($id)
+    {
+        $member = \App\physician_verificationModel::findOrFail($id);
+        if ($member->delete()) {
+            flash("Berhasil menghapus jenis member")->success();
+        }else {
+            flash("Gagal menghapus jenis member")->error();
+        }
+        return back();
     }
 }

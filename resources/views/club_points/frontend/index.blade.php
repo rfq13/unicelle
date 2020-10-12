@@ -10,10 +10,11 @@
                 <div class="card col-lg-4 d-none d-lg-block">
                     @if(Auth::user()->user_type == 'seller')
                         @include('frontend.inc.seller_side_nav')
-                    @elseif(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'pasien reg')
+                    @elseif(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'pasien reg'  || Auth::user()->user_type == 'regular physician' || Auth::user()->user_type == 'partner physician')
                         @include('frontend.inc.customer_side_nav')
                     @endif
                 </div>
+                
 
                 <div class="col-lg-8">
                     <div class="main-content">

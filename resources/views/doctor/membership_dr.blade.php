@@ -75,7 +75,7 @@
                         </div>
 
                         @php
-                            $membership = \App\Member::all();
+                            $membership = \App\Member::orderBy("min")->get();
                             $min = $membership->pluck("min")->toArray();
                         @endphp
 

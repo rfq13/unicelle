@@ -73,6 +73,7 @@ class HomeController extends Controller
 
     public function registration(Request $request, $physician = null)
     {
+        // dd($request->all());
         if (Auth::check()) {
             return redirect()->route('home');
         }

@@ -92,13 +92,15 @@ class RegisterController extends Controller
     {
         $userid = 0;
         if (filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            // dd(gettype((object)$data));
+            
+
             $udata = [
                 'name' => $data['nama_depan'] . " " . $data['nama_belakang'],
                 'password' => Hash::make($data['password']),
                 'user_type' => array_key_exists("user_type", $data) ? $data['user_type'] : "pasien reg",
                 'email' => $data['email']
             ];
+            // dd(substr($referral_code,strlen($referral_code)-6));
 
 
             $user = User::create($udata);
@@ -168,6 +170,7 @@ class RegisterController extends Controller
         $userid = $user->id;
 
         if ($request->user_type == "regular physician") {
+            // dd($request->user_type);
             $this->membership($userid);
         }
 

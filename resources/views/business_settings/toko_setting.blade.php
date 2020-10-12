@@ -65,6 +65,8 @@ function initMap() {
             $('input[name="lng"]').val(lng);
             marker.setPosition(pos);
             getAddress(lat,lng).then(function(result){
+                // console.log(result)
+                // return
                 var place = result['address_components'];
                 $('#kode_pos_alamat').val("");
                 $.each(place,function(index,value){
