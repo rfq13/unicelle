@@ -1,10 +1,25 @@
+@php
+    $orders = \App\Order::where('user_id',Auth::user()->id)->where("dropsiper",'!=',"")->with(['orderDetails','orderDetails.product'])->orderBy('code', 'desc')->paginate(9);
+
+    $bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
+    if ($bank_setting == null) {
+    flash("mohon maaf mengganggu kenyamanan anda, pengaturan bank belum dilakukan oleh admin");
+    echo "<script>window.location ='".route("home")."' </script>";
+    return;
+    }
+$config =  json_decode( $bank_setting->value);
+@endphp
 @extends('frontend.layouts.app')
 @section('content')
     <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row">
-                <div class="col-lg-4">
-                    <div class="card"></div>
+                <div class="card col-lg-4 d-none d-lg-block">
+                    @if(Auth::user()->user_type == 'seller')
+                        @include('frontend.inc.seller_side_nav')
+                    @elseif(Auth::user()->user_type != 'admin')
+                        @include('frontend.inc.customer_side_nav')
+                    @endif
                 </div>
                 <div class="col-lg-8">
                     <div class="card">
@@ -42,35 +57,38 @@
                         </div>
                     
                         <!--Card-->
+                        @foreach ($orders as $key => $order)
+                            
                         <div class="card-body mt-3 px-3 pt-0 mb-2">
                             <div class="card card-pesanan__ ">
                                 <div class="container card-header pb-2 pt-2">
-                                    <p class="mb-0">16 september 2020</p>
+                                    <p class="mb-0">{{ $order->created_at }}</p>
                                 </div>
                                 <div class="row">
                                     <div class="col-12 mb-3">
                                         <div class="row mt-2">
                                             <div class="col mb-0 ml-2 pr-0">
-                                                <p class="code-dropshipper mb-2">#20200917-103041119</p>
+                                                <p class="code-dropshipper mb-2">#{{ $order->code }}</p>
                                                 <img class="img-dropshipper" src="{{my_asset('/images/icon/obat.png')}}" alt="">
                                             </div>
                                             <div class="col-3 pl-0 mt-4">
-                                                <p class="text-dropshipper" style="margin-bottom: 0%;">CTM 4 Mg 12 Tablet</p>
-                                                <p class="info-dropshipper" style="margin-bottom: 0%;">Jumlah Pesanan</p>
-                                                <p class="text-dropshipper" style="margin-bottom: 0%;">2</p>
-                                                <p class="info-dropshipper" style="margin-bottom: 0%;">Harga</p>
-                                                <p class="text-dropshipper" style="margin-bottom: 0%;">Rp.5.900</p>
-                                            </div>
+                                                    @foreach ($order->orderDetails as $item)
+                                                        <p class="text-dropshipper" style="margin-bottom: 0%;">{{ $item->product->name }}</p>
+                                                        <p class="info-dropshipper" style="margin-bottom: 0%;">Jumlah Pesanan</p>
+                                                        <p class="text-dropshipper" style="margin-bottom: 0%;">{{ $item->quantity }}</p>
+                                                    @endforeach
+                                                    <p class="info-dropshipper" style="margin-bottom: 0%;">Harga</p>
+                                                    <p class="text-dropshipper" style="margin-bottom: 0%;">{{ single_price($order->grand_total) }}</p>
+                                                </div>
                                             <div class="col">
                                                 <p class="receiver-dropshipper">Pembayaran</p>
-                                                <p class="text-dropshipper" style="margin-bottom: 0%;">BCA Virtual Account</p>
-                                                <p class="content-dropshipper" style="margin-bottom: 0%;">No.4010101010102222</p>
+                                                <p class="text-dropshipper" style="margin-bottom: 0%;">{{ $config->BANK_NAME }}</p>
+                                                <p class="content-dropshipper" style="margin-bottom: 0%;">No.{{ $config->BANK_NO_REK }}</p>
                                             </div>
                                             <div class="col">
                                                 <p class="receiver-dropshipper">Status</p>
-                                                <p class="text-dropshipper">Belum Dibayar</p>
-                                                <button class="btn btn-default" style="width:90%" data-toggle="modal"
-                                                    data-target="#detail-all-pesanan">Lihat Detail</button>
+                                                <p class="text-dropshipper" style="text-transform: capitalize">{{ $order->payment_status == "unpaid" ? "belum dibayar":"terbayar"}}</p>
+                                                <button class="btn btn-default" style="width:90%" onclick="show_purchase_history_details({{ $order->id }})">Lihat Detail</button>
                                             </div>
                                         </div> 
                                         <hr class="mt-0 mb-0">
@@ -78,24 +96,29 @@
                                         <div class="row mt-2 ml-2">
                                             <div class="col-6">
                                                 <p class="text-dropshipper" style="margin-bottom: 0%;">Nama</p>
-                                                <p class="content-dropshipper">Reni Pambudi</p>
+                                                <p class="content-dropshipper">{{ json_decode($order->dropsiper)->nama }}</p>
                                             </div>
                                             <div class="col pl-0">
                                                 <p class="text-dropshipper" style="margin-bottom: 0%;">No.Telepon</p>
-                                                <p class="content-dropshipper">081990992929</p>
+                                                <p class="content-dropshipper">{{ json_decode($order->dropsiper)->nomor_tlp }}</p>
                                             </div>
                                             <div class="col">
+                                                @php
+                                                    $addr = json_decode($order->addresse);
+                                                @endphp
                                                 <p class="text-dropshipper" style="margin-bottom: 0%;">Alamat Penerima</p>
-                                                <p class="content-dropshipper">Rungkut Mejoyo /6 Surabaya</p>
+                                                <p class="content-dropshipper">{{ $addr->city }}, {{ $addr->province }}, {{ $addr->subdistrict }},<br>{{ $addr->postal_code }}</p>{{ $addr->address }}
                                             </div>
                                         </div> 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <!--Card-->
-                        <!--Card-->
-                        <div class="card-body mt-3 px-3 pt-0 mb-2">
+                        
+                        @endforeach
+                        
+                        
+                        {{-- <div class="card-body mt-3 px-3 pt-0 mb-2">
                             <div class="card card-pesanan__ ">
                                 <div class="container card-header pb-2 pt-2">
                                     <p class="mb-0">16 November 2020</p>
@@ -148,8 +171,7 @@
                                 </div>
                             </div>
                         </div>
-                        <!--Card-->
-                        <!--Card-->
+
                         <div class="card-body mt-3 px-3 pt-0 mb-2">
                             <div class="card card-pesanan__ ">
                                 <div class="container card-header pb-2 pt-2">
@@ -201,7 +223,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <!--Card-->
 
                     </div>
@@ -319,6 +341,20 @@
                     </div>
                 </div>
             </div>
+
+            <div class="modal fade" id="order_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size" role="document">
+                    <div class="modal-content position-relative">
+                        <div class="c-preloader">
+                            <i class="fa fa-spin fa-spinner"></i>
+                        </div>
+                        <div id="order-details-modal-body">
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 @endsection
@@ -347,5 +383,14 @@
         }
     });
 </script>
+
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $('#order_details').on('hidden.bs.modal', function () {
+            location.reload();
+        })
+    </script>
 
 @endsection

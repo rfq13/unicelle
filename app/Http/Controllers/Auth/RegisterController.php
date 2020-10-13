@@ -206,6 +206,10 @@ class RegisterController extends Controller
     public function membership($user_id)
     {
         $member = \App\Member::orderBy("min")->first();
+        $usr = \App\User::find($user_id);
+        $usr->member_id = $member->id;
+        $usr->save();
+
         $tgl_berakhir = app('\App\Http\Controllers\memberController')->ended_at($member);
 
         $userMember = new \App\userMember;

@@ -9,11 +9,7 @@
 @php
     if (Auth::check()) {
         $user = Auth::user();
-
-        if (Auth::user()->user_type == "regular physician") {
-            app('\App\Http\Controllers\memberController')->updateMember();
-        }
-        // dd($user->physician_verification);
+        
         if ($user->physician_verification != null && $user->physician_verification->verify == 0) {
             Auth::logout();
             flash("mohon maaf akun anda belum dapat digunakan, tunggu konfirmasi admin");

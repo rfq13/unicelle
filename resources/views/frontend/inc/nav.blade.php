@@ -57,7 +57,7 @@
             </div>
                 <a class="dropdown-item" href="{{route('profile')}}">Akun Saya</a>
                 <hr class=" mt-0 mb-0 mr-2 ml-2">
-                <a class="dropdown-item" href="#">Pesanan</a>
+                <a class="dropdown-item" href="{{ route('purchase_history.index') }}">Pesanan</a>
                 <hr class=" mt-0 mb-0 mr-2 ml-2">
                 @if (Auth::user()->user_type == "regular physician")
                     <a class="dropdown-item" href="{{route('membership')}}">Membership</a>

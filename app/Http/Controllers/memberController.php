@@ -131,7 +131,8 @@ class memberController extends Controller
 
     public function updateMember()
     {
-        $userMember = Auth::user()->member;
+        $myMember = Auth::user()->member;
+        $userMember = \App\userMember::where(['member_id'=>$myMember->id,'user_id'=>Auth::user()->id])->orderBy('created_at','desc')->first();
         $from = date_format($userMember->created_at, "Y-m-d");
         $to = $userMember->ended_at;
         $orders = Auth::user()->orders;
@@ -139,32 +140,22 @@ class memberController extends Controller
         $grand_total = $active_m_order->sum("grand_total");
         $Current_tierMember = $userMember->member;
         $next_tierMember = \App\Member::where("min", ">", $grand_total)->orderBy("min")->first();
-        // dd($Current_tierMember);
-        if ($next_tierMember != null && $Current_tierMember != null && $next_tierMember->id != $Current_tierMember->id) {
-            $userMember->member_id = $next_tierMember->id;
-            $userMember->save();
-            
-            $newTier = new \App\userMember;
-            $newTier->user_id = Auth::user()->id;
-            $newTier->member_id = $next_tierMember->id;
-            $newTier->ended_at = $this->ended_at($next_tierMember);
-            $newTier->save();
-        }
         
         $now = Carbon::now();
         $to = Carbon::createFromFormat('Y-m-d H:i:s', "$userMember->ended_at");
         $from = Carbon::now()->toDate()->format("Y-m-d");
         $diff_in_days = $to->diffInDays($from);
-        // dd($diff_in_days);
         
-        if ($diff_in_days == 0 && $next_tierMember->id == $Current_tierMember->id) {
-            $ended_at = $this->ended_at($userMember->member);
-            $userMember->ended_at = $ended_at;
-            $userMember->user_id = Auth::user()->id;
-            $userMember->member_id = $next_tierMember->id;
-            $userMember = $userMember->toArray();
-
-            \App\userMember::create($userMember);
+        if ($diff_in_days == 0) {
+            if ($next_tierMember->id == $Current_tierMember->id) {
+                $ended_at = $this->ended_at($userMember->member);
+                $userMember->ended_at = $ended_at;
+                $userMember->user_id = Auth::user()->id;
+                $userMember->member_id = $next_tierMember->id;
+                $userMember = $userMember->toArray();
+    
+                \App\userMember::create($userMember);
+            }
         }
     }
 

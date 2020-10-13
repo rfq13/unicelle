@@ -16,7 +16,7 @@ class AddressController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->user_type == 'pasien reg'){
+        if(Auth::user()->user_type != 'admin'){
             $listProvince = $this->get_province();
             // dd($listProvince);
             return view('frontend.customer.address',compact('listProvince'));
@@ -41,8 +41,8 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
-        if ($request->has('id')) {
+        if ($request->has('id') && $request->id != null) {
+            dd($request->all());
             # code...
             $address = Address::findOrFail($request->id);
         }else{
@@ -72,10 +72,10 @@ class AddressController extends Controller
         $address->lng = $request->lng;
         if($address->save()){
             flash("Address added successfully")->success();
-            return redirect()->back();
+            return redirect(route('addresses.index'));
         }
         flash(translate('Something went wrong'))->error();
-        return redirect()->back();
+        return redirect(route('addresses.index'));
     }
 
     /**

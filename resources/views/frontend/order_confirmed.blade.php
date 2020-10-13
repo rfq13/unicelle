@@ -3,6 +3,11 @@
 @section('content')
 @php
 $bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
+if ($bank_setting == null) {
+    flash("mohon maaf mengganggu kenyamanan anda, pengaturan bank belum dilakukan oleh admin");
+    echo "<script>window.location ='".route("home")."' </script>";
+    return;
+}
 $config =  json_decode( $bank_setting->value);
 @endphp
 <div class="container my-lg-5 my-3">

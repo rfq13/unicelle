@@ -20,7 +20,7 @@
                 <div class="card col-lg-4 d-none d-lg-block">
                     @if(Auth::user()->user_type == 'seller')
                         @include('frontend.inc.seller_side_nav')
-                    @elseif(Auth::user()->user_type == 'customer' || Auth::user()->user_type == 'pasien reg')
+                    @elseif(Auth::user()->user_type != 'admin')
                         @include('frontend.inc.customer_side_nav')
                     @endif
                 </div>
@@ -214,7 +214,7 @@
                                                         </span>
                                                     </span>
                                                 </div>
-                                                <a href="#{{ $order->code }}" onclick="show_purchase_history_details({{ $order->id }})" class="btn btn-primary1 mb-2 w-75">Lihat Detail</a>
+                                                <a href="#{{ $order->code }}" onclick="show_purchase_history_details({{ $order->id }})" class="btn btn-primary1 mb-2 w-75">Lihat Detail </a>
                                             </div>
                                         </div>
                                     </div>

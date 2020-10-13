@@ -1,5 +1,5 @@
 @php
-    //dd(Auth::user()->addresses);
+    // dd(Auth::user()->addresses);
 @endphp
 @extends('frontend.layouts.app')
 
@@ -527,6 +527,7 @@ function setsearchbox(map,marker)
         })
 
         $("#all-address").on("click","#btnedit", function (e) {
+            console.log(data)
             e.preventDefault()
             var data = $(this).data("value");
             $('input[name="id"]').val(data.id);

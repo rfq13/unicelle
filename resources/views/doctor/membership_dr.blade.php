@@ -1,29 +1,49 @@
+@if (Auth::user()->user_type != "regular physician")
+    abort(404);
+@endif
 @php
-    if (Auth::user()->user_type != "regular physician") {
-        abort(404);
+
+    $orderU = \App\Order::where('user_id', Auth::user()->id);
+    $log = new \App\userMember;
+    $tiers = new \App\Member;
+
+    
+    
+    $myMember = Auth::user()->member;
+    $userMember = \App\userMember::where(['member_id'=>$myMember->id,'user_id'=>Auth::user()->id])->orderBy('created_at','desc')->first();
+    $from = date_format($userMember->created_at, "Y-m-d");
+    $to = $userMember->ended_at;
+    $orders = Auth::user()->orders;
+    $active_m_order = $orders->where("payment_status", "paid")->whereBetween('created_at', [$from, $to]);
+    $grand_total = $active_m_order->sum("grand_total");
+
+    $u_log = $userMember;
+
+
+    $n_tier = $tiers->where('min',">",$grand_total)->first();
+    $next = '';
+    $next_max = 0;
+    $to_next = 0;
+    $ct = $u_log->member->title;
+    if(isset($n_tier)){
+        if ($grand_total > $n_tier->min) {
+            // dd(Auth::user()->member_id);
+            $newMember = \App\Member::where('min','>',$grand_total)->orderBy('min','desc')->first();
+            Auth::user()->member_id = $newMember->id;
+            Auth::user()->save();
+
+            $newUserMmber = new \App\userMember;
+            $newUserMmber->member_id = $newMember->id;
+            $newUserMmber->user_id = Auth::user()->id;
+            $newUserMmber->ended_at = app('\App\Http\Controllers\memberController')->ended_at($newMember);
+            $newUseMember->save();
+        }
+
+        $next = $n_tier->title;
+        $next_max = $n_tier->min;
+        $to_next = (int)$next_max - (int)$grand_total;
     }
-
-    $usr = Auth::user();
-    // dd($usr);
-    $from = date_format($usr->member->created_at, "Y-m-d");
-    $to = $usr->member->ended_at;
-    $my_member_tier = $usr->member;
-    $tier = $my_member_tier->member->title;
-    $endedAt = date_format(date_create("$my_member_tier->ended_at"),"Y/m/d");
-
-    $next_tierMember = \App\Member::where("min", ">", $usr->member->member->min)->orderBy("min")->first();
-    $next_tier = $next_tierMember != null ? $next_tierMember->title : $usr->member->member->title;
-
-    $grand_total = $usr->orders->where("payment_status", "paid")->whereBetween('created_at', [$from, $to])->sum("grand_total");
-
-    $toNext = $next_tierMember->min - $grand_total;
-
-    $persen = $grand_total/$next_tierMember->min*100;
-
-    function buatRupiah($angka){
-        $hasil = "Rp" . number_format($angka,0,',','.');
-        return $hasil;
-    }
+    $persen = $grand_total != 0 && $next_max != 0 ? ($grand_total/$next_max)*100 : 0;
 @endphp
 
 @extends('frontend.layouts.app')
@@ -51,34 +71,38 @@
                             {{-- <div class="mt-4"> --}}
                                 <span class="head-tag-membership">Username</span>
                                 <div class="dr-membership">
-                                    <span class="name-membership">{{Auth::user()->name}}</span>
+                                    <span class="name-membership" style="text-transform: capitalize">{{Auth::user()->name}}</span>
                                 </div>
                             {{-- </div> --}}
                             <div class="mt-3">
                                 <span class="head-tag-membership">Berlaku Hingga</span>
                                 <div class="dr-membership">
-                                    <span class="name-membership">{{$endedAt}}</span>
+                                    <span class="name-membership">{{$u_log->ended_at}}</span>
                                 </div>
                             </div>
                         </section>
-
+                        @if ($n_tier != null)
                         <div class="progres-membership mt-3">
-                            <span class="text-comment-member">Selesaikan <span class="font-weight-bold">{{buatRupiah($toNext)}}</span> Total Belanja untuk menjadi <span class="font-weight-bold">{{$next_tier}}
-                                    Membership</span> </span>
-                            <div class="progress my-1">
-                                <div class="progress-bar" role="progressbar" style="width: {{$persen}}%;" aria-valuenow="{{$persen}}"
+                            <span class="text-comment-member">Selesaikan <span class="font-weight-bold">{{toRp($to_next)}}</span> Total Belanja untuk menjadi <span class="font-weight-bold">{{$n_tier->title}}
+                                Membership</span> </span>
+                                <div class="progress my-1">
+                                    <div class="progress-bar" role="progressbar" style="width: {{$persen}}%;" aria-valuenow="{{$persen}}"
                                     aria-valuemin="0" aria-valuemax="100">{{$persen}}%</div>
-                            </div>
-                            <div class="text-right">
-                                <span class="nominal-range-membership">{{buatRupiah($grand_total)." / ".buatRupiah($next_tierMember->min)}}</span>
-                            </div>
+                                </div>
+                                <div class="text-right">
+                                    <span class="nominal-range-membership">{{$n_tier != null ? toRp($grand_total)." / ". toRp($n_tier->min): ""}}</span>
+                                </div>
                         </div>
+                        @else
+                        <h4 class="text-center">Selamat anda sudah mencapai Membership tertinggi!</h4>
+                            
+                        @endif
 
                         @php
                             $membership = \App\Member::orderBy("min")->get();
                             $min = $membership->pluck("min")->toArray();
                         @endphp
-
+                        {{-- <h1>{{ toRp($grand_total)." ".Auth::user()->member->title }}</h1> --}}
                         <table class="table table-hover text-center mt-3">
                             <thead class="table-riwayat-poin__">
                                 <tr>
@@ -94,7 +118,7 @@
                                 <tr>
                                     <th scope="row" class="text-left">Total Belanja</th>
                                     @foreach ($min as $m)
-                                        <td scope="row">{{buatRupiah($m)}}</td>
+                                        <td scope="row">{{toRp($m)}}</td>
                                     @endforeach
                                     {{-- <td scope="row">Rp6.000.000</td>
                                     <td scope="row">Rp10.000.000</td> --}}

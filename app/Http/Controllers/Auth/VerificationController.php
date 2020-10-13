@@ -45,7 +45,7 @@ class VerificationController extends Controller
     {
         $user = User::where('verification_code', $code)->first();
         if ($user != null) {
-            $referral_code = encrypt($user->id);
+            $referral_code = str_replace("=","",encrypt($user->id));
             $referral_code = substr($referral_code,strlen($referral_code)-10);
             $user->email_verified_at = Carbon::now();
             $user->referral_code = $referral_code;

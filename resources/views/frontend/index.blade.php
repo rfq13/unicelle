@@ -146,8 +146,8 @@
                         </div>
                     </div>
 
-                <h2 style = "margin:10px">Produk Obat / Vitamin</h2>
-                <p class="ml-3">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>  
+                <h2 style = "margin:10px;font-size:24px">Produk Obat / Vitamin</h2>
+                <p class="ml-3" style="font-size:24px">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>  
                     <div class="mb-4">
                         <div class="container">
                             @php

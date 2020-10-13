@@ -133,7 +133,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function member()
     {
-        return $this->hasOne(userMember::class)->orderBy('created_at');
+        return $this->belongsTo(Member::class);
     }
 
     public function instansi()

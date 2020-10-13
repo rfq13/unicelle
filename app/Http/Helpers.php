@@ -159,6 +159,13 @@ if (! function_exists('areActiveRoutesHome')) {
     }
 }
 
+if (! function_exists('toRp')) {
+    function toRp($angka){
+        $hasil = "Rp" . number_format($angka,0,',','.');
+        return $hasil;
+    }
+}
+
 if (! function_exists('request_raja_ongkir')) {
 
     function request_raja_ongkir($url,$tipe = 'GET',$param)

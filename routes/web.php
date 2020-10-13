@@ -74,9 +74,7 @@ Route::get('/point-history', function () {
 	return view('frontend.point_history');
 });
 Route::view('/kode-referral', 'frontend.code_referal')->name("referral.code")->middleware('auth');
-Route::get('/dropshipper', function () {
-	return view('frontend.dropshipper');
-});
+Route::view('dropshipper','frontend.dropshipper')->name('dropshipper');
 Route::get('/register-physician', function () {
 	return view('frontend.register_ physician');
 });

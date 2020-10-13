@@ -236,8 +236,7 @@
                                     </div>
                                 </a>
                                 @endif
-                                <a href="#submenu6" data-toggle="collapse" aria-expanded="false"
-                                    class=" list-group-item list-group-item-action flex-column align-items-start">
+                                <a href="{{ route('dropshipper') }}" class=" list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-start align-items-center">
                                         <img class="img-sidebar-akun__ mr-3" src="{{my_asset('images/icon/ic_dropship.png')}}" alt="">
                                         <span class="menu-collapsed">Dropshipper</span>
