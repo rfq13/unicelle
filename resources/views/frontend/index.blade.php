@@ -44,7 +44,7 @@
         </a>
     </div> --}}
 
-    <div class="container">
+    <div class="container mt-5">
 		<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators ">
 			  <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active " style="border-radius: 50%; height: 20px; width: 20px;"></li>
@@ -84,10 +84,25 @@
     </div>
 
         <div class="container">
-            <h2 style = "margin:10px">Katagori Obat</h2>       
+            <h2 style = "
+            font-family: Open Sans;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 33px;
+            letter-spacing: 0em;
+            text-align: left;
+            height: 33px;
+            width: 273px;
+            left: 150px;
+            top: 631px;
+            border-radius: undefinedpx;
+            margin-top:50px
+
+            ">Kategori Obat</h2>       
                 <div class="mb-4">
                     <div class="container">
-                        <div class="row gutters-10">
+                        <div class="row gutters-10" style="margin-bottom: 160px;">
                             @php
                                 $category = \App\Category::orderBy('created_at', 'desc')->get();
                             @endphp
@@ -97,7 +112,20 @@
                                         <a href="{{route('products.category',$value->slug)}}">
                                             <img src="{{ my_asset($value->banner) }}" style="width:100px; margin:auto;" class="card-img-top text-center" alt="...">
                                             <div class="card-body">
-                                            <p class="card-text text-dark">{{$value->name}}</p>
+                                            <p style="font-family: Open Sans;
+                                                        margin-top: 14.5px;
+                                                        font-size: 20px;
+                                                        font-style: normal;
+                                                        font-weight: 600;
+                                                        line-height: 27px;
+                                                        letter-spacing: 0em;
+                                                        text-align: center;
+                                                        color: #212121;
+                                                        height: 26.095947265625px;
+                                                        width: 100px;
+                                                        left: 245px;
+                                                        top: 839.900390625px;
+                                                        border-radius: nullpx;">{{$value->name}}</p>
                                             </div>
                                         </a>
                                     </div>
@@ -146,35 +174,73 @@
                         </div>
                     </div>
 
-                <h2 style = "margin:10px;font-size:24px">Produk Obat / Vitamin</h2>
-                <p class="ml-3" style="font-size:24px">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>  
+                <h2 style = "font-size:24px;font-family: Open Sans;
+                font-style: normal;
+                font-weight: 600;
+                line-height: 33px;
+                letter-spacing: 0em;
+                text-align: left;
+                ">Produk Obat / Vitamin</h2>
+                <p style="font-family: Open Sans;
+                font-size: 20px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 27px;
+                letter-spacing: 0em;
+                text-align: left;
+                height: 27px;width: 707px;
+                left: 150px;
+                top: 1069px;
+                border-radius: undefinedpx;
+">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>  
                     <div class="mb-4">
                         <div class="container">
                             @php
                                 $products = \App\Product::all();
                             @endphp
                             <div class="row gutters-10">
-                                @foreach($products as $p)
-                                <div class="col-md-2 mt-3">
-                                    <div class="card text-center" >
-                                        <div class="card-body">
-                                            <img src="{{ my_asset(json_decode($p->photos)[0]) }}" style="width:100%" class="card-img-top mb-2 " alt="...">
+                                @foreach ($products as $key => $product)
+                                    <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-2 col-6">
+                                        <div class="product-box-2 bg-white alt-box my-md-2">
+                                            <div class="position-relative overflow-hidden">
+                                                <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
+                                                    <img class="card-img-top lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
+                                                </a>
+                                                <div class="product-btns clearfix">
+                                                    <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
+                                                        <i class="la la-heart-o"></i>
+                                                    </button>
+                                                    <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" type="button">
+                                                        <i class="la la-refresh"></i>
+                                                    </button>
+                                                    <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" type="button">
+                                                        <i class="la la-eye"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="p-md-3 p-2">
+                                                <div class="price-box">
+                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                    @endif
+                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+                                                </div>
+                                                <div class="star-rating star-rating-sm mt-1">
+                                                    {{ renderStarRating($product->rating) }}
+                                                </div>
+                                                <h2 class="product-title p-0">
+                                                    <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{  __($product->name) }}</a>
+                                                </h2>
+                                                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
+                                                    <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
+                                                        {{  translate('Club Point') }}:
+                                                        <span class="strong-700 float-right">{{ $product->earn_point }}</span>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <a class="btn btn-default" onclick="addToCart({{ $product->id }})" style="width: 100%">Tambah</a>
                                         </div>
-                                        <!-- <a href="" class="text-sm-center">PERMEN TOLAK ANGIN LONZENGES SACHET</a> -->
-                                        <a href="{{ route('product', $p->slug) }}" class=" text-truncate" style="color:black">{{ __($p->name) }}</a>
-                                        <!-- <p class="font-weight-bold" style="color:red" size="10px">Rp. 1.500- Rp. 8.900</p> -->
-                                        <div class="price-box">
-                                            @if(home_base_price($p->id) != home_discounted_base_price($p->id))
-                                                <del class="old-product-price strong-400">{{ home_base_price($p->id) }}</del>
-                                            @endif
-                                            <span class="font-weight-bold" style="color:black" size="10px">{{ home_discounted_base_price($p->id) }}</span>
-                                        </div>
-                                        <div class="star-rating star-rating-sm mt-1">
-                                            {{ renderStarRating($p->rating) }}
-                                        </div>
-                                        <a href="#" onclick="addToCart({{$p->id}})" class="btn btn-card-obat">Tambah</a>
                                     </div>
-                                </div>
                                 @endforeach
                             </div>
                         <div class="width:10px" style="text-align:center">
@@ -187,43 +253,88 @@
 
     <section class="bg-img-artikel">      
         <div class="container">
-            <h2 style = "margin:10px">Artikel / Blog</h2>
-            <p class="ml-3">Dapatkan Informasi tentang terbaru seputar kesehatan</p>
-            <div class="mb-4">
+            <h2 style = "
+            height: 33px;
+            width: 150px;
+            left: 150px;
+            top: 1939px;
+            border-radius: nullpx;
+            font-family: Open Sans;
+            font-size: 24px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 33px;
+            letter-spacing: 0em;
+            text-align: left;
+            ">Artikel / Blog</h2>
+            <span style="
+            height: 27px;
+            width: 440px;
+            left: 150px;
+            top: 1982px;
+            border-radius: nullpx;
+            font-family: Open Sans;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 27px;
+            letter-spacing: 0em;
+            text-align: left;
+            ">Dapatkan Informasi terbaru seputar kesehatan</span>
+            <div class="my-4">
                 <div class="container">
                     <div class="row gutters-10">
-                        <div class="col-md-3">
-                            <div class="card text-center" >
-                                    <img src="{{ my_asset('img/homepage/img/banner.jpg') }}" style="width:100%" class="card-img-top mb-2 " alt="...">
-                                    <p class="text-sm-left font-weight-bold" style="margin-left: 10px;">Trakhoma yang Tidak Diobati Bisa Sebabkan Komplikasi</p>
-                                    <p class="text-sm-left" size="8px"style="margin-left: 10px;">5 Causes of Fatigue when Wake Up 5 Causes of Fatigue when Wake Up 5 Causes of Fatigue
-                                    when Wake Up 5 Causes of Fatigue when Wake Up</p>
+                        @for ($i = 0; $i < 6; $i++)
+                            <div class="col-md-3 my-2">
+                                <div class="mb-2" style="
+                                left: 0%;
+                                right: 0%;
+                                top: 0%;
+                                bottom: 0%;
+
+                                background: #FFFFFF;
+                                /* opacity: 0.1; */
+                                /* border: 1px solid rgba(0, 0, 0, 0.5); */
+                                box-sizing: border-box;
+                                box-shadow: 0px 0px 6px 4px rgba(0, 0, 0, 0.25);
+                                border-radius: 10px">
+                                        <img src="{{ my_asset('img/homepage/img/banner.jpg') }}" style="
+                                        left: 0%;
+                                        right: 0%;
+                                        top: 0%;
+                                        bottom: 45.11%;
+                                        border-radius: 10px 10px 0px 0px;
+                                        " class="card-img-top" alt="...">
+                                        <div class="container" style="margin-top: 10px;padding-bottom:10px">
+                                            <p style="
+                                            left: 5.47%;
+                                            right: 5.47%;
+                                            top: 58.04%;
+                                            bottom: 28.08%;
+                                            font-family: Open Sans;
+                                            font-style: normal;
+                                            font-weight: 600;
+                                            font-size: 16px;
+                                            line-height: 22px;
+                                            color: #212121;
+                                            ">Trakhoma yang Tidak Diobati Bisa Sebabkan Komplikasi</p>
+                                            <p style="
+                                            left: 5.47%;
+                                            right: 5.47%;
+                                            top: 75.08%;
+                                            bottom: 4.73%;
+                                            font-family: Open Sans;
+                                            font-style: normal;
+                                            font-weight: normal;
+                                            font-size: 12px;
+                                            line-height: 16px;
+                                            color: #424242;
+                                            ">5 Causes of Fatigue when Wake Up 5 Causes of Fatigue when Wake Up 5 Causes of Fatigue when Wake Up 5 Causes of Fatigue when Wake Up</p>
+
+                                        </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card text-center" >
-                                    <img src="{{ my_asset('img/homepage/img/banner.jpg') }}" style="width:100%" class="card-img-top mb-2 " alt="...">
-                                    <p class="text-sm-left font-weight-bold" style="margin-left: 10px;">Trakhoma yang Tidak Diobati Bisa Sebabkan Komplikasi</p>
-                                    <p class="text-sm-left" size="8px"style="margin-left: 10px;">5 Causes of Fatigue when Wake Up 5 Causes of Fatigue when Wake Up 5 Causes of Fatigue
-                                    when Wake Up 5 Causes of Fatigue when Wake Up</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card text-center" >
-                                    <img src="{{ my_asset('img/homepage/img/banner.jpg') }}" style="width:100%" class="card-img-top mb-2 " alt="...">
-                                    <p class="text-sm-left font-weight-bold" style="margin-left: 10px;">Trakhoma yang Tidak Diobati Bisa Sebabkan Komplikasi</p>
-                                    <p class="text-sm-left" size="8px"style="margin-left: 10px;">5 Causes of Fatigue when Wake Up 5 Causes of Fatigue when Wake Up 5 Causes of Fatigue
-                                    when Wake Up 5 Causes of Fatigue when Wake Up</p>
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="card text-center" >
-                                    <img src="{{ my_asset('img/homepage/img/banner.jpg') }}" style="width:100%" class="card-img-top mb-2 " alt="...">
-                                    <p class="text-sm-left font-weight-bold" style="margin-left: 10px;">Trakhoma yang Tidak Diobati Bisa Sebabkan Komplikasi</p>
-                                    <p class="text-sm-left" size="8px"style="margin-left: 10px;">5 Causes of Fatigue when Wake Up 5 Causes of Fatigue when Wake Up 5 Causes of Fatigue
-                                    when Wake Up 5 Causes of Fatigue when Wake Up</p>
-                            </div>
-                        </div>
+                        @endfor
                     </div>
                 </div>
                 <div class="width:10px" style="text-align:center">

@@ -50,20 +50,17 @@ class HomeController extends Controller
         return view('frontend.user_login_otp');
     }
 
-    public function proses_login_otp(Request $request)
+    public function proses_login_otp(Request $request, User $user,$regis = 0)
     {
+        // dd($regis);
         $nomor = $request->input('nomor');
-        $user = User::where('phone', $nomor)->first();
-        // echo $nomor;
-        // auth()->login($existingUser, true);
 
-        if (isset($user)) {
-            // auth()->login($user, true);
-            /* Mengatur Login */
+        if ($user->where('phone', $nomor)->first() != null) {
             return response()->json([
                 'success' => true
             ], 200);
-        } else {
+        }
+        else {
             return response()->json([
                 'success' => false,
                 'message' => 'Login Gagal'
@@ -212,6 +209,7 @@ class HomeController extends Controller
 
     public function customer_update_profile(Request $request)
     {
+        // dd($request->all());
         if (env('DEMO_MODE') == 'On') {
             flash(translate('Sorry! the action is not permitted in demo '))->error();
             return back();
@@ -221,7 +219,12 @@ class HomeController extends Controller
         $user->name = $request->name;
         $user->gender = $request->gender;
         $user->phone = $request->phone;
-        $user->email = $request->email;
+        if ($request->has('email')) {
+            $user->email = $request->email;
+        }
+        if ($request->password != null) {
+            $user->password = Hash::make($request->password);
+        }
         $user->gender = $request->gender;
         $user->birth = $request->birth;
 

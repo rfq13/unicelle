@@ -32,16 +32,24 @@
                                 <h5 class="mb-4 mt-2">Register OTP</h5>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Nama Depan">
+                                        <input type="text" id="first_name" class="form-control" placeholder="Nama Depan">
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control" placeholder="Nama Belakang">
+                                        <input type="text" id="last_name" class="form-control" placeholder="Nama Belakang">
                                     </div>
                                 </div>
-                                <div class="form-group">
-                                    <input type="text" class="form-control" placeholder="Nomor Telepon">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">+62</span>
+                                    </div>
+                                    <input type="text" id="number" class="form-control" placeholder="No. Telepon" onkeypress="return hanyaAngka(event)"  maxlength="12">
                                 </div>
-                                <button type="submit" class="btn btn-primary1 mb-3" style="width: 100%;">
+
+                                <div class="form-group">
+                                    <div id="recaptcha-container"></div>
+                                </div>
+
+                                <button type="button" class="btn btn-primary1 mb-3" style="width: 100%;" onclick="phoneAuth(1)">
                                     Daftar</button>
                             </form>
                             <div class="card-footer text-center mt-2 mb-0">
@@ -53,9 +61,10 @@
                 </div>
             </div>
         </div>
+        @include('frontend.regis_dan_login.modalAuthOtp')
     </section>
 
-    <!-- <section class="gry-bg py-4">
+    {{-- <section class="gry-bg py-4">
         <div class="profile">
             <div class="container">
                 <div class="row">
@@ -147,14 +156,14 @@
                                             <div class="form-group">
                                                 <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
                                             </div>
-                                        @endif -->
+                                        @endif
 
-                                        <!-- <div class="checkbox text-left">
+                                        <div class="checkbox text-left">
                                             <input class="magic-checkbox" type="checkbox" name="checkbox_example_1" id="checkboxExample_1a" required>
                                             <label for="checkboxExample_1a" class="text-sm">{{ translate('By signing up you agree to our terms and conditions.')}}</label>
-                                        </div> -->
+                                        </div>
 
-                                        <!-- <div class="text-right mt-3">
+                                        <div class="text-right mt-3">
                                             <button type="submit" class="btn btn-styled btn-base-1 w-100 btn-md">{{  translate('Create Account') }}</button>
                                         </div>
                                     </form>
@@ -193,12 +202,22 @@
                 </div>
             </div>
         </div>
-    </section> -->
+    </section> --}}
 @endsection
 
 
 @section('script')
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $("#btn").html(`
+                <button type="button" class="btn btn-secondary1 mb-3" style="width: 100%;" onclick="codeverify('regis');">Register</button>
+            `)
+        })
+    </script>
+@endsection
+
+    {{-- <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script type="text/javascript">
 
         //making the CAPTCHA  a required field for form submission
@@ -259,13 +278,5 @@
                 $(el).html('Use Email Instead');
             }
         }
-
-        function hanyaAngka(evt){
-            var charCode = (evt.which) ? evt.which : event.keyCode
-            if(charCode > 31 && (charCode < 48 || charCode > 57))
-
-                return false;
-            return true;
-        }
-    </script>
+    </script> --}}
 @endsection

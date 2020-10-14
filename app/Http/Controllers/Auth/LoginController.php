@@ -60,6 +60,25 @@ class LoginController extends Controller
         return "user not found";
     }
 
+    public function regUser(User $user,$userData)
+    {
+        $referral_code = str_replace("=","",encrypt($user->id));
+        $referral_code = substr($referral_code,strlen($referral_code)-10);
+
+        $userData = json_decode($userData);
+
+        $user->phone = $userData->phone;
+        $user->name = $userData->name;
+        $user->email_verified_at = date('Y-m-d H:m:s');
+        $user->user_type = "pasien reg";
+        $user->referral_code = $referral_code;
+        if($user->save()){
+            if($this->bindUser($userData->phone) == "sukses"){
+                return "sukses";
+            };
+        }
+    }
+
     public function handleProviderCallback(Request $request, $provider)
     {
         try {
@@ -108,13 +127,7 @@ class LoginController extends Controller
             return redirect()->route("home");
         }
     }
-
-    /**
-     * Get the needed authorization credentials from the request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return array
-     */
+    
     protected function credentials(Request $request)
     {
         if (filter_var($request->get('email'), FILTER_VALIDATE_EMAIL)) {

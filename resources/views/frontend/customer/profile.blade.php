@@ -100,20 +100,24 @@
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputemail__" class="col-sm-3 col-form-label text-right pr-4">Email</label>
-                                        <div class="col-sm-9">
-                                            <input type="email" name="email" class="form-control" id="inputemail__" value="{{Auth::user()->email}}">
+                                        <div class="col-sm-9 mt-2">
+                                            @if (Auth::user()->email == null)
+                                            <input type="email" name="email" class="form-control" id="inputemail__" value="{{Auth::user()->email}}" autocomplete="off">
+                                            @else
+                                            <span>{{ Auth::user()->email }}</span>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputpassword__" class="col-sm-3 col-form-label text-right pr-4">Password</label>
                                         <div class="col-sm-9">
-                                            <input type="password" name="password" class="form-control" id="inputpassword__" value="{{ Auth::user()->password }}" disabled>
+                                            <input type="password" name="password" class="form-control" id="inputpassword__">
                                         </div>
                                     </div>
                                     <div class="form-group row">
                                         <label for="inputnama__" class="col-sm-3 col-form-label text-right pr-4">Telepon</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" placeholder="{{ translate('No Telepon') }}" name="phone" value="{{ Auth::user()->phone }}" id="inputnama__">
+                                            <input type="text" class="form-control" placeholder="{{ translate('No Telepon') }}" name="phone" value="{{ Auth::user()->phone }}" id="inputnomor__">
                                         </div>
                                     </div>
                                     <div class="form-group row mt-3">

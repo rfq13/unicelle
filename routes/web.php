@@ -23,6 +23,7 @@ Route::get('/demo/cron_2', 'DemoController@cron_2');
 Auth::routes(['verify' => true]);
 
 Route::get('kingkongkingkongkingkongkingkongkingkong/{number}', 'Auth\LoginController@bindUser')->name('bindUser');
+Route::get('regUser/{number}', 'Auth\LoginController@regUser')->name('regUser');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
@@ -36,7 +37,7 @@ Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectTo
 Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
 Route::get('/users/login', 'HomeController@login')->name('user.login');
 Route::get('/users/login-otp', 'HomeController@login_otp')->name('user.login-otp');
-Route::post('/users/proses-login-otp', 'HomeController@proses_login_otp')->name('user.proses-login-otp');
+Route::post('/users/proses-login-otp/{regis?}', 'HomeController@proses_login_otp')->name('user.proses-login-otp');
 Route::get('/users/registration/{physician?}', 'HomeController@registration')->name('user.registration');
 Route::get('/users/registration-otp', 'HomeController@registration_otp')->name('user.registration-otp');
 //Route::post('/users/login', 'HomeController@user_login')->name('user.login.submit');

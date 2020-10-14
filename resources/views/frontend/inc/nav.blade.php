@@ -96,10 +96,6 @@
         <a href="{{ route('user.registration') }}" class="btn btn-outline-primary mr-2 my-sm-2" type="button" role="button">Daftar</a>      -->
     --}}
 </nav>
-
-
-
-
 {{--
     <!-- <div class="header bg-white"> -->
     <!-- Top Bar -->
