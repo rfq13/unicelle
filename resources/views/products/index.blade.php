@@ -66,7 +66,9 @@
                     @endif
                     <th>{{translate('Num of Sale')}}</th>
                     <th>{{translate('Total Stock')}}</th>
-                    <th>{{translate('Base Price')}}</th>
+                    <th>{{translate('Regular Physician Price')}}</th>
+                    <th>{{translate('Partner Physician Price')}}</th>
+                    <th>{{translate('Pasien Regular Price')}}</th>
                     <th>{{translate('Todays Deal')}}</th>
                     <th>{{translate('Rating')}}</th>
                     <th>{{translate('Published')}}</th>
@@ -108,7 +110,9 @@
                                 echo $qty;
                             @endphp
                         </td>
-                        <td>{{ number_format($product->unit_price,2) }}</td>
+                        <td>{{ number_format($product->regular_physician_price,2) }}</td>
+                        <td>{{ number_format($product->partner_physician_price,2) }}</td>
+                        <td>{{ number_format($product->pasien_regular_price,2) }}</td>
                         <td><label class="switch">
                                 <input onchange="update_todays_deal(this)" value="{{ $product->id }}" type="checkbox" <?php if($product->todays_deal == 1) echo "checked";?> >
                                 <span class="slider round"></span></label></td>

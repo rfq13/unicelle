@@ -22,3 +22,4 @@ composer.lock
 *.lock
 .env
 storage/logs
+resources/lang

@@ -212,8 +212,20 @@
 				<div class="panel-body">
 					<div class="form-group">
 						<label class="col-lg-2 control-label">{{translate('Unit price')}}</label>
-						<div class="col-lg-7">
-							<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Unit price') }}" name="unit_price" class="form-control" required>
+						{{-- <div class="col-lg-3" style="display: none">
+							<input type="number" min="0" value="0" step="0.01" id="unit_price" placeholder="{{ translate('Unit price') }}" name="unit_price" class="form-control">
+						</div> --}}
+						<div class="col-lg-3">
+							<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Regular Physician Price') }}" name="regular_physician_price" class="form-control product-price" id="rpp" required>
+							<span style="font-size: 10px;font-style:italic">*HET Regular Physician</span>
+						</div>
+						<div class="col-lg-3">
+							<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Partner Physician Price') }}" name="partner_physician_price" class="form-control product-price" id="ppp" required>
+							<span style="font-size: 10px;font-style:italic">*HET Partner Physician</span>
+						</div>
+						<div class="col-lg-3">
+							<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Pasien Regular Price') }}" name="pasien_regular_price" class="form-control product-price" id="prp" required>
+							<span style="font-size: 10px;font-style:italic">*HET Pasien Regular</span>
 						</div>
 					</div>
 					<div class="form-group">
@@ -363,7 +375,8 @@
 				</div>
 			</div>
 			<div class="mar-all text-right">
-				<button type="submit" name="button" class="btn btn-info">{{ translate('Add New Product') }}</button>
+				<button type="submit" name="button" class="btn btn-info" id="btnSubmit">{{ translate('Add New Product') }}</button>
+				{{-- <a href="#" id="btnTambah" class="btn btn-info">{{ translate('Tambah') }}</a> --}}
 			</div>
 		</form>
 	</div>
@@ -373,8 +386,8 @@
 @endsection
 
 @section('script')
-
 <script type="text/javascript">
+
 	function add_more_customer_choice_option(i, name){
 		$('#customer_choice_options').append('<div class="form-group"><div class="col-lg-2"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice[]" value="'+name+'" placeholder="{{ translate('Choice Title') }}" readonly></div><div class="col-lg-7"><input type="text" class="form-control" name="choice_options_'+i+'[]" placeholder="{{ translate('Enter choice values') }}" data-role="tagsinput" onchange="update_sku()"></div></div>');
 

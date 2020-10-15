@@ -1,3 +1,20 @@
+@php
+    if(Auth::check()){
+        $point = [];
+        $user = Auth::user();
+        $orders = $user->orders;
+        foreach ($orders as $key => $order) {
+            foreach ($order->orderDetails as $key => $orderDetail) {
+                array_push($point,$orderDetail->product->earn_point);
+            }
+        }
+        $point = array_sum($point);
+        if ($point != $user->poin) {
+            $user->poin = $point;
+            $user->save();
+        }
+    }
+@endphp
 <nav class="navbar navbar-expand-lg bg-white navbar-light">
     <a class="navbar-brand" href="{{ route('home') }}">
         <img class="navbar-brand ml-5" style="height: 57px;" src="{{ my_asset('img/header_dan_footer/icon/logonav.png') }}">

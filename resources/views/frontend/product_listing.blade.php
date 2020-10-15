@@ -152,7 +152,7 @@
                     </ul>
                     <div class="container ml-3">
                         <div class="row">
-                            <p class="text-hasilpencarian mt-3">Hasil Pencarian :</p>
+                            <p class="text-hasilpencarian mt-3">{{ isset($query) && $query != "" ? "Hasil Pencarian : ''$query''" : ""}}</p>
                             <ul>
                                 @if(isset($category_id))
                                     <p class="text-hasil mt-3 active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></p>
@@ -174,7 +174,7 @@
                                 <a class="col-3 btn {{ isset($sort_by) && $sort_by == '3' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(3)">Harga Terendah</a>
                             </div>
                         </div>
-                        <p>{{ $products->total() }} Search Result for "{{ isset($query) ? $query : "" }}"</p>
+                        <p>{{ isset($query) && $query != "" ? $products->total()." Search Result for ''$query''" : ""}}</p>
                         <hr style="width:100%;text-align:left;margin-left:0">
                     </div>
                 </div>
@@ -450,7 +450,7 @@
                                                 </h2>
                                                 @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
                                                     <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                        {{  translate('Club Point') }}:
+                                                        {{  translate('Point') }}:
                                                         <span class="strong-700 float-right">{{ $product->earn_point }}</span>
                                                     </div>
                                                 @endif

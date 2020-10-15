@@ -101,18 +101,18 @@
 
             ">Kategori Obat</h2>       
                 <div class="mb-4">
-                    <div class="container">
+                    <div class="container ">
                         <div class="row gutters-10" style="margin-bottom: 160px;">
                             @php
                                 $category = \App\Category::orderBy('created_at', 'desc')->get();
                             @endphp
                             @foreach ($category as $key => $value)
-                                <div class="col-md-2">
-                                    <div class="margin:auto;" style="width: 8rem; margin:5px;">
+                                <div class="col-md-2 mx-3">
+                                    <div style="margin:auto;width: 8rem; margin:5px;">
                                         <a href="{{route('products.category',$value->slug)}}">
-                                            <img src="{{ my_asset($value->banner) }}" style="width:100px; margin:auto;" class="card-img-top text-center" alt="...">
+                                            <img src="{{ my_asset($value->icon) }}" style="width:100px;" class="card-img-top mx-auto" alt="...">
                                             <div class="card-body">
-                                            <p style="font-family: Open Sans;
+                                            <span style="font-family: Open Sans;
                                                         margin-top: 14.5px;
                                                         font-size: 20px;
                                                         font-style: normal;
@@ -125,52 +125,54 @@
                                                         width: 100px;
                                                         left: 245px;
                                                         top: 839.900390625px;
-                                                        border-radius: nullpx;">{{$value->name}}</p>
+                                                        border-radius: nullpx;">{{$value->name}}</span>
                                             </div>
                                         </a>
                                     </div>
                                 </div>
                             @endforeach
-                            {{-- <div class="col-md-2">
-                                <div class="margin:auto;" style="width: 8rem; margin:10px">
-                                    <img src="{{ my_asset('img/homepage/icon/jantung.png') }}" style="width:100px; margin:auto; " class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">Jantung</p>
+                            {{-- 
+                                <div class="col-md-2">
+                                    <div class="margin:auto;" style="width: 8rem; margin:10px">
+                                        <img src="{{ my_asset('img/homepage/icon/jantung.png') }}" style="width:100px; margin:auto; " class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">Jantung</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="margin:auto;" style="width: 8rem; margin:10px">
-                                    <img src="{{ my_asset('img/homepage/icon/demam.png') }}" style="width:100px; margin:auto;" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">Demam</p>
+                                <div class="col-md-2">
+                                    <div class="margin:auto;" style="width: 8rem; margin:10px">
+                                        <img src="{{ my_asset('img/homepage/icon/demam.png') }}" style="width:100px; margin:auto;" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">Demam</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="margin:auto;" style="width: 8rem; margin:10px">
-                                    <img src="{{ my_asset('img/homepage/icon/antibiotik.png') }}" style="width:100px; margin:auto; " class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">Anti Biotik</p>
+                                <div class="col-md-2">
+                                    <div class="margin:auto;" style="width: 8rem; margin:10px">
+                                        <img src="{{ my_asset('img/homepage/icon/antibiotik.png') }}" style="width:100px; margin:auto; " class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">Anti Biotik</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="margin:auto;" style="width: 8rem; margin:10px">
-                                    <img src="{{ my_asset('img/homepage/icon/suplemen.png') }}" style="width:100px; margin:auto;" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">Suplemen</p>
+                                <div class="col-md-2">
+                                    <div class="margin:auto;" style="width: 8rem; margin:10px">
+                                        <img src="{{ my_asset('img/homepage/icon/suplemen.png') }}" style="width:100px; margin:auto;" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">Suplemen</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2" style="text-align:center">
-                                <div class="margin:auto;" style="width: 8rem; margin:10px">
-                                    <img src="{{ my_asset('img/homepage/icon/jadwal-diet.png') }}" style="width:100px; margin:auto;" class="card-img-top" alt="...">
-                                    <div class="card-body">
-                                        <p class="card-text">Diet</p>
+                                <div class="col-md-2" style="text-align:center">
+                                    <div class="margin:auto;" style="width: 8rem; margin:10px">
+                                        <img src="{{ my_asset('img/homepage/icon/jadwal-diet.png') }}" style="width:100px; margin:auto;" class="card-img-top" alt="...">
+                                        <div class="card-body">
+                                            <p class="card-text">Diet</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            --}}
                         </div>
                     </div>
 
@@ -233,7 +235,7 @@
                                                 </h2>
                                                 @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
                                                     <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                        {{  translate('Club Point') }}:
+                                                        {{  translate('Point') }}:
                                                         <span class="strong-700 float-right">{{ $product->earn_point }}</span>
                                                     </div>
                                                 @endif
@@ -244,7 +246,7 @@
                                 @endforeach
                             </div>
                         <div class="width:10px" style="text-align:center">
-                               <a href="#" class="btn mt-5" style="background:#3BB6B1; color:#fff; width:20%;">Selanjutnya</a>
+                            <a href="#" class="btn mt-5" style="background:#3BB6B1; color:#fff; width:20%;">Selanjutnya</a>
                         </div>
                 </div>
             </div>
@@ -344,7 +346,7 @@
         </div>
     </section>
 
-    <!-- <section class="home-banner-area mb-4">
+    {{-- <!-- <section class="home-banner-area mb-4">
         <div class="container">
             <div class="row no-gutters position-relative">
                 <div class="col-lg-3 position-static order-2 order-lg-0">
@@ -701,7 +703,7 @@
             </div>
         </div>
     </section>
-    @endif -->
+    @endif --> --}}
 @endsection
 
 @section('script')
