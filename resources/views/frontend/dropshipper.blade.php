@@ -30,7 +30,7 @@ $config =  json_decode( $bank_setting->value);
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-4">
+                        <div class="row mt-4 mb-4">
                             <div class="col-3 ml-3">
                                 <input class="form-date" type="date" id="birthday" name="birthday">
                             </div>
@@ -55,7 +55,10 @@ $config =  json_decode( $bank_setting->value);
                                 </div>
                             </div>
                         </div>
-                    
+                        @if (count($orders) < 1)
+                        <h5 class="text-center py-4" style="color: #d1caca"> anda belum pernah order sebagai dropshipper </h5>
+                        @endif
+                        
                         <!--Card-->
                         @foreach ($orders as $key => $order)
                             

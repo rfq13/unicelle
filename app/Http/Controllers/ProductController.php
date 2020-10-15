@@ -154,8 +154,18 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
-        $product->unit_price = $request->unit_price;
+
+        $price = [$request->regular_physician_price,$request->partner_physician_price,$request->pasien_regular_price];
+        $count = count($price);                 
+        $sum = array_sum($price);               
+        $sum = $sum / $count; 
+
+        $product->unit_price = $sum;
+        $product->regular_physician_price = $price[0];
+        $product->partner_physician_price = $price[1];
+        $product->pasien_regular_price = $price[2];
         $product->purchase_price = $request->purchase_price;
+        
         $product->tax = $request->tax;
         $product->tax_type = $request->tax_type;
         $product->discount = $request->discount;
@@ -401,7 +411,17 @@ class ProductController extends Controller
         $product->description = $request->description;
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
-        $product->unit_price = $request->unit_price;
+
+        $price = [$request->regular_physician_price,$request->partner_physician_price,$request->pasien_regular_price];
+        $count = count($price);                 
+        $sum = array_sum($price);               
+        $sum = $sum / $count; 
+
+        $product->unit_price = $sum;
+        $product->regular_physician_price = $price[0];
+        $product->partner_physician_price = $price[1];
+        $product->pasien_regular_price = $price[2];
+
         $product->purchase_price = $request->purchase_price;
         $product->tax = $request->tax;
         $product->tax_type = $request->tax_type;

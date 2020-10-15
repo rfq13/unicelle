@@ -241,9 +241,21 @@
 				<div class="panel-body">
 					<div class="form-group">
                         <label class="col-lg-2 control-label">{{translate('Unit price')}}</label>
-                        <div class="col-lg-7">
+                        {{-- <div class="col-lg-7">
                             <input type="text" placeholder="{{translate('Unit price')}}" name="unit_price" class="form-control" value="{{$product->unit_price}}" required>
-                        </div>
+						</div> --}}
+						<div class="col-lg-3">
+							<input type="number" min="0" step="any" id="rpp" placeholder="{{ translate('Regular Physician Price') }}" name="regular_physician_price" class="form-control product-price" value="{{$product->regular_physician_price}}" required>
+							<span style="font-size: 10px;font-style:italic">*HET Regular Physician</span>
+						</div>
+						<div class="col-lg-3">
+							<input type="number" min="0" step="any" id="ppp" placeholder="{{ translate('Partner Physician Price') }}" name="partner_physician_price" class="form-control product-price" value="{{$product->partner_physician_price}}" required>
+							<span style="font-size: 10px;font-style:italic">*HET Partner Physician</span>
+						</div>
+						<div class="col-lg-3">
+							<input type="number" min="0" step="any" id="prp" placeholder="{{ translate('Pasien Regular Price') }}" name="pasien_regular_price" class="form-control product-price" value="{{$product->pasien_regular_price}}" required>
+							<span style="font-size: 10px;font-style:italic">*HET Pasien Regular</span>
+						</div>
                     </div>
                     <div class="form-group">
                         <label class="col-lg-2 control-label">{{translate('Purchase price')}}</label>
@@ -401,7 +413,8 @@
 				</div>
 			</div>
 			<div class="mar-all text-right">
-				<button type="submit" name="button" class="btn btn-info">{{ translate('Update Product') }}</button>
+				<button type="submit" name="button" class="btn btn-info" id="btnSubmit">{{ translate('Update product') }}</button>
+				{{-- <a href="#" id="btnTambah" class="btn btn-info">{{ translate('Update Product') }}</a> --}}
 			</div>
 		</form>
 	</div>
@@ -410,7 +423,6 @@
 @endsection
 
 @section('script')
-
 <script type="text/javascript">
 
 	// var i = $('input[name="choice_no[]"').last().val();

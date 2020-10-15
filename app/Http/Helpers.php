@@ -531,6 +531,11 @@ if (! function_exists('home_base_price')) {
     {
         $product = Product::findOrFail($id);
         $price = $product->unit_price;
+        if (Auth::check()) {
+            $u = Auth::user()->user_type;
+            $price = $u == "regular physician" ? $product->regular_physician_price : $u == "partner physician" ? $product->partner_physician_price : $u == "pasien reg" ? $product->pasien_regular_price : $product->unit_price;
+        }
+
         if($product->tax_type == 'percent'){
             $price += ($price*$product->tax)/100;
         }
@@ -547,6 +552,10 @@ if (! function_exists('home_discounted_base_price')) {
     {
         $product = Product::findOrFail($id);
         $price = $product->unit_price;
+        if (Auth::check()) {
+            $u = Auth::user()->user_type;
+            $price = $u == "regular physician" ? $product->regular_physician_price : $u == "partner physician" ? $product->partner_physician_price : $u == "pasien reg" ? $product->pasien_regular_price : $product->unit_price;
+        }
 
         $flash_deals = \App\FlashDeal::where('status', 1)->get();
         $inFlashDeal = false;
@@ -665,6 +674,10 @@ if (! function_exists('homeBasePrice')) {
     {
         $product = Product::findOrFail($id);
         $price = $product->unit_price;
+        if (Auth::check()) {
+            $u = Auth::user()->user_type;
+            $price = $u == "regular physician" ? $product->regular_physician_price : $u == "partner physician" ? $product->partner_physician_price : $u == "pasien reg" ? $product->pasien_regular_price : $product->unit_price;
+        }
         if ($product->tax_type == 'percent') {
             $price += ($price * $product->tax) / 100;
         } elseif ($product->tax_type == 'amount') {
@@ -679,6 +692,10 @@ if (! function_exists('homeDiscountedBasePrice')) {
     {
         $product = Product::findOrFail($id);
         $price = $product->unit_price;
+        if (Auth::check()) {
+            $u = Auth::user()->user_type;
+            $price = $u == "regular physician" ? $product->regular_physician_price : $u == "partner physician" ? $product->partner_physician_price : $u == "pasien reg" ? $product->pasien_regular_price : $product->unit_price;
+        }
 
         $flash_deals = FlashDeal::where('status', 1)->get();
         $inFlashDeal = false;

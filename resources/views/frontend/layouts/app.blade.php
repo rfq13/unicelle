@@ -7,10 +7,8 @@
 <head>
 
 @php
-    $modalTrigger = "";
     if (Auth::check()) {
-        $user = Auth::user();
-        
+        $user = Auth::user();        
         if ($user->physician_verification != null && $user->physician_verification->verify == 0) {
             Auth::logout();
             flash("mohon maaf akun anda belum dapat digunakan, tunggu konfirmasi admin");
@@ -999,18 +997,22 @@
     }
 
     function addToWishList(id){
-        @if (Auth::check() &&  Auth::user()->user_type == 'pasien reg')
-            $.post('{{ route('wishlists.store') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
-                if(data != 0){
-                    $('#wishlist').html(data);
-                    showFrontendAlert('success', 'Item has been added to wishlist');
-                }
-                else{
-                    showFrontendAlert('warning', 'Please login first');
-                }
-            });
+        @if (Auth::check())
+            @if (Auth::user()->user_type != 'admin' && Auth::user()->user_type != 'seller')
+                $.post('{{ route('wishlists.store') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
+                    if(data != 0){
+                        $('#wishlist').html(data);
+                        showFrontendAlert('success', 'Item has been added to wishlist');
+                    }
+                    else{
+                        showFrontendAlert('warning', 'stok produk habis');
+                    }
+                });
+            @else
+                showFrontendAlert('warning', 'admin/seller tidak dapat menambah wishlist');
+            @endif
         @else
-            showFrontendAlert('warning', 'Please login first');
+            showFrontendAlert('warning', 'mohon login terlebih dahulu');
         @endif
     }
 
