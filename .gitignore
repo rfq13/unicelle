@@ -21,3 +21,4 @@ updates/
 composer.lock
 *.lock
 .env
+storage/logs

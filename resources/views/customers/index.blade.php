@@ -39,10 +39,13 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                    $n = 1;
+                @endphp
                 @foreach($customers as $key => $customer)
                     @if ($customer->user != null)
                         <tr>
-                            <td>{{ ($key+1) + ($customers->currentPage() - 1)*$customers->perPage() }}</td>
+                            <td>{{ ($n++) + ($customers->currentPage() - 1)*$customers->perPage() }}</td>
                             <td>@if($customer->user->banned == 1) <i class="fa fa-ban text-danger" aria-hidden="true"></i> @endif {{$customer->user->name}}</td>
                             <td>{{$customer->user->email}}</td>
                             <td>{{$customer->user->phone}}</td>

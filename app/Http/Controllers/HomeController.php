@@ -520,6 +520,9 @@ class HomeController extends Controller
                 case '4':
                     $products->orderBy('unit_price', 'desc');
                     break;
+                case '5':
+                    $products->withCount('orderDetails')->orderBy('order_details_count','desc');
+                    break;
                 default:
                     // code...
                     break;

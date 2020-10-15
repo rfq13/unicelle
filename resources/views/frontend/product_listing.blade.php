@@ -1,5 +1,5 @@
 @php
-    // dd($products->total());
+    // dd($products);
 @endphp
 @extends('frontend.layouts.app')
 
@@ -169,9 +169,9 @@
                             </ul>
                             <div class="row col ridge ml-5">
                                 <p class="text-urutkan mt-4 ml-3">Urutkan</p>
-                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '2' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 ml-3 mt-3 mb-3" id="btn-urutkan" href="#" data-id="2">Terlaris</a>
-                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '3' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 mt-3 mb-3 "id="btn-urutkan" href="#" onclick="select(3)">Harga Tertinggi</a>
-                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '4' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(4)">Harga Terendah</a>
+                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '5' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 ml-3 mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(5)">Terlaris</a>
+                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '4' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 mt-3 mb-3 "id="btn-urutkan" href="#" onclick="select(4)">Harga Tertinggi</a>
+                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '3' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(3)">Harga Terendah</a>
                             </div>
                         </div>
                         <p>{{ $products->total() }} Search Result for "{{ isset($query) ? $query : "" }}"</p>
@@ -371,10 +371,11 @@
                                             <div class="form-group">
                                                 <label>{{ translate('Sort by')}}</label>
                                                 <select class="form-control sortSelect" data-minimum-results-for-search="Infinity" name="sort_by" onchange="filter()">
-                                                    <option value="1" @isset($sort_by) @if ($sort_by == '1') selected @endif @endisset>{{ translate('Newest')}}</option>
-                                                    <option value="2" @isset($sort_by) @if ($sort_by == '2') selected @endif @endisset>{{ translate('Oldest')}}</option>
-                                                    <option value="3" @isset($sort_by) @if ($sort_by == '3') selected @endif @endisset>{{ translate('Price low to high')}}</option>
-                                                    <option value="4" @isset($sort_by) @if ($sort_by == '4') selected @endif @endisset>{{ translate('Price high to low')}}</option>
+                                                    <option value="1">{{ translate('Newest')}}</option>
+                                                    <option value="2">{{ translate('Oldest')}}</option>
+                                                    <option value="3">{{ translate('Price low to high')}}</option>
+                                                    <option value="4">{{ translate('Price high to low')}}</option>
+                                                    <option value="5">{{ translate('Terlari')}}</option>
                                                 </select>
                                             </div>
                                         </div>
