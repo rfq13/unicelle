@@ -148,6 +148,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::get('/orders/{id}/show', 'OrderController@show')->name('orders.show');
 	Route::get('/sales/{id}/show', 'OrderController@sales_show')->name('sales.show');
 	Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
+	Route::put("tambah-resi-pengiriman/{id}","OrderController@add_resi")->name('add.resi');
 	Route::get('/sales', 'OrderController@sales')->name('sales.index');
 
 	Route::resource('links', 'LinkController');
@@ -222,6 +223,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	//Shipping Configuration
 	Route::get('/shipping_configuration', 'BusinessSettingsController@shipping_configuration')->name('shipping_configuration.index');
 	Route::post('/shipping_configuration/update', 'BusinessSettingsController@shipping_configuration_update')->name('shipping_configuration.update');
+	
 
 	Route::resource('pages', 'PageController');
 	Route::get('/pages/destroy/{id}', 'PageController@destroy')->name('pages.destroy');

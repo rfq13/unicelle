@@ -1,3 +1,11 @@
+@php
+	$ship = json_decode($ship)->rajaongkir->result;
+	$waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
+	$statusKirim = $ship->delivery_status->status;
+	$kurir = $ship->summary->courier_name;
+	$manifest = $ship->manifest;
+	// dd($manifest);
+@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -14,21 +22,34 @@
                     $delivery_status = $order->orderDetails->first()->delivery_status;
                     $payment_status = $order->orderDetails->first()->payment_status;
                 @endphp
-                <div class="col-lg-offset-6 col-lg-3">
-                    <label for=update_payment_status"">{{translate('Payment Status')}}</label>
+                <div class="col-lg-offset-3 col-lg-3">
+                    <label for="update_payment_status">{{translate('Payment Status')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_payment_status">
                         <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Paid')}}</option>
                         <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Unpaid')}}</option>
                     </select>
                 </div>
                 <div class="col-lg-3">
-                    <label for=update_delivery_status"">{{translate('Delivery Status')}}</label>
+					<div class="row">
+						<label for="update_delivery_status">{{ translate('nomor Resi :')}}</label>
+					</div>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                         <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
                         <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option>
                         <option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('On delivery')}}</option>
                         <option value="delivered" @if ($delivery_status == 'delivered') selected @endif>{{translate('Delivered')}}</option>
-                    </select>
+					</select>
+				</div>
+				<div class="col-lg-3">
+					<div class="row" style="margin-top: 1px" id="row-resi">
+						<span id="resi" style="color: #3b78e2">{{ $order->resi }}</span>
+						<form action="{{ route('add.resi',encrypt($order->id)) }}" method="POST">
+							@csrf
+							@method('put')
+							<input type="text" name="resi" id="resi" class="form-control">
+							<button type="submit" class="btn btn-primary" style="margin-top: 3px;float: right;"><i class="fa fa-file" aria-hidden="true"></i></button>
+						</form>
+					</div>
                 </div>
             </div>
             <hr>
@@ -73,7 +94,7 @@
     						{{translate('Order Status')}}
     					</td>
                         @php
-                            $status = $order->orderDetails->first()->delivery_status;
+							$status = isset($order->resi) ? $statusKirim : $order->orderDetails->first()->delivery_status;
                         @endphp
     					<td class="text-right">
                             @if($status == 'delivered')
@@ -82,6 +103,18 @@
                                 <span class="badge badge-info">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
                             @endif
     					</td>
+    				</tr>
+    				<tr>
+    					<td class="text-main text-bold">
+    						{{translate('Status Pengiriman')}}
+    					</td>
+    					<td class="text-right">
+                            @if($ship->delivered)
+                                <span class="badge badge-success">{{ ucfirst(str_replace('_', ' ', "Delivered")) }}</span>
+							@else
+								<a data-toggle="modal" data-target="#modalManifest" class="btn btn-info">{{ ucfirst(str_replace('_', ' ', $statusKirim)) }}</a>
+                            @endif
+						</td>
     				</tr>
     				<tr>
     					<td class="text-main text-bold">
@@ -236,7 +269,46 @@
     			<a href="{{ route('seller.invoice.download', $order->id) }}" class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></a>
     		</div>
     	</div>
-    </div>
+	</div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="modalManifest" tabindex="-1" role="dialog" aria-labelledby="modalManifestLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="modalManifestLabel">Detail Pengiriman</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<table class="table table-striped">
+				<thead>
+				  <tr>
+					<th scope="col">#</th>
+					<th scope="col">Kota</th>
+					<th scope="col">Tanggal</th>
+					<th scope="col">Deskripsi</th>
+				  </tr>
+				</thead>
+				<tbody>
+					@foreach ($manifest as $key => $history)
+						<tr>
+							<td>{{ $key+1 }}</td>
+							<td>{{ $history->city_name }}</td>
+							<td>{{ $history->manifest_date }} {{ $history->manifest_time }}</td>
+							<td>{{ $history->manifest_description }}</td>
+						</tr>
+					@endforeach
+				</tbody>
+			  </table>
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	</div>
+  </div>
 @endsection
 
 @section('script')

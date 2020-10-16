@@ -80,8 +80,9 @@ class ClubPointController extends Controller
 
     public function processClubPoints(Order $order)
     {
+        $user = $order->user;
         $club_point = new ClubPoint;
-        $club_point->user_id = Auth::user()->id;
+        $club_point->user_id = $user->id;
         $club_point->points = 0;
         foreach ($order->orderDetails as $key => $orderDetail) {
             $total_pts = ($orderDetail->product->earn_point) * $orderDetail->quantity;
@@ -96,6 +97,9 @@ class ClubPointController extends Controller
             $club_point_detail->point = $total_pts;
             $club_point_detail->save();
         }
+
+        $user->poin += $club_point->points;
+        $user->save();
     }
 
     public function club_point_detail($id)

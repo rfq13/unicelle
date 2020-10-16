@@ -173,7 +173,6 @@ if (! function_exists('request_raja_ongkir')) {
         $curl = curl_init();
 
         curl_setopt_array($curl, array(
-        // CURLOPT_URL => "https://api.rajaongkir.com/starter/".$url,
         CURLOPT_URL => "https://pro.rajaongkir.com/api/".$url,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => "",

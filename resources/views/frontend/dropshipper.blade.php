@@ -49,7 +49,7 @@ $config =  json_decode( $bank_setting->value);
                                 <input class="form-control" style="width: 70%;" type="search" placeholder="Cari Produk" aria-label="Search">
                                     <div class="btn btn-search ml-2">
                                         <a href="#" class="nav-box-link">
-                                            <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}"> </img>
+                                            <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}"></img>
                                         </a>
                                     </div>
                                 </div>
@@ -395,5 +395,4 @@ $config =  json_decode( $bank_setting->value);
             location.reload();
         })
     </script>
-
 @endsection

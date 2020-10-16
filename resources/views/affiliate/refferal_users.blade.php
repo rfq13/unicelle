@@ -1,3 +1,6 @@
+@php
+    // dd($refferal_users);
+@endphp
 @extends('layouts.app')
 
 @section('content')

@@ -88,7 +88,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function club_point()
     {
-        return $this->hasOne(ClubPoint::class);
+        return $this->hasMany(ClubPoint::class);
     }
 
     public function customer_package()

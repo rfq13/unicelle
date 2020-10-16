@@ -1,17 +1,8 @@
 @php
     if(Auth::check()){
-        $point = [];
-        $user = Auth::user();
-        $orders = $user->orders;
-        foreach ($orders as $key => $order) {
-            foreach ($order->orderDetails as $key => $orderDetail) {
-                array_push($point,$orderDetail->product->earn_point);
-            }
-        }
-        $point = array_sum($point);
-        if ($point != $user->poin) {
-            $user->poin = $point;
-            $user->save();
+        $point = Auth::user()->poin;
+        if (Session::has('poin_use')) {
+            $point -= Session::get('poin_use');
         }
     }
 @endphp
@@ -69,7 +60,7 @@
                 </div>
                 <div class="col pl-0 mt-2" style="width:20px; text-align:left;">
                     <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">{{Auth::user()->name}}</p>
-                    <span class="text-dd-profile">{{ Auth::user()->poin }}</span><span class="ml-2">point</span>
+                    <span class="text-dd-profile">{{ $point }}</span><span class="ml-2">point</span>
                 </div>
             </div>
                 <a class="dropdown-item" href="{{route('profile')}}">Akun Saya</a>
