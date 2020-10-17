@@ -11,7 +11,7 @@ $shp = json_decode($ship)->rajaongkir;
 
     if ($status == "on_delivery" || $status == "delivered") {
         if ($shp->status == 200) {
-            $ship = $ship->result;
+            $ship = $shp->result;
             $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
             $statusKirim = $ship->delivery_status->status;
             $kurir = $ship->summary->courier_name;

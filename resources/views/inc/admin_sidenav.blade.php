@@ -104,26 +104,26 @@
                                         <a class="nav-link" href="{{route('subsubcategories.index')}}">{{translate('Sub Kategori')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['products.admin', 'products.create', 'products.admin.edit'])}}">
-                                        <a class="nav-link" href="{{route('products.admin')}}">{{translate('In House Products')}}</a>
+                                        <a class="nav-link" href="{{route('products.admin')}}">{{translate('Daftar Produk')}}</a>
                                     </li>
                                     @if(\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                                         <li class="{{ areActiveRoutes(['products.seller', 'products.seller.edit'])}}">
-                                            <a class="nav-link" href="{{route('products.seller')}}">{{translate('Seller Products')}}</a>
+                                            <a class="nav-link" href="{{route('products.seller')}}">{{translate('Produk Penjual')}}</a>
                                         </li>
                                     @endif
                                     @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                                         <li class="{{ areActiveRoutes(['classified_products'])}}">
-                                            <a class="nav-link" href="{{route('classified_products')}}">{{translate('Classified Products')}}</a>
+                                            <a class="nav-link" href="{{route('classified_products')}}">{{translate('Klasifikasi Produk')}}</a>
                                         </li>
                                     @endif
                                     <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
-                                        <a class="nav-link" href="{{route('digitalproducts.index')}}">{{translate('Digital Products')}}</a>
+                                        <a class="nav-link" href="{{route('digitalproducts.index')}}">{{translate('Produk Digital')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['product_bulk_upload.index'])}}">
-                                        <a class="nav-link" href="{{route('product_bulk_upload.index')}}">{{translate('Bulk Import')}}</a>
+                                        <a class="nav-link" href="{{route('product_bulk_upload.index')}}">{{translate('Import Jumlah Besar')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['product_bulk_export.export'])}}">
-                                        <a class="nav-link" href="{{route('product_bulk_export.index')}}">{{translate('Bulk Export')}}</a>
+                                        <a class="nav-link" href="{{route('product_bulk_export.index')}}">{{translate('Eksport Jumlah Besar')}}</a>
                                     </li>
                                     @php
                                         $review_count = DB::table('reviews')
@@ -136,7 +136,7 @@
                                                     ->count();
                                     @endphp
                                     <li class="{{ areActiveRoutes(['reviews.index'])}}">
-                                        <a class="nav-link" href="{{route('reviews.index')}}">{{translate('Product Reviews')}}@if($review_count > 0)<span class="pull-right badge badge-info">{{ $review_count }}</span>@endif</a>
+                                        <a class="nav-link" href="{{route('reviews.index')}}">{{translate('Ulasan Produk')}}@if($review_count > 0)<span class="pull-right badge badge-info">{{ $review_count }}</span>@endif</a>
                                     </li>
                                 </ul>
                             </li>
