@@ -44,7 +44,7 @@ class PurchaseHistoryController extends Controller
         $status = $order->orderDetails->first()->delivery_status;
         
         $compact = ['order'];
-        if ($status == "on_delivery") {
+        if ($status == "on_delivery" || $status == "delivered") {
             $ship_info = json_decode($order->shipping_info);
             $ship = app('\App\Http\Controllers\OrderController')->statusPengiriman($order->resi,"jnt");
             array_push($compact,"ship");
