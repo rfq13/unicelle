@@ -7,16 +7,18 @@
 @php
 $status = $order->orderDetails->first()->delivery_status;
 $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
+$shp = json_decode($ship)->rajaongkir;
 
     if ($status == "on_delivery" || $status == "delivered") {
-        // dd($ship);
-        $ship = json_decode($ship)->rajaongkir->result;
-        $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
-        $statusKirim = $ship->delivery_status->status;
-        $kurir = $ship->summary->courier_name;
-        $manifest = $ship->manifest;
-        $penerima = $ship->delivery_status->pod_receiver;
-		$tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+        if ($shp->status == 200) {
+            $ship = $ship->result;
+            $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
+            $statusKirim = $ship->delivery_status->status;
+            $kurir = $ship->summary->courier_name;
+            $manifest = $ship->manifest;
+            $penerima = $ship->delivery_status->pod_receiver;
+            $tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+        }
     }
 @endphp
 
@@ -175,7 +177,7 @@ $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')
                         </table>
                     </div>
                 </div>
-                @if ($status == "on_delivery" || $status =="delivered")
+                @if ($status == "on_delivery" || $status =="delivered" && $shp->status == 200)
                 <div class="card mt-4">
                     <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Detail Pengiriman')}}</div>
                     <div class="card-body pb-0">

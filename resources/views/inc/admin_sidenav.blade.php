@@ -85,7 +85,7 @@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-shopping-cart"></i>
-                                    <span class="menu-title">{{translate('Products')}}</span>
+                                    <span class="menu-title">{{translate('Produk')}}</span>
                                     <i class="arrow"></i>
                                 </a>
 
@@ -95,13 +95,13 @@
                                         <a class="nav-link" href="{{route('brands.index')}}">{{translate('Brand')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['categories.index', 'categories.create', 'categories.edit'])}}">
-                                        <a class="nav-link" href="{{route('categories.index')}}">{{translate('Category')}}</a>
+                                        <a class="nav-link" href="{{route('categories.index')}}">{{translate('Kategori')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['subcategories.index', 'subcategories.create', 'subcategories.edit'])}}">
-                                        <a class="nav-link" href="{{route('subcategories.index')}}">{{translate('Subcategory')}}</a>
+                                        <a class="nav-link" href="{{route('subcategories.index')}}">{{translate('Sub Kategori')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['subsubcategories.index', 'subsubcategories.create', 'subsubcategories.edit'])}}">
-                                        <a class="nav-link" href="{{route('subsubcategories.index')}}">{{translate('Sub Subcategory')}}</a>
+                                        <a class="nav-link" href="{{route('subsubcategories.index')}}">{{translate('Sub Kategori')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['products.admin', 'products.create', 'products.admin.edit'])}}">
                                         <a class="nav-link" href="{{route('products.admin')}}">{{translate('In House Products')}}</a>

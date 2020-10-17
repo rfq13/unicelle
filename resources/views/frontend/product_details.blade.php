@@ -49,23 +49,25 @@
             
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card card-img" style="height:365px;width:367px">
+                    <div class="card card-img">
                         <!-- <img class="detail-img-produk" src="{{my_asset('\images\icon\obat.png')}}" alt=""> -->
-                        <div class="product-gal sticky-top d-flex flex-row-reverse">
+                        <div class="product-gal sticky-top col">
                             @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
-                                <div class="product-gal-img">
+                                <div class="product-gal-img d-flex align-items-center mx-auto" style="background-color:gray; width:100%; height:300px">
                                     <img src="{{ my_asset('frontend/images/placeholder.jpg') }}" class="xzoom img-fluid lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ my_asset(json_decode($detailedProduct->photos)[0]) }}" />
                                 </div>
-                                <div class="product-gal-thumb">
-                                    <div class="xzoom-thumbs">
-                                        @foreach (json_decode($detailedProduct->photos) as $key => $photo)
-                                            <a href="{{ my_asset($photo) }}">
-                                                <img src="{{ my_asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ my_asset($photo) }}"  @if($key == 0) xpreview="{{ my_asset($photo) }}" @endif>
-                                            </a>
-                                        @endforeach
-                                    </div>
-                                </div>
                             @endif
+                        </div>
+                    </div>
+                    <div class="card my-4">
+                        <div class="product-gal-thumb my-3 mx-3">
+                            <div class="xzoom-thumbs">
+                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
+                                    <a href="{{ my_asset($photo) }}">
+                                        <img src="{{ my_asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ my_asset($photo) }}"  @if($key == 0) xpreview="{{ my_asset($photo) }}" @endif>
+                                    </a>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                     <!-- produk lainnya -->
@@ -73,7 +75,7 @@
                         $rekomendasi = \App\Product::where("id",'!=',$detailedProduct->id)->withCount('orderDetails')->orderBy('order_details_count','desc')->limit(3)->get();
                     @endphp
 
-                    <div class="card produk-serupa mt-3 p-3 d-xl-block d-none" style="width:367px">
+                    <div class="card produk-serupa mt-3 p-3 d-xl-block d-none">
                         <span class="judul_produk">Produk Rekomendasi</span>
                         <div class="produk-lainnya mt-4">
                         @foreach ($rekomendasi as $key=>$product)    
