@@ -49,7 +49,7 @@
             
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card card-img" style="min-height:245px ">
+                    <div class="card card-img" style="height:365px;width:367px">
                         <!-- <img class="detail-img-produk" src="{{my_asset('\images\icon\obat.png')}}" alt=""> -->
                         <div class="product-gal sticky-top d-flex flex-row-reverse">
                             @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
@@ -73,11 +73,11 @@
                         $rekomendasi = \App\Product::where("id",'!=',$detailedProduct->id)->withCount('orderDetails')->orderBy('order_details_count','desc')->limit(3)->get();
                     @endphp
 
-                    <div class="card produk-serupa mt-3 p-3 d-xl-block d-none">
+                    <div class="card produk-serupa mt-3 p-3 d-xl-block d-none" style="width:367px">
                         <span class="judul_produk">Produk Rekomendasi</span>
+                        <div class="produk-lainnya mt-4">
                         @foreach ($rekomendasi as $key=>$product)    
-                            <div class="produk-lainnya mt-4">
-                                <a href="" style="text-decoration: none;">
+                                <a href="{{ route('product', $product->slug) }}" style="text-decoration: none;">
                                     <div class="d-flex align-items-center mb-3">
                                         <div class="card">
                                             <img class="img-serupa lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
@@ -88,13 +88,18 @@
                                             </div>
                                             <span class="text__harga">Harga</span>
                                             <div class="price ">
-                                                <span class="price_">Rp. 28.700 - Rp. 60.000</span>
+                                                <div class="price-box">
+                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                    @endif
+                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </a>
+                                @endforeach
                             </div>
-                        @endforeach
                         <hr>
 
                     </div>
