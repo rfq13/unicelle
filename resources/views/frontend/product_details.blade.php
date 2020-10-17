@@ -49,7 +49,7 @@
             
             <div class="row">
                 <div class="col-lg-4">
-                    <div class="card card-img">
+                    <div class="card card-img" style="min-height:245px ">
                         <!-- <img class="detail-img-produk" src="{{my_asset('\images\icon\obat.png')}}" alt=""> -->
                         <div class="product-gal sticky-top d-flex flex-row-reverse">
                             @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
@@ -69,27 +69,32 @@
                         </div>
                     </div>
                     <!-- produk lainnya -->
+                    @php
+                        $rekomendasi = \App\Product::where("id",'!=',$detailedProduct->id)->withCount('orderDetails')->orderBy('order_details_count','desc')->limit(3)->get();
+                    @endphp
+
                     <div class="card produk-serupa mt-3 p-3 d-xl-block d-none">
-                        <span class="judul_produk">Produk Serupa</span>
-                        <!--  -->
-                        <div class="produk-lainnya mt-4">
-                            <a href="" style="text-decoration: none;">
-                                <div class="d-flex align-items-center mb-3">
-                                    <div class="card">
-                                        <img class="img-serupa" src="{{my_asset('\images\icon\obat.png')}}" alt="">
-                                    </div>
-                                    <div class="pl-3">
-                                        <div class="name-produk-lainnya">
-                                            <span>Imboost Pro</span>
+                        <span class="judul_produk">Produk Rekomendasi</span>
+                        @foreach ($rekomendasi as $key=>$product)    
+                            <div class="produk-lainnya mt-4">
+                                <a href="" style="text-decoration: none;">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="card">
+                                            <img class="img-serupa lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
                                         </div>
-                                        <span class="text__harga">Harga</span>
-                                        <div class="price ">
-                                            <span class="price_">Rp. 28.700 - Rp. 60.000</span>
+                                        <div class="pl-3">
+                                            <div class="name-produk-lainnya">
+                                                <span>{{ $product->name }}</span>
+                                            </div>
+                                            <span class="text__harga">Harga</span>
+                                            <div class="price ">
+                                                <span class="price_">Rp. 28.700 - Rp. 60.000</span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
-                        </div>
+                                </a>
+                            </div>
+                        @endforeach
                         <hr>
 
                     </div>
@@ -195,20 +200,32 @@
                                         <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
                                     <!-- <div class="col-10"> -->
                                         <div class="product-quantity d-flex align-items-center">
-                                            <div class="input-group input-group--style-2 pr-3" style="width: 160px;">
+                                            <div class="input-group input-group--style-2 pr-3" style="width: 160px;display:none">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-number" type="button" data-type="minus" data-field="quantity" disabled="disabled">
+                                                    <button class="btn btn-number" id="min-qty" type="button" data-type="minus" data-field="quantity" disabled="disabled">
                                                         <i class="la la-minus"></i>
                                                     </button>
                                                 </span>
-                                                <input type="text" name="quantity" id="input-q" class="form-control h-auto input-number text-center" onchange="getVariantPrice()" placeholder="1" value="1" min="1" max="10">
+                                                <input type="text" name="quantity" id="input-q" class="form-control h-auto input-number text-center" onchange="getVariantPrice()" placeholder="1" value="1" min="1" max="{{ $qty }}">
                                                 <span class="input-group-btn">
-                                                    <button class="btn btn-number" type="button" data-type="plus" data-field="quantity">
+                                                    <button class="btn btn-number" id="plus-qty" type="button" data-type="plus" data-field="quantity">
                                                         <i class="la la-plus"></i>
                                                     </button>
                                                 </span>
                                             </div>
-                                            <div class="avialable-amount">(<span id="available-quantity">{{ $qty }}</span> {{ translate('available')}})</div>
+                                            <div class="qty" style="margin-right:12px">
+                                                <div id="field1" class="d-flex align-items-center ">
+                                                    <button type="button" id="sub"
+                                                        class="sub justify-content-center align-items-center"><i
+                                                            class="fa fa-minus"></i></button>
+                                                    <input class="qty__number text-center mx-1" type="text" id="1" value="1" min="1"
+                                                        max="{{ $qty }}" readonly />
+                                                    <button type="button" id="add"
+                                                        class="add  justify-content-center align-items-center"><i
+                                                            class="fa fa-plus"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="avialable-amount pb-3">(<span id="available-quantity">{{ $qty }}</span> {{ translate('available')}})</div>
                                         </div>
                                     <!-- </div> -->
 
@@ -1067,6 +1084,23 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function() {
+            $('.add').click(function () {
+                if ($(this).prev().val() < {{ $qty }}) {
+                    // $(this).prev().val(+$(this).prev().val() + 1);
+                    $("#plus-qty").click()
+                    $(this).prev().val($("#input-q").val())
+                }
+            });
+            $('.sub').click(function () {
+                if ($(this).next().val() > 0) {
+                    if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+                    $("#min-qty").click()
+                    $(this).next().val($("#input-q").val())
+                }
+            });
+
+
+
     		$('#share').jsSocials({
     			showLabel: false,
                 showCount: false,

@@ -182,8 +182,8 @@
                 line-height: 33px;
                 letter-spacing: 0em;
                 text-align: left;
-                ">Produk Obat / Vitamin</h2>
-                <p style="font-family: Open Sans;
+                ">Produk Terbaru</h2>
+                {{-- <p style="font-family: Open Sans;
                 font-size: 20px;
                 font-style: normal;
                 font-weight: 400;
@@ -194,11 +194,13 @@
                 left: 150px;
                 top: 1069px;
                 border-radius: undefinedpx;
-">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>  
+">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>   --}}
                     <div class="mb-4">
                         <div class="container">
                             @php
-                                $products = \App\Product::all();
+                                $products = \App\Product::orderBy('created_at','desc')
+                                    ->limit(12)
+                                    ->get();
                             @endphp
                             <div class="row gutters-10">
                                 @foreach ($products as $key => $product)
@@ -246,7 +248,7 @@
                                 @endforeach
                             </div>
                         <div class="width:10px" style="text-align:center">
-                            <a href="#" class="btn mt-5" style="background:#3BB6B1; color:#fff; width:20%;">Selanjutnya</a>
+                            <a href="{{ route('products') }}" class="btn mt-5" style="background:#3BB6B1; color:#fff; width:20%;">Selengkapnya</a>
                         </div>
                 </div>
             </div>
