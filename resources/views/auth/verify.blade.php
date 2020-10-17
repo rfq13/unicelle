@@ -19,7 +19,7 @@
 @extends('frontend.regis_dan_login.regis_dan_login')
 
 @section('title')
-    Login Nomor Telepon
+    Verifikasi E-mail
 @endsection
 
 @section('content')
