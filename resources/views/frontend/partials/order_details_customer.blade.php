@@ -7,6 +7,7 @@
 @php
 $status = $order->orderDetails->first()->delivery_status;
 $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
+// $rajaongkir = json_decode($ship)->rajaongkir;
     if($ship != 0){
         $shp = json_decode($ship)->rajaongkir;
 
@@ -180,35 +181,42 @@ $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')
                     </div>
                 </div>
                 @if ($status == "on_delivery" || $status =="delivered" && $ship!= 0)
-                <div class="card mt-4">
-                    <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Detail Pengiriman')}}</div>
-                    <div class="card-body pb-0">
-                        @isset($penerima)
-                            <span class="my-3" style="margin-top: 5px;text-transform:capitalize">telah diterima oleh: <strong style="color:green">{{ $penerima }}</strong></span><br>
-                            <span class="mt-2" style="text-transform:capitalize">pada: <cite>{{ $tglTerima }}</cite></span>
-                        @endisset
-                        <table class="table table-striped">
-                            <thead>
-                              <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Kota</th>
-                                <th scope="col">Tanggal</th>
-                                <th scope="col">Deskripsi</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($manifest as $key => $history)
+                @php
+                    $rajaongkir = json_decode($ship)->rajaongkir;
+                @endphp
+                    @if ($rajaongkir->status->code == 200)
+                        <div class="card mt-4">
+                            <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Detail Pengiriman')}}</div>
+                            <div class="card-body pb-0">
+                                @isset($penerima)
+                                    <span class="my-3" style="margin-top: 5px;text-transform:capitalize">telah diterima oleh: <strong style="color:green">{{ $penerima }}</strong></span><br>
+                                    <span class="mt-2" style="text-transform:capitalize">pada: <cite>{{ $tglTerima }}</cite></span>
+                                @endisset
+                                <table class="table table-striped">
+                                    <thead>
                                     <tr>
-                                        <td>{{ $key+1 }}</td>
-                                        <td>{{ $history->city_name }}</td>
-                                        <td>{{ $history->manifest_date }} {{ $history->manifest_time }}</td>
-                                        <td>{{ $history->manifest_description }}</td>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Kota</th>
+                                        <th scope="col">Tanggal</th>
+                                        <th scope="col">Deskripsi</th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($manifest as $key => $history)
+                                            <tr>
+                                                <td>{{ $key+1 }}</td>
+                                                <td>{{ $history->city_name }}</td>
+                                                <td>{{ $history->manifest_date }} {{ $history->manifest_time }}</td>
+                                                <td>{{ $history->manifest_description }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    @elseif($rajaongkir->status->code == 400)
+                        <h4>{{ $rajaongkir->status->description }}</h4>
+                    @endif
                 @endif
         </div>
         <div class="col-lg-3">

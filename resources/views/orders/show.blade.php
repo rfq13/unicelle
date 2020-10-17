@@ -1,13 +1,15 @@
 @php
 	if (isset($order->resi)) {
-		$ship = json_decode($ship)->rajaongkir->result;
-		// dd($ship);
-		$waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
-		$statusKirim = $ship->delivery_status->status;
-		$kurir = $ship->summary->courier_name;
-		$manifest = $ship->manifest;
-		$penerima = $ship->delivery_status->pod_receiver;
-		$tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+		$rajaongkir = json_decode($ship)->rajaongkir;
+		if ($rajaongkir->status->code == 200) {
+			$ship = $rajaongkir->result;
+			$waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
+			$statusKirim = $ship->delivery_status->status;
+			$kurir = $ship->summary->courier_name;
+			$manifest = $ship->manifest;
+			$penerima = $ship->delivery_status->pod_receiver;
+			$tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+		}
 	}
 @endphp
 @extends('layouts.app')
@@ -96,8 +98,13 @@
     					<td class="text-main text-bold">
     						{{translate('Order Status')}}
     					</td>
-                        @php
-							$status = isset($order->resi) ? $statusKirim : $order->orderDetails->first()->delivery_status;
+						@php
+						$status = $order->orderDetails->first()->delivery_status;
+						if (isset($order->resi)) {
+							if ($rajaongkir->status->code == 200) {
+								$status = isset($order->resi) ? $statusKirim : $order->orderDetails->first()->delivery_status;
+							}
+						}
                         @endphp
     					<td class="text-right">
 							<a href="#" data-toggle="modal" data-target="#modalManifest">
@@ -290,6 +297,7 @@
 				</thead>
 				<tbody>
 					@isset($order->resi)
+						@if ($rajaongkir->status->code == 200)
 						@foreach ($manifest as $key => $history)
 							<tr>
 								<td>{{ $key+1 }}</td>
@@ -298,6 +306,7 @@
 								<td>{{ $history->manifest_description }}</td>
 							</tr>
 						@endforeach
+						@endif
 					@endisset
 				</tbody>
 			  </table>
@@ -344,9 +353,11 @@
 		const statusOrder = $('#update_delivery_status');
 
 	@if(isset($order->resi))
-		@if ($ship->delivered)
-			statusOrder.val("delivered")
-			statusOrder.change()
+		@if ($rajaongkir->status->code == 200)
+			@if ($ship->delivered)
+				statusOrder.val("delivered")
+				statusOrder.change()
+			@endif
 		@endif
 	@endif
 	

@@ -72,13 +72,14 @@ $config =  json_decode( $bank_setting->value);
                                         <div class="row mt-2">
                                             <div class="col mb-0 ml-2 pr-0">
                                                 <p class="code-dropshipper mb-2">#{{ $order->code }}</p>
-                                                <img class="img-dropshipper" src="{{my_asset('/images/icon/obat.png')}}" alt="">
+                                                <img class="img-dropshipper" src="{{my_asset($order->orderDetails[0]->product->thumbnail_img)}}" alt="">
                                             </div>
                                             <div class="col-3 pl-0 mt-4">
                                                     @foreach ($order->orderDetails as $item)
                                                         <p class="text-dropshipper" style="margin-bottom: 0%;">{{ $item->product->name }}</p>
                                                         <p class="info-dropshipper" style="margin-bottom: 0%;">Jumlah Pesanan</p>
                                                         <p class="text-dropshipper" style="margin-bottom: 0%;">{{ $item->quantity }}</p>
+                                                        <hr>
                                                     @endforeach
                                                     <p class="info-dropshipper" style="margin-bottom: 0%;">Harga</p>
                                                     <p class="text-dropshipper" style="margin-bottom: 0%;">{{ single_price($order->grand_total) }}</p>
@@ -87,6 +88,21 @@ $config =  json_decode( $bank_setting->value);
                                                 <p class="receiver-dropshipper">Pembayaran</p>
                                                 <p class="text-dropshipper" style="margin-bottom: 0%;">{{ $config->BANK_NAME }}</p>
                                                 <p class="content-dropshipper" style="margin-bottom: 0%;">No.{{ $config->BANK_NO_REK }}</p>
+                                                @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
+                                                    <div class="jumlah-produk-pesanan mt-3">
+                                                        @php $norek = $order->payment_type == "cash_on_delivery" ? "" : "No. 40905398604"; @endphp
+                                                        <span class="virtual-pembayaran-pesanan__" style="text-transform:uppercase">{{ str_replace("_"," ",$order->payment_type) }}</span>
+                                                        <div class="jumlah-number-pesanan__">
+                                                            <span class="no-resi-pesanan__"> No. Rek {{json_decode($order->manual_payment)->norek  }} <br> a/n {{json_decode($order->manual_payment)->name  }}</span>
+                                                        </div>
+                                                        <br>
+                                                        <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Ubah</a>
+                                                    </div>
+                                                @else
+                                                <div class="jumlah-produk-pesanan mt-3">
+                                                    <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Konfirmasi Pembayaran</a>
+                                                </div>
+                                                @endif
                                             </div>
                                             <div class="col">
                                                 <p class="receiver-dropshipper">Status</p>

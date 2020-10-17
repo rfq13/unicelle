@@ -97,12 +97,12 @@
                                     <li class="{{ areActiveRoutes(['categories.index', 'categories.create', 'categories.edit'])}}">
                                         <a class="nav-link" href="{{route('categories.index')}}">{{translate('Kategori')}}</a>
                                     </li>
-                                    <li class="{{ areActiveRoutes(['subcategories.index', 'subcategories.create', 'subcategories.edit'])}}">
+                                    {{-- <li class="{{ areActiveRoutes(['subcategories.index', 'subcategories.create', 'subcategories.edit'])}}">
                                         <a class="nav-link" href="{{route('subcategories.index')}}">{{translate('Sub Kategori')}}</a>
-                                    </li>
-                                    <li class="{{ areActiveRoutes(['subsubcategories.index', 'subsubcategories.create', 'subsubcategories.edit'])}}">
+                                    </li> --}}
+                                    {{-- <li class="{{ areActiveRoutes(['subsubcategories.index', 'subsubcategories.create', 'subsubcategories.edit'])}}">
                                         <a class="nav-link" href="{{route('subsubcategories.index')}}">{{translate('Sub Sub Kategori')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['products.admin', 'products.create', 'products.admin.edit'])}}">
                                         <a class="nav-link" href="{{route('products.admin')}}">{{translate('Daftar Produk')}}</a>
                                     </li>
@@ -111,20 +111,20 @@
                                             <a class="nav-link" href="{{route('products.seller')}}">{{translate('Produk Penjual')}}</a>
                                         </li>
                                     @endif
-                                    @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
+                                    {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                                         <li class="{{ areActiveRoutes(['classified_products'])}}">
                                             <a class="nav-link" href="{{route('classified_products')}}">{{translate('Klasifikasi Produk')}}</a>
                                         </li>
-                                    @endif
-                                    <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
+                                    @endif --}}
+                                    {{-- <li class="{{ areActiveRoutes(['digitalproducts.index', 'digitalproducts.create', 'digitalproducts.edit'])}}">
                                         <a class="nav-link" href="{{route('digitalproducts.index')}}">{{translate('Produk Digital')}}</a>
-                                    </li>
-                                    <li class="{{ areActiveRoutes(['product_bulk_upload.index'])}}">
+                                    </li> --}}
+                                    {{-- <li class="{{ areActiveRoutes(['product_bulk_upload.index'])}}">
                                         <a class="nav-link" href="{{route('product_bulk_upload.index')}}">{{translate('Import Jumlah Besar')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['product_bulk_export.export'])}}">
                                         <a class="nav-link" href="{{route('product_bulk_export.index')}}">{{translate('Eksport Jumlah Besar')}}</a>
-                                    </li>
+                                    </li> --}}
                                     @php
                                         $review_count = DB::table('reviews')
                                                     ->orderBy('code', 'desc')
@@ -135,27 +135,27 @@
                                                     ->distinct()
                                                     ->count();
                                     @endphp
-                                    <!-- <li class="{{ areActiveRoutes(['reviews.index'])}}">
+                                     <li class="{{ areActiveRoutes(['reviews.index'])}}">
                                         <a class="nav-link" href="{{route('reviews.index')}}">{{translate('Ulasan Produk')}}@if($review_count > 0)<span class="pull-right badge badge-info">{{ $review_count }}</span>@endif</a>
-                                    </li> -->
+                                    </li>
                                 </ul>
                             </li>
                         @endif
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['flash_deals.index', 'flash_deals.create', 'flash_deals.edit'])}}">
                             <a class="nav-link" href="{{ route('flash_deals.index') }}">
                                 <i class="fa fa-bolt"></i>
                                 <span class="menu-title">{{translate('Flash Deal')}}</span>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('2', json_decode(Auth::user()->staff->role->permissions)))
                         <li>
                             <a href="#">
                                 <i class="fa fa-user-md"></i>
-                                <span class="menu-title">{{translate('Physician')}}</span>
+                                <span class="menu-title">{{translate('Dokter')}}</span>
                                 <i class="arrow"></i>
                             </a>
 
@@ -164,13 +164,13 @@
                                 <li class="{{ areActiveRoutes(['physician.verify'])}}">
                                     <a class="nav-link" href="{{ route('physician.verify') }}">
                                         <i class="fa fa-check"></i>
-                                        <span class="menu-title">{{translate('Verify Physician')}}</span>
+                                        <span class="menu-title">{{translate('Verifikasi Dokter')}}</span>
                                     </a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
                                     <a class="nav-link" href="{{ route('regular-physician-member.index') }}">
                                         <i class="fa fa-users"></i>
-                                        <span class="menu-title">{{translate('Regular Physician')}}</span>
+                                        <span class="menu-title">{{translate('Dokter Reguler')}}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -196,23 +196,23 @@
                         </li>
                         @endif
 
-                        <!-- @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['pick_up_point.order_index','pick_up_point.order_show'])}}">
                             <a class="nav-link" href="{{ route('pick_up_point.order_index') }}">
                                 <i class="fa fa-money"></i>
                                 <span class="menu-title">{{translate('Pick-up Point Order')}}</span>
                             </a>
                         </li>
-                        @endif -->
+                        @endif --}}
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['sales.index', 'sales.show'])}}">
                             <a class="nav-link" href="{{ route('sales.index') }}">
                                 <i class="fa fa-money"></i>
                                 <span class="menu-title">{{translate('Total sales')}}</span>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if (\App\Addon::where('unique_identifier', 'refund_request')->first() != null)
                             <li>
@@ -225,18 +225,18 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li class="{{ areActiveRoutes(['refund_requests_all', 'reason_show'])}}">
-                                        <a class="nav-link" href="{{route('refund_requests_all')}}">{{translate('Refund Requests')}}</a>
+                                        <a class="nav-link" href="{{route('refund_requests_all')}}">{{translate('Request Pengembalian')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['paid_refund'])}}">
-                                        <a class="nav-link" href="{{route('paid_refund')}}">{{translate('Approved Refund')}}</a>
+                                        <a class="nav-link" href="{{route('paid_refund')}}">{{translate('Pengembalian Disetujui')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['refund_time_config'])}}">
-                                        <a class="nav-link" href="{{route('refund_time_config')}}">{{translate('Refund Configuration')}}</a>
+                                        <a class="nav-link" href="{{route('refund_time_config')}}">{{translate('Konfigurasi Pengembalian')}}</a>
                                     </li>
                                 </ul>
                             </li>
                         @endif
-                        @if((Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()->staff->role->permissions))) && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                        {{-- @if((Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()   ->staff->role->permissions))) && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                         <li>
                             <a href="#">
                                 <i class="fa fa-user-plus"></i>
@@ -272,28 +272,28 @@
                                 @endif
                             </ul>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('6', json_decode(Auth::user()->staff->role->permissions)))
                         <li>
                             <a href="#">
                                 <i class="fa fa-user-plus"></i>
-                                <span class="menu-title">{{translate('Customers')}}</span>
+                                <span class="menu-title">{{translate('Pelanggan')}}</span>
                                 <i class="arrow"></i>
                             </a>
 
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ areActiveRoutes(['customers.index'])}}">
-                                    <a class="nav-link" href="{{ route('customers.index') }}">{{translate('Customer list')}}</a>
+                                    <a class="nav-link" href="{{ route('customers.index') }}">{{translate('List Pelanggan')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['customer_packages.index', 'customer_packages.create', 'customer_packages.edit'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['customer_packages.index', 'customer_packages.create', 'customer_packages.edit'])}}">
                                     <a class="nav-link" href="{{ route('customer_packages.index') }}">{{translate('Classified Packages')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
-                        @php
+                        {{-- @php
                             $conversation = \App\Conversation::where('receiver_id', Auth::user()->id)->where('receiver_viewed', '1')->get();
                         @endphp
                         @if(Auth::user()->user_type == 'admin' || in_array('16', json_decode(Auth::user()->staff->role->permissions)))
@@ -306,38 +306,38 @@
                                 @endif
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('17', json_decode(Auth::user()->staff->role->permissions)))
                         <li>
                             <a href="#">
                                 <i class="fa fa-file"></i>
-                                <span class="menu-title">{{translate('Reports')}}</span>
+                                <span class="menu-title">{{translate('Laporan')}}</span>
                                 <i class="arrow"></i>
                             </a>
 
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ areActiveRoutes(['stock_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('stock_report.index') }}">{{translate('Stock Report')}}</a>
+                                    <a class="nav-link" href="{{ route('stock_report.index') }}">{{translate('Stock Report Laporan Stok')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['in_house_sale_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('in_house_sale_report.index') }}">{{translate('In House Sale Report')}}</a>
+                                    <a class="nav-link" href="{{ route('in_house_sale_report.index') }}">{{translate('Laporan Penjualan')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['seller_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('seller_report.index') }}">{{translate('Seller Report')}}</a>
+                                    <a class="nav-link" href="{{ route('seller_report.index') }}">{{translate('Laporan Penjual')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['seller_sale_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('seller_sale_report.index') }}">{{translate('Seller Based Selling Report')}}</a>
+                                    <a class="nav-link" href="{{ route('seller_sale_report.index') }}">{{translate('Laporan Penjualan dari Penjual')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['wish_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('wish_report.index') }}">{{translate('Product Wish Report')}}</a>
+                                    <a class="nav-link" href="{{ route('wish_report.index') }}">{{translate('Laporan Permintaan Produk')}}</a>
                                 </li>
                             </ul>
                         </li>
                         @endif
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('7', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('7', json_decode(Auth::user()->staff->role->permissions)))
                         <li>
                             <a href="#">
                                 <i class="fa fa-envelope"></i>
@@ -358,26 +358,26 @@
                                 @endif
                             </ul>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('8', json_decode(Auth::user()->staff->role->permissions)))
                         <li>
                             <a href="#">
                                 <i class="fa fa-briefcase"></i>
-                                <span class="menu-title">{{translate('Business Settings')}}</span>
+                                <span class="menu-title">{{translate('Pengaturan Bisnis')}}</span>
                                 <i class="arrow"></i>
                             </a>
 
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ areActiveRoutes(['activation.index'])}}">
-                                    <a class="nav-link" href="{{route('activation.index')}}">{{translate('Activation')}}</a>
+                                    <a class="nav-link" href="{{route('activation.index')}}">{{translate('Aktivasi')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['payment_method.index'])}}">
-                                    <a class="nav-link" href="{{ route('payment_method.index') }}">{{translate('Payment method')}}</a>
+                                    <a class="nav-link" href="{{ route('payment_method.index') }}">{{translate('Metode Pembayaran')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['smtp_settings.index'])}}">
-                                    <a class="nav-link" href="{{ route('smtp_settings.index') }}">{{translate('SMTP Settings')}}</a>
+                                    <a class="nav-link" href="{{ route('smtp_settings.index') }}">{{translate('Pengaturan SMTP')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['google_analytics.index'])}}">
                                     <a class="nav-link" href="{{ route('google_analytics.index') }}">{{translate('Google Analytics')}}</a>
@@ -392,10 +392,10 @@
                                     <a class="nav-link" href="{{ route('social_login.index') }}">{{translate('Social Media Login')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['currency.index'])}}">
-                                    <a class="nav-link" href="{{route('currency.index')}}">{{translate('Currency')}}</a>
+                                    <a class="nav-link" href="{{route('currency.index')}}">{{translate('Mata Uang')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
-                                    <a class="nav-link" href="{{route('languages.index')}}">{{translate('Languages')}}</a>
+                                    <a class="nav-link" href="{{route('languages.index')}}">{{translate('Bahasa')}}</a>
                                 </li>
                             </ul>
                         </li>
@@ -405,18 +405,18 @@
                         <li>
                             <a href="#">
                                 <i class="fa fa-desktop"></i>
-                                <span class="menu-title">{{translate('Frontend Settings')}}</span>
+                                <span class="menu-title">{{translate('Pengaturan Tampilan')}}</span>
                                 <i class="arrow"></i>
                             </a>
 
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ areActiveRoutes(['home_settings.index', 'home_banners.index', 'sliders.index', 'home_categories.index', 'home_banners.create', 'home_categories.create', 'home_categories.edit', 'sliders.create'])}}">
-                                    <a class="nav-link" href="{{route('home_settings.index')}}">{{translate('Home')}}</a>
+                                    <a class="nav-link" href="{{route('home_settings.index')}}">{{translate('Beranda')}}</a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <span class="menu-title">{{translate('Policy Pages')}}</span>
+                                        <span class="menu-title">{{translate('Halaman Kebijakan')}}</span>
                                         <i class="arrow"></i>
                                     </a>
 
@@ -424,30 +424,30 @@
                                     <ul class="collapse">
 
                                         <li class="{{ areActiveRoutes(['sellerpolicy.index'])}}">
-                                            <a class="nav-link" href="{{route('sellerpolicy.index', 'seller_policy')}}">{{translate('Seller Policy')}}</a>
+                                            <a class="nav-link" href="{{route('sellerpolicy.index', 'seller_policy')}}">{{translate('Kebijakan Penjual')}}</a>
                                         </li>
                                         <li class="{{ areActiveRoutes(['returnpolicy.index'])}}">
-                                            <a class="nav-link" href="{{route('returnpolicy.index', 'return_policy')}}">{{translate('Return Policy')}}</a>
+                                            <a class="nav-link" href="{{route('returnpolicy.index', 'return_policy')}}">{{translate('Kebijakan Kembali')}}</a>
                                         </li>
                                         <li class="{{ areActiveRoutes(['supportpolicy.index'])}}">
-                                            <a class="nav-link" href="{{route('supportpolicy.index', 'support_policy')}}">{{translate('Support Policy')}}</a>
+                                            <a class="nav-link" href="{{route('supportpolicy.index', 'support_policy')}}">{{translate('Kebijakan Dukungan')}}</a>
                                         </li>
                                         <li class="{{ areActiveRoutes(['terms.index'])}}">
-                                            <a class="nav-link" href="{{route('terms.index', 'terms')}}">{{translate('Terms & Conditions')}}</a>
+                                            <a class="nav-link" href="{{route('terms.index', 'terms')}}">{{translate('Syarat & Ketentuan')}}</a>
                                         </li>
                                         <li class="{{ areActiveRoutes(['privacypolicy.index'])}}">
-                                            <a class="nav-link" href="{{route('privacypolicy.index', 'privacy_policy')}}">{{translate('Privacy Policy')}}</a>
+                                            <a class="nav-link" href="{{route('privacypolicy.index', 'privacy_policy')}}">{{translate('Kebijakan Privasi')}}</a>
                                         </li>
                                     </ul>
 
                                 </li>
                                 <li>
                                     <a class="nav-link" href="{{ route('about.index') }}">
-                                        <span class="menu-title">{{translate('About')}}</span>
+                                        <span class="menu-title">{{translate('Tentang Unicelle')}}</span>
                                     </a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['pages.index', 'pages.create', 'pages.edit'])}}">
-                                    <a class="nav-link" href="{{route('pages.index')}}">{{translate('Custom Pages')}}</a>
+                                    <a class="nav-link" href="{{route('pages.index')}}">{{translate('Halaman Kustom')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['links.index', 'links.create', 'links.edit'])}}">
                                     <a class="nav-link" href="{{route('links.index')}}">{{translate('Useful Link')}}</a>
@@ -626,7 +626,7 @@
                             </li>
                         @endif
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('13', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('13', json_decode(Auth::user()->staff->role->permissions)))
                             @php
                                 $support_ticket = DB::table('tickets')
                                             ->where('viewed', 0)
@@ -639,7 +639,7 @@
                                 <span class="menu-title">{{translate('Support Ticket')}} @if($support_ticket > 0)<span class="pull-right badge badge-info">{{ $support_ticket }}</span>@endif</span>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('11', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['seosetting.index'])}}">
@@ -669,14 +669,14 @@
                             </ul>
                         </li>
                         @endif
-                        @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
                                 <a class="nav-link" href="{{ route('addons.index') }}">
                                     <i class="fa fa-wrench"></i>
                                     <span class="menu-title">{{translate('Addon Manager')}}</span>
                                 </a>
                             </li>
-                        @endif
+                        @endif --}}
                     </ul>
                 </div>
             </div>

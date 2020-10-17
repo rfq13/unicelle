@@ -401,8 +401,9 @@ class OrderController extends Controller
         $order = Order::findOrFail(decrypt($id));
         $order->viewed = 1;
         $order->save();
+        $shipping_info = json_decode($order->shipping_info);
 
-        $ship = $this->statusPengiriman($order->resi,"jnt");
+        $ship = $this->statusPengiriman($order->resi,$shipping_info->code);
         return view('orders.show', compact(['order','ship']));
     }
 
