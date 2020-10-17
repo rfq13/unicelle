@@ -101,7 +101,7 @@
                                         <a class="nav-link" href="{{route('subcategories.index')}}">{{translate('Sub Kategori')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['subsubcategories.index', 'subsubcategories.create', 'subsubcategories.edit'])}}">
-                                        <a class="nav-link" href="{{route('subsubcategories.index')}}">{{translate('Sub Kategori')}}</a>
+                                        <a class="nav-link" href="{{route('subsubcategories.index')}}">{{translate('Sub Sub Kategori')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['products.admin', 'products.create', 'products.admin.edit'])}}">
                                         <a class="nav-link" href="{{route('products.admin')}}">{{translate('Daftar Produk')}}</a>
@@ -135,9 +135,9 @@
                                                     ->distinct()
                                                     ->count();
                                     @endphp
-                                    <li class="{{ areActiveRoutes(['reviews.index'])}}">
+                                    <!-- <li class="{{ areActiveRoutes(['reviews.index'])}}">
                                         <a class="nav-link" href="{{route('reviews.index')}}">{{translate('Ulasan Produk')}}@if($review_count > 0)<span class="pull-right badge badge-info">{{ $review_count }}</span>@endif</a>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </li>
                         @endif
@@ -191,19 +191,19 @@
                         <li class="{{ areActiveRoutes(['orders.index.admin', 'orders.show'])}}">
                             <a class="nav-link" href="{{ route('orders.index.admin') }}">
                                 <i class="fa fa-shopping-basket"></i>
-                                <span class="menu-title">{{translate('Inhouse orders')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
+                                <span class="menu-title">{{translate('Daftar Pembelian Produk')}} @if($orders > 0)<span class="pull-right badge badge-info">{{ $orders }}</span>@endif</span>
                             </a>
                         </li>
                         @endif
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
+                        <!-- @if(Auth::user()->user_type == 'admin' || in_array('14', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['pick_up_point.order_index','pick_up_point.order_show'])}}">
                             <a class="nav-link" href="{{ route('pick_up_point.order_index') }}">
                                 <i class="fa fa-money"></i>
                                 <span class="menu-title">{{translate('Pick-up Point Order')}}</span>
                             </a>
                         </li>
-                        @endif
+                        @endif -->
 
                         @if(Auth::user()->user_type == 'admin' || in_array('4', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['sales.index', 'sales.show'])}}">
@@ -218,7 +218,7 @@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-refresh"></i>
-                                    <span class="menu-title">{{translate('Refund Request')}}</span>
+                                    <span class="menu-title">{{translate('Pengajuan Komplain')}}</span>
                                     <i class="arrow"></i>
                                 </a>
 

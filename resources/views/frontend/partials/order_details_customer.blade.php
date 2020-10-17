@@ -7,17 +7,19 @@
 @php
 $status = $order->orderDetails->first()->delivery_status;
 $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
-$shp = json_decode($ship)->rajaongkir;
+    if($ship != 0){
+        $shp = json_decode($ship)->rajaongkir;
 
-    if ($status == "on_delivery" || $status == "delivered") {
-        if ($shp->status == 200) {
-            $ship = $shp->result;
-            $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
-            $statusKirim = $ship->delivery_status->status;
-            $kurir = $ship->summary->courier_name;
-            $manifest = $ship->manifest;
-            $penerima = $ship->delivery_status->pod_receiver;
-            $tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+        if ($status == "on_delivery" || $status == "delivered") {
+            if ($shp->status == 200) {
+                $ship = $shp->result;
+                $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
+                $statusKirim = $ship->delivery_status->status;
+                $kurir = $ship->summary->courier_name;
+                $manifest = $ship->manifest;
+                $penerima = $ship->delivery_status->pod_receiver;
+                $tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+            }
         }
     }
 @endphp
@@ -177,7 +179,7 @@ $shp = json_decode($ship)->rajaongkir;
                         </table>
                     </div>
                 </div>
-                @if ($status == "on_delivery" || $status =="delivered" && $shp->status == 200)
+                @if ($status == "on_delivery" || $status =="delivered" && $ship!= 0)
                 <div class="card mt-4">
                     <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Detail Pengiriman')}}</div>
                     <div class="card-body pb-0">
