@@ -72,10 +72,10 @@ class AddressController extends Controller
         $address->lng = $request->lng;
         if($address->save()){
             flash("Address added successfully")->success();
-            return redirect(route('addresses.index'));
+            return redirect()->back();
         }
         flash(translate('Something went wrong'))->error();
-        return redirect(route('addresses.index'));
+        return redirect()->back();
     }
 
     /**

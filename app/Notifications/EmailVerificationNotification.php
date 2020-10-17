@@ -29,10 +29,13 @@ class EmailVerificationNotification extends Notification
         $user->verification_code = encrypt($user->id);
         $user->save();
 
+	    $logo = \App\GeneralSetting::first()->logo;
+
         $array['view'] = 'emails.verification';
         $array['subject'] = translate('Email Verification');
         $array['content'] = 'Please click the button below to verify your email address.';
         $array['link'] = route('email.verification.confirmation', $user->verification_code);
+        $array['logo'] = my_asset("$logo");
 
         return (new MailMessage)
             ->view('emails.verification', ['array' => $array])

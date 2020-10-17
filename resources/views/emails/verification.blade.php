@@ -85,10 +85,6 @@
 	</style>
 </head>
 
-@php
-	$generalsetting = \App\GeneralSetting::first();
-@endphp
-
 <body class="body" style="padding:0 !important; margin:0 !important; display:block !important; min-width:100% !important; width:100% !important; background:#e8ebef; -webkit-text-size-adjust:none;">
 	<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#e8ebef">
 		<tr>
@@ -109,7 +105,7 @@
 															<th class="column" style="font-size:0pt; line-height:0pt; padding:0; margin:0; font-weight:normal;">
 																<table width="100%" border="0" cellspacing="0" cellpadding="0">
 																	<tr>
-																		<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="{{ my_asset($generalsetting->logo) }}" width="191" height="24" border="0" alt="" /></td>
+																		<td class="img m-center" style="font-size:0pt; line-height:0pt; text-align:left;"><img src="{{ $array['logo'] }}" width="191" height="24" border="0" alt="" /></td>
 																	</tr>
 																</table>
 															</th>
