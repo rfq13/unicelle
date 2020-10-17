@@ -1,10 +1,14 @@
 @php
-	$ship = json_decode($ship)->rajaongkir->result;
-	$waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
-	$statusKirim = $ship->delivery_status->status;
-	$kurir = $ship->summary->courier_name;
-	$manifest = $ship->manifest;
-	// dd($manifest);
+	if (isset($order->resi)) {
+		$ship = json_decode($ship)->rajaongkir->result;
+		// dd($ship);
+		$waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
+		$statusKirim = $ship->delivery_status->status;
+		$kurir = $ship->summary->courier_name;
+		$manifest = $ship->manifest;
+		$penerima = $ship->delivery_status->pod_receiver;
+		$tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+	}
 @endphp
 @extends('layouts.app')
 
@@ -31,24 +35,23 @@
                 </div>
                 <div class="col-lg-3">
 					<div class="row">
-						<label for="update_delivery_status">{{ translate('nomor Resi :')}}</label>
+						<label for="update_delivery_status">{{ translate('Status Order :')}}</label>
 					</div>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                         <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
                         <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option>
-                        <option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('On delivery')}}</option>
+						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('On delivery')}}</option>
                         <option value="delivered" @if ($delivery_status == 'delivered') selected @endif>{{translate('Delivered')}}</option>
 					</select>
 				</div>
 				<div class="col-lg-3">
-					<div class="row" style="margin-top: 1px" id="row-resi">
-						<span id="resi" style="color: #3b78e2">{{ $order->resi }}</span>
-						<form action="{{ route('add.resi',encrypt($order->id)) }}" method="POST">
-							@csrf
-							@method('put')
-							<input type="text" name="resi" id="resi" class="form-control">
-							<button type="submit" class="btn btn-primary" style="margin-top: 3px;float: right;"><i class="fa fa-file" aria-hidden="true"></i></button>
-						</form>
+					<div class="row">
+						<label for="update_delivery_status">{{ translate('Resi Pengiriman :')}}</label>
+					</div>
+				</div>  
+				<div class="col-lg-3">
+					<div class="row" style="margin-top: 6px;{{ isset($order->resi) ? '' : 'font-style:italic' }}" id="row-resi">
+						<span id="span-resi" style="color: #{{ isset($order->resi) ? '3b78e2' : '717171' }}">{{ isset($order->resi) ? $order->resi : "resi pengiriman masih kosong" }}</span>
 					</div>
                 </div>
             </div>
@@ -97,24 +100,14 @@
 							$status = isset($order->resi) ? $statusKirim : $order->orderDetails->first()->delivery_status;
                         @endphp
     					<td class="text-right">
-                            @if($status == 'delivered')
-                                <span class="badge badge-success">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
-                            @else
-                                <span class="badge badge-info">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
-                            @endif
+							<a href="#" data-toggle="modal" data-target="#modalManifest">
+								@if($status == 'delivered')
+									<span class="badge badge-success">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
+								@else
+									<span class="badge badge-info">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
+								@endif
+							</a>
     					</td>
-    				</tr>
-    				<tr>
-    					<td class="text-main text-bold">
-    						{{translate('Status Pengiriman')}}
-    					</td>
-    					<td class="text-right">
-                            @if($ship->delivered)
-                                <span class="badge badge-success">{{ ucfirst(str_replace('_', ' ', "Delivered")) }}</span>
-							@else
-								<a data-toggle="modal" data-target="#modalManifest" class="btn btn-info">{{ ucfirst(str_replace('_', ' ', $statusKirim)) }}</a>
-                            @endif
-						</td>
     				</tr>
     				<tr>
     					<td class="text-main text-bold">
@@ -282,6 +275,10 @@
 		  </button>
 		</div>
 		<div class="modal-body">
+			@isset($penerima)
+				<span class="my-3" style="margin-top: 5px">telah diterima oleh: <strong>{{ $penerima }}</strong></span><br>
+				<span class="mt-2">pada: <cite>{{ $tglTerima }}</cite></span>
+			@endisset
 			<table class="table table-striped">
 				<thead>
 				  <tr>
@@ -292,14 +289,16 @@
 				  </tr>
 				</thead>
 				<tbody>
-					@foreach ($manifest as $key => $history)
-						<tr>
-							<td>{{ $key+1 }}</td>
-							<td>{{ $history->city_name }}</td>
-							<td>{{ $history->manifest_date }} {{ $history->manifest_time }}</td>
-							<td>{{ $history->manifest_description }}</td>
-						</tr>
-					@endforeach
+					@isset($order->resi)
+						@foreach ($manifest as $key => $history)
+							<tr>
+								<td>{{ $key+1 }}</td>
+								<td>{{ $history->city_name }}</td>
+								<td>{{ $history->manifest_date }} {{ $history->manifest_time }}</td>
+								<td>{{ $history->manifest_description }}</td>
+							</tr>
+						@endforeach
+					@endisset
 				</tbody>
 			  </table>
 		</div>
@@ -309,17 +308,88 @@
 	  </div>
 	</div>
   </div>
+  
+  <!-- Modal form resi -->
+  <div class="modal fade" id="modalResi" tabindex="-1" role="dialog" aria-labelledby="modalResiTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+			@php
+				$shipping_info = json_decode($order->shipping_info);
+			@endphp
+		  <h5 class="modal-title" id="exampleModalLongTitle" style="text-transform: capitalize">Input Resi {{ $shipping_info->code }}</h5>
+		  <cite style="color:#717171">masukkan resi kurir {{ $shipping_info->code }} dengan layanan {{ $shipping_info->services }}</cite>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+			<form id="form-input-resi" action="{{ route('add.resi',encrypt($order->id)) }}" method="POST">
+				@csrf
+				@method('put')
+				<input type="text" name="resi" id="input-resi" class="form-control" placeholder="masukken resi pengiriman" required>
+			</div>
+			<div class="modal-footer">
+				<button type="button" id="close" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save changes</button>
+			</div>
+		</form>
+	  </div>
+	</div>
+  </div>
 @endsection
 
 @section('script')
-    <script type="text/javascript">
-        $('#update_delivery_status').on('change', function(){
+	<script type="text/javascript">
+		const statusOrder = $('#update_delivery_status');
+
+	@if(isset($order->resi))
+		@if ($ship->delivered)
+			statusOrder.val("delivered")
+			statusOrder.change()
+		@endif
+	@endif
+	
+		let currentStatus = statusOrder.val()
+        statusOrder.on('change', function(){
             var order_id = {{ $order->id }};
             var status = $('#update_delivery_status').val();
+
+			if (status == "on_delivery") {
+				if ($("#span-resi").text() == "resi pengiriman masih kosong") {
+					$("#modalResi").modal()
+					statusOrder.val(currentStatus)
+					return;
+				}
+			}
+
             $.post('{{ route('orders.update_delivery_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
                 showAlert('success', 'Delivery status has been updated');
             });
         });
+
+		$("#form-input-resi").on("submit", function (e) {
+			e.preventDefault()
+			let data = {
+				_token: "{{ csrf_token() }}",
+				resi: $("#input-resi").val()
+			}
+			let urL = $(this).attr("action")
+
+			$.ajax(urL,{
+				type:"put",
+				data:data,
+				success:function(data){
+					if (data == 1) {
+						showAlert("success","Berhasil Menambahkan Resi")
+						$("#close").click()
+						$("#span-resi").text(data.resi)
+						statusOrder.val("on_delivery")
+						statusOrder.change()
+					}
+				}
+			})
+		})
 
         $('#update_payment_status').on('change', function(){
             var order_id = {{ $order->id }};

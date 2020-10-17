@@ -1,6 +1,3 @@
-@php
-   // dd($orders);
-@endphp
 @extends('frontend.layouts.app')
 
 @section('style')

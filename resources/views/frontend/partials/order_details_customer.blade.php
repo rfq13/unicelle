@@ -4,11 +4,20 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-
 @php
-    $status = $order->orderDetails->first()->delivery_status;
-    $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
+$status = $order->orderDetails->first()->delivery_status;
+$refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
+
+    if ($status == "on_delivery") {
+        // dd($ship);
+        $ship = json_decode($ship)->rajaongkir->result;
+        $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
+        $statusKirim = $ship->delivery_status->status;
+        $kurir = $ship->summary->courier_name;
+        $manifest = $ship->manifest;
+    }
 @endphp
+
 
 <div class="modal-body gry-bg px-3 pt-0">
     <div class="pt-4">
@@ -88,82 +97,109 @@
     </div>
     <div class="row">
         <div class="col-lg-9">
-            <div class="card mt-4">
-                <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Order Details')}}</div>
-                <div class="card-body pb-0">
-                    <table class="details-table table table-responsive">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th width="30%">{{ translate('Product')}}</th>
-                                <th>{{ translate('Variation')}}</th>
-                                <th>{{ translate('Quantity')}}</th>
-                                <th>{{ translate('Delivery Type')}}</th>
-                                <th>{{ translate('Price')}}</th>
-                                @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
-                                    <th>{{ translate('Refund')}}</th>
-                                @endif
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($order->orderDetails as $key => $orderDetail)
+                <div class="card mt-4">
+                    <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Order Details')}}</div>
+                    <div class="card-body pb-0">
+                        <table class="details-table table table-responsive">
+                            <thead>
                                 <tr>
-                                    <td>{{ $key+1 }}</td>
-                                    <td>
-                                        @if ($orderDetail->product != null)
-                                            <a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">{{ $orderDetail->product->name }}</a>
-                                        @else
-                                            <strong>{{  translate('Product Unavailable') }}</strong>
-                                        @endif
-                                    </td>
-                                    <td>
-                                        {{ $orderDetail->variation }}
-                                    </td>
-                                    <td>
-                                        {{ $orderDetail->quantity }}
-                                    </td>
-                                    <td>
-                                        @php
-                                        $shipping_info = json_decode($order->shipping_info);
-                                        @endphp 
-                                        {{--@if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
-                                            {{  translate('Home Delivery') }}
-                                        @elseif ($orderDetail->shipping_type == 'pickup_point')
-                                            @if ($orderDetail->pickup_point != null)
-                                                {{ $orderDetail->pickup_point->name }} ({{  translate('Pickip Point') }})
-                                            @endif
-                                        @endif--}}
-                                       
-                                        {{ $shipping_info->code }} {{ $shipping_info->services }}
-
-                                    </td>
-                                    <td>{{ single_price($orderDetail->price) }}</td>
+                                    <th>#</th>
+                                    <th width="30%">{{ translate('Product')}}</th>
+                                    <th>{{ translate('Variation')}}</th>
+                                    <th>{{ translate('Quantity')}}</th>
+                                    <th>{{ translate('Delivery Type')}}</th>
+                                    <th>{{ translate('Price')}}</th>
                                     @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
-                                        @php
-                                            $no_of_max_day = \App\BusinessSetting::where('type', 'refund_request_time')->first()->value;
-                                            $last_refund_date = $orderDetail->created_at->addDays($no_of_max_day);
-                                            $today_date = Carbon\Carbon::now();
-                                        @endphp
-                                        <td>
-                                            @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered')
-                                                <a href="{{route('refund_request_send_page', $orderDetail->id)}}" class="btn btn-styled btn-sm btn-base-1">{{  translate('Send') }}</a>
-                                            @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
-                                                <span class="strong-600">{{  translate('Pending') }}</span>
-                                            @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
-                                                <span class="strong-600">{{  translate('Approved') }}</span>
-                                            @elseif ($orderDetail->product->refundable != 0)
-                                                <span class="strong-600">{{  translate('N/A') }}</span>
-                                            @else
-                                                <span class="strong-600">{{  translate('Non-refundable') }}</span>
-                                            @endif
-                                        </td>
+                                        <th>{{ translate('Refund')}}</th>
                                     @endif
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                @foreach ($order->orderDetails as $key => $orderDetail)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <td>
+                                            @if ($orderDetail->product != null)
+                                                <a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">{{ $orderDetail->product->name }}</a>
+                                            @else
+                                                <strong>{{  translate('Product Unavailable') }}</strong>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            {{ $orderDetail->variation }}
+                                        </td>
+                                        <td>
+                                            {{ $orderDetail->quantity }}
+                                        </td>
+                                        <td>
+                                            @php
+                                            $shipping_info = json_decode($order->shipping_info);
+                                            @endphp 
+                                            {{--@if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
+                                                {{  translate('Home Delivery') }}
+                                            @elseif ($orderDetail->shipping_type == 'pickup_point')
+                                                @if ($orderDetail->pickup_point != null)
+                                                    {{ $orderDetail->pickup_point->name }} ({{  translate('Pickip Point') }})
+                                                @endif
+                                            @endif--}}
+                                           
+                                            {{ $shipping_info->code }} {{ $shipping_info->services }}
+    
+                                        </td>
+                                        <td>{{ single_price($orderDetail->price) }}</td>
+                                        @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+                                            @php
+                                                $no_of_max_day = \App\BusinessSetting::where('type', 'refund_request_time')->first()->value;
+                                                $last_refund_date = $orderDetail->created_at->addDays($no_of_max_day);
+                                                $today_date = Carbon\Carbon::now();
+                                            @endphp
+                                            <td>
+                                                @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered')
+                                                    <a href="{{route('refund_request_send_page', $orderDetail->id)}}" class="btn btn-styled btn-sm btn-base-1">{{  translate('Send') }}</a>
+                                                @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
+                                                    <span class="strong-600">{{  translate('Pending') }}</span>
+                                                @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
+                                                    <span class="strong-600">{{  translate('Approved') }}</span>
+                                                @elseif ($orderDetail->product->refundable != 0)
+                                                    <span class="strong-600">{{  translate('N/A') }}</span>
+                                                @else
+                                                    <span class="strong-600">{{  translate('Non-refundable') }}</span>
+                                                @endif
+                                            </td>
+                                        @endif
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+                @if ($status == "on_delivery")
+                <div class="card mt-4">
+                    <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Detail Pengiriman')}}</div>
+                    <div class="card-body pb-0">
+                        <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Kota</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Deskripsi</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($manifest as $key => $history)
+                                    <tr>
+                                        <td>{{ $key+1 }}</td>
+                                        <td>{{ $history->city_name }}</td>
+                                        <td>{{ $history->manifest_date }} {{ $history->manifest_time }}</td>
+                                        <td>{{ $history->manifest_description }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @endif
         </div>
         <div class="col-lg-3">
             <div class="card mt-4">

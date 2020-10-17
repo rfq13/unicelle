@@ -41,7 +41,16 @@ class PurchaseHistoryController extends Controller
         $order->delivery_viewed = 1;
         $order->payment_status_viewed = 1;
         $order->save();
-        return view('frontend.partials.order_details_customer', compact('order'));
+        $status = $order->orderDetails->first()->delivery_status;
+        
+        $compact = ['order'];
+        if ($status == "on_delivery") {
+            $ship_info = json_decode($order->shipping_info);
+            $ship = app('\App\Http\Controllers\OrderController')->statusPengiriman($order->resi,"jnt");
+            array_push($compact,"ship");
+        }
+
+        return view('frontend.partials.order_details_customer', compact($compact));
     }
 
     /**
