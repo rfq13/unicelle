@@ -13,13 +13,13 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{__('Order Id')}}</th>
-                    <th>{{__('Seller Name')}}</th>
-                    <th>{{__('Product')}}</th>
-                    <th>{{__('Price')}}</th>
-                    <th>{{__('Seller Approval')}}</th>
-                    <th>{{__('Admin Approval')}}</th>
-                    <th>{{__('Refund Status')}}</th>
+                    <th>{{__('Id Pesanan')}}</th>
+                    <th>{{__('Nama Penjual')}}</th>
+                    <th>{{__('Produk')}}</th>
+                    <th>{{__('Harga')}}</th>
+                    <th>{{__('Persetujuan Penjual')}}</th>
+                    <th>{{__('Status Pengembalian Dana')}}</th>
+                    <th>{{__('Status Pengembalian Dana')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,29 +50,29 @@
                         <td>
                             @if ($refund->seller_approval == 1)
                                 <div class="label label-table label-success">
-                                    {{__('Approved')}}
+                                    {{__('Disetujui')}}
                                 </div>
                             @else
                                 <div class="label label-table label-warning">
-                                    {{__('Pending')}}
+                                    {{__('Tertunda')}}
                                 </div>
                             @endif
                         </td>
                         <td>
                             @if ($refund->admin_approval == 1)
                                 <div class="label label-table label-success">
-                                    {{__('Approved')}}
+                                    {{__('Disetujui')}}
                                 </div>
                             @endif
                         </td>
                         <td>
                             @if ($refund->refund_status == 1)
                                 <div class="label label-table label-success">
-                                    {{__('Paid')}}
+                                    {{__('Dibayar')}}
                                 </div>
                             @else
                                 <div class="label label-table label-warning">
-                                    {{__('Non-Paid')}}
+                                    {{__('Tidak Dibayar')}}
                                 </div>
                             @endif
                         </td>

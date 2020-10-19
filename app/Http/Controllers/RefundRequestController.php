@@ -35,11 +35,11 @@ class RefundRequestController extends Controller
         $refund->refund_amount = $order_detail->price + $order_detail->tax;
         $refund->refund_status = 0;
         if ($refund->save()) {
-            flash("Refund Request has been sent successfully")->success();
+            flash("Permintaan Pengembalian Dana telah berhasil dikirim")->success();
             return redirect()->route('purchase_history.index');
         }
         else {
-            flash("Something went wrong")->error();
+            flash("Ada yang salah")->error();
             return back();
         }
     }
@@ -96,7 +96,7 @@ class RefundRequestController extends Controller
             $business_settings->value = $request->value;
             $business_settings->save();
         }
-        flash("Refund Request sending time has been updated successfully")->success();
+        flash("Waktu pengiriman Permintaan Pengembalian Dana telah berhasil diperbarui")->success();
         return back();
     }
 
@@ -123,7 +123,7 @@ class RefundRequestController extends Controller
             }
             $business_settings->save();
         }
-        flash("Refund Sticker has been updated successfully")->success();
+        flash("Stiker Pengembalian Dana berhasil diperbarui")->success();
         return back();
     }
 

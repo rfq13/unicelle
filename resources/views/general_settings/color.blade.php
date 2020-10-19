@@ -5,7 +5,7 @@
     <div class="col-lg-6 col-lg-offset-3">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">{{translate('Color Settings')}}</h3>
+                <h3 class="panel-title">{{translate('Pengaturan Warna')}}</h3>
             </div>
 
             <!--Horizontal Form-->
@@ -65,7 +65,7 @@
                     </div>
                 </div>
                 <div class="panel-footer text-right">
-                    <button class="btn btn-purple" type="submit">{{translate('save')}}</button>
+                    <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                 </div>
             </form>
             <!--===================================================-->

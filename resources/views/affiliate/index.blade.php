@@ -6,7 +6,7 @@
         <div class="col-lg-6">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">{{__('Basic Affiliate')}}</h3>
+                    <h3 class="panel-title text-center">{{__('Afiliasi Dasar')}}</h3>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('affiliate.store') }}" method="POST">
@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <input type="hidden" name="type" value="user_registration_first_purchase">
                             <div class="col-lg-4">
-                                <label class="control-label">{{__('User Registration & First Purchase')}}</label>
+                                <label class="control-label">{{__('Pendaftaran pengguna & Pertama')}}</label>
                             </div>
                             <div class="col-lg-6">
                                 @php
@@ -57,7 +57,7 @@
         <div class="col-lg-6">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">{{__('Product Sharing Affiliate')}}</h3>
+                    <h3 class="panel-title text-center">{{__('Produk Sharing Afiliasi')}}</h3>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('affiliate.store') }}" method="POST">
@@ -65,7 +65,7 @@
                         <div class="form-group">
                             <input type="hidden" name="type" value="product_sharing">
                             <div class="col-lg-4">
-                                <label class="control-label">{{__('Product Sharing and Purchasing')}}</label>
+                                <label class="control-label">{{__('Sharing produk dan Pembelian')}}</label>
                             </div>
                             <div class="col-lg-6">
                                 @php
@@ -103,7 +103,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12 text-right">
-                                <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                                <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
                             </div>
                         </div>
                     </form>
@@ -115,7 +115,7 @@
         <div class="col-lg-6">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">{{__('Product Sharing Affiliate (Category Wise)')}}</h3>
+                    <h3 class="panel-title text-center">{{__('Afiliasi Berbagi Produk (Kategori Kebijakan)')}}</h3>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('affiliate.store') }}" method="POST">
@@ -189,7 +189,7 @@
                         @endif
                         <div class="form-group">
                             <div class="col-lg-12 text-right">
-                                <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                                <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
                             </div>
                         </div>
                     </form>

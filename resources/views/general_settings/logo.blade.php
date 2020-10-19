@@ -14,19 +14,19 @@
             	@csrf
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="logo">{{translate('Frontend Header logo')}} <small>(max height 40px)</small></label>
+                        <label class="col-sm-3 control-label" for="logo">{{translate('Logo Header')}} <small>(max height 40px)</small></label>
                         <div class="col-sm-9">
                             <input type="file" id="logo" name="logo" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="logo">{{translate('Frontend Footer logo')}}</label>
+                        <label class="col-sm-3 control-label" for="logo">{{translate('Logo Footer')}}</label>
                         <div class="col-sm-9">
                             <input type="file" id="logo" name="footer_logo" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="admin_logo">{{translate('Admin logo')}} <small>(60x60)</small></label>
+                        <label class="col-sm-3 control-label" for="admin_logo">{{translate('Logo Admin')}} <small>(60x60)</small></label>
                         <div class="col-sm-9">
                             <input type="file" id="admin_logo" name="admin_logo" class="form-control">
                         </div>
@@ -38,20 +38,20 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="admin_login_background">{{translate('Admin login background image')}} <small>(1920x1080)</small></label>
+                        <label class="col-sm-3 control-label" for="admin_login_background">{{translate('Gambar Latar Belakang Login Admin')}} <small>(1920x1080)</small></label>
                         <div class="col-sm-9">
                             <input type="file" id="admin_login_background" name="admin_login_background" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="admin_login_sidebar">{{translate('Admin login sidebar image')}} <small>(600x500)</small></label>
+                        <label class="col-sm-3 control-label" for="admin_login_sidebar">{{translate('Gambar sidebar Login Admin')}} <small>(600x500)</small></label>
                         <div class="col-sm-9">
                             <input type="file" id="admin_login_sidebar" name="admin_login_sidebar" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer text-right">
-                    <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                    <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                 </div>
             </form>
             <!--===================================================-->

@@ -5,7 +5,7 @@
 <div class="col-lg-6">
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ translate('Attribute Information')}}</h3>
+            <h3 class="panel-title">{{ translate('Informasi Atribut')}}</h3>
         </div>
 
         <!--Horizontal Form-->
@@ -16,12 +16,12 @@
                 <div class="form-group">
                     <label class="col-sm-2 control-label" for="name">{{ translate('Name')}}</label>
                     <div class="col-sm-10">
-                        <input type="text" placeholder="{{ translate('Name')}}" id="name" name="name" class="form-control" required>
+                        <input type="text" placeholder="{{ translate('Nama')}}" id="name" name="name" class="form-control" required>
                     </div>
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-purple" type="submit">{{ translate('Save')}}</button>
+                <button class="btn btn-purple" type="submit">{{ translate('Simpan')}}</button>
             </div>
         </form>
         <!--===================================================-->

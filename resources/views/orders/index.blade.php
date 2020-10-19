@@ -8,15 +8,15 @@
 <!--===================================================-->
 <div class="panel">
     <div class="panel-heading bord-btm clearfix pad-all h-100">
-        <h3 class="panel-title pull-left pad-no">{{translate('Orders')}}</h3>
+        <h3 class="panel-title pull-left pad-no">{{translate('Psenan')}}</h3>
         <div class="pull-right clearfix">
             <form class="" id="sort_orders" action="" method="GET">
                 <div class="box-inline pad-rgt pull-left">
                     <div class="select" style="min-width: 300px;">
                         <select class="form-control demo-select2" name="payment_type" id="payment_type" onchange="sort_orders()">
                             <option value="">{{translate('Filter by Payment Status')}}</option>
-                            <option value="paid"  @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{translate('Paid')}}</option>
-                            <option value="unpaid"  @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{translate('Un-Paid')}}</option>
+                            <option value="paid"  @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{translate('Dibayar')}}</option>
+                            <option value="unpaid"  @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{translate('Tidak Dibayar')}}</option>
                         </select>
                     </div>
                 </div>
@@ -44,17 +44,17 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{translate('Order Code')}}</th>
-                    <th>{{translate('Num. of Products')}}</th>
-                    <th>{{translate('Customer')}}</th>
-                    <th>{{translate('Amount')}}</th>
-                    <th>{{translate('Delivery Status')}}</th>
-                    <th>{{translate('Payment Method')}}</th>
-                    <th>{{translate('Payment Status')}}</th>
+                    <th>{{translate('Kode Pesanan')}}</th>
+                    <th>{{translate('Nomor Produk')}}</th>
+                    <th>{{translate('Pelanggan')}}</th>
+                    <th>{{translate('Jumlah')}}</th>
+                    <th>{{translate('Status Pengiriman')}}</th>
+                    <th>{{translate('Metode Pembayaran')}}</th>
+                    <th>{{translate('Status Pembayaran')}}</th>
                     @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
-                        <th>{{translate('Refund')}}</th>
+                        <th>{{translate('Pengembalian Dana')}}</th>
                     @endif
-                    <th width="10%">{{translate('Options')}}</th>
+                    <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,7 +68,7 @@
                                 {{ ($key+1) + ($orders->currentPage() - 1)*$orders->perPage() }}
                             </td>
                             <td>
-                                {{ $order->code }} @if($order->viewed == 0) <span class="pull-right badge badge-info">{{ translate('New') }}</span> @endif
+                                {{ $order->code }} @if($order->viewed == 0) <span class="pull-right badge badge-info">{{ translate('Baru') }}</span> @endif
                             </td>
                             <td>
                                 {{ count($order->orderDetails->where('seller_id', $admin_user_id)) }}
@@ -95,9 +95,9 @@
                             <td>
                                 <span class="badge badge--2 mr-4">
                                     @if ($order->orderDetails->where('seller_id',  $admin_user_id)->first()->payment_status == 'paid')
-                                        <i class="bg-green"></i> {{ translate('Paid') }}
+                                        <i class="bg-green"></i> {{ translate('Dibayar') }}
                                     @else
-                                        <i class="bg-red"></i> {{ translate('Unpaid') }}
+                                        <i class="bg-red"></i> {{ translate('Tidak Dibayar') }}
                                     @endif
                                 </span>
                             </td>
@@ -106,19 +106,19 @@
                                     @if (count($order->refund_requests) > 0)
                                         {{ count($order->refund_requests) }} {{ translate('Refund') }}
                                     @else
-                                        {{ translate('No Refund') }}
+                                        {{ translate('Tidak Ada Pengembalian Dana') }}
                                     @endif
                                 </td>
                             @endif
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                        {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                        {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="{{ route('orders.show', encrypt($order->id)) }}">{{translate('View')}}</a></li>
-                                        <li><a href="{{ route('seller.invoice.download', $order->id) }}">{{translate('Download Invoice')}}</a></li>
-                                        <li><a onclick="confirm_modal('{{route('orders.destroy', $order->id)}}');">{{translate('Delete')}}</a></li>
+                                        <li><a href="{{ route('orders.show', encrypt($order->id)) }}">{{translate('Lihat')}}</a></li>
+                                        <li><a href="{{ route('seller.invoice.download', $order->id) }}">{{translate('Unduh Tagihan')}}</a></li>
+                                        <li><a onclick="confirm_modal('{{route('orders.destroy', $order->id)}}');">{{translate('Hapus')}}</a></li>
                                     </ul>
                                 </div>
                             </td>

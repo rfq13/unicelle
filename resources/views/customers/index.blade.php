@@ -14,7 +14,7 @@
 <!--===================================================-->
 <div class="panel">
     <div class="panel-heading bord-btm clearfix pad-all h-100">
-        <h3 class="panel-title pull-left pad-no">{{translate('Customers')}}</h3>
+        <h3 class="panel-title pull-left pad-no">{{translate('Pelanggan')}}</h3>
         <div class="pull-right clearfix">
             <form class="" id="sort_customers" action="" method="GET">
                 <div class="box-inline pad-rgt pull-left">
@@ -30,12 +30,12 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{translate('Name')}}</th>
-                    <th>{{translate('Email Address')}}</th>
-                    <th>{{translate('Phone')}}</th>
-                    <th>{{translate('Package')}}</th>
-                    <th>{{translate('Wallet Balance')}}</th>
-                    <th width="10%">{{translate('Options')}}</th>
+                    <th>{{translate('Nama')}}</th>
+                    <th>{{translate('Alamat Email')}}</th>
+                    <th>{{translate('Nomor Telepon')}}</th>
+                    <th>{{translate('Paket')}}</th>
+                    <th>{{translate('Saldo wallet')}}</th>
+                    <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -58,17 +58,17 @@
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                        {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                        {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="{{route('customers.login', encrypt($customer->id))}}">{{translate('Log in as this Customer')}}</a></li>
+                                        <li><a href="{{route('customers.login', encrypt($customer->id))}}">{{translate('Masuk sebagai Pelanggan')}}</a></li>
                                         @if($customer->user->banned != 1)
-                                        <li><a href="#" onclick="confirm_ban('{{route('customers.ban', $customer->id)}}');">{{translate('Ban this Customer')}}  <i class="fa fa-ban text-danger" aria-hidden="true"></i> </a></li>
+                                        <li><a href="#" onclick="confirm_ban('{{route('customers.ban', $customer->id)}}');">{{translate('Cekal Pelanggan ini')}}  <i class="fa fa-ban text-danger" aria-hidden="true"></i> </a></li>
                                         @else
-                                        <li><a href="#" onclick="confirm_unban('{{route('customers.ban', $customer->id)}}');">{{translate('Unban this Customer')}} <i class="fa fa-check text-success" aria-hidden="true"></i></a></li>
+                                        <li><a href="#" onclick="confirm_unban('{{route('customers.ban', $customer->id)}}');">{{translate('Batal Cekal Pelanggan ini')}} <i class="fa fa-check text-success" aria-hidden="true"></i></a></li>
                                         @endif
                                         
-                                        <li><a onclick="confirm_modal('{{route('customers.destroy', $customer->id)}}');">{{translate('Delete')}}</a></li>
+                                        <li><a onclick="confirm_modal('{{route('customers.destroy', $customer->id)}}');">{{translate('Hapus')}}</a></li>
                                     </ul>
                                 </div>
                             </td>
@@ -111,16 +111,16 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">{{translate('Confirmation')}}</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{translate('Konfirmasi')}}</h4>
                 </div>
 
                 <div class="modal-body">
-                    <p>{{translate('Do you really want to ban this Customer?')}}</p>
+                    <p>{{translate('Apakah Anda benar-benar ingin mencekal Pelanggan ini?')}}</p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{translate('Cancel')}}</button>
-                    <a id="confirmation" class="btn btn-danger btn-ok">{{translate('Proceed!')}}</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{translate('Batal')}}</button>
+                    <a id="confirmation" class="btn btn-danger btn-ok">{{translate('Lanjutkan')}}</a>
                 </div>
             </div>
         </div>
@@ -132,16 +132,16 @@
 
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h4 class="modal-title" id="myModalLabel">{{translate('Confirmation')}}</h4>
+                    <h4 class="modal-title" id="myModalLabel">{{translate('Konfirmasi')}}</h4>
                 </div>
 
                 <div class="modal-body">
-                    <p>{{translate('Do you really want to unban this Customer?')}}</p>
+                    <p>{{translate('Apakah Anda benar-benar ingin mencekal Pelanggan ini?')}}</p>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">{{translate('Cancel')}}</button>
-                    <a id="confirmationunban" class="btn btn-success btn-ok">{{translate('Proceed!')}}</a>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{translate('Batal')}}</button>
+                    <a id="confirmationunban" class="btn btn-success btn-ok">{{translate('Lanjut')}}</a>
                 </div>
             </div>
         </div>

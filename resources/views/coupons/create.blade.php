@@ -5,19 +5,19 @@
     <div class="col-lg-8 col-lg-offset-2">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">{{translate('Coupon Information Adding')}}</h3>
+                <h3 class="panel-title">{{translate('Informasi Penambahan Kuppin')}}</h3>
             </div>
 
             <form class="form-horizontal" action="{{ route('coupon.store') }}" method="POST" enctype="multipart/form-data">
             	@csrf
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-lg-3 control-label" for="name">{{translate('Coupon Type')}}</label>
+                        <label class="col-lg-3 control-label" for="name">{{translate('Tipe Kupon')}}</label>
                         <div class="col-lg-9">
                             <select name="coupon_type" id="coupon_type" class="form-control demo-select2" onchange="coupon_form()" required>
-                                <option value="">{{translate('Select One') }}</option>
-                                <option value="product_base">{{translate('For Products')}}</option>
-                                <option value="cart_base">{{translate('For Total Orders')}}</option>
+                                <option value="">{{translate('Pilih Satu') }}</option>
+                                <option value="product_base">{{translate('Untuk Produk')}}</option>
+                                <option value="cart_base">{{translate('Untuk Semua Orderan')}}</option>
                             </select>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                     </div>
 
                 <div class="panel-footer text-right">
-                    <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                    <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                 </div>
             </form>
 

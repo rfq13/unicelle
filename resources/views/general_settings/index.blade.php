@@ -15,13 +15,13 @@
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="name">{{translate('Site Name')}}</label>
+                        <label class="col-sm-3 control-label" for="name">{{translate('Nama Situs')}}</label>
                         <div class="col-sm-9">
                             <input type="text" id="name" name="name" value="{{ $generalsetting->site_name }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="address">{{translate('Address')}}</label>
+                        <label class="col-sm-3 control-label" for="address">{{translate('Alamat')}}</label>
                         <div class="col-sm-9">
                             <input type="text" id="address" name="address" value="{{ $generalsetting->address }}" class="form-control" required>
                         </div>
@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="phone">{{translate('Phone')}}</label>
+                        <label class="col-sm-3 control-label" for="phone">{{translate('No. Telp')}}</label>
                         <div class="col-sm-9">
                             <input type="text" id="phone" name="phone" value="{{ $generalsetting->phone }}" class="form-control" required>
                         </div>
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label">{{translate('System Timezone')}}</label>
+                        <label class="col-sm-3 control-label">{{translate('Sistem Zona Waktu')}}</label>
                         <div class="col-sm-9">
                             <select name="timezone" class="form-control demo-select2" data-live-search="true">
                                 @foreach (timezones() as $key => $value)
@@ -87,7 +87,7 @@
                         </div>
                     </div>
                 <div class="panel-footer text-right">
-                    <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                    <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                 </div>
             </form>
             <!--===================================================-->

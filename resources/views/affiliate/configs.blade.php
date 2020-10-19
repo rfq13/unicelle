@@ -6,7 +6,7 @@
 
 		<div class="panel">
 			<div class="panel-heading">
-				<h3 class="panel-title text-center">{{__('Affiliate Registration Form')}}</h3>
+				<h3 class="panel-title text-center">{{__('Form Registrasi Affiliate ')}}</h3>
 			</div>
 			<div class="panel-body">
 				<form action="{{ route('affiliate.configs.store') }}" method="post" enctype="multipart/form-data">
@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					<div class="panel-footer text-right">
-		                <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+		                <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
 		            </div>
 				</form>
 			</div>

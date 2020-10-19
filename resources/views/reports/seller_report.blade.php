@@ -8,8 +8,8 @@
                  {{ translate('Sort by verificarion status') }}:
                  <div class="select">
                      <select class="demo-select2" name="verification_status" required>
-                        <option value="1">{{ translate('Approved') }}</option>
-                        <option value="0">{{ translate('Non Approved') }}</option>
+                        <option value="1">{{ translate('Disetujui') }}</option>
+                        <option value="0">{{ translate('Tidak Disetujui') }}</option>
                      </select>
                  </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="panel">
             <!--Panel heading-->
             <div class="panel-heading">
-                <h3 class="panel-title">{{ translate('Seller report') }}</h3>
+                <h3 class="panel-title">{{ translate('Laporan penjual') }}</h3>
             </div>
 
             <!--Panel body-->
@@ -31,9 +31,9 @@
                     <table class="table table-striped mar-no demo-dt-basic">
                         <thead>
                             <tr>
-                                <th>{{ translate('Seller Name') }}</th>
+                                <th>{{ translate('Nama Penjual') }}</th>
                                 <th>{{ translate('Email') }}</th>
-                                <th>{{ translate('Shop Name') }}</th>
+                                <th>{{ translate('Nama Toko') }}</th>
                                 <th>{{ translate('Status') }}</th>
                             </tr>
                         </thead>
@@ -47,17 +47,17 @@
                                         <td>
                                             @if ($seller->verification_status == 1)
                                                 <div class="label label-table label-success">
-                                                    {{translate('Verified')}}
+                                                    {{translate('Terverifikasi')}}
                                                 </div>
                                             @elseif ($seller->verification_info != null)
                                                 <a href="{{ route('sellers.show_verification_request', $seller->id) }}">
                                                     <div class="label label-table label-info">
-                                                        {{translate('Requested')}}
+                                                        {{translate('Diminta')}}
                                                     </div>
                                                 </a>
                                             @else
                                                 <div class="label label-table label-danger">
-                                                    {{translate('Not Verified')}}
+                                                    {{translate('Tidak diverifikasi')}}
                                                 </div>
                                             @endif
                                         </td>

@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12 text-right">
-                        <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                        <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
                     </div>
                 </div>
             </div>

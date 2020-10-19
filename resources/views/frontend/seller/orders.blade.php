@@ -42,8 +42,8 @@
                                         <div class="col-md-3 ml-auto">
                                             <select class="form-control mb-3 selectpicker" data-placeholder="{{ translate('Filter Berdasarkan Status Pembayaran')}}" name="payment_status" onchange="sort_orders()">
                                                 <option value="">{{ translate('Filter by Payment Status')}}</option>
-                                                <option value="paid" @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{ translate('Paid')}}</option>
-                                                <option value="unpaid" @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{ translate('Un-Paid')}}</option>
+                                                <option value="paid" @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{ translate('Dibayar')}}</option>
+                                                <option value="unpaid" @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{ translate('Tidak Dibayar')}}</option>
                                             </select>
                                         </div>
                                         <div class="col-md-3">
@@ -64,13 +64,13 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th width="20%">{{ translate('Order Code')}}</th>
-                                            <th>{{ translate('Num. of Products')}}</th>
-                                            <th>{{ translate('Customer')}}</th>
-                                            <th>{{ translate('Amount')}}</th>
-                                            <th>{{ translate('Delivery Status')}}</th>
-                                            <th>{{ translate('Payment Status')}}</th>
-                                            <th>{{ translate('Options')}}</th>
+                                            <th width="20%">{{ translate('Kode Pesanan')}}</th>
+                                            <th>{{ translate('Nomor Produk')}}</th>
+                                            <th>{{ translate('Pelanggan')}}</th>
+                                            <th>{{ translate('Jumlah')}}</th>
+                                            <th>{{ translate('Status Pengiriman')}}</th>
+                                            <th>{{ translate('Status Pembayaran')}}</th>
+                                            <th>{{ translate('Opsi')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -121,8 +121,8 @@
                                                             </button>
 
                                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="">
-                                                                <button onclick="show_order_details({{ $order->id }})" class="dropdown-item">{{ translate('Order Details')}}</button>
-                                                                <a href="{{ route('seller.invoice.download', $order->id) }}" class="dropdown-item">{{ translate('Download Invoice')}}</a>
+                                                                <button onclick="show_order_details({{ $order->id }})" class="dropdown-item">{{ translate('Detail Pesanan')}}</button>
+                                                                <a href="{{ route('seller.invoice.download', $order->id) }}" class="dropdown-item">{{ translate('Unduh Tagihan')}}</a>
                                                             </div>
                                                         </div>
                                                     </td>

@@ -5,7 +5,7 @@
     <div class="pad-all text-center">
         <form class="" action="{{ route('stock_report.index') }}" method="GET">
             <div class="box-inline mar-btm pad-rgt">
-                 {{ translate('Sort by Category') }}:
+                 {{ translate('Sortir menurut Kategori') }}:
                  <div class="select">
                      <select id="demo-ease" class="demo-select2" name="category_id" required>
                          @foreach (\App\Category::all() as $key => $category)
@@ -23,7 +23,7 @@
         <div class="panel">
             <!--Panel heading-->
             <div class="panel-heading">
-                <h3 class="panel-title">{{ translate('Product wise stock report') }}</h3>
+                <h3 class="panel-title">{{ translate('Laporan Produk Stok') }}</h3>
             </div>
 
             <!--Panel body-->
@@ -32,8 +32,8 @@
                     <table class="table table-striped mar-no demo-dt-basic">
                         <thead>
                             <tr>
-                                <th>{{ translate('Product Name') }}</th>
-                                <th>{{ translate('Stock') }}</th>
+                                <th>{{ translate('Nama Produk') }}</th>
+                                <th>{{ translate('Stok') }}</th>
                             </tr>
                         </thead>
                         <tbody>

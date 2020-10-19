@@ -6,7 +6,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading bord-btm">
-                <h3 class="panel-title">{{translate('Select Shipping Method')}}</h3>
+                <h3 class="panel-title">{{translate('Pilih Metode Pengiriman')}}</h3>
             </div>
             <div class="panel-body">
                 <form action="{{ route('shipping_configuration.update') }}" method="POST" enctype="multipart/form-data">
@@ -21,14 +21,14 @@
                     </div>
                     <div class="radio mar-btm">
                         <input id="flat-shipping" class="magic-radio" type="radio" name="shipping_type" value="flat_rate" <?php if(\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') echo "checked";?>>
-                        <label for="flat-shipping">{{translate('Flat Rate Shipping Cost')}}</label>
+                        <label for="flat-shipping">{{translate('Biaya Pengiriman Flat Rate')}}</label>
                     </div>
                     <div class="radio mar-btm">
                         <input id="seller-shipping" class="magic-radio" type="radio" name="shipping_type" value="seller_wise_shipping" <?php if(\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') echo "checked";?>>
-                        <label for="seller-shipping">{{translate('Seller Wise Flat Shipping Cost')}}</label>
+                        <label for="seller-shipping">{{translate('Biaya Pengiriman Penjual Wise Flat ')}}</label>
                     </div>
                     <div class="">
-                        <button class="btn btn-primary" type="submit">{{ translate('Update') }}</button>
+                        <button class="btn btn-primary" type="submit">{{ translate('Perbarui') }}</button>
                     </div>
                 </form>
             </div>
@@ -37,7 +37,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading bord-btm">
-                <h3 class="panel-title">{{translate('Note')}}</h3>
+                <h3 class="panel-title">{{translate('Catatan')}}</h3>
             </div>
             <div class="panel-body">
                 <ul class="list-group">

@@ -22,7 +22,7 @@
         <div class="col-lg-6">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">{{__('Bank Setting')}}</h3>
+                    <h3 class="panel-title text-center">{{__('Pengaturan Bank')}}</h3>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('bank_setup_store') }}" enctype="multipart/form-data"  method="POST">
