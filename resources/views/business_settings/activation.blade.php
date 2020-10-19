@@ -2,12 +2,12 @@
 
 @section('content')
 
-<h3 class="text-center">{{translate('HTTPS Activation')}}</h3>
+<h3 class="text-center">{{translate('Aktivasi HTTPS')}}</h3>
 <div class="row">
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('HTTPS Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi HTTPS')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -19,12 +19,12 @@
     </div>
 </div>
 
-<h3 class="text-center">{{translate('Maintenance Mode')}}</h3>
+<h3 class="text-center">{{translate('Mode Perawatan')}}</h3>
 <div class="row">
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Maintenance Mode Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Mode Perawatan')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -36,11 +36,11 @@
     </div>
 </div>
 <div class="row">
-    <h3 class="text-center">{{translate('Classified Product Activate')}}</h3>
+    <h3 class="text-center">{{translate('Aktifkan Produk yang Diklasifikasikan')}}</h3>
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Classified Product')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Produk yang Diklasifikasikan')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -51,12 +51,12 @@
         </div>
     </div>
 </div>
-<h3 class="text-center">{{translate('Business Related')}}</h3>
+<h3 class="text-center">{{translate('Hubungan Bisnis')}}</h3>
 <div class="row">
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Vendor System Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Sistem Vendor')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -69,7 +69,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Wallet System Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Sistem Dompet')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -82,7 +82,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Coupon System Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Sistem Kupon')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -98,7 +98,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Pickup Point Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Titik Penjemputan')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -111,7 +111,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Conversation Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Percakapan')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -124,7 +124,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Guest Checkout Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Checkout Tamu ')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -141,7 +141,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Category-based Commission')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Komisi berbasis kategori')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -157,7 +157,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Email Verification')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Verifikasi Email')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <label class="switch">
@@ -172,12 +172,12 @@
     </div>
 </div>
 
-<h3 class="text-center">{{translate('Payment Related')}}</h3>
+<h3 class="text-center">{{translate('Relasi Pembayaran')}}</h3>
 <div class="row">
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading text-center bord-btm">
-                <h3 class="panel-title">{{translate('Paypal Payment Activation')}}</h3>
+                <h3 class="panel-title">{{translate('Aktivasi Pembayaran Paypal')}}</h3>
             </div>
             <div class="panel-body">
                 <div class="clearfix">
@@ -196,7 +196,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Stripe Payment Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Pembayaran Stripe')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -215,7 +215,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('SSlCommerz Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi SSlCommerz')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -237,7 +237,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Instamojo Payment Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Pembayaran Instamojo')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -256,7 +256,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Razor Pay Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Razor Pay')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -276,7 +276,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('PayStack Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi PayStack')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -298,7 +298,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('VoguePay Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi VoguePay')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -317,7 +317,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Payhere Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Payhere')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -336,7 +336,7 @@
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Cash Payment Activation')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Aktivasi Pembayaran Cash')}}</h3>
             </div>
             <div class="panel-body text-center">
                 <div class="clearfix">
@@ -352,7 +352,7 @@
 </div>
 
 <div class="row">
-    <h3 class="text-center">{{translate('Social Media Login')}}</h3>
+    <h3 class="text-center">{{translate('Sosial Social Media Login')}}</h3>
     <div class="col-lg-4">
         <div class="panel">
             <div class="panel-heading">

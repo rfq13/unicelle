@@ -12,13 +12,13 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{__('Name')}}</th>
-                    <th>{{__('Phone')}}</th>
-                    <th>{{__('Email Address')}}</th>
-                    <th>{{__('Verification Info')}}</th>
-                    <th>{{__('Approval')}}</th>
-                    <th>{{ __('Due Amount') }}</th>
-                    <th width="10%">{{__('Options')}}</th>
+                    <th>{{__('Nama')}}</th>
+                    <th>{{__('No Telepon')}}</th>
+                    <th>{{__('Alamat Email')}}</th>
+                    <th>{{__('Info Verifikasi')}}</th>
+                    <th>{{__('Persetujuan')}}</th>
+                    <th>{{ __('Jumlah Terutang') }}</th>
+                    <th width="10%">{{__('Pilihan')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -33,7 +33,7 @@
                                 @if ($affiliate_user->informations != null)
                                     <a href="{{ route('affiliate_users.show_verification_request', $affiliate_user->id) }}">
                                         <div class="label label-table label-info">
-                                            {{__('Show')}}
+                                            {{__('Tampilkan')}}
                                         </div>
                                     </a>
                                 @endif
@@ -52,11 +52,11 @@
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                        {{__('Actions')}} <i class="dropdown-caret"></i>
+                                        {{__('Aksi')}} <i class="dropdown-caret"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a onclick="show_payment_modal('{{$affiliate_user->id}}');">{{__('Pay Now')}}</a></li>
-                                        <li><a href="{{route('affiliate_user.payment_history', encrypt($affiliate_user->id))}}">{{__('Payment History')}}</a></li>
+                                        <li><a onclick="show_payment_modal('{{$affiliate_user->id}}');">{{__('Bayar Sekarang')}}</a></li>
+                                        <li><a href="{{route('affiliate_user.payment_history', encrypt($affiliate_user->id))}}">{{__('Riwayat Pembayaran')}}</a></li>
                                         {{-- <li><a onclick="confirm_modal('{{route('sellers.destroy', $affiliate_user->id)}}');">{{__('Delete')}}</a></li> --}}
                                     </ul>
                                 </div>

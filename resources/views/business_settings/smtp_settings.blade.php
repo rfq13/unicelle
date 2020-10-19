@@ -5,7 +5,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('SMTP Settings')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Pengaturan SMTP')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('env_key_update.update') }}" method="POST">
@@ -110,7 +110,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -121,7 +121,7 @@
         <div class="panel bg-gray-light">
             <div class="panel-body">
                 <h4>{{translate('Instruction')}}</h4>
-                <p class="text-danger">{{ translate('Please be carefull when you are configuring SMTP. For incorrect configuration you will get error at the time of order place, new registration, sending newsletter.') }}</p>
+                <p class="text-danger">{{ translate('Berhati-hatilah saat Anda mengonfigurasi SMTP. Untuk konfigurasi yang salah Anda akan mendapatkan error pada saat melakukan pemesanan, pendaftaran baru, pengiriman buletin.') }}</p>
                 <hr>
                 <p>{{ translate('For Non-SSL') }}</p>
                 <ul class="list-group">

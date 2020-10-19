@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\user;
 use Hash;
+use Auth;
 
 class ProfileController extends Controller
 {
@@ -102,5 +103,20 @@ class ProfileController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function dropshipper(Request $request)
+    {
+        
+        $tgl = $request->tgl;
+        $sort = $request->sort;
+        $q = $request->q;
+
+        $orders = \App\Order::where('user_id',Auth::user()->id)->where("dropsiper",'!=',"")->with(['orderDetails','orderDetails.product'])->orderBy('code', 'desc')->paginate(9);
+
+        $bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
+        $config =  json_decode( $bank_setting->value);
+
+        return view('frontend.dropshipper', compact(['orders','bank_setting','config']));
     }
 }

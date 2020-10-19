@@ -15,10 +15,10 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{__('Name')}}</th>
-                    <th>{{__('Phone')}}</th>
-                    <th>{{__('Email Address')}}</th>
-                    <th>{{__('Reffered By')}}</th>
+                    <th>{{__('Nama')}}</th>
+                    <th>{{__('No. Telepon')}}</th>
+                    <th>{{__('Alamat Email')}}</th>
+                    <th>{{__('Rujukan Oleh')}}</th>
                 </tr>
                 </thead>
                 <tbody>

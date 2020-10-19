@@ -7,7 +7,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('System Default Currency')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Mata Uang Standar Sistem')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('business_settings.update') }}" method="POST">
@@ -25,7 +25,7 @@
                         </div>
                         <input type="hidden" name="types[]" value="system_default_currency">
                         <div class="col-lg-3">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -92,7 +92,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <a onclick="currency_modal()" class="btn btn-rounded btn-info pull-right">{{translate('Add New Currency')}}</a>
+        <a onclick="currency_modal()" class="btn btn-rounded btn-info pull-right">{{translate('Tambahkan Mata Uang Baru')}}</a>
     </div>
 </div>
 
@@ -101,15 +101,15 @@
 <div class="row">
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">{{translate('All Currency')}}</h3>
+            <h3 class="panel-title">{{translate('Semua Mata Uang')}}</h3>
         </div>
         <div class="panel-body">
             <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>{{translate('Currency name')}}</th>
-                        <th>{{translate('Currency symbol')}}</th>
+                        <th>{{translate('Nama mata uang')}}</th>
+                        <th>{{translate('Simbol mata uang')}}</th>
                         <th>{{translate('Currency code')}}</th>
                         <th>{{translate('Exchange rate')}}(1 USD = ?)</th>
                         <th>{{translate('Status')}}</th>

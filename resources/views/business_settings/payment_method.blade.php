@@ -6,7 +6,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Paypal Credential')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Paypal Kredensial')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="PAYPAL_CLIENT_ID">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Paypal Client Id')}}</label>
+                            <label class="control-label">{{translate('Id Paypal Clien')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" name="PAYPAL_CLIENT_ID" value="{{  env('PAYPAL_CLIENT_ID') }}" placeholder="{{ translate('Paypal Client ID') }}" required>
@@ -24,7 +24,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="PAYPAL_CLIENT_SECRET">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Paypal Client Secret')}}</label>
+                            <label class="control-label">{{translate('Rahasia Paypal Clien')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" name="PAYPAL_CLIENT_SECRET" value="{{  env('PAYPAL_CLIENT_SECRET') }}" placeholder="{{ translate('Paypal Client Secret') }}" required>
@@ -32,7 +32,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Paypal Sandbox Mode')}}</label>
+                            <label class="control-label">{{translate('Mode Sandbox Paypal')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <label class="switch">
@@ -45,7 +45,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -56,7 +56,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Sslcommerz Credential')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Kredensial Sslcommerz')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
@@ -65,7 +65,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="SSLCZ_STORE_ID">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Sslcz Store Id')}}</label>
+                            <label class="control-label">{{translate('Id Toko Sslcz')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" name="SSLCZ_STORE_ID" value="{{  env('SSLCZ_STORE_ID') }}" placeholder="{{translate('Sslcz Store Id')}}" required>
@@ -74,7 +74,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="SSLCZ_STORE_PASSWD">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Sslcz store password')}}</label>
+                            <label class="control-label">{{translate('Password Toko Sslcz')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" name="SSLCZ_STORE_PASSWD" value="{{  env('SSLCZ_STORE_PASSWD') }}" placeholder="{{translate('Sslcz store password')}}" required>
@@ -82,7 +82,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Sslcommerz Sandbox Mode')}}</label>
+                            <label class="control-label">{{translate('Mode Sandbox Sslcommerz')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <label class="switch">
@@ -95,7 +95,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -106,7 +106,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Stripe Credential')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Kredensial Stripe')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
@@ -115,7 +115,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="STRIPE_KEY">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Stripe Key')}}</label>
+                            <label class="control-label">{{translate('Kunci Stripe')}}</label>
                         </div>
                         <div class="col-lg-6">
                         <input type="text" class="form-control" name="STRIPE_KEY" value="{{  env('STRIPE_KEY') }}" placeholder="{{ translate('STRIPE KEY') }}" required>
@@ -124,7 +124,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="STRIPE_SECRET">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Stripe Secret')}}</label>
+                            <label class="control-label">{{translate('Rahasia Stripe')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" name="STRIPE_SECRET" value="{{  env('STRIPE_SECRET') }}" placeholder="{{ translate('STRIPE SECRET') }}" required>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -143,7 +143,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('RazorPay Credential')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Kredensial RazorPay')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
@@ -161,7 +161,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="RAZOR_SECRET">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('RAZOR SECRET')}}</label>
+                            <label class="control-label">{{translate('SECRET RAZOR')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <input type="text" class="form-control" name="RAZOR_SECRET" value="{{  env('RAZOR_SECRET') }}" placeholder="{{ translate('RAZOR SECRET') }}" required>
@@ -169,7 +169,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -180,7 +180,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Instamojo Credential')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Kredensial Instamojo')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
@@ -206,7 +206,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Instamojo Sandbox Mode')}}</label>
+                            <label class="control-label">{{translate('Mode Sandbox Instamojo')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <label class="switch">
@@ -219,7 +219,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -230,7 +230,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('PayStack Credential')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Kredensial PayStack')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
@@ -265,7 +265,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -278,7 +278,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('VoguePay Credential')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Kredensial VoguePay')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('payment_method.update') }}" method="POST">
@@ -308,7 +308,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -367,7 +367,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>

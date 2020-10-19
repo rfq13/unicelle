@@ -1,13 +1,9 @@
 @php
-    $orders = \App\Order::where('user_id',Auth::user()->id)->where("dropsiper",'!=',"")->with(['orderDetails','orderDetails.product'])->orderBy('code', 'desc')->paginate(9);
-
-    $bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
     if ($bank_setting == null) {
     flash("mohon maaf mengganggu kenyamanan anda, pengaturan bank belum dilakukan oleh admin");
     echo "<script>window.location ='".route("home")."' </script>";
     return;
     }
-$config =  json_decode( $bank_setting->value);
 @endphp
 @extends('frontend.layouts.app')
 @section('title','Dropshipper')
@@ -31,31 +27,33 @@ $config =  json_decode( $bank_setting->value);
                                 </div>
                             </div>
                         </div>
+                        <form action="{{ route('dropshipper') }}" method="get">
                         <div class="row mt-4 mb-4">
-                            <div class="col-3 ml-3">
-                                <input class="form-date" type="date" id="birthday" name="birthday">
-                            </div>
-                            <div class="col">
-                                <div class="row">
-                                    <label class="mr-2 mt-2">Urutkan</label>
-                                    <select class="form-control" style="width:70%">
-                                        <option>Terbaru</option>
-                                        <option>Terlama</option>
-                                        <option>Terbaik</option>
-                                    </select>
-                                </div> 
-                            </div>
-                            <div class="col">
-                                <div class="row">
-                                <input class="form-control" style="width: 70%;" type="search" placeholder="Cari Produk" aria-label="Search">
-                                    <div class="btn btn-search ml-2">
-                                        <a href="#" class="nav-box-link">
-                                            <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}"></img>
-                                        </a>
+                                <div class="col-3 ml-3">
+                                    <input class="form-date" type="date" id="birthday" name="tgl">
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <label class="mr-2 mt-2">Urutkan</label>
+                                        <select class="form-control" name="sort" style="width:70%">
+                                            <option value="1">Terbaru</option>
+                                            <option value="2">Terlama</option>
+                                            <option value="3">Terbaik</option>
+                                        </select>
+                                    </div> 
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                    <input class="form-control" style="width: 70%;" name="q" type="search" placeholder="Cari Produk" aria-label="Search">
+                                        <div class="btn btn-search ml-2">
+                                            <a href="#" class="nav-box-link">
+                                                <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}"></img>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </form>
                         @if (count($orders) < 1)
                         <h5 class="text-center py-4" style="color: #d1caca"> anda belum pernah order sebagai dropshipper </h5>
                         @endif
@@ -380,9 +378,12 @@ $config =  json_decode( $bank_setting->value);
         </div>
     </section>
 @endsection
-
 @section('script')
-<script>
+<script type="text/javascript">
+    $('#order_details').on('hidden.bs.modal', function () {
+        location.reload();
+    })
+
     function myFunction() {
         var copyText = document.getElementById("myInput");
         copyText.select();
@@ -390,10 +391,7 @@ $config =  json_decode( $bank_setting->value);
         document.execCommand("copy");
         alert("Copied the text: " + copyText.value);
     }
-</script>
-
-
-<script>
+    
     $('.add').click(function () {
         if ($(this).prev().val() < 12) {
             $(this).prev().val(+$(this).prev().val() + 1);
@@ -406,12 +404,4 @@ $config =  json_decode( $bank_setting->value);
     });
 </script>
 
-@endsection
-
-@section('script')
-    <script type="text/javascript">
-        $('#order_details').on('hidden.bs.modal', function () {
-            location.reload();
-        })
-    </script>
 @endsection

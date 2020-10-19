@@ -53,17 +53,17 @@
 			</ol>
 			<div class="carousel-inner img-banner">
 			  <div class="carousel-item active">
-				<img src="{{ my_asset('images\img\banner.jpg') }}" class="d-block w-100" alt="...">
+				<img src="{{ my_asset('images\fix1\img_banner\banner1.jpg') }}" class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>
 			  <div class="carousel-item img-banner">
-				<img src="{{ my_asset('images\img\banner2.jpg') }}" class="d-block w-100" alt="...">
+				<img src="{{ my_asset('images\fix1\img_banner\banner2.jpg') }}" class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>
 			  <div class="carousel-item img-banner">
-				<img src="{{ my_asset('images\img\banner3.jpg') }}" class="d-block w-100" alt="...">
+				<img src="{{ my_asset('images\fix1\img_banner\banner3.jpg') }}" class="d-block w-100" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>

@@ -10,11 +10,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th width="20%">{{__('Name')}}</th>
-                                <th>{{__('Points')}}</th>
-                                <th>{{__('Convert Status')}}</th>
-                                <th>{{__('Earned At')}}</th>
-                                <th width="10%">{{__('Options')}}</th>
+                                <th width="20%">{{__('Nama')}}</th>
+                                <th>{{__('Poin')}}</th>
+                                <th>{{__('Ubah Status')}}</th>
+                                <th>{{__('Diperoleh Pada')}}</th>
+                                <th width="10%">{{__('Pilihan')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,7 +28,7 @@
                                     <td>
                                         @if ($club_point->convert_status == 1)
                                             <div class="label label-table label-info">
-                                                {{__('Converted')}}
+                                                {{__('Dikonversi')}}
                                             </div>
                                         @else
                                             <div class="label label-table label-info">
@@ -40,10 +40,10 @@
                                     <td>
                                         <div class="btn-group dropdown">
                                             <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                {{__('Actions')}} <i class="dropdown-caret"></i>
+                                                {{__('Aksi')}} <i class="dropdown-caret"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{route('club_point.details', encrypt($club_point->id))}}">{{__('View')}}</a></li>
+                                                <li><a href="{{route('club_point.details', encrypt($club_point->id))}}">{{__('Tampilan')}}</a></li>
                                             </ul>
                                         </div>
                                     </td>

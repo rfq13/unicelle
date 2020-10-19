@@ -5,11 +5,11 @@
     <div class="pad-all text-center">
         <form class="" action="{{ route('seller_sale_report.index') }}" method="GET">
             <div class="box-inline mar-btm pad-rgt">
-                 {{ translate('Sort by verificarion status') }}:
+                 {{ translate('Urutkan berdasarkan status verifikasi') }}:
                  <div class="select">
                      <select class="demo-select2" name="verification_status" required>
-                        <option value="1">{{ translate('Approved') }}</option>
-                        <option value="0">{{ translate('Non Approved') }}</option>
+                        <option value="1">{{ translate('Disetujui') }}</option>
+                        <option value="0">{{ translate('Tidak Disetujui') }}</option>
                      </select>
                  </div>
             </div>
@@ -22,7 +22,7 @@
         <div class="panel">
             <!--Panel heading-->
             <div class="panel-heading">
-                <h3 class="panel-title">{{ translate('Seller Based Selling Report') }}</h3>
+                <h3 class="panel-title">{{ translate('Laporan Penjualan dari Penjual') }}</h3>
             </div>
 
             <!--Panel body-->
@@ -31,10 +31,10 @@
                     <table class="table table-striped mar-no demo-dt-basic">
                         <thead>
                             <tr>
-                                <th>{{ translate('Seller Name') }}</th>
-                                <th>{{ translate('Shop Name') }}</th>
-                                <th>{{ translate('Number of Product Sale') }}</th>
-                                <th>{{ translate('Order Amount') }}</th>
+                                <th>{{ translate('Nama Penjual') }}</th>
+                                <th>{{ translate('Nama Toko') }}</th>
+                                <th>{{ translate('Jumlah Penjualan Produk') }}</th>
+                                <th>{{ translate('Jumlah pesanan') }}</th>
                             </tr>
                         </thead>
                         <tbody>
