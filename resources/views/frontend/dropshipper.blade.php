@@ -113,18 +113,18 @@ $config =  json_decode( $bank_setting->value);
                                         <hr class="mt-0 mb-0">
                                         <p class="tittle-dropshipper mt-2 ml-4">Penerima Dropshipper</p>
                                         <div class="row mt-2 ml-2">
-                                            <div class="col-6">
-                                                <p class="text-dropshipper" style="margin-bottom: 0%;">Nama</p>
-                                                <p class="content-dropshipper">{{ json_decode($order->dropsiper)->nama }}</p>
-                                            </div>
-                                            <div class="col pl-0">
-                                                <p class="text-dropshipper" style="margin-bottom: 0%;">No.Telepon</p>
-                                                <p class="content-dropshipper">{{ json_decode($order->dropsiper)->nomor_tlp }}</p>
-                                            </div>
-                                            <div class="col">
                                                 @php
                                                     $addr = json_decode($order->addresse);
                                                 @endphp
+                                            <div class="col-6">
+                                                <p class="text-dropshipper" style="margin-bottom: 0%;">Nama</p>
+                                                <p class="content-dropshipper">{{ $addr->receiver }}</p>
+                                            </div>
+                                            <div class="col pl-0">
+                                                <p class="text-dropshipper" style="margin-bottom: 0%;">No.Telepon</p>
+                                                <p class="content-dropshipper">{{ $addr->phone }}</p>
+                                            </div>
+                                            <div class="col">
                                                 <p class="text-dropshipper" style="margin-bottom: 0%;">Alamat Penerima</p>
                                                 <p class="content-dropshipper">{{ $addr->city }}, {{ $addr->province }}, {{ $addr->subdistrict }},<br>{{ $addr->postal_code }}</p>{{ $addr->address }}
                                             </div>

@@ -102,7 +102,7 @@
 						$status = $order->orderDetails->first()->delivery_status;
 						if (isset($order->resi)) {
 							if ($rajaongkir->status->code == 200) {
-								$status = isset($order->resi) ? $statusKirim : $order->orderDetails->first()->delivery_status;
+								$status = $statusKirim;
 							}
 						}
                         @endphp
@@ -392,11 +392,10 @@
 				data:data,
 				success:function(data){
 					if (data == 1) {
-						showAlert("success","Berhasil Menambahkan Resi")
-						$("#close").click()
 						$("#span-resi").text(data.resi)
 						statusOrder.val("on_delivery")
 						statusOrder.change()
+						location.reload()
 					}
 				}
 			})

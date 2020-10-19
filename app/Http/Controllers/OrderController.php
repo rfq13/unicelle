@@ -436,6 +436,7 @@ class OrderController extends Controller
         $order = Order::findOrFail($id);
         $order->resi = $request->resi;
         $order->save();
+        flash("Berhasil menambah resi")->success();
         return 1;
     }
 

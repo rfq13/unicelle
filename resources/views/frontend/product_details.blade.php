@@ -138,6 +138,7 @@
                                             else{
                                                 $qty = $detailedProduct->current_stock;
                                             }
+                                            
                                         @endphp
                                         @if ($qty > 0)
                                             <li>
@@ -196,10 +197,11 @@
                                                     <strong>
                                                         {{ home_discounted_price($detailedProduct->id) }}
                                                     </strong>
-                                                    <span class="piece">/{{ $detailedProduct->unit }}</span>
+                                                    {{-- <span class="piece">/{{ $detailedProduct->unit }}</span> --}}
                                                 </div>
                                             </div>
                                         </div>
+
                                 @endif
                                 </span>
                                 <form id="option-choice-form" class="mt-3">
@@ -235,8 +237,6 @@
                                             <div class="avialable-amount pb-3">(<span id="available-quantity">{{ $qty }}</span> {{ translate('available')}})</div>
                                         </div>
                                     <!-- </div> -->
-
-                                    
                                         <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
                                             <div class="col-2">
                                                 <div class="product-description-label">{{ translate('Jumlah')}}:</div>
@@ -249,27 +249,46 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        {{-- 
+                                            <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
+                                                    <div class="col-2">
+                                                        <div class="product-description-label">{{ translate('Varian')}}:</div>
+                                                    </div>
+                                            <div class="col-10">
+                                                <div class="product-variant">
+                                                    @foreach ($detailedProduct->stocks as $key => $variant)
+                                                        <a href="#" class="btn btn-outline-primary">{{ $variant->variant }}</a>
+                                                    @endforeach
+                                            </div>
+                                            </div> 
+                                        --}}
+                                        @if ($detailedProduct->choice_options != null)
+                                            @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
+                                                <div class="row">
+                                                    <div class="col-2 my-auto">
+                                                        <p>{{ \App\Attribute::find($choice->attribute_id)->name }}:</p>
+                                                    </div>
+                                                    <div class="col-10 pl-0">
+                                                        <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
+                                                            @foreach ($choice->values as $key => $value)
+                                                                <li>
+                                                                    <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}" name="attribute_id_{{ $choice->attribute_id }}" value="{{ $value }}" @if($key == 0) checked @endif onclick="getVariantPrice()">
+                                                                    <label for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label>
+                                                                </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        @endif
                                 </form>
                             </div>
-                            {{--<span>({{$qty}} Available)</span>
-                            <div class="qty">
-                                <div id="field1" class="d-flex align-items-center ">
-                                    <button type="button" id="sub"
-                                        class="sub justify-content-center align-items-center"><i
-                                            class="fa fa-minus"></i></button>
-                                    <input class="qty__number text-center mx-1" type="text" id="pricek" value="1" min="1"
-                                        max="12" readonly />
-                                    <button type="button" id="btnAdd" data-qty="{{ $qty }}"
-                                        class="add  justify-content-center align-items-center"><i
-                                            class="fa fa-plus"></i></button>
-                                </div>
-                            </div>--}}
                             
 
 
                             <hr>
                             <strong id="chosen_price"></strong>
-                            <div class="d-flex align-items-center">
+                            <div class="d-flex align-items-center mt-3">
                                 <a class="btn btn-primary1 mr-4" href="#" onclick="addToCart()">Tambah Keranjang</a>
                                 <a class="add__wishlist" href="#" onclick="addToWishList({{ $detailedProduct->id }})">+Tambah Ke Wishlist</a>
                             </div>

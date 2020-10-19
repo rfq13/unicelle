@@ -20,7 +20,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
-<title>@yield('title') @yield('meta_title', config('app.name', 'Laravel')) | {{ env("APP_NAME") }}</title>
+<title>@yield('title') | {{ env("APP_NAME") }}</title>
 <meta name="description" content="@yield('meta_description', $seosetting->description)" />
 <meta name="keywords" content="@yield('meta_keywords', $seosetting->keyword)">
 <meta name="author" content="{{ $seosetting->author }}">
@@ -1058,6 +1058,7 @@
                    $('#chosen_pricek').html(data.price);
                    $('#available-quantity').html(data.quantity);
                    $('.input-number').prop('max', data.quantity);
+                   $('.qty__number').prop('max', data.quantity)
                    //console.log(data.quantity);
                    if(parseInt(data.quantity) < 1 && data.digital  != 1){
                        $('.buy-now').hide();

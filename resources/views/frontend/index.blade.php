@@ -183,18 +183,20 @@
                 letter-spacing: 0em;
                 text-align: left;
                 ">Produk Terbaru</h2>
-                {{-- <p style="font-family: Open Sans;
-                font-size: 20px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 27px;
-                letter-spacing: 0em;
-                text-align: left;
-                height: 27px;width: 707px;
-                left: 150px;
-                top: 1069px;
-                border-radius: undefinedpx;
-">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>   --}}
+                {{-- 
+                    <p style="font-family: Open Sans;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 27px;
+                    letter-spacing: 0em;
+                    text-align: left;
+                    height: 27px;width: 707px;
+                    left: 150px;
+                    top: 1069px;
+                    border-radius: undefinedpx;
+                    ">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p> 
+                --}}
                     <div class="mb-4">
                         <div class="container">
                             @php
@@ -204,6 +206,21 @@
                             @endphp
                             <div class="row gutters-10">
                                 @foreach ($products as $key => $product)
+                                @php
+                                
+                                    $flash_deal = \App\FlashDeal::where('status', 1)->where('start_date' ,'<=', strtotime(date('d-m-Y')))->where('end_date' ,'>=', strtotime(date('d-m-Y')))->first();
+                                    $flash_product = isset($flash_deal) ? \App\FlashDealProduct::where('product_id', $product->id)->where('flash_deal_id', $flash_deal->id)->first() : null;
+                                    $product_variant=json_decode($product->choice_options);
+                                    $qty = 0;
+                                    if($product->variant_product){
+                                        foreach ($product->stocks as $key => $stock) {
+                                            $qty += $stock->qty;
+                                        }
+                                    }
+                                    else{
+                                        $qty = $product->current_stock;
+                                    }
+                                @endphp
                                     <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-2 col-6">
                                         <div class="product-box-2 bg-white alt-box my-md-2">
                                             <div class="position-relative overflow-hidden">
@@ -227,7 +244,24 @@
                                                     @if(home_base_price($product->id) != home_discounted_base_price($product->id))
                                                         <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
                                                     @endif
-                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }} </span>
+                                                        <span class="product-price strong-600">{{ home_discounted_price($product->id) }} </span>
+                                                    @if(home_price($product->id) != home_discounted_price($product->id))
+                                                        @if($flash_product)
+                                                            @if($flash_product->discount_type == 'percent')
+                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">{{ __($flash_product->discount) }}%</p>
+                                                            @elseif($flash_product->discount_type == 'amount')
+                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">Potongan Rp {{ __($flash_product->discount) }}</p>
+                                                            @endif
+                                                        @else
+                                                            @if($product->discount_type == 'percent')
+                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">{{ __($product->discount) }}%</p>
+                                                            @elseif($product->discount_type == 'amount')
+                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">Potongan Rp {{ __($product->discount) }}</p>
+                                                            @endif
+                                                        @endif
+                                                    @else
+                                                        <p class="d-none"></p>
+                                                    @endif
                                                 </div>
                                                 <div class="star-rating star-rating-sm mt-1">
                                                     {{ renderStarRating($product->rating) }}
@@ -242,7 +276,11 @@
                                                     </div>
                                                 @endif
                                             </div>
+                                            @if ($product->variant_product >0)                                                
+                                            <a class="btn btn-default" onclick="showAddToCartModal({{ $product->id }})" style="width: 100%">Tambah</a>
+                                            @else
                                             <a class="btn btn-default" onclick="addToCart({{ $product->id }})" style="width: 100%">Tambah</a>
+                                            @endif
                                         </div>
                                     </div>
                                 @endforeach
@@ -711,26 +749,26 @@
 @section('script')
     <script>
         $(document).ready(function(){
-            $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_featured').html(data);
-                slickInit();
-            });
+            // $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#section_featured').html(data);
+            //     slickInit();
+            // });
 
-            $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_best_selling').html(data);
-                slickInit();
-            });
+            // $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#section_best_selling').html(data);
+            //     slickInit();
+            // });
 
-            $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_home_categories').html(data);
-                slickInit();
-            });
+            // $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#section_home_categories').html(data);
+            //     slickInit();
+            // });
 
-            @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-            $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
-                $('#section_best_sellers').html(data);
-                slickInit();
-            });
+            // @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+            // $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
+            //     $('#section_best_sellers').html(data);
+            //     slickInit();
+            // });
             @endif
         });
 

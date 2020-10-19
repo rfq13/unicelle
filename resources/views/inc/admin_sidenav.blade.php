@@ -450,16 +450,16 @@
                                     <a class="nav-link" href="{{route('pages.index')}}">{{translate('Halaman Kustom')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['links.index', 'links.create', 'links.edit'])}}">
-                                    <a class="nav-link" href="{{route('links.index')}}">{{translate('Useful Link')}}</a>
+                                    <a class="nav-link" href="{{route('links.index')}}">{{translate('Tautan')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['generalsettings.index'])}}">
-                                    <a class="nav-link" href="{{route('generalsettings.index')}}">{{translate('General Settings')}}</a>
+                                    <a class="nav-link" href="{{route('generalsettings.index')}}">{{translate('Pengaturan Umum')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['generalsettings.logo'])}}">
-                                    <a class="nav-link" href="{{route('generalsettings.logo')}}">{{translate('Logo Settings')}}</a>
+                                    <a class="nav-link" href="{{route('generalsettings.logo')}}">{{translate('Pengaturan Logo')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
-                                    <a class="nav-link" href="{{route('generalsettings.color')}}">{{translate('Color Settings')}}</a>
+                                    <a class="nav-link" href="{{route('generalsettings.color')}}">{{translate('Pengaturan Warna')}}</a>
                                 </li>
                             </ul>
                         </li>
@@ -469,41 +469,41 @@
                         <li>
                             <a href="#">
                                 <i class="fa fa-gear"></i>
-                                <span class="menu-title">{{translate('E-commerce Setup')}}</span>
+                                <span class="menu-title">{{translate('Pengaturan Toko')}}</span>
                                 <i class="arrow"></i>
                             </a>
 
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ areActiveRoutes(['attributes.index','attributes.create','attributes.edit'])}}">
-                                    <a class="nav-link" href="{{route('attributes.index')}}">{{translate('Attribute')}}</a>
+                                    <a class="nav-link" href="{{route('attributes.index')}}">{{translate('Atribut')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['coupon.index','coupon.create','coupon.edit'])}}">
-                                    <a class="nav-link" href="{{route('coupon.index')}}">{{translate('Coupon')}}</a>
+                                    <a class="nav-link" href="{{route('coupon.index')}}">{{translate('Kupon')}}</a>
                                 </li>
                                 <li>
                                     <li class="{{ areActiveRoutes(['pick_up_points.index','pick_up_points.create','pick_up_points.edit'])}}">
-                                        <a class="nav-link" href="{{route('pick_up_points.index')}}">{{translate('Pickup Point')}}</a>
+                                        <a class="nav-link" href="{{route('pick_up_points.index')}}">{{translate('Point PickUp')}}</a>
                                     </li>
                                 </li>
                                 <li>
                                     <li class="{{ areActiveRoutes(['shipping_configuration.index','shipping_configuration.edit','shipping_configuration.update'])}}">
-                                        <a class="nav-link" href="{{route('shipping_configuration.index')}}">{{translate('Shipping Configuration')}}</a>
+                                        <a class="nav-link" href="{{route('shipping_configuration.index')}}">{{translate('Konfigurasi Pengiriman')}}</a>
                                     </li>
                                 </li>
                                 <li>
                                     <li class="{{ areActiveRoutes(['countries.index','countries.edit','countries.update'])}}">
-                                        <a class="nav-link" href="{{route('countries.index')}}">{{translate('Shipping Countries')}}</a>
+                                        <a class="nav-link" href="{{route('countries.index')}}">{{translate('Negara Pengiriman')}}</a>
                                     </li>
                                 </li>
                                 <li>
                                     <li class="{{ areActiveRoutes(['bank_setup'])}}">
-                                        <a class="nav-link" href="{{route('bank_setup')}}">{{translate('Bank Setting')}}</a>
+                                        <a class="nav-link" href="{{route('bank_setup')}}">{{translate('Pengaturan Bank')}}</a>
                                     </li>
                                 </li>
                                 <li>
                                     <li class="{{ areActiveRoutes(['toko_setup'])}}">
-                                        <a class="nav-link" href="{{route('toko_setup')}}">{{translate('Toko Setting')}}</a>
+                                        <a class="nav-link" href="{{route('toko_setup')}}">{{translate('Pengaturan Toko')}}</a>
                                     </li>
                                 </li>
                             </ul>
@@ -514,23 +514,23 @@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-link"></i>
-                                    <span class="menu-title">{{translate('Affiliate System')}}</span>
+                                    <span class="menu-title">{{translate('Sistem Afiliasi')}}</span>
                                     <i class="arrow"></i>
                                 </a>
 
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li class="{{ areActiveRoutes(['affiliate.configs'])}}">
-                                        <a class="nav-link" href="{{route('affiliate.configs')}}">{{translate('Affiliate Configurations')}}</a>
+                                        <a class="nav-link" href="{{route('affiliate.configs')}}">{{translate('Konfigurasi Afiliasi')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['affiliate.index'])}}">
-                                        <a class="nav-link" href="{{route('affiliate.index')}}">{{translate('Affiliate Options')}}</a>
+                                        <a class="nav-link" href="{{route('affiliate.index')}}">{{translate('Opsi Afiliasi')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['affiliate.users', 'affiliate_users.show_verification_request', 'affiliate_user.payment_history'])}}">
-                                        <a class="nav-link" href="{{route('affiliate.users')}}">{{translate('Affiliate Users')}}</a>
+                                        <a class="nav-link" href="{{route('affiliate.users')}}">{{translate('Pengguna Afiliasi')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['refferals.users'])}}">
-                                        <a class="nav-link" href="{{route('refferals.users')}}">{{translate('Refferal Users')}}</a>
+                                        <a class="nav-link" href="{{route('refferals.users')}}">{{translate('Rujukan Pengguna')}}</a>
                                     </li>
                                     {{--<li class="{{ areActiveRoutes(['affiliate.withdraw_requests'])}}">
                                         <a class="nav-link" href="{{route('affiliate.withdraw_requests')}}">{{translate('Affiliate Withdraw Request')}}</a>
@@ -544,23 +544,23 @@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-bank"></i>
-                                    <span class="menu-title">{{translate('Offline Payment System')}}</span>
+                                    <span class="menu-title">{{translate('Sistem Pembayaran Offline')}}</span>
                                     <i class="arrow"></i>
                                 </a>
 
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li class="{{ areActiveRoutes(['manual_payment_methods.index', 'manual_payment_methods.create', 'manual_payment_methods.edit'])}}">
-                                        <a class="nav-link" href="{{ route('manual_payment_methods.index') }}">{{translate('Manual Payment Methods')}}</a>
+                                        <a class="nav-link" href="{{ route('manual_payment_methods.index') }}">{{translate('Metode Pembayaran Manual')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['offline_wallet_recharge_request.index'])}}">
-                                        <a class="nav-link" href="{{ route('offline_wallet_recharge_request.index') }}">{{translate('Offline Wallet Rechage')}}</a>
+                                        <a class="nav-link" href="{{ route('offline_wallet_recharge_request.index') }}">{{translate('Isi Ulang Dompet Offline')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['offline_seller_package_payment_request.index'])}}">
-                                        <a class="nav-link" href="{{ route('offline_seller_package_payment_request.index') }}">{{translate('Offline Seller Package Payment')}}</a>
+                                        <a class="nav-link" href="{{ route('offline_seller_package_payment_request.index') }}">{{translate('Pembayaran Paket Penjual Offline')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['offline_customer_package_payment_request.index'])}}">
-                                        <a class="nav-link" href="{{ route('offline_customer_package_payment_request.index') }}">{{translate('Offline Customer Package Payment')}}</a>
+                                        <a class="nav-link" href="{{ route('offline_customer_package_payment_request.index') }}">{{translate('Pembayaran Paket pelanggan Offline')}}</a>
                                     </li>
                                 </ul>
                             </li>
@@ -570,7 +570,7 @@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-mobile"></i>
-                                    <span class="menu-title">{{translate('Paytm Payment Gateway')}}</span>
+                                    <span class="menu-title">{{translate('Pembayaran Bank')}}</span>
                                     <i class="arrow"></i>
                                 </a>
 
@@ -587,20 +587,20 @@
                             <li>
                                 <a href="#">
                                     <i class="fa fa-btc"></i>
-                                    <span class="menu-title">{{translate('Club Point System')}}</span>
+                                    <span class="menu-title">{{translate('Sistem Poin')}}</span>
                                     <i class="arrow"></i>
                                 </a>
 
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li class="{{ areActiveRoutes(['club_points.configs'])}}">
-                                        <a class="nav-link" href="{{route('club_points.configs')}}">{{translate('Club Point Configurations')}}</a>
+                                        <a class="nav-link" href="{{route('club_points.configs')}}">{{translate('Konfigurasi Poin')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['set_product_points', 'product_club_point.edit'])}}">
-                                        <a class="nav-link" href="{{route('set_product_points')}}">{{translate('Set Product Point')}}</a>
+                                        <a class="nav-link" href="{{route('set_product_points')}}">{{translate('Tetapkan Poin Produk')}}</a>
                                     </li>
                                     <li class="{{ areActiveRoutes(['club_points.index', 'club_point.details'])}}">
-                                        <a class="nav-link" href="{{route('club_points.index')}}">{{translate('User Points')}}</a>
+                                        <a class="nav-link" href="{{route('club_points.index')}}">{{translate('Member Poin')}}</a>
                                     </li>
                                 </ul>
                             </li>

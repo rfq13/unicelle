@@ -180,9 +180,11 @@
                                                     <span class="no-resi-pesanan__"> No. Rek {{json_decode($order->manual_payment)->norek  }} <br> a/n {{json_decode($order->manual_payment)->name  }}</span>
                                                 </div>
                                                 <br>
-                                                <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Ubah</a>
+                                                @if ($order->payment_status=="unpaid")
+                                                    <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Ubah</a>
+                                                @endif
                                             </div>
-                                            @else
+                                            @elseif ($order->payment_status=="unpaid")
                                             <div class="jumlah-produk-pesanan mt-3">
                                                 <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Konfirmasi Pembayaran</a>
                                             </div>
@@ -201,9 +203,9 @@
                                                     <span class="status-pesanan__">
                                                         <span class="badge badge--2 mr-4">
                                                             @if ($order->payment_status == 'paid')
-                                                                <i class="bg-green"></i> {{ translate('Paid')}}
+                                                                <i class="bg-green" style="text-transform: capitalize"></i> {{ translate('Terbayar')}}
                                                             @else
-                                                                <i class="bg-red"></i> {{ translate('Unpaid')}}
+                                                                <i class="bg-red" style="text-transform: capitalize"></i> {{ translate('perlu dibayar')}}
                                                             @endif
                                                             @if($order->payment_status_viewed == 0)
                                                                 <span class="ml-2" style="color:green"><strong>*</strong></span>

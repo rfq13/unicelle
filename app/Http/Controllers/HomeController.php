@@ -673,9 +673,9 @@ class HomeController extends Controller
                 } else {
                     $str .= str_replace(' ', '', $request['attribute_id_' . $choice->attribute_id]);
                 }
+                // dd($choice);
             }
         }
-
 
 
         if ($str != null && $product->variant_product) {
