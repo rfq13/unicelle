@@ -33,7 +33,7 @@
     <meta property="product:price:currency" content="{{ \App\Currency::findOrFail(\App\BusinessSetting::where('type', 'system_default_currency')->first()->value)->code }}" />
     <meta property="fb:app_id" content="{{ env('FACEBOOK_PIXEL_ID') }}">
 @endsection
-
+@section('title',"$detailedProduct->name")
 @section('content')
 
 <!-- <section class="section-sub-head"></section> -->

@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <a href="{{ route('brands.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Add New Brand')}}</a>
+        <a href="{{ route('brands.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Brand Baru')}}</a>
     </div>
 </div>
 
@@ -30,9 +30,9 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{translate('Name')}}</th>
+                    <th>{{translate('Nama')}}</th>
                     <th>{{translate('Logo')}}</th>
-                    <th width="10%">{{translate('Options')}}</th>
+                    <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -44,11 +44,11 @@
                         <td>
                             <div class="btn-group dropdown">
                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                    {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                    {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{route('brands.edit', encrypt($brand->id))}}">{{translate('Edit')}}</a></li>
-                                    <li><a onclick="confirm_modal('{{route('brands.destroy', $brand->id)}}');">{{translate('Delete')}}</a></li>
+                                    <li><a onclick="confirm_modal('{{route('brands.destroy', $brand->id)}}');">{{translate('Hapus')}}</a></li>
                                 </ul>
                             </div>
                         </td>

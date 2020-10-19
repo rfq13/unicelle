@@ -2,7 +2,7 @@
     // dd(Auth::user()->addresses);
 @endphp
 @extends('frontend.layouts.app')
-
+@section('title','Alamat')
 @section('style')
     <style>
         .address-user{

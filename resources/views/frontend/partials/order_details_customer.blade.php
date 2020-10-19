@@ -8,21 +8,23 @@
 $status = $order->orderDetails->first()->delivery_status;
 $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 // $rajaongkir = json_decode($ship)->rajaongkir;
-    if($ship != 0){
-        $shp = json_decode($ship)->rajaongkir;
-
-        if ($status == "on_delivery" || $status == "delivered") {
-            if ($shp->status == 200) {
-                $ship = $shp->result;
-                $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
-                $statusKirim = $ship->delivery_status->status;
-                $kurir = $ship->summary->courier_name;
-                $manifest = $ship->manifest;
-                $penerima = $ship->delivery_status->pod_receiver;
-                $tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
-            }
+if($ship != null || $ship != 0){
+    $shp = json_decode($ship)->rajaongkir;
+    
+    if ($status == "on_delivery" || $status == "delivered") {
+        if ($shp->status->code == 200) {
+            $ship = $shp->result;
+            $waktuKirim = $ship->details->waybill_date." ". $ship->details->waybill_time;
+            $statusKirim = strtolower($ship->delivery_status->status);
+            $kurir = $ship->summary->courier_name;
+            $manifest = $ship->manifest;
+            $penerima = $ship->delivery_status->pod_receiver;
+            $tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
         }
     }
+    }
+    
+    
 @endphp
 
 
@@ -180,11 +182,14 @@ $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')
                         </table>
                     </div>
                 </div>
-                @if ($status == "on_delivery" || $status =="delivered" && $ship!= 0)
-                @php
+                @if ($status == "on_delivery" || $status =="delivered" && $ship != null)
+                {{-- @php
+                    dd($ship);
+                @endphp --}}
+                    {{-- @php
                     $rajaongkir = json_decode($ship)->rajaongkir;
-                @endphp
-                    @if ($rajaongkir->status->code == 200)
+                    @endphp --}}
+                    @if ($shp->status->code == 200)
                         <div class="card mt-4">
                             <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Detail Pengiriman')}}</div>
                             <div class="card-body pb-0">
@@ -214,8 +219,8 @@ $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')
                                 </table>
                             </div>
                         </div>
-                    @elseif($rajaongkir->status->code == 400)
-                        <h4>{{ $rajaongkir->status->description }}</h4>
+                    @elseif($shp->status->code == 400)
+                        <h4>{{ $shp->status->description }}</h4>
                     @endif
                 @endif
         </div>

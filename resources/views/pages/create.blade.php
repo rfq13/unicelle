@@ -5,7 +5,7 @@
     <div class="col-lg-8 col-lg-offset-2">
         <div class="panel">
             <div class="panel-heading bord-btm">
-                <h3 class="panel-title">{{translate('Create Custom Page')}}</h3>
+                <h3 class="panel-title">{{translate('Buat Halaman Kustom')}}</h3>
             </div>
 
             <!--Horizontal Form-->
@@ -14,9 +14,9 @@
             	@csrf
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="title">{{translate('Title')}}</label>
+                        <label class="col-sm-3 control-label" for="title">{{translate('Judul')}}</label>
                         <div class="col-sm-9">
-                            <input type="text" placeholder="{{translate('Title')}}" id="title" name="title" class="form-control" required>
+                            <input type="text" placeholder="{{translate('Judul')}}" id="title" name="title" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="content">{{translate('Content')}}</label>
+                        <label class="col-sm-3 control-label" for="content">{{translate('Konten')}}</label>
                         <div class="col-sm-9">
                             <textarea class="editor" name="content" required></textarea>
                         </div>
@@ -35,30 +35,30 @@
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="slug">{{translate('Meta Title')}}</label>
                         <div class="col-sm-9">
-                            <input type="text" placeholder="{{translate('Meta Title')}}" id="meta_title" name="meta_title" class="form-control">
+                            <input type="text" placeholder="{{translate(' Judul Meta ')}}" id="meta_title" name="meta_title" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="meta_description">{{translate('Meta Description')}}</label>
+                        <label class="col-sm-3 control-label" for="meta_description">{{translate('Deskripsi Meta')}}</label>
                         <div class="col-sm-9">
-                            <input type="text" placeholder="{{translate('Meta Description')}}" id="meta_description" name="meta_description" class="form-control">
+                            <input type="text" placeholder="{{translate('Deskripsi Meta')}}" id="meta_description" name="meta_description" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="keywords">{{translate('Keywords')}}</label>
+                        <label class="col-sm-3 control-label" for="keywords">{{translate('Kata Kunci')}}</label>
                         <div class="col-sm-9">
-                            <input type="text" placeholder="{{translate('Keywords')}}" id="keywords" name="keywords" class="form-control">
+                            <input type="text" placeholder="{{translate('Kata Kunci')}}" id="keywords" name="keywords" class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="meta_image">{{translate('Meta Image')}} <small>(200x300)</small></label>
+                        <label class="col-sm-3 control-label" for="meta_image">{{translate('Gambar Meta ')}} <small>(200x300)</small></label>
                         <div class="col-sm-9">
                             <input type="file" id="meta_image" name="meta_image" class="form-control">
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer text-right">
-                    <button class="btn btn-purple" type="submit">{{translate('Add New')}}</button>
+                    <button class="btn btn-purple" type="submit">{{translate('Tambah Baru')}}</button>
                 </div>
             </form>
             <!--===================================================-->

@@ -15,7 +15,7 @@
                 <div class="text-syarat-ketentuan">
                     <p>
                          @php
-                            echo \App\Policy::where('name', 'terms')->first()->content;
+                            echo \App\Policy::where('name', 'terms')->first()->Content;
                         @endphp
                     </p>
                 </div>

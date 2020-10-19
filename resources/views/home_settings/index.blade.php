@@ -7,19 +7,19 @@
         <!--Nav Tabs-->
         <ul class="nav nav-tabs">
             <li class="active">
-                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true">{{ translate('Home slider') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true">{{ translate('Slider Beranda') }}</a>
             </li>
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false">{{ translate('Home banner 1') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false">{{ translate('Banner Beranda 1') }}</a>
             </li>
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ translate('Home categories') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ translate('Kategori Beranda') }}</a>
             </li>
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ translate('Home banner 2') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ translate('Banner Beranda 2') }}</a>
             </li>
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false">{{ translate('Top 10') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false">{{ translate('Kategori Utama Beranda') }}</a>
             </li>
         </ul>
 
@@ -29,7 +29,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <a onclick="add_slider()" class="btn btn-rounded btn-info pull-right">{{translate('Add New Slider')}}</a>
+                        <a onclick="add_slider()" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Slider Baru')}}</a>
                     </div>
                 </div>
 
@@ -37,24 +37,24 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{translate('Home slider')}}</h3>
+                        <h3 class="panel-title">{{translate('Slider Beranda')}}</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{translate('Photo')}}</th>
+                                    <th>{{translate('Foto')}}</th>
                                     <th width="50%">{{translate('Link')}}</th>
-                                    <th>{{translate('Published')}}</th>
-                                    <th width="10%">{{translate('Options')}}</th>
+                                    <th>{{translate('Terbit')}}</th>
+                                    <th width="10%">{{translate('Pilihan')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach(\App\Slider::all() as $key => $slider)
                                     <tr>
                                         <td>{{$key+1}}</td>
-                                        <td><img loading="lazy"  class="img-md" src="{{ my_asset($slider->photo)}}" alt="Slider Image"></td>
+                                        <td><img loading="lazy"  class="img-md" src="{{ my_asset($slider->photo)}}" alt="Gambar Slider"></td>
                                         <td>{{$slider->link}}</td>
                                         <td><label class="switch">
                                             <input onchange="update_slider_published(this)" value="{{ $slider->id }}" type="checkbox" <?php if($slider->published == 1) echo "checked";?> >
@@ -62,10 +62,10 @@
                                         <td>
                                             <div class="btn-group dropdown">
                                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                    {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                                    {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a onclick="confirm_modal('{{route('sliders.destroy', $slider->id)}}');">{{translate('Delete')}}</a></li>
+                                                    <li><a onclick="confirm_modal('{{route('sliders.destroy', $slider->id)}}');">{{translate('Hapus')}}</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -81,7 +81,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <a onclick="add_banner_1()" class="btn btn-rounded btn-info pull-right">{{translate('Add New Banner')}}</a>
+                        <a onclick="add_banner_1()" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Banner Baru')}}</a>
                     </div>
                 </div>
 
@@ -89,17 +89,17 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{translate('Home banner')}} ({{translate('Max 3 published')}})</h3>
+                        <h3 class="panel-title">{{translate('Banner Beranda')}} ({{translate('Maksimal 3 Banner')}})</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{translate('Photo')}}</th>
-                                    <th>{{translate('Position')}}</th>
-                                    <th>{{translate('Published')}}</th>
-                                    <th width="10%">{{translate('Options')}}</th>
+                                    <th>{{translate('Foto')}}</th>
+                                    <th>{{translate('Posisi')}}</th>
+                                    <th>{{translate('Terbit')}}</th>
+                                    <th width="10%">{{translate('Pilihan')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,18 +107,18 @@
                                     <tr>
                                         <td>{{$key+1}}</td>
                                         <td><img loading="lazy"  class="img-md" src="{{ my_asset($banner->photo)}}" alt="banner Image"></td>
-                                        <td>{{ translate('Banner Position ') }}{{ $banner->position }}</td>
+                                        <td>{{ translate('Posisi Banner ') }}{{ $banner->position }}</td>
                                         <td><label class="switch">
                                             <input onchange="update_banner_published(this)" value="{{ $banner->id }}" type="checkbox" <?php if($banner->published == 1) echo "checked";?> >
                                             <span class="slider round"></span></label></td>
                                         <td>
                                             <div class="btn-group dropdown">
                                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                    {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                                    {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a onclick="edit_home_banner_1({{ $banner->id }})">{{translate('Edit')}}</a></li>
-                                                    <li><a onclick="confirm_modal('{{route('home_banners.destroy', $banner->id)}}');">{{translate('Delete')}}</a></li>
+                                                    <li><a onclick="edit_home_banner_1({{ $banner->id }})">{{translate('Ubah')}}</a></li>
+                                                    <li><a onclick="confirm_modal('{{route('home_banners.destroy', $banner->id)}}');">{{translate('Hapus')}}</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -134,7 +134,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <a onclick="add_banner_2()" class="btn btn-rounded btn-info pull-right">{{translate('Add New Banner')}}</a>
+                        <a onclick="add_banner_2()" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Banner Baru')}}</a>
                     </div>
                 </div>
 
@@ -142,17 +142,17 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{translate('Home banner')}} ({{translate('Max 3 published')}})</h3>
+                        <h3 class="panel-title">{{translate('Banner Beranda')}} ({{translate('Maksimal 3 Banner')}})</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{translate('Photo')}}</th>
-                                    <th>{{translate('Position')}}</th>
-                                    <th>{{translate('Published')}}</th>
-                                    <th width="10%">{{translate('Options')}}</th>
+                                    <th>{{translate('Foto')}}</th>
+                                    <th>{{translate('Posisi')}}</th>
+                                    <th>{{translate('Terbit')}}</th>
+                                    <th width="10%">{{translate('Pilihan')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -160,18 +160,18 @@
                                     <tr>
                                         <td>{{$key+1}}</td>
                                         <td><img loading="lazy"  class="img-md" src="{{ my_asset($banner->photo)}}" alt="banner Image"></td>
-                                        <td>{{ translate('Banner Position ') }}{{ $banner->position }}</td>
+                                        <td>{{ translate('Pilihan Banner ') }}{{ $banner->position }}</td>
                                         <td><label class="switch">
                                             <input onchange="update_banner_published(this)" value="{{ $banner->id }}" type="checkbox" <?php if($banner->published == 1) echo "checked";?> >
                                             <span class="slider round"></span></label></td>
                                         <td>
                                             <div class="btn-group dropdown">
                                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                    {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                                    {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                                 </button>
                                                 <ul class="dropdown-menu dropdown-menu-right">
-                                                    <li><a onclick="edit_home_banner_2({{ $banner->id }})">{{translate('Edit')}}</a></li>
-                                                    <li><a onclick="confirm_modal('{{route('home_banners.destroy', $banner->id)}}');">{{translate('Delete')}}</a></li>
+                                                    <li><a onclick="edit_home_banner_2({{ $banner->id }})">{{translate('Ubah')}}</a></li>
+                                                    <li><a onclick="confirm_modal('{{route('home_banners.destroy', $banner->id)}}');">{{translate('Hapus')}}</a></li>
                                                 </ul>
                                             </div>
                                         </td>
@@ -187,7 +187,7 @@
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <a onclick="add_home_category()" class="btn btn-rounded btn-info pull-right">{{translate('Add New Category')}}</a>
+                        <a onclick="add_home_category()" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Kategorri Baru')}}</a>
                     </div>
                 </div>
 
@@ -195,16 +195,16 @@
 
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{translate('Home Categories')}}</h3>
+                        <h3 class="panel-title">{{translate('Kategori Beranda')}}</h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>{{translate('Category')}}</th>
+                                    <th>{{translate('Kategori')}}</th>
                                     <th>{{ translate('Status') }}</th>
-                                    <th width="10%">{{translate('Options')}}</th>
+                                    <th width="10%">{{translate('Pilihan')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -219,11 +219,11 @@
                                             <td>
                                                 <div class="btn-group dropdown">
                                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                        {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                                        {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                                     </button>
                                                     <ul class="dropdown-menu dropdown-menu-right">
                                                         <li><a onclick="edit_home_category({{ $home_category->id }})">{{translate('Edit')}}</a></li>
-                                                        <li><a onclick="confirm_modal('{{route('home_categories.destroy', $home_category->id)}}');">{{translate('Delete')}}</a></li>
+                                                        <li><a onclick="confirm_modal('{{route('home_categories.destroy', $home_category->id)}}');">{{translate('Hapus')}}</a></li>
                                                     </ul>
                                                 </div>
                                             </td>
@@ -239,7 +239,7 @@
             <div id="demo-lft-tab-5" class="tab-pane fade">
                 <div class="panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">{{translate('Top 10 Information')}}</h3>
+                        <h3 class="panel-title">{{translate('10 Infromasi Utama')}}</h3>
                     </div>
 
                     <!--Horizontal Form-->
@@ -248,7 +248,7 @@
                         @csrf
                         <div class="panel-body">
                             <div class="form-group">
-                                <label class="col-sm-3" for="url">{{translate('Top Categories (Max 10)')}}</label>
+                                <label class="col-sm-3" for="url">{{translate('Kategori Utama (Maksimal 10)')}}</label>
                                 <div class="col-sm-9">
                                     <select class="form-control demo-select2-max-10" name="top_categories[]" multiple>
                                         @foreach (\App\Category::all() as $key => $category)
@@ -258,7 +258,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3" for="url">{{translate('Top Brands (Max 10)')}}</label>
+                                <label class="col-sm-3" for="url">{{translate('Brand Utama (Maksimal 10)')}}</label>
                                 <div class="col-sm-9">
                                     <select class="form-control demo-select2-max-10" name="top_brands[]" multiple>
                                         @foreach (\App\Brand::all() as $key => $brand)
@@ -269,7 +269,7 @@
                             </div>
                         </div>
                         <div class="panel-footer text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </form>
                     <!--===================================================-->

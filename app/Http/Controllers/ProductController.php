@@ -26,7 +26,7 @@ class ProductController extends Controller
     {
         CoreComponentRepository::instantiateShopRepository();
 
-        $type = 'In House';
+        $type = 'Daftar Produk';
         $col_name = null;
         $query = null;
         $sort_search = null;
@@ -81,7 +81,7 @@ class ProductController extends Controller
         }
 
         $products = $products->orderBy('created_at', 'desc')->paginate(15);
-        $type = 'Seller';
+        $type = 'Penjual';
 
         return view('products.index', compact('products','type', 'col_name', 'query', 'seller_id', 'sort_search'));
     }

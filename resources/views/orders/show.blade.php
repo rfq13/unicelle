@@ -9,6 +9,13 @@
 			$manifest = $ship->manifest;
 			$penerima = $ship->delivery_status->pod_receiver;
 			$tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
+
+			if ($ship->delivered) {
+				foreach ($order->orderDetails as $key => $detail) {
+					$detail->delivery_status = "delivered";
+					$detail->save();
+				}
+			}
 		}
 	}
 @endphp
@@ -352,14 +359,6 @@
 	<script type="text/javascript">
 		const statusOrder = $('#update_delivery_status');
 
-	@if(isset($order->resi))
-		@if ($rajaongkir->status->code == 200)
-			@if ($ship->delivered)
-				statusOrder.val("delivered")
-				statusOrder.change()
-			@endif
-		@endif
-	@endif
 	
 		let currentStatus = statusOrder.val()
         statusOrder.on('change', function(){
@@ -370,6 +369,7 @@
 				if ($("#span-resi").text() == "resi pengiriman masih kosong") {
 					$("#modalResi").modal()
 					statusOrder.val(currentStatus)
+					statusOrder.change()
 					return;
 				}
 			}

@@ -21,7 +21,7 @@ class PolicyController extends Controller
         $policy->content = $request->content;
         $policy->save();
 
-        flash(translate($request->name.' updated successfully'));
+        flash(translate($request->name.' Update Berhasil'));
         return back();
     }
 }

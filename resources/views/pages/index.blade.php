@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-sm-12">
-            <a href="{{ route('pages.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Add New Page')}}</a>
+            <a href="{{ route('pages.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Halaman Baru')}}</a>
         </div>
     </div>
 
@@ -11,16 +11,16 @@
 
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">{{translate('Custom Pages')}}</h3>
+            <h3 class="panel-title">{{translate('Halaman Kustom')}}</h3>
         </div>
         <div class="panel-body">
             <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th width="10%">#</th>
-                        <th>{{translate('Title')}}</th>
+                        <th>{{translate('Judul')}}</th>
                         <th>{{translate('Slug')}}</th>
-                        <th width="10%">{{translate('Options')}}</th>
+                        <th width="10%">{{translate('Pilihan')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,11 +32,11 @@
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                        {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                        {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a href="{{route('pages.edit', $page->slug)}}">{{translate('Edit')}}</a></li>
-                                        <li><a onclick="confirm_modal('{{route('pages.destroy', $page->id)}}');">{{translate('Delete')}}</a></li>
+                                        <li><a onclick="confirm_modal('{{route('pages.destroy', $page->id)}}');">{{translate('Hapus')}}</a></li>
                                     </ul>
                                 </div>
                             </td>

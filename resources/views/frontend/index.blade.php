@@ -3,7 +3,7 @@
 <!-- @section('link')
 
 @endsection -->
-
+@section('title','Home')
 @section('content')
     {{-- <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">

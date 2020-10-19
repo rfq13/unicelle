@@ -8,7 +8,7 @@
                 <div class="col">
                     <div class="p-4 bg-white">
                         @php
-                            echo \App\Policy::where('name', 'privacy_policy')->first()->content;
+                            echo \App\Policy::where('name', 'privacy_policy')->first()->Content;
                         @endphp
                     </div>
                 </div>

@@ -74,10 +74,10 @@ class ReviewController extends Controller
                 $product->rating = 0;
             }
             $product->save();
-            flash(translate('Review has been submitted successfully'))->success();
+            flash(translate('Ulasan Berhasil Dikirim'))->success();
             return back();
         }
-        flash(translate('Something went wrong'))->error();
+        flash(translate('Ada yang Salah'))->error();
         return back();
     }
 

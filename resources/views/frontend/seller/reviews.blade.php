@@ -16,15 +16,15 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{ translate('Product Reviews')}}
+                                        {{ translate('Review Produk')}}
                                     </h2>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="float-md-right">
                                         <ul class="breadcrumb">
-                                            <li><a href="{{ route('home') }}">{{ translate('Home')}}</a></li>
+                                            <li><a href="{{ route('home') }}">{{ translate('Beranda')}}</a></li>
                                             <li><a href="{{ route('dashboard') }}">{{ translate('Dashboard')}}</a></li>
-                                            <li class="active"><a href="{{ route('reviews.seller') }}">{{ translate('Product Reviews')}}</a></li>
+                                            <li class="active"><a href="{{ route('reviews.seller') }}">{{ translate('Review Produk')}}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -39,10 +39,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{ translate('Product')}}</th>
-                                            <th>{{ translate('Customer')}}</th>
-                                            <th>{{ translate('Rating')}}</th>
-                                            <th>{{ translate('Comment')}}</th>
+                                            <th>{{ translate('Produk')}}</th>
+                                            <th>{{ translate('Pelanggan')}}</th>
+                                            <th>{{ translate('Peringkat')}}</th>
+                                            <th>{{ translate('Komentar')}}</th>
                                             <th>{{ translate('Published')}}</th>
                                         </tr>
                                     </thead>
@@ -92,7 +92,7 @@
                                             <tr>
                                                 <td class="text-center pt-5 h4" colspan="100%">
                                                     <i class="la la-meh-o d-block heading-1 alpha-5"></i>
-                                                    <span class="d-block">{{  translate('No review found.') }}</span>
+                                                    <span class="d-block">{{  translate('Review Tidak Ditemukan.') }}</span>
                                                 </td>
                                             </tr>
                                         @endif

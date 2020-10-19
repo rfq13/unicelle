@@ -20,7 +20,7 @@
 <!--===================================================-->
 <div class="panel">
     <div class="panel-heading bord-btm clearfix pad-all h-100">
-        <h3 class="panel-title pull-left pad-no">{{translate('About')}}</h3>
+        <h3 class="panel-title pull-left pad-no">{{translate('Tentang Unicelle')}}</h3>
     </div>
     <div class="panel-body">
       <form action="{{ $id != 0 ? route('about.update',$id) : route('about.store') }}" method="post">
@@ -31,7 +31,7 @@
         
         <textarea name="content" id="editor" cols="30" rows="10"></textarea>
         <div class="clearfix" style="float:right;margin:12px">
-            <button type="submit" class="btn btn-primary">simpan</button>
+            <button type="submit" class="btn btn-primary">Simpan</button>
         </div>
       </form>
     </div>

@@ -14,15 +14,15 @@
     <!--===================================================-->
     <div class="panel">
         <div class="panel-heading bord-btm clearfix pad-all h-100">
-            <h3 class="panel-title pull-left pad-no">{{translate('Sellers')}}</h3>
+            <h3 class="panel-title pull-left pad-no">{{translate('Penjual')}}</h3>
             <div class="pull-right clearfix">
                 <form class="" id="sort_sellers" action="" method="GET">
                     <div class="box-inline pad-rgt pull-left">
                         <div class="select" style="min-width: 300px;">
                             <select class="form-control demo-select2" name="approved_status" id="approved_status" onchange="sort_sellers()">
                                 <option value="">{{translate('Filter by Approval')}}</option>
-                                <option value="1"  @isset($approved) @if($approved == 'paid') selected @endif @endisset>{{translate('Approved')}}</option>
-                                <option value="0"  @isset($approved) @if($approved == 'unpaid') selected @endif @endisset>{{translate('Non-Approved')}}</option>
+                                <option value="1"  @isset($approved) @if($approved == 'paid') selected @endif @endisset>{{translate('Di Setujui')}}</option>
+                                <option value="0"  @isset($approved) @if($approved == 'unpaid') selected @endif @endisset>{{translate('Tidak Disetujui')}}</option>
                             </select>
                         </div>
                     </div>
@@ -39,14 +39,14 @@
                 <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{translate('Name')}}</th>
-                    <th>{{translate('Phone')}}</th>
-                    <th>{{translate('Email Address')}}</th>
-                    <th>{{translate('Verification Info')}}</th>
-                    <th>{{translate('Approval')}}</th>
-                    <th>{{ translate('Num. of Products') }}</th>
+                    <th>{{translate('Nama')}}</th>
+                    <th>{{translate('Nomor Telepon')}}</th>
+                    <th>{{translate('Alamat Email')}}</th>
+                    <th>{{translate('Verifikasi Info')}}</th>
+                    <th>{{translate('Persetujuan')}}</th>
+                    <th>{{ translate('Nomor Produk') }}</th>
                     <th>{{ translate('Due to seller') }}</th>
-                    <th width="10%">{{translate('Options')}}</th>
+                    <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -61,7 +61,7 @@
                                 @if ($seller->verification_info != null)
                                     <a href="{{ route('sellers.show_verification_request', $seller->id) }}">
                                         <div class="label label-table label-info">
-                                            {{translate('Show')}}
+                                            {{translate('Tampilkan')}}
                                         </div>
                                     </a>
                                 @endif
@@ -83,20 +83,20 @@
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                        {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                        {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a onclick="show_seller_profile('{{$seller->id}}');">{{translate('Profile')}}</a></li>
-                                        <li><a href="{{route('sellers.login', encrypt($seller->id))}}">{{translate('Log in as this Seller')}}</a></li>
-                                        <li><a onclick="show_seller_payment_modal('{{$seller->id}}');">{{translate('Pay Now')}}</a></li>
-                                        <li><a href="{{route('sellers.payment_history', encrypt($seller->id))}}">{{translate('Payment History')}}</a></li>
+                                        <li><a onclick="show_seller_profile('{{$seller->id}}');">{{translate('Profil')}}</a></li>
+                                        <li><a href="{{route('sellers.login', encrypt($seller->id))}}">{{translate('Masuk Sebagai Penjual')}}</a></li>
+                                        <li><a onclick="show_seller_payment_modal('{{$seller->id}}');">{{translate('Bayar Sekarang')}}</a></li>
+                                        <li><a href="{{route('sellers.payment_history', encrypt($seller->id))}}">{{translate('Histori Pembayaran')}}</a></li>
                                         <li><a href="{{route('sellers.edit', encrypt($seller->id))}}">{{translate('Edit')}}</a></li>
                                         @if($seller->user->banned != 1)
                                         <li><a href="#" onclick="confirm_ban('{{route('sellers.ban', $seller->id)}}');">{{translate('Ban this seller')}}  <i class="fa fa-ban text-danger" aria-hidden="true"></i> </a></li>
                                         @else
                                         <li><a href="#" onclick="confirm_unban('{{route('sellers.ban', $seller->id)}}');">{{translate('Unban this seller')}} <i class="fa fa-check text-success" aria-hidden="true"></i></a></li>
                                         @endif
-                                        <li><a onclick="confirm_modal('{{route('sellers.destroy', $seller->id)}}');">{{translate('Delete')}}</a></li>
+                                        <li><a onclick="confirm_modal('{{route('sellers.destroy', $seller->id)}}');">{{translate('Hapus')}}</a></li>
                                     </ul>
                                 </div>
                             </td>

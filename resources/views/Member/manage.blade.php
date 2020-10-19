@@ -14,7 +14,7 @@
     <div class="col-lg-8">
         <div class="panel">
             <div class="panel-heading bord-btm clearfix pad-all h-100">
-                <h3 class="panel-title pull-left pad-no">{{translate('Regular Physician Membership')}}</h3>
+                <h3 class="panel-title pull-left pad-no">{{translate('Member Dokter Reguler')}}</h3>
                 <div class="pull-right clearfix">
                     <form class="" id="sort_flash_deals" action="" method="GET">
                         <div class="box-inline pad-rgt pull-left">
@@ -30,11 +30,11 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{translate('Title')}}</th>
-                            <th class="text-center">{{ translate('Customer') }}</th>
+                            <th>{{translate('Judul')}}</th>
+                            <th class="text-center">{{ translate('Pelanggan') }}</th>
                             <th>{{translate('Min')}}</th>
                             <th>{{translate('Periode')}}</th>
-                            <th width="10%" style="text-right">{{translate('Options')}}</th>
+                            <th width="10%" style="text-right">{{translate('Opsi')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -58,7 +58,7 @@
                                 <td>
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                            {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                            {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li>
@@ -67,7 +67,7 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a onclick="confirm_modal(`{{route('admin.member.destroy', $member->id)}}`);" style="background-color:#428df5;color:white">{{translate('Delete')}}</a>
+                                                <a onclick="confirm_modal(`{{route('admin.member.destroy', $member->id)}}`);" style="background-color:#428df5;color:white">{{translate('Hapus')}}</a>
                                             </li>
                                         </ul>
                                     </div>

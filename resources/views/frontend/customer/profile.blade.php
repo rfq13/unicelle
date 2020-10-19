@@ -3,7 +3,7 @@
    $listProvince = app('App\Http\Controllers\AddressController')->get_province();
 @endphp
 @extends('frontend.layouts.app')
-
+@section('title','Profil')
 @section('content')
 
     <section class="gry-bg py-4 profile">

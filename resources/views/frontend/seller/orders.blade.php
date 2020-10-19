@@ -16,15 +16,15 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6">
                                     <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{ translate('Orders')}}
+                                        {{ translate('Pesanan')}}
                                     </h2>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="float-md-right">
                                         <ul class="breadcrumb">
-                                            <li><a href="{{ route('home') }}">{{ translate('Home')}}</a></li>
+                                            <li><a href="{{ route('home') }}">{{ translate('Beranda')}}</a></li>
                                             <li><a href="{{ route('dashboard') }}">{{ translate('Dashboard')}}</a></li>
-                                            <li class="active"><a href="{{ route('orders.index') }}">{{ translate('Orders')}}</a></li>
+                                            <li class="active"><a href="{{ route('orders.index') }}">{{ translate('Pesanan')}}</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                             <input type="text" class="form-control" id="search" name="search" @isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type Order code & hit Enter') }}">
                                         </div>
                                         <div class="col-md-3 ml-auto">
-                                            <select class="form-control mb-3 selectpicker" data-placeholder="{{ translate('Filter by Payment Status')}}" name="payment_status" onchange="sort_orders()">
+                                            <select class="form-control mb-3 selectpicker" data-placeholder="{{ translate('Filter Berdasarkan Status Pembayaran')}}" name="payment_status" onchange="sort_orders()">
                                                 <option value="">{{ translate('Filter by Payment Status')}}</option>
                                                 <option value="paid" @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{ translate('Paid')}}</option>
                                                 <option value="unpaid" @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{ translate('Un-Paid')}}</option>

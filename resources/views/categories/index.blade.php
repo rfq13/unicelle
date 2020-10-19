@@ -4,7 +4,7 @@
 
 <div class="row">
     <div class="col-sm-12">
-        <a href="{{ route('categories.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Add New Category')}}</a>
+        <a href="{{ route('categories.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Kategori Baru')}}</a>
     </div>
 </div>
 
@@ -14,7 +14,7 @@
 <!--===================================================-->
 <div class="panel">
     <div class="panel-heading bord-btm clearfix pad-all h-100">
-        <h3 class="panel-title pull-left pad-no">{{translate('Categories')}}</h3>
+        <h3 class="panel-title pull-left pad-no">{{translate('Kategori')}}</h3>
         <div class="pull-right clearfix">
             <form class="" id="sort_categories" action="" method="GET">
                 <div class="box-inline pad-rgt pull-left">
@@ -30,12 +30,12 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{translate('Name')}}</th>
+                    <th>{{translate('Nama')}}</th>
                     <th>{{translate('Banner')}}</th>
                     <th>{{translate('Icon')}}</th>
-                    <th>{{translate('Featured')}}</th>
-                    <th>{{translate('Commission')}}</th>
-                    <th width="10%">{{translate('Options')}}</th>
+                    <th>{{translate('Fitur')}}</th>
+                    <th>{{translate('Komisi')}}</th>
+                    <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,11 +52,11 @@
                         <td>
                             <div class="btn-group dropdown">
                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                    {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                    {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li><a href="{{route('categories.edit', encrypt($category->id))}}">{{translate('Edit')}}</a></li>
-                                    <li><a onclick="confirm_modal('{{route('categories.destroy', $category->id)}}');">{{translate('Delete')}}</a></li>
+                                    <li><a onclick="confirm_modal('{{route('categories.destroy', $category->id)}}');">{{translate('Hapus')}}</a></li>
                                 </ul>
                             </div>
                         </td>

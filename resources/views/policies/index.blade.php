@@ -5,7 +5,8 @@
 <div class="col-sm-12">
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title">{{ ucfirst(str_replace('_', ' ',$policy->name))}}</h3>
+            {{-- <h3 class="panel-title">{{ ucfirst(str_replace('_', ' ',$policy->name))}}</h3> --}}
+            <h3 class="panel-title">{{('Kebijakan Penjual')}}</h3>
         </div>
         <!--Horizontal Form-->
         <!--===================================================-->
@@ -14,14 +15,14 @@
             <div class="panel-body">
                 <div class="form-group">
                     <input type="hidden" name="name" value="{{ $policy->name }}">
-                    <label class="col-sm-2 control-label" for="name">{{translate('Content')}}</label>
+                    <label class="col-sm-2 control-label" for="name">{{translate('Konten')}}</label>
                     <div class="col-sm-10">
                         <textarea class="editor" name="content" required>{{$policy->content}}</textarea>
                     </div>
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
             </div>
         </form>
 

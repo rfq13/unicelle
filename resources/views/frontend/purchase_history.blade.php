@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-
+@section('title','Pembayaran')
 @section('style')
 <style>
     .img-pesanan__ {
@@ -142,6 +142,7 @@
                                                 @php
                                                     $detailOrder = $order->orderDetails[0];
                                                     $photos = json_decode($detailOrder->product->photos)[0];
+                                                    // dd($detailOrder);
                                                 @endphp
                                                 <div class="img-produk-pesanan__ mr-3 p-1">
                                                     <img class="img-pesanan__ img-thumbnail" src="{{my_asset($photos)}}" alt="">
@@ -174,10 +175,15 @@
                                             </p>
                                             @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
                                             <div class="jumlah-produk-pesanan mt-3">
-                                                @php( $norek = $order->payment_type == "cash_on_delivery" ? "" : "No. 40905398604" )
+                                                @php
+                                                    $norek = $order->payment_type == "cash_on_delivery" ? "" : "No. 40905398604";
+                                                @endphp
                                                 <span class="virtual-pembayaran-pesanan__" style="text-transform:uppercase">{{ str_replace("_"," ",$order->payment_type) }}</span>
                                                 <div class="jumlah-number-pesanan__">
+
+                                                    @if(json_decode($order->manual_payment) != null)
                                                     <span class="no-resi-pesanan__"> No. Rek {{json_decode($order->manual_payment)->norek  }} <br> a/n {{json_decode($order->manual_payment)->name  }}</span>
+                                                    @endif
                                                 </div>
                                                 <br>
                                                 @if ($order->payment_status=="unpaid")
@@ -213,6 +219,7 @@
                                                         </span>
                                                     </span>
                                                 </div>
+                                                
                                                 <a href="#{{ $order->code }}" onclick="show_purchase_history_details({{ $order->id }})" class="btn btn-primary1 mb-2 w-75">Lihat Detail </a>
                                             </div>
                                         </div>
@@ -223,7 +230,6 @@
                         @endif
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

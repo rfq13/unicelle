@@ -5,7 +5,7 @@
 @if($type != 'Seller')
     <div class="row">
         <div class="col-lg-12 pull-right">
-            <a href="{{ route('products.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Add New Product')}}</a>
+            <a href="{{ route('products.create')}}" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Produk Baru')}}</a>
         </div>
     </div>
 @endif
@@ -15,7 +15,7 @@
 <div class="panel">
     <!--Panel heading-->
     <div class="panel-heading bord-btm clearfix pad-all h-100">
-        <h3 class="panel-title pull-left pad-no">{{ translate($type.' Products') }}</h3>
+        <h3 class="panel-title pull-left pad-no">{{ translate($type.' Produk') }}</h3>
         <div class="pull-right clearfix">
             <form class="" id="sort_products" action="" method="GET">
                 @if($type == 'Seller')
@@ -60,20 +60,20 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th width="20%">{{translate('Name')}}</th>
+                    <th width="20%">{{translate('Nama')}}</th>
                     @if($type == 'Seller')
-                        <th>{{translate('Seller Name')}}</th>
+                        <th>{{translate('Nama Penjual')}}</th>
                     @endif
-                    <th>{{translate('Num of Sale')}}</th>
-                    <th>{{translate('Total Stock')}}</th>
-                    <th>{{translate('Regular Physician Price')}}</th>
-                    <th>{{translate('Partner Physician Price')}}</th>
-                    <th>{{translate('Pasien Regular Price')}}</th>
-                    <th>{{translate('Todays Deal')}}</th>
-                    <th>{{translate('Rating')}}</th>
+                    <th>{{translate('Jumlah Penjualan')}}</th>
+                    <th>{{translate('Total Stok')}}</th>
+                    <th>{{translate('Harga Reguler Dokter')}}</th>
+                    <th>{{translate('Harga Partner Dokter')}}</th>
+                    <th>{{translate('Harga Pasien Reguler ')}}</th>
+                    <th>{{translate('Deal Hari ini')}}</th>
+                    <th>{{translate('Peringkat')}}</th>
                     <th>{{translate('Published')}}</th>
-                    <th>{{translate('Featured')}}</th>
-                    <th>{{translate('Options')}}</th>
+                    <th>{{translate('Fitur')}}</th>
+                    <th>{{translate('Opsi')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -126,7 +126,7 @@
                         <td>
                             <div class="btn-group dropdown">
                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                    {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                    {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     @if ($type == 'Seller')
@@ -134,8 +134,8 @@
                                     @else
                                         <li><a href="{{route('products.admin.edit', encrypt($product->id))}}">{{translate('Edit')}}</a></li>
                                     @endif
-                                    <li><a onclick="confirm_modal('{{route('products.destroy', $product->id)}}');">{{translate('Delete')}}</a></li>
-                                    <li><a href="{{route('products.duplicate', $product->id)}}">{{translate('Duplicate')}}</a></li>
+                                    <li><a onclick="confirm_modal('{{route('products.destroy', $product->id)}}');">{{translate('Hapus')}}</a></li>
+                                    <li><a href="{{route('products.duplicate', $product->id)}}">{{translate('Duplikat')}}</a></li>
                                 </ul>
                             </div>
                         </td>

@@ -10,6 +10,7 @@
 $config =  json_decode( $bank_setting->value);
 @endphp
 @extends('frontend.layouts.app')
+@section('title','Dropshipper')
 @section('content')
     <section class="gry-bg py-4 profile">
         <div class="container">
@@ -96,9 +97,11 @@ $config =  json_decode( $bank_setting->value);
                                                             <span class="no-resi-pesanan__"> No. Rek {{json_decode($order->manual_payment)->norek  }} <br> a/n {{json_decode($order->manual_payment)->name  }}</span>
                                                         </div>
                                                         <br>
+                                                        @if($order->status != "paid")
                                                         <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Ubah</a>
+                                                        @endif
                                                     </div>
-                                                @else
+                                                @elseif($order->status != "paid")
                                                 <div class="jumlah-produk-pesanan mt-3">
                                                     <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Konfirmasi Pembayaran</a>
                                                 </div>
