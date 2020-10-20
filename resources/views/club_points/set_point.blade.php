@@ -10,13 +10,13 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th width="20%">{{__('Name')}}</th>
-                                <th>{{__('Product Owner')}}</th>
-                                <th>{{__('Num of Sale')}}</th>
-                                <th>{{__('Base Price')}}</th>
-                                <th>{{__('Rating')}}</th>
-                                <th>{{__('Point')}}</th>
-                                <th>{{__('Options')}}</th>
+                                <th width="20%">{{__('Nama')}}</th>
+                                <th>{{__('Pemilik Produk')}}</th>
+                                <th>{{__('Jumlah Penjualan')}}</th>
+                                <th>{{__('Harga Dasar')}}</th>
+                                <th>{{__('Peringkat')}}</th>
+                                <th>{{__('Poin')}}</th>
+                                <th>{{__('Pilihan')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -56,10 +56,10 @@
                                     <td>
                                         <div class="btn-group dropdown">
                                             <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                                {{__('Actions')}} <i class="dropdown-caret"></i>
+                                                {{__('Aksi')}} <i class="dropdown-caret"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{route('product_club_point.edit', encrypt($product->id))}}">{{__('Edit')}}</a></li>
+                                                <li><a href="{{route('product_club_point.edit', encrypt($product->id))}}">{{__('Ubah')}}</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -78,17 +78,17 @@
         <div class="col-lg-4">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">{{__('Set Point for Product')}}</h3>
+                    <h3 class="panel-title text-center">{{__('Tetapkan Poin untuk Produk')}}</h3>
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <small>Set any specific point for those products what are between 'min price' and 'max price'. Min-price should be less than Max-price</small>
+                        <small>Tetapkan poin spesifik untuk produk tersebut yang berada di antara 'harga minimum' dan 'harga maksimum'. Harga minimum harus kurang dari harga Maks</small>
                     </div>
                     <form class="form-horizontal" action="{{ route('set_products_point.store') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <div class="col-lg-6">
-                                <label class="control-label">{{__('Set Point for multiple products')}}</label>
+                                <label class="control-label">{{__('Set Point untuk beberapa produk')}}</label>
                             </div>
                             <div class="col-lg-6">
                                 <input type="number" min="0" step="0.01" class="form-control" name="point" placeholder="100" required>
@@ -96,7 +96,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-6">
-                                <label class="control-label">{{__('Min Price')}}</label>
+                                <label class="control-label">{{__('Harga Min')}}</label>
                             </div>
                             <div class="col-lg-6">
                                 <input type="number" min="0" step="0.01" class="form-control" name="min_price" value="{{ \App\Product::min('unit_price') }}" placeholder="50" required>
@@ -104,7 +104,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-6">
-                                <label class="control-label">{{__('Max Price')}}</label>
+                                <label class="control-label">{{__('Harga Maks')}}</label>
                             </div>
                             <div class="col-lg-6">
                                 <input type="number" min="0" step="0.01" class="form-control" name="max_price" value="{{ \App\Product::max('unit_price') }}" placeholder="110" required>
@@ -112,7 +112,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12 text-right">
-                                <button class="btn btn-purple" type="submit">{{__('Save')}}</button>
+                                <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
                             </div>
                         </div>
                     </form>

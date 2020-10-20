@@ -7,14 +7,14 @@
         <div class="col-lg-6">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title text-center">{{ translate('Default Language') }}</h3>
+                    <h3 class="panel-title text-center">{{ translate('Bahasa Default') }}</h3>
                 </div>
                 <div class="panel-body">
                     <form class="form-horizontal" action="{{ route('env_key_update.update') }}" method="POST">
                         @csrf
                         <div class="form-group">
                             <div class="col-lg-3">
-                                <label class="control-label">{{ translate('Default Language') }}</label>
+                                <label class="control-label">{{ translate('Bahasa Default') }}</label>
                             </div>
                             <input type="hidden" name="types[]" value="DEFAULT_LANGUAGE">
                             <div class="col-lg-6">
@@ -25,7 +25,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-3">
-                                <button class="btn btn-purple" type="submit">{{ translate('Save') }}</button>
+                                <button class="btn btn-purple" type="submit">{{ translate('Simpan') }}</button>
                             </div>
                         </div>
                     </form>
@@ -36,7 +36,7 @@
 
     <div class="row">
         <div class="col-sm-12">
-            <a href="{{ route('languages.create')}}" class="btn btn-rounded btn-info pull-right">{{ translate('Add New Language') }}</a>
+            <a href="{{ route('languages.create')}}" class="btn btn-rounded btn-info pull-right">{{ translate('Tambahkan Bahasa Baru') }}</a>
         </div>
     </div>
 
@@ -45,17 +45,17 @@
     <div class="row">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">{{translate('Language')}}</h3>
+                <h3 class="panel-title">{{translate('Bahasa')}}</h3>
             </div>
             <div class="panel-body">
                 <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>{{translate('Name')}}</th>
-                            <th>{{translate('Code')}}</th>
+                            <th>{{translate('Nama')}}</th>
+                            <th>{{translate('Kode')}}</th>
                             <th>{{translate('RTL')}}</th>
-                            <th width="10%">{{translate('Options')}}</th>
+                            <th width="10%">{{translate('Opsi')}}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,13 +74,13 @@
                                 <td>
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                            {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                            {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            <li><a href="{{route('languages.show', encrypt($language->id))}}">{{translate('Translation')}}</a></li>
+                                            <li><a href="{{route('languages.show', encrypt($language->id))}}">{{translate('Terjemahan')}}</a></li>
                                             <li><a href="{{route('languages.edit', encrypt($language->id))}}">{{translate('Edit')}}</a></li>
                                             @if($language->code != 'en')
-                                                <li><a onclick="confirm_modal('{{route('languages.destroy', $language->id)}}');">{{translate('Delete')}}</a></li>
+                                                <li><a onclick="confirm_modal('{{route('languages.destroy', $language->id)}}');">{{translate('Hapus')}}</a></li>
                                             @endif
                                         </ul>
                                     </div>

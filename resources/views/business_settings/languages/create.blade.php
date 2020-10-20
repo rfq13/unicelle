@@ -6,22 +6,22 @@
 <div class="col-lg-6 col-lg-offset-3">
     <div class="panel">
         <div class="panel-heading">
-            <h3 class="panel-title text-center">{{ translate('Language Info') }}</h3>
+            <h3 class="panel-title text-center">{{ translate('Info Bahasa') }}</h3>
         </div>
         <div class="panel-body">
             <form class="form-horizontal" action="{{ route('languages.store') }}" method="POST">
                 @csrf
                 <div class="form-group">
                     <div class="col-lg-3">
-                        <label class="control-label">{{ translate('Name') }}</label>
+                        <label class="control-label">{{ translate('Nama') }}</label>
                     </div>
                     <div class="col-lg-6">
-                        <input type="text" class="form-control" name="name" placeholder="{{ translate('Name') }}" required>
+                        <input type="text" class="form-control" name="name" placeholder="{{ translate('Nama') }}" required>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-lg-3">
-                        <label class="control-label">{{ translate('Code') }}</label>
+                        <label class="control-label">{{ translate('Kode') }}</label>
                     </div>
                     <div class="col-lg-6">
                         <select class="country-flag-select" name="code">
@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <div class="col-lg-12 text-right">
-                        <button class="btn btn-purple" type="submit">{{ translate('Save') }}</button>
+                        <button class="btn btn-purple" type="submit">{{ translate('Simpan') }}</button>
                     </div>
                 </div>
             </form>

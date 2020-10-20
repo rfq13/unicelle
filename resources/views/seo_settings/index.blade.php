@@ -15,39 +15,39 @@
                 <input type="hidden" name="_method" value="PATCH">
                 <div class="panel-body">
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="tag">{{translate('Keyword')}}</label>
+                        <label class="col-sm-3 control-label" for="tag">{{translate('Kata Kunci')}}</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" name="tags[]" value="{{ $seosetting->keyword }}" placeholder="{{translate('Type and Hit Enter')}}" data-role="tagsinput">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="address">{{translate('Author')}}</label>
+                        <label class="col-sm-3 control-label" for="address">{{translate('Pemilik')}}</label>
                         <div class="col-sm-9">
                             <input type="text" id="author" name="author" value="{{ $seosetting->author }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="revisit">{{translate('Revisit After')}}</label>
+                        <label class="col-sm-3 control-label" for="revisit">{{translate('Mengunjungi Kembali Setelah')}}</label>
                         <div class="col-sm-8">
                             <input type="number" min="0" step="1" value="{{ $seosetting->revisit }}" placeholder="{{translate('Revisit After')}}" name="revisit" class="form-control" required>
                         </div>
-                        <label class="col-sm-1 control-label" for="days">{{translate('Days')}}</label>
+                        <label class="col-sm-1 control-label" for="days">{{translate('Hari')}}</label>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="sitemap">{{translate('Sitemap Link')}}</label>
+                        <label class="col-sm-3 control-label" for="sitemap">{{translate('Tautan Situs')}}</label>
                         <div class="col-sm-9">
                             <input type="text" id="sitemap" name="sitemap" value="{{ $seosetting->sitemap_link }}" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="description">{{translate('Description')}}</label>
+                        <label class="col-sm-3 control-label" for="description">{{translate('Deskripsi')}}</label>
                         <div class="col-sm-9">
                             <textarea class="form-control" rows="5" name="description">{{ $seosetting->description }}</textarea>
                         </div>
                     </div>
                 </div>
                 <div class="panel-footer text-right">
-                    <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                    <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                 </div>
             </form>
             <!--===================================================-->

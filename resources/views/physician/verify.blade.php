@@ -2,21 +2,29 @@
 @extends('layouts.app')
 
 @section('content')
-
+<style>
+    .img-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+</style>
 <br>
 <div class="row">
-    <div class="col-lg-8">
+    {{-- <div class="col-lg-8"> --}}
+        <div class="col">
         <div class="panel">
             <div class="panel-heading bord-btm clearfix pad-all h-100">
                 <h3 class="panel-title pull-left pad-no">{{translate('Member Dokter Reguler')}}</h3>
                 <div class="pull-right clearfix">
-                    <form class="" id="sort_flash_deals" action="" method="GET">
+                    {{-- <form class="" id="sort_flash_deals" action="" method="GET">
                         <div class="box-inline pad-rgt pull-left">
                             <div class="" style="min-width: 200px;">
                                 <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type name & Enter') }}">
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
                 </div>
             </div>
             <div class="panel-body" id="panel-body">
@@ -30,13 +38,6 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $users = \App\physician_verificationModel::with(["user"=> function ($u)
-                            {
-                              $u->where("email_verified_at","!=",null);
-                            }])->paginate(10);
-                            // dd($users);
-                        @endphp
                         @foreach($users as $key => $user)
                             <tr id="row{{$user->id}}">
                                 <td>{{ ($key+1) + ($users->currentPage() - 1)*$users->perPage() }}</td>
@@ -58,6 +59,7 @@
                                             <li>
                                                 <a onclick="confirm_modal(`{{route('admin.usermember.destroy', $user->id)}}`);" style="background-color:#428df5;color:white">{{translate('Hapus')}}</a>
                                             </li>
+                                            <li><a href="#" id="btnDetail" onclick="detail({{ json_encode($user->user) }},{{ json_encode($user->user->instansi) }})">Detail</a></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -73,13 +75,55 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4">
+    {{-- <div class="col-lg-4">
         @include("Member.create")
-    </div>
+    </div> --}}
 </div>
 
-<!-- Basic Data Tables -->
-<!--===================================================-->
+<div class="modal fade bd-example-modal-lg" id="modal-detail" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="container-fluid" style="margin-top: 25px">
+                <h3>Detail Dokter</h3>
+              <div class="row" id="row-image" style="margin-top: 55px">
+                  <img src="https://www.publicdomainpictures.net/pictures/320000/velka/background-image.png"  class="img-center" alt="...">
+              </div>
+              <div class="row">
+                  <div class="container panel panel-body" style="width: 840px">
+                      <form>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="input-nama">Nama</label>
+                              <input type="text" class="form-control" id="input-nama" placeholder="Nama">
+                            </div>
+                            <div class="form-group col-md-6">
+                              <label for="input-email">Email</label>
+                              <input type="email" class="form-control" id="input-email" placeholder="Email">
+                            </div>
+                          </div>
+                          <div class="form-row">
+                            <div class="form-group col-md-6">
+                              <label for="input-alamat">Alamat</label>
+                              <input type="text" class="form-control" id="input-alamat" placeholder="alamat">
+                            </div>
+                            <div class="form-group col-md-6">
+                            <label for="input-notelp">no.Telp</label>
+                            <input type="text" class="form-control" id="input-notelp" placeholder="Nomor telephone">
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label for="input-izin">Izin</label>
+                            <input type="number" min="0" class="form-control" id="input-izin" placeholder="">
+                          </div>
+                      </form>
+                  </div>
+              </div>
+            </div>
+          </div>
+    </div>
+  </div>
+</div
 
 
 @endsection
@@ -87,7 +131,24 @@
 
 @section('script')
     <script type="text/javascript">
-        
+        $('#btnDetail').click(function(e){
+            e.preventDefault()
+        })
+
+        function detail(dokter,instansi){
+            let src = "{{ my_asset('potro') }}".replace('potro',instansi.fhoto)
+            console.log(dokter)
+            $("#input-nama").val(dokter.name)
+            $("#input-email").val(dokter.email)
+            $("#input-izin").val(instansi.izin)
+            $("#input-instansi").val(instansi.name)
+            $("#input-alamat").val(instansi.address)
+            $("#input-notelp").val(dokter.phone)
+            $("#row-image").html(`<img src="`+src+`"  class="img-center" alt="...">`)
+            $("#modal-detail").modal('show')
+        }
+
+
         function activation(id) {
           $.get("{{route('physician.activation','upid')}}".replace('upid',id), function (dat) {
             if (dat.stts=="sukses") {

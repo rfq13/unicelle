@@ -15,8 +15,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th width="45%">{{translate('Key')}}</th>
-                                <th width="45%">{{translate('Value')}}</th>
+                                <th width="45%">{{translate('Kunci')}}</th>
+                                <th width="45%">{{translate('Nilai')}}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -41,8 +41,8 @@
                     </table>
                 </div>
                 <div class="panel-footer text-right">
-                    <button type="button" class="btn btn-purple" onclick="copyTranslation()">{{ translate('Copy Translations') }}</button>
-    				<button type="submit" class="btn btn-purple">{{ translate('Save') }}</button>
+                    <button type="button" class="btn btn-purple" onclick="copyTranslation()">{{ translate('Salin Terjemahan') }}</button>
+    				<button type="submit" class="btn btn-purple">{{ translate('Simpan') }}</button>
     			</div>
             </form>
         </div>

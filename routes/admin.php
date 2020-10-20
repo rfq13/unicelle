@@ -128,7 +128,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	});
 
 	Route::resource('regular-physician-member', 'memberController');
-	Route::view('physician-verify', 'physician.verify')->name("physician.verify");
+	Route::get('physician-verify', 'physicianController@verification')->name("physician.verify");
 	Route::get('activation/{id}', 'memberController@activation')->name('physician.activation');
 
 	Route::resource('roles', 'RoleController');

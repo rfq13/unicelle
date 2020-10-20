@@ -645,7 +645,7 @@
                         <li class="{{ areActiveRoutes(['seosetting.index'])}}">
                             <a class="nav-link" href="{{ route('seosetting.index') }}">
                                 <i class="fa fa-search"></i>
-                                <span class="menu-title">{{translate('SEO Setting')}}</span>
+                                <span class="menu-title">{{translate('Pengaturan SEO')}}</span>
                             </a>
                         </li>
                         @endif
@@ -661,10 +661,10 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ areActiveRoutes(['staffs.index', 'staffs.create', 'staffs.edit'])}}">
-                                    <a class="nav-link" href="{{ route('staffs.index') }}">{{translate('All staffs')}}</a>
+                                    <a class="nav-link" href="{{ route('staffs.index') }}">{{translate('Semua Staf')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['roles.index', 'roles.create', 'roles.edit'])}}">
-                                    <a class="nav-link" href="{{route('roles.index')}}">{{translate('Staff permissions')}}</a>
+                                    <a class="nav-link" href="{{route('roles.index')}}">{{translate('Hak Akses Staf')}}</a>
                                 </li>
                             </ul>
                         </li>

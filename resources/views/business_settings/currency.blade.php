@@ -14,7 +14,7 @@
                     @csrf
                     <div class="form-group">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('System Default Currency')}}</label>
+                            <label class="control-label">{{translate('Mata Uang Standar Sistem')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <select class="form-control demo-select2-placeholder" name="system_default_currency">
@@ -36,7 +36,7 @@
     <div class="col-lg-6">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title text-center">{{translate('Set Currency Formats')}}</h3>
+                <h3 class="panel-title text-center">{{translate('Atur Format Mata Uang')}}</h3>
             </div>
             <div class="panel-body">
                 <form class="form-horizontal" action="{{ route('business_settings.update') }}" method="POST">
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="symbol_format">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('Symbol Format')}}</label>
+                            <label class="control-label">{{translate('Format Simbol')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <select class="form-control demo-select2-placeholder" name="symbol_format">
@@ -68,7 +68,7 @@
                     <div class="form-group">
                         <input type="hidden" name="types[]" value="no_of_decimals">
                         <div class="col-lg-3">
-                            <label class="control-label">{{translate('No of decimals')}}</label>
+                            <label class="control-label">{{translate('Tidak ada desimal')}}</label>
                         </div>
                         <div class="col-lg-6">
                             <select class="form-control demo-select2-placeholder" name="no_of_decimals">
@@ -81,7 +81,7 @@
                     </div>
                     <div class="form-group">
                         <div class="col-lg-12 text-right">
-                            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+                            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
                         </div>
                     </div>
                 </form>
@@ -110,10 +110,10 @@
                         <th>#</th>
                         <th>{{translate('Nama mata uang')}}</th>
                         <th>{{translate('Simbol mata uang')}}</th>
-                        <th>{{translate('Currency code')}}</th>
-                        <th>{{translate('Exchange rate')}}(1 USD = ?)</th>
+                        <th>{{translate('Kode mata uang')}}</th>
+                        <th>{{translate('Kurs')}}(1 USD = ?)</th>
                         <th>{{translate('Status')}}</th>
-                        <th width="10%">{{translate('Options')}}</th>
+                        <th width="10%">{{translate('Opsi')}}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,7 +133,7 @@
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
-                                        {{translate('Actions')}} <i class="dropdown-caret"></i>
+                                        {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a onclick="edit_currency_modal('{{$currency->id}}');">{{translate('Edit')}}</a></li>
