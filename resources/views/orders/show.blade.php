@@ -17,7 +17,7 @@
 				}
 			}
 		}
-		// dd($rajaongkir);
+		dd($rajaongkir);
 	}
 @endphp
 @extends('layouts.app')

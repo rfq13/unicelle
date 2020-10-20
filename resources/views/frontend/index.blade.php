@@ -107,14 +107,30 @@
                 </div>
                 <div class="col">
                     <div class="mySlides">
-                        <div class="row">
-                            <div class="menu-icon">
-                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
+                        <div class="mb-4">
+                            <div class="container ">
+                                <div class="row" style="margin-bottom: 160px;">
+                                    @php
+                                        $category = \App\Category::orderBy('created_at', 'desc')->get();
+                                    @endphp
+                                    @foreach ($category as $key => $value)
+                                        <div class="col-md-2">
+                                            <div class="my-2">
+                                                <a href="{{route('products.category',$value->slug)}}">
+                                                    <div class="text-center">
+                                                        <div class="margin-auto">
+                                                            <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
+                                                                <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
+                                                            </div>
+                                                        </div>
+                                                        <span class="ft-icon px-2">{{$value->name}}</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
                             </div>
-                            <div class="menu-icon">
-                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
-                            </div>
-                        </div>
                     </div>
                     <div class="mySlides">
                         <div class="row">
@@ -159,7 +175,6 @@
                             @endforeach
                         </div>
                     </div>
-                    </
                             {{-- Lama --}}
                             {{-- <a href="{{route('products.category',$value->slug)}}">
                                     <img src="{{ my_asset($value->icon) }}" style="width:100px;" class="card-img-top mx-auto" alt="...">
