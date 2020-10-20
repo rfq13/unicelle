@@ -107,9 +107,25 @@
                                 $category = \App\Category::orderBy('created_at', 'desc')->get();
                             @endphp
                             @foreach ($category as $key => $value)
+
+                                {{-- Batas carousel --}}
+
+                                {{-- Batas carousel --}}
+
+
                                 <div class="col-md-2 mx-3">
                                     <div style="margin:auto;width: 8rem; margin:5px;">
                                         <a href="{{route('products.category',$value->slug)}}">
+                                            <div class="margin:auto;" style="width: 8rem; margin:10px;">
+                                                <div class="menu-icon d-flex align-items-center" style="text-align:center;">
+                                                    <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                            <span class="ft-icon">{{$value->name}}</span>
+                                            </div>
+                                        </a>
+                                        {{-- <a href="{{route('products.category',$value->slug)}}">
                                             <img src="{{ my_asset($value->icon) }}" style="width:100px;" class="card-img-top mx-auto" alt="...">
                                             <div class="card-body">
                                             <span style="font-family: Open Sans;
@@ -127,7 +143,7 @@
                                                         top: 839.900390625px;
                                                         border-radius: nullpx;">{{$value->name}}</span>
                                             </div>
-                                        </a>
+                                        </a> --}}
                                     </div>
                                 </div>
                             @endforeach

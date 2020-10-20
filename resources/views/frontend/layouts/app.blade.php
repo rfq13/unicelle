@@ -212,9 +212,8 @@
         height: 110px;
         width: 110px;
         border-radius: 50%;
-        border: 1px solid #E0E0E0;
+        border: 2px solid gray;
         cursor:pointer;
-
     }
     .icon{
         height: 70%;
@@ -229,6 +228,23 @@
         font-size: 24px;
         cursor:pointer;
         color: #000000;
+    }
+
+    .ft-icon{
+        font-family: 'Open Sans';
+        margin-top: 14.5px;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 27px;
+        letter-spacing: 0em;
+        text-align: center;
+        color: #212121;
+        height: 26.095947265625px;
+        width: 100px;
+        left: 245px;
+        top: 839.900390625px;
+        border-radius: nullpx;
     }
 
     /*END*/
