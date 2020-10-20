@@ -258,6 +258,14 @@
     border: 2px solid gray;
     cursor:pointer;
 }
+
+.bt-slide{
+    color: #3BB6B1;
+    font-size: 50px;
+    background-color:white;
+    border: none;
+
+}
 /*carousel Menu*/
     /*END*/
 

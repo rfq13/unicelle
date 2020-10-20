@@ -101,41 +101,40 @@
 
             ">Kategori Obat</h2>
             {{-- Batas carousel --}}
-            <div class="row">
-                <div class="col-2">
-                    <button class="p-3" onclick="plusDivs(-1)">&#10094;</button>
+            <div class="row mb-5">
+                <div class="col-2 my-auto">
+                    <button class="p-3 bt-slide " onclick="plusDivs(-1)"><i class="fa fa-angle-left" ></i></button>
                 </div>
                 <div class="col">
                     <div class="mySlides">
                         <div class="row">
-                            <div class="container ">
-                                <div class="row" style="margin-bottom: 160px;">
-                                    @php
-                                        $category = \App\Category::orderBy('created_at', 'desc')->get();
-                                    @endphp
-                                    @foreach ($category as $key => $value)
-                                        <div class="col-md-2">
-                                            <div class="my-2">
-                                                <a href="{{route('products.category',$value->slug)}}">
-                                                    <div class="text-center">
-                                                        <div class="margin-auto">
-                                                            <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
-                                                                <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
-                                                            </div>
-                                                        </div>
-                                                        <span class="ft-icon px-2">{{$value->name}}</span>
+                            @php
+                            $category = \App\Category::orderBy('created_at', 'desc')->get();
+                            @endphp
+                            @foreach ($category as $key => $value)
+                                <div class="col-md-2 mx-3">
+                                    <div class="my-2">
+                                        <a href="{{route('products.category',$value->slug)}}">
+                                            <div class="text-center">
+                                                <div class="margin-auto">
+                                                    <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
+                                                        <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
                                                     </div>
-                                                </a>
+                                                </div>
+                                                <span class="ft-icon px-2">{{$value->name}}</span>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        </a>
+                                    </div>
                                 </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
+                    <div class="mySlides">
+                        <img class="" src="assets/images/bg-login.jpg" style="width:100%">
+                    </div>
                 </div>
-                <div class="col-2">
-                    <button class="p-3" onclick="plusDivs(1)">&#10095;</button>
+                <div class="col-2 my-auto">
+                    <button class="p-3 bt-slide" onclick="plusDivs(1)"><i class="fa fa-angle-right"></i></button>
                 </div>
             </div>
                 {{-- Batas carousel --}}       

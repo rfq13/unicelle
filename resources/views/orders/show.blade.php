@@ -296,7 +296,7 @@
 				<span class="mt-2">pada: <cite>{{ $tglTerima }}</cite></span>
 			@endisset
 
-			@if($rajaongkir->status->code == 400)
+			@if($order->resi != null && $rajaongkir->status->code == 400)
 				<span>{{ $rajaongkir->status->description }}</span>
 			@endif
 			<table class="table table-striped">
