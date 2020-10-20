@@ -100,9 +100,9 @@
             margin-top:50px
 
             ">Kategori Obat</h2>
-            {{-- Batas carousel --}}
-            <div class="row mb-5">
-                <div class="col-2 my-auto">
+            {{-- Slider --}}
+            <div class="row" style="margin-bottom: 150px;">
+                <div class="col-1 my-auto">
                     <button class="p-3 bt-slide " onclick="plusDivs(-1)"><i class="fa fa-angle-left" ></i></button>
                 </div>
                 <div class="col">
@@ -129,15 +129,12 @@
                             @endforeach
                         </div>
                     </div>
-                    <div class="mySlides">
-                        <img class="" src="assets/images/bg-login.jpg" style="width:100%">
-                    </div>
                 </div>
-                <div class="col-2 my-auto">
+                <div class="col-1 my-auto">
                     <button class="p-3 bt-slide" onclick="plusDivs(1)"><i class="fa fa-angle-right"></i></button>
                 </div>
             </div>
-                {{-- Batas carousel --}}       
+                {{-- END SLIDER --}}       
                 <div class="mb-4">
                     {{-- <div class="container ">
                         <div class="row" style="margin-bottom: 160px;">

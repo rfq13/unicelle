@@ -62,7 +62,7 @@
 				</div>  
 				<div class="col-lg-3">
 					<div class="row" style="margin-top: 6px;{{ isset($order->resi) ? '' : 'font-style:italic' }}" id="row-resi">
-						<span id="span-resi" style="color: #{{ isset($order->resi) ? '3b78e2' : '717171' }}">{{ isset($order->resi) ? $order->resi : "resi pengiriman masih kosong" }}</span>
+						<a data-toggle="modal" data-target="#modalResi" id="span-resi" style="color: #{{ isset($order->resi) ? '3b78e2' : '717171' }}">{{ isset($order->resi) ? $order->resi : "resi pengiriman masih kosong" }}</a>
 					</div>
                 </div>
             </div>
