@@ -17,7 +17,7 @@
 				}
 			}
 		}
-		dd($rajaongkir);
+		// dd($rajaongkir);
 	}
 @endphp
 @extends('layouts.app')
@@ -295,6 +295,10 @@
 				<span class="my-3" style="margin-top: 5px">telah diterima oleh: <strong>{{ $penerima }}</strong></span><br>
 				<span class="mt-2">pada: <cite>{{ $tglTerima }}</cite></span>
 			@endisset
+
+			@if($rajaongkir->status->code == 400)
+				<span>{{ $rajaongkir->status->description }}</span>
+			@endif
 			<table class="table table-striped">
 				<thead>
 				  <tr>

@@ -107,7 +107,7 @@
                 </div>
                 <div class="col">
                     <div class="mySlides">
-                        <div class="mb-4">
+                        <div class="row">
                             <div class="container ">
                                 <div class="row" style="margin-bottom: 160px;">
                                     @php
@@ -131,28 +131,16 @@
                                     @endforeach
                                 </div>
                             </div>
-                    </div>
-                    <div class="mySlides">
-                        <div class="row">
-                            <div class="menu-icon">
-                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
-                            </div>
-                            <div class="menu-icon">
-                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
-                            </div>
-                            <div class="menu-icon">
-                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
-                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-2">
-                    <button class="ml-auto" onclick="plusDivs(1)">&#10095;</button>
+                    <button class="p-3" onclick="plusDivs(1)">&#10095;</button>
                 </div>
             </div>
                 {{-- Batas carousel --}}       
                 <div class="mb-4">
-                    <div class="container ">
+                    {{-- <div class="container ">
                         <div class="row" style="margin-bottom: 160px;">
                             @php
                                 $category = \App\Category::orderBy('created_at', 'desc')->get();
@@ -174,7 +162,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
+                    </div> --}}
                             {{-- Lama --}}
                             {{-- <a href="{{route('products.category',$value->slug)}}">
                                     <img src="{{ my_asset($value->icon) }}" style="width:100px;" class="card-img-top mx-auto" alt="...">
