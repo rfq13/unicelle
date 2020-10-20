@@ -215,6 +215,9 @@
         border: 2px solid gray;
         cursor:pointer;
     }
+    .menu-icon:active{
+        border: 2px solid black;
+    }
     .icon{
         height: 70%;
         width: 70%;
