@@ -30,22 +30,22 @@
                         <form action="{{ route('dropshipper') }}" method="get">
                         <div class="row mt-4 mb-4">
                                 <div class="col-3 ml-3">
-                                    <input class="form-date" type="date" id="birthday" name="tgl">
+                                    <input class="form-date" type="date" id="birthday" value="{{ $tgl }}" name="tgl" onchange="filter()">
                                 </div>
                                 <div class="col">
                                     <div class="row">
                                         <label class="mr-2 mt-2">Urutkan</label>
-                                        <select class="form-control" name="sort" style="width:70%">
-                                            <option value="1">Terbaru</option>
-                                            <option value="2">Terlama</option>
-                                            <option value="3">Terbaik</option>
+                                        <select class="form-control" name="sort" onchange="filter()" style="width:70%">
+                                            <option value="1" {{ $sort == '1' ? 'selected':'' }}>Terbaru</option>
+                                            <option value="2" {{ $sort == '2' ? 'selected' : '' }}>Terlama</option>
+                                            <option value="3" {{ $sort == '3' ? 'selected' : '' }}>Terbaik</option>
                                         </select>
                                     </div> 
                                 </div>
                                 <div class="col">
                                     <div class="row">
-                                    <input class="form-control" style="width: 70%;" name="q" type="search" placeholder="Cari Produk" aria-label="Search">
-                                        <div class="btn btn-search ml-2">
+                                    <input class="form-control" style="width: 70%;" value="{{ $q }}" name="q" type="search" placeholder="Cari Produk" aria-label="Search">
+                                        <div class="btn btn-search ml-2" onclick="filter()">
                                             <a href="#" class="nav-box-link">
                                                 <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}"></img>
                                             </a>
@@ -53,14 +53,28 @@
                                     </div>
                                 </div>
                             </div>
+                            <button type="submit" id="btnSubmit" style="display: none"></button>
                         </form>
-                        @if (count($orders) < 1)
-                        <h5 class="text-center py-4" style="color: #d1caca"> anda belum pernah order sebagai dropshipper </h5>
-                        @endif
+                        @php
+                            $msg = "";
+                            $span = "";
+                            if (count($orders) < 1) {
+                                $msg = 'kosong';
+                                if ($tgl != null) {
+                                    $msg .= ", pada tanggal $tgl tidak ada order ";
+                                }
+                                if ($q != null) {
+                                    $msg .= ", hasil pencarian $q tidak ditemukan";
+                                }else {
+                                }
+                            }
+                            $span = "<span class='text-center py-4' style='color: #d1caca'>$msg</span>";
+                        @endphp
+                        {!! $span !!}
                         
                         <!--Card-->
                         @foreach ($orders as $key => $order)
-                            
+                            @if ($order->orderDetails[0]->product != null)
                         <div class="card-body mt-3 px-3 pt-0 mb-2">
                             <div class="card card-pesanan__ ">
                                 <div class="container card-header pb-2 pt-2">
@@ -134,6 +148,9 @@
                                 </div>
                             </div>
                         </div>
+                        @else
+                        {!! $span !!}
+                        @endif
                         
                         @endforeach
                         
@@ -382,6 +399,14 @@
 <script type="text/javascript">
     $('#order_details').on('hidden.bs.modal', function () {
         location.reload();
+    })
+
+    function filter() {
+        $("#btnSubmit").click()
+    }
+
+    $(".btn-search").click(function (e) {
+        e.preventDefault()
     })
 
     function myFunction() {

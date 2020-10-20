@@ -89,7 +89,7 @@
     <script type="text/javascript">
         
         function activation(id) {
-          $.get("{{route('physician.activation','id')}}".replace('id',id), function (dat) {
+          $.get("{{route('physician.activation','upid')}}".replace('upid',id), function (dat) {
             if (dat.stts=="sukses") {
               showAlert("success",`${dat.msg}`)
               $("#btnEdit"+id).text(dat.btn)

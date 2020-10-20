@@ -607,4 +607,52 @@ class OrderController extends Controller
         }
         return 1;
     }
+
+    public function dropshipper(Request $request)
+    {
+        // dd($request->all());
+        
+        $tgl = $request->tgl;
+        $sort = isset($request->sort) ? $request->sort : '0';
+        $q = $request->q;
+        $product = 'orderDetails.product';
+        $orders = \App\Order::with(['orderDetails',$product]);
+        
+        if (isset($q)) {
+            $orders = \App\Order::with(['orderDetails',"orderDetails.product"=> function ($name) use($q){
+                $name->where('name',$q);}
+            ]);  
+        }
+
+
+
+
+        
+        if (isset($tgl)) {
+            $orders = $orders->where('created_at','like',"%$tgl%");
+            // dd($cond);
+        }
+        switch ($sort) {
+            case '1':
+                $orders->orderBy('created_at','desc');
+                break;
+            case '2':
+                $orders->orderBy('created_at');
+                break;
+            case '3':
+                $orders->withCount('orderDetails')->orderBy('order_details_count','desc');
+                break;
+            
+            default:
+                $orders->orderBy('code', 'desc');
+                break;
+        }
+        
+
+        $orders = $orders->where('user_id',Auth::user()->id)->where("dropsiper",'!=',null)->paginate(9);
+        $bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
+        $config =  json_decode( $bank_setting->value);
+        // dd([$orders,Auth::user()->id]);
+        return view('frontend.dropshipper', compact(['orders','bank_setting','config','tgl','sort','q']));
+    }
 }
