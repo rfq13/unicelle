@@ -176,7 +176,7 @@
                                             @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
                                             <div class="jumlah-produk-pesanan mt-3">
                                                 @isset($order->resi)
-                                                    <span>{{ $order->resi }} ock</span>
+                                                    <span>{{ $order->resi }}</span>
                                                 @endisset
                                                 @php
                                                     $norek = $order->payment_type == "cash_on_delivery" ? "" : "No. 40905398604";
@@ -231,6 +231,11 @@
                             </div>
                         @endforeach
                         @endif
+                        <div class="pagination-wrapper py-4">
+                            <ul class="pagination justify-content-end">
+                                {{ $orders->links() }}
+                            </ul>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -268,6 +273,8 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+        $(".page-link").css("backgorund-color","#006064")
+
         $('#order_details').on('hidden.bs.modal', function () {
             location.reload();
         })

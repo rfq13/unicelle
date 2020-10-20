@@ -68,15 +68,15 @@
 				</div>
 			  </div>
 			</div>
-			<a class="carousel-control-prev slider-banner-left" href="#carouselExampleCaptions" role="button" data-slide="prev">
-				<div class=" slider-button-right">
-					<i class="fa fa-angle-left" aria-hidden="true" style="font-size:50px;"></i>
+			<a class="carousel-control-prev slider-banner-left my-auto" href="#carouselExampleCaptions" role="button" data-slide="prev" style="height: 20px;">
+				<div class=" slider-button-right" >
+					<i class="fa fa-angle-left" aria-hidden="true" style="font-size:50px; color:black"></i>
 				</div>
 			  <span class="sr-only">Previous</span>
 			</a>
-			<a class="carousel-control-next slider-banner-right" href="#carouselExampleCaptions" role="button" data-slide="next">
+			<a class="carousel-control-next slider-banner-right  my-auto" href="#carouselExampleCaptions" role="button" data-slide="next">
 			  <div class=" slider-button-right">
-				<i class="fa fa-angle-right" aria-hidden="true" style="font-size:50px; border:"></i>
+				<i class="fa fa-angle-right" aria-hidden="true" style="font-size:50px; color:black"></i>
 			  </div>
 			  <span class="sr-only">Next</span>
 			</a>
@@ -106,19 +106,45 @@
                     <button class="p-3 bt-slide " onclick="plusDivs(-1)"><i class="fa fa-angle-left" ></i></button>
                 </div>
                 <div class="col">
-                    <div class="mySlides">
+                    {{-- Slide 1 (6 Item) lebih dari 6 turun kebawah --}}
+                    <div class="mySlides item slick">
                         <div class="row">
                             @php
                             $category = \App\Category::orderBy('created_at', 'desc')->get();
                             @endphp
                             @foreach ($category as $key => $value)
-                                <div class="col-md-2 mx-3">
+                                <div class="col-md-2">
                                     <div class="my-2">
                                         <a href="{{route('products.category',$value->slug)}}">
                                             <div class="text-center">
                                                 <div class="margin-auto">
                                                     <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
                                                         <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
+                                                    </div>
+                                                </div>
+                                                <span class="ft-icon px-2">{{$value->name}}</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+
+                    {{-- Slide 2 (6 Item) lebih dari 6 turun kebawah --}}
+                    <div class="mySlides item slick">
+                        <div class="row">
+                            @php
+                            $category = \App\Category::orderBy('created_at', 'desc')->get();
+                            @endphp
+                            @foreach ($category as $key => $value)
+                                <div class="col-md-2">
+                                    <div class="my-2">
+                                        <a href="{{route('products.category',$value->slug)}}">
+                                            <div class="text-center">
+                                                <div class="margin-auto">
+                                                    <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
+                                                        <img class="" src="assets/images/bg-login.jpg" style="width:100%">
                                                     </div>
                                                 </div>
                                                 <span class="ft-icon px-2">{{$value->name}}</span>
@@ -850,5 +876,14 @@ function showDivs(n) {
   }
   x[slideIndex-1].style.display = "block";  
 }
+
+$('.variable-width').slick({
+  dots: true,
+  infinite: true,
+  speed: 300,
+  slidesToShow: 1,
+  centerMode: true,
+  variableWidth: true
+});
     </script>
 @endsection

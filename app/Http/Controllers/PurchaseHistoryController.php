@@ -19,7 +19,7 @@ class PurchaseHistoryController extends Controller
     {
         $orders = Order::where('user_id', Auth::user()->id)
         ->whereNull("dropsiper")            
-        ->with(['orderDetails','orderDetails.product'])->orderBy('code', 'desc')->paginate(9);
+        ->with(['orderDetails','orderDetails.product'])->orderBy('code', 'desc')->paginate(5);
         return view('frontend.purchase_history', compact('orders'));
     }
 
