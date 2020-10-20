@@ -17,6 +17,7 @@
 				}
 			}
 		}
+		// dd($rajaongkir);
 	}
 @endphp
 @extends('layouts.app')
@@ -46,6 +47,7 @@
 					<div class="row">
 						<label for="update_delivery_status">{{ translate('Status Order :')}}</label>
 					</div>
+					<input type="hidden" id="status-order" value="{{ $delivery_status }}">
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                         <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
                         <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option>
@@ -303,8 +305,16 @@
 				  </tr>
 				</thead>
 				<tbody>
+					@php
+						$cekStatus = "";
+					@endphp
 					@isset($order->resi)
 						@if ($rajaongkir->status->code == 200)
+						@php
+							if($ship->delivered){
+								$cekStatus = "terkirim";
+							}
+						@endphp
 						@foreach ($manifest as $key => $history)
 							<tr>
 								<td>{{ $key+1 }}</td>
@@ -316,6 +326,7 @@
 						@endif
 					@endisset
 				</tbody>
+				<input type="hidden" id="cek-status" value="{{ $cekStatus }}">
 			  </table>
 		</div>
 		<div class="modal-footer">
@@ -358,25 +369,30 @@
 @section('script')
 	<script type="text/javascript">
 		const statusOrder = $('#update_delivery_status');
-
-	
-		let currentStatus = statusOrder.val()
+		
         statusOrder.on('change', function(){
             var order_id = {{ $order->id }};
-            var status = $('#update_delivery_status').val();
+            var status = $(this).val();
+			let orderStatus = $("#status-order").val()
 
-			if (status == "on_delivery") {
+			if(status == "on_delivery") {
 				if ($("#span-resi").text() == "resi pengiriman masih kosong") {
+					$(this).val(orderStatus)
 					$("#modalResi").modal()
-					statusOrder.val(currentStatus)
-					statusOrder.change()
 					return;
 				}
+				let cekStatus = $("#cek-status").val()
+					if (cekStatus == "terkirim") {
+						$(this).val(orderStatus)
+						showAlert("warning","Barang sudah terkirim, status tidak dapat berubah"); return;
+					}
+			}else{
+				$.post('{{ route('orders.update_delivery_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
+					showAlert('success', 'Delivery status has been updated');
+					$("#status-order").val($('#update_delivery_status').val())
+				});
 			}
 
-            $.post('{{ route('orders.update_delivery_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
-                showAlert('success', 'Delivery status has been updated');
-            });
         });
 
 		$("#form-input-resi").on("submit", function (e) {
@@ -393,9 +409,12 @@
 				success:function(data){
 					if (data == 1) {
 						$("#span-resi").text(data.resi)
-						statusOrder.val("on_delivery")
-						statusOrder.change()
-						location.reload()
+						var order_id = {{ $order->id }};
+						var status = "on_delivery"
+						$.post('{{ route('orders.update_delivery_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
+							showAlert('success', 'Delivery status has been updated');
+							location.reload()
+						});
 					}
 				}
 			})
@@ -404,7 +423,7 @@
         $('#update_payment_status').on('change', function(){
             var order_id = {{ $order->id }};
             var status = $('#update_payment_status').val();
-            $.post('{{ route('orders.update_payment_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
+				$.post('{{ route('orders.update_payment_status') }}', {_token:'{{ @csrf_token() }}',order_id:order_id,status:status}, function(data){
                 showAlert('success', 'Payment status has been updated');
             });
         });

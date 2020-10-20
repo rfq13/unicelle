@@ -99,54 +99,88 @@
             border-radius: undefinedpx;
             margin-top:50px
 
-            ">Kategori Obat</h2>       
+            ">Kategori Obat</h2>
+            {{-- Batas carousel --}}
+            <div class="row">
+                <div class="col-2">
+                    <button class="p-3" onclick="plusDivs(-1)">&#10094;</button>
+                </div>
+                <div class="col">
+                    <div class="mySlides">
+                        <div class="row">
+                            <div class="menu-icon">
+                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
+                            </div>
+                            <div class="menu-icon">
+                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mySlides">
+                        <div class="row">
+                            <div class="menu-icon">
+                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
+                            </div>
+                            <div class="menu-icon">
+                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
+                            </div>
+                            <div class="menu-icon">
+                                <img class="" src="assets/images/bg-login.jpg" style="width:100%">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <button class="ml-auto" onclick="plusDivs(1)">&#10095;</button>
+                </div>
+            </div>
+                {{-- Batas carousel --}}       
                 <div class="mb-4">
                     <div class="container ">
-                        <div class="row gutters-10" style="margin-bottom: 160px;">
+                        <div class="row" style="margin-bottom: 160px;">
                             @php
                                 $category = \App\Category::orderBy('created_at', 'desc')->get();
                             @endphp
                             @foreach ($category as $key => $value)
-
-                                {{-- Batas carousel --}}
-
-                                {{-- Batas carousel --}}
-
-
-                                <div class="col-md-2 mx-3">
-                                    <div style="margin:auto;width: 8rem; margin:5px;">
+                                <div class="col-md-2">
+                                    <div class="my-2">
                                         <a href="{{route('products.category',$value->slug)}}">
-                                            <div class="margin:auto;" style="width: 8rem; margin:10px;">
-                                                <div class="menu-icon d-flex align-items-center" style="text-align:center;">
-                                                    <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
+                                            <div class="text-center">
+                                                <div class="margin-auto">
+                                                    <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
+                                                        <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="card-body">
-                                            <span class="ft-icon">{{$value->name}}</span>
+                                                <span class="ft-icon px-2">{{$value->name}}</span>
                                             </div>
                                         </a>
-                                        {{-- <a href="{{route('products.category',$value->slug)}}">
-                                            <img src="{{ my_asset($value->icon) }}" style="width:100px;" class="card-img-top mx-auto" alt="...">
-                                            <div class="card-body">
-                                            <span style="font-family: Open Sans;
-                                                        margin-top: 14.5px;
-                                                        font-size: 20px;
-                                                        font-style: normal;
-                                                        font-weight: 600;
-                                                        line-height: 27px;
-                                                        letter-spacing: 0em;
-                                                        text-align: center;
-                                                        color: #212121;
-                                                        height: 26.095947265625px;
-                                                        width: 100px;
-                                                        left: 245px;
-                                                        top: 839.900390625px;
-                                                        border-radius: nullpx;">{{$value->name}}</span>
-                                            </div>
-                                        </a> --}}
                                     </div>
                                 </div>
                             @endforeach
+                        </div>
+                    </div>
+                    </
+                            {{-- Lama --}}
+                            {{-- <a href="{{route('products.category',$value->slug)}}">
+                                    <img src="{{ my_asset($value->icon) }}" style="width:100px;" class="card-img-top mx-auto" alt="...">
+                                    <div class="card-body">
+                                    <span style="font-family: Open Sans;
+                                                margin-top: 14.5px;
+                                                font-size: 20px;
+                                                font-style: normal;
+                                                font-weight: 600;
+                                                line-height: 27px;
+                                                letter-spacing: 0em;
+                                                text-align: center;
+                                                color: #212121;
+                                                height: 26.095947265625px;
+                                                width: 100px;
+                                                left: 245px;
+                                                top: 839.900390625px;
+                                                border-radius: nullpx;">{{$value->name}}</span>
+                                    </div>
+                                </a> --}}
+                            {{-- Lama --}}
                             {{-- 
                                 <div class="col-md-2">
                                     <div class="margin:auto;" style="width: 8rem; margin:10px">
@@ -189,121 +223,120 @@
                                     </div>
                                 </div>
                             --}}
-                        </div>
-                    </div>
+              
 
-                <h2 style = "font-size:24px;font-family: Open Sans;
-                font-style: normal;
-                font-weight: 600;
-                line-height: 33px;
-                letter-spacing: 0em;
-                text-align: left;
-                ">Produk Terbaru</h2>
-                {{-- 
-                    <p style="font-family: Open Sans;
-                    font-size: 20px;
+                    <h2 style = "font-size:24px;font-family: Open Sans;
                     font-style: normal;
-                    font-weight: 400;
-                    line-height: 27px;
+                    font-weight: 600;
+                    line-height: 33px;
                     letter-spacing: 0em;
                     text-align: left;
-                    height: 27px;width: 707px;
-                    left: 150px;
-                    top: 1069px;
-                    border-radius: undefinedpx;
-                    ">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p> 
-                --}}
-                    <div class="mb-4">
-                        <div class="container">
+                    ">Produk Terbaru</h2>
+                    {{-- 
+                        <p style="font-family: Open Sans;
+                        font-size: 20px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 27px;
+                        letter-spacing: 0em;
+                        text-align: left;
+                        height: 27px;width: 707px;
+                        left: 150px;
+                        top: 1069px;
+                        border-radius: undefinedpx;
+                        ">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p> 
+                    --}}
+                <div class="mb-4">
+                    <div class="container">
+                        @php
+                            $products = \App\Product::orderBy('created_at','desc')
+                                ->limit(12)
+                                ->get();
+                        @endphp
+                        <div class="row gutters-10">
+                            @foreach ($products as $key => $product)
                             @php
-                                $products = \App\Product::orderBy('created_at','desc')
-                                    ->limit(12)
-                                    ->get();
+                            
+                                $flash_deal = \App\FlashDeal::where('status', 1)->where('start_date' ,'<=', strtotime(date('d-m-Y')))->where('end_date' ,'>=', strtotime(date('d-m-Y')))->first();
+                                $flash_product = isset($flash_deal) ? \App\FlashDealProduct::where('product_id', $product->id)->where('flash_deal_id', $flash_deal->id)->first() : null;
+                                $product_variant=json_decode($product->choice_options);
+                                $qty = 0;
+                                if($product->variant_product){
+                                    foreach ($product->stocks as $key => $stock) {
+                                        $qty += $stock->qty;
+                                    }
+                                }
+                                else{
+                                    $qty = $product->current_stock;
+                                }
                             @endphp
-                            <div class="row gutters-10">
-                                @foreach ($products as $key => $product)
-                                @php
-                                
-                                    $flash_deal = \App\FlashDeal::where('status', 1)->where('start_date' ,'<=', strtotime(date('d-m-Y')))->where('end_date' ,'>=', strtotime(date('d-m-Y')))->first();
-                                    $flash_product = isset($flash_deal) ? \App\FlashDealProduct::where('product_id', $product->id)->where('flash_deal_id', $flash_deal->id)->first() : null;
-                                    $product_variant=json_decode($product->choice_options);
-                                    $qty = 0;
-                                    if($product->variant_product){
-                                        foreach ($product->stocks as $key => $stock) {
-                                            $qty += $stock->qty;
-                                        }
-                                    }
-                                    else{
-                                        $qty = $product->current_stock;
-                                    }
-                                @endphp
-                                    <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-2 col-6">
-                                        <div class="product-box-2 bg-white alt-box my-md-2">
-                                            <div class="position-relative overflow-hidden">
-                                                <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                                    <img class="card-img-top lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
-                                                </a>
-                                                <div class="product-btns clearfix">
-                                                    <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
-                                                        <i class="la la-heart-o"></i>
-                                                    </button>
-                                                    <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" type="button">
-                                                        <i class="la la-refresh"></i>
-                                                    </button>
-                                                    <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" type="button">
-                                                        <i class="la la-eye"></i>
-                                                    </button>
-                                                </div>
+                                <div class="col-xxl-3 col-xl-2 col-lg-3 col-md-2 col-6">
+                                    <div class="product-box-2 bg-white alt-box my-md-2">
+                                        <div class="position-relative overflow-hidden">
+                                            <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
+                                                <img class="card-img-top lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
+                                            </a>
+                                            <div class="product-btns clearfix">
+                                                <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
+                                                    <i class="la la-heart-o"></i>
+                                                </button>
+                                                <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" type="button">
+                                                    <i class="la la-refresh"></i>
+                                                </button>
+                                                <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" type="button">
+                                                    <i class="la la-eye"></i>
+                                                </button>
                                             </div>
-                                            <div class="p-md-3 p-2">
-                                                <div class="price-box">
-                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                    @endif
-                                                        <span class="product-price strong-600">{{ home_discounted_price($product->id) }} </span>
-                                                    @if(home_price($product->id) != home_discounted_price($product->id))
-                                                        @if($flash_product)
-                                                            @if($flash_product->discount_type == 'percent')
-                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">{{ __($flash_product->discount) }}%</p>
-                                                            @elseif($flash_product->discount_type == 'amount')
-                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">Potongan Rp {{ __($flash_product->discount) }}</p>
-                                                            @endif
-                                                        @else
-                                                            @if($product->discount_type == 'percent')
-                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">{{ __($product->discount) }}%</p>
-                                                            @elseif($product->discount_type == 'amount')
-                                                                <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">Potongan Rp {{ __($product->discount) }}</p>
-                                                            @endif
+                                        </div>
+                                        <div class="p-md-3 p-2">
+                                            <div class="price-box">
+                                                @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                    <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                @endif
+                                                    <span class="product-price strong-600">{{ home_discounted_price($product->id) }} </span>
+                                                @if(home_price($product->id) != home_discounted_price($product->id))
+                                                    @if($flash_product)
+                                                        @if($flash_product->discount_type == 'percent')
+                                                            <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">{{ __($flash_product->discount) }}%</p>
+                                                        @elseif($flash_product->discount_type == 'amount')
+                                                            <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">Potongan Rp {{ __($flash_product->discount) }}</p>
                                                         @endif
                                                     @else
-                                                        <p class="d-none"></p>
+                                                        @if($product->discount_type == 'percent')
+                                                            <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">{{ __($product->discount) }}%</p>
+                                                        @elseif($product->discount_type == 'amount')
+                                                            <p class="mb-0 py-2 px-4" style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">Potongan Rp {{ __($product->discount) }}</p>
+                                                        @endif
                                                     @endif
-                                                </div>
-                                                <div class="star-rating star-rating-sm mt-1">
-                                                    {{ renderStarRating($product->rating) }}
-                                                </div>
-                                                <h2 class="product-title p-0">
-                                                    <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{  __($product->name) }}</a>
-                                                </h2>
-                                                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
-                                                    <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
-                                                        {{  translate('Point') }}:
-                                                        <span class="strong-700 float-right">{{ $product->earn_point }}</span>
-                                                    </div>
+                                                @else
+                                                    <p class="d-none"></p>
                                                 @endif
                                             </div>
-                                            @if ($product->variant_product >0)                                                
-                                            <a class="btn btn-default" onclick="showAddToCartModal({{ $product->id }})" style="width: 100%">Tambah</a>
-                                            @else
-                                            <a class="btn btn-default" onclick="addToCart({{ $product->id }})" style="width: 100%">Tambah</a>
+                                            <div class="star-rating star-rating-sm mt-1">
+                                                {{ renderStarRating($product->rating) }}
+                                            </div>
+                                            <h2 class="product-title p-0">
+                                                <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{  __($product->name) }}</a>
+                                            </h2>
+                                            @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
+                                                <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
+                                                    {{  translate('Point') }}:
+                                                    <span class="strong-700 float-right">{{ $product->earn_point }}</span>
+                                                </div>
                                             @endif
                                         </div>
+                                        @if ($product->variant_product >0)                                                
+                                        <a class="btn btn-default" onclick="showAddToCartModal({{ $product->id }})" style="width: 100%">Tambah</a>
+                                        @else
+                                        <a class="btn btn-default" onclick="addToCart({{ $product->id }})" style="width: 100%">Tambah</a>
+                                        @endif
                                     </div>
-                                @endforeach
-                            </div>
-                        <div class="width:10px" style="text-align:center">
-                            <a href="{{ route('products') }}" class="btn mt-5" style="background:#3BB6B1; color:#fff; width:20%;">Selengkapnya</a>
+                                </div>
+                            @endforeach
                         </div>
+                    <div class="width:10px" style="text-align:center">
+                        <a href="{{ route('products') }}" class="btn mt-5" style="background:#3BB6B1; color:#fff; width:20%;">Selengkapnya</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -798,5 +831,25 @@
                 if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
             }
         });
+    </script>
+
+<script>
+    var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  x[slideIndex-1].style.display = "block";  
+}
     </script>
 @endsection

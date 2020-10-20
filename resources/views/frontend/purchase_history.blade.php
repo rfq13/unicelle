@@ -175,6 +175,9 @@
                                             </p>
                                             @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
                                             <div class="jumlah-produk-pesanan mt-3">
+                                                @isset($order->resi)
+                                                    <span>{{ $order->resi }} ock</span>
+                                                @endisset
                                                 @php
                                                     $norek = $order->payment_type == "cash_on_delivery" ? "" : "No. 40905398604";
                                                 @endphp

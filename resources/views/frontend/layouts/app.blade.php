@@ -249,7 +249,16 @@
         top: 839.900390625px;
         border-radius: nullpx;
     }
-
+/*carousel Menu*/
+.mySlides{display:none;}
+.menu-icon{
+    height: 110px;
+    width: 110px;
+    border-radius: 50%;
+    border: 2px solid gray;
+    cursor:pointer;
+}
+/*carousel Menu*/
     /*END*/
 
 
