@@ -3,7 +3,7 @@
 <section class="mb-5"></section>
 <div class="container">
             <div class="row">
-                <div class="head-text-syarat-ketentuan">
+                <div class="head-text-syarat-ketentuan mx-auto">
                     <span class="syarat__">Artikel / Blog</span>
                     <div>
                         <img class="img__ img-fluid" src="{{my_asset('/images/img/bg-artikel-blog.jpg')}}" alt="">
@@ -41,46 +41,31 @@
                     </div>
                     
                                       
-                    <div class="row mb-5">
-                        <div class="card-artikel mr-4 ml-2">
-                            <img style="width: 100%; border-radius: 15px 15px 0 0" src="{{my_asset('/images/img/img-artikel.jpg')}}" alt="">
-                            <div class="mx-2 mt-2">
-                                <span class="judul-blog__">Tes untuk Mendeteksi Syok Hipovolemik</span>
+                    <div class="row mb-5 mx-auto">
+                        {{-- @for ($i = 0; $i < 4; $i++)
+                            <div class="card card-artikel col-md-3 my-3 mx-0">
+                                <img class="card-img-top"  src="{{my_asset('/images/img/img-artikel.jpg')}}" alt="">
+                                <div class="mx-2 mt-2">
+                                    <span class="judul-blog__">Tes untuk Mendeteksi Syok Hipovolemik</span>
+                                </div>
+                                <div class="m-2">
+                                    <span class="caption-blog__">5 Causes of Fatigu5 Causes of Fatigue when Wake Up 5 Causes of
+                                        Fatigue when Wake Up 5 Causes of Fatigue when Wake Up</span>
+                                </div>
                             </div>
-                            <div class="m-2">
-                                <span class="caption-blog__">5 Causes of Fatigu5 Causes of Fatigue when Wake Up 5 Causes of
-                                    Fatigue when Wake Up 5 Causes of Fatigue when Wake Up</span>
+                            <div class="col-md-3">
+                                <div class="card card-artikel" style="border-radius: 7%">
+                                    <img class="card-img-top" src="{{my_asset('/images/img/img-artikel.jpg')}}" alt="Card image cap">
+                                    <div class="card-body">
+                                      <h5 class="card-title">Tes untuk Mendeteksi Syok Hipovolemik</h5>
+                                      <p class="card-text">5 Causes of Fatigu5 Causes of Fatigue when Wake Up 5 Causes of
+                                        Fatigue when Wake Up 5 Causes of Fatigue when Wake Up</p>
+                                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card-artikel mr-4">
-                            <img style="width: 100%; border-radius: 15px 15px 0 0" src="{{my_asset('/images/img/img-artikel.jpg')}}" alt="">
-                            <div class="mx-2 mt-2">
-                                <span class="judul-blog__">Tes untuk Mendeteksi Syok Hipovolemik</span>
-                            </div>
-                            <div class="m-2">
-                                <span class="caption-blog__">5 Causes of Fatigu5 Causes of Fatigue when Wake Up 5 Causes of
-                                    Fatigue when Wake Up 5 Causes of Fatigue when Wake Up</span>
-                            </div>
-                        </div>
-                        <div class="card-artikel mr-4">
-                            <img style="width: 100%; border-radius: 15px 15px 0 0" src="{{my_asset('/images/img/img-artikel.jpg')}}" alt="">
-                            <div class="mx-2 mt-2">
-                                <span class="judul-blog__">Tes untuk Mendeteksi Syok Hipovolemik</span>
-                            </div>
-                            <div class="m-2">
-                                <span class="caption-blog__">5 Causes of Fatigu5 Causes of Fatigue when Wake Up 5 Causes of
-                                    Fatigue when Wake Up 5 Causes of Fatigue when Wake Up</span>
-                            </div>
-                        </div>    <div class="card-artikel">
-                            <img style="width: 100%; border-radius: 15px 15px 0 0" src="{{my_asset('/images/img/img-artikel.jpg')}}" alt="">
-                            <div class="mx-2 mt-2">
-                                <span class="judul-blog__">Tes untuk Mendeteksi Syok Hipovolemik</span>
-                            </div>
-                            <div class="m-2">
-                                <span class="caption-blog__">5 Causes of Fatigu5 Causes of Fatigue when Wake Up 5 Causes of
-                                    Fatigue when Wake Up 5 Causes of Fatigue when Wake Up</span>
-                            </div>
-                        </div>
+                        @endfor --}}
+                        @include('article.inc.blogs')
                     </div>
                     <div class="col-12" >
                         <button class="btn btn-selanjutnya">Selanjutnya</button>

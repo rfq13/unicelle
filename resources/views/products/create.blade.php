@@ -109,7 +109,7 @@
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Gallery Images')}} </label>
+						<label class="col-lg-2 control-label">{{translate('Gallery Images')}} <br> <small>(160x200)</small></label>
 						<div class="col-lg-7">
 							<div id="photos">
 
@@ -117,7 +117,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Thumbnail Image')}} <small>(290x300)</small></label>
+						<label class="col-lg-2 control-label">{{translate('Thumbnail Image')}} <small>(160x200)</small></label>
 						<div class="col-lg-7">
 							<div id="thumbnail_img">
 

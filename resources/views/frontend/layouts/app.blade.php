@@ -347,13 +347,13 @@
         font-size: 14px;
         color: #000000;
     }
-    .card-artikel{
+    /* .card-artikel{
         box-shadow: 0 2px 5px 1px rgba(0,0,0,0.2);
         transition: 0.3s;
         pointer-events: painted;
         border-radius: 15px 15px 0px 0px;
         cursor:pointer;
-    }
+    } */
     .card-artikel:hover {
         box-shadow: 0px 0px 18px 0 rgba(0,0,0,0.2);
     }

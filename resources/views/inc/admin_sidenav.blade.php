@@ -669,6 +669,25 @@
                             </ul>
                         </li>
                         @endif
+                        @if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
+                            <li>
+                                <a href="#">
+                                    <i class="fa fa-book"></i>
+                                    <span class="menu-title">{{translate('Blog')}}</span>
+                                    <i class="arrow"></i>
+                                </a>
+
+                                <!--Submenu-->
+                                <ul class="collapse">
+                                    <li class="{{ areActiveRoutes(['blog.index', 'blog.create', 'blog.edit'])}}">
+                                        <a class="nav-link" href="{{route('blog.index')}}">{{translate('Daftar Blog')}}</a>
+                                    </li>
+                                    <li class="{{ areActiveRoutes(['blog.ctg', 'blog.create-ctg', 'blog.edit-ctg'])}}">
+                                        <a class="nav-link" href="{{route('blog.ctg')}}">{{translate('Kategori')}}</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        @endif
                         {{-- @if(Auth::user()->user_type == 'admin' || in_array('15', json_decode(Auth::user()->staff->role->permissions)))
                             <li class="{{ areActiveRoutes(['addons.index', 'addons.create'])}}">
                                 <a class="nav-link" href="{{ route('addons.index') }}">

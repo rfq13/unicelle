@@ -137,6 +137,15 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::resource('staffs', 'StaffController');
 	Route::get('/staffs/destroy/{id}', 'StaffController@destroy')->name('staffs.destroy');
 
+	Route::resource('blog','blogController');
+	Route::get('kategori-blog','blogController@kategori_blog')->name('blog.ctg');
+	Route::get('edit-kategori-blog','blogController@edit_kategori_blog')->name('blog.edit-ctg');
+	Route::get('create-kategori-blog','blogController@create_kategori_blog')->name('blog.create-ctg');
+	Route::get('store-kategori-blog','blogController@create_kategori_blog')->name('blog.store-ctg');
+	Route::post('/uploadajax', 'BlogController@upload_ajx')->name('admin.imgUpload.ajax');
+	Route::post('/removeajax', 'BlogController@remove_ajx')->name('admin.deleteImg.ajax');
+
+
 	Route::resource('flash_deals', 'FlashDealController');
 	Route::get('/flash_deals/destroy/{id}', 'FlashDealController@destroy')->name('flash_deals.destroy');
 	Route::post('/flash_deals/update_status', 'FlashDealController@update_status')->name('flash_deals.update_status');
