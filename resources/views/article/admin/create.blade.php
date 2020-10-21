@@ -2,23 +2,39 @@
     // dd($content);
 @endphp
 @extends('layouts.app')
-
 @section('content')
-
+@php
+    $categories = \App\CategoryBlog::all();
+@endphp
     <div class="col-md">
         <div class="panel">
             <!--Panel heading-->
             <div class="panel-heading">
                 <h3 class="panel-title">{{ translate("$operasi Blog") }}</h3>
             </div>
-
             <!--Panel body-->
             <div class="panel-body">
-                <form>
+                <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">{{ translate('Tampilkan Blog ?') }}</label><br>
+                      <label class="switch">
+                        <input type="checkbox" name="visible" value="1">
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
                     <div class="form-group">
                       <label for="exampleFormControlInput1">{{ translate('Judul') }}</label>
                       <input type="text" class="form-control" id="judul-blog" name="title" placeholder="judul blog">
+                    </div>
+                    <div class="form-group">
+                        <label for="Category">{{__('Kategori')}}</label>
+                            <select name="category" class="form-control">
+                                <option selected disabled>Category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                @endforeach
+                            </select>
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlInput1">{{ translate('Thumbnail') }}</label>
@@ -28,6 +44,7 @@
                       <label for="konten-blog">Konten Blog / Artikel</label>
                       <textarea name="content" id="konten-blog" cols="30" rows="10"></textarea>
                     </div>
+                    <button type="submit">simpan</button>
                   </form>
             </div>
         </div>

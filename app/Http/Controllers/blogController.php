@@ -41,13 +41,15 @@ class blogController extends Controller
     public function store(Request $request)
     {
         $blog = new Blog;
+        $reqArray = $request->all();
         $blog->category_id = $request->category;
-        $blog->visible = $request->visible;
+        $blog->visible = array_key_exists('visible',$reqArray)? (int)$request->visible : 0;
         $blog->title = $request->title;
         $blog->content = $request->content;
+        $blog->thumbnail = $this->upload_image($request);
         $blog->save();
         flash("berhasil menambah blog")->success();
-        return back();
+        return redirect(route('blog.index'));
     }
 
     /**
@@ -110,14 +112,11 @@ class blogController extends Controller
      */
     public function destroy($id)
     {
+        $id = decrypt($id);
         $blog = Blog::findOrFail($id);
-        if ($blog != null) {
-            $blog->destroy;
-            flash("Berhasil menghapus blog")->success();
-            return back();
-        }
-        flash("Blog tidak ditemukan")->danger();
-        return back();
+        $blog->delete();
+        flash("Berhasil menghapus blog")->success();
+        return redirect(route('blog.index'));
     }
 
     public function kategori_blog(Type $var = null)
@@ -135,23 +134,23 @@ class blogController extends Controller
         # code...
     }
 
-    public function add_ctg(Request $request)
+    public function store_kategori_blog(Request $request)
     {
-        $icon = "placeholder-rect.jpg";
-        if ($request->hasFile('icon')) {
-            $image = $request->file('icon');
-            $new_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('blog/icon-category'), $new_name);
-            $icon = $new_name;
-        }
-        $data = [
-            "title" => $request->title,
-            "icon" => $icon
-        ];
-        $ctg = \App\CategoryBlog::insert($data);
+        // $icon = "placeholder-rect.jpg";
+        // if ($request->hasFile('icon')) {
+        //     $image = $request->file('icon');
+        //     $new_name = rand() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('blog/icon-category'), $new_name);
+        //     $icon = $new_name;
+        // }
+        // $data = [
+        //     "title" => $request->title,
+        //     "icon" => $icon
+        // ];
+        $ctg = \App\CategoryBlog::insert(['name'=>$request->name]);
         if ($ctg) {
             flash("berhasil menambah kategori blog")->success();
-            return "success";
+            return back();
         }
     }
 
@@ -210,5 +209,27 @@ class blogController extends Controller
         if(unlink($src)){
             return response()->json('oke');
         }
+    }
+
+    public function upload_image(Request $request)
+    {
+        $file = '';
+        if ($request->hasFile('thumbnail')) {
+            $file = $request->thumbnail;
+            $name   = $file->getClientOriginalName();
+            if($file->move(\base_path() ."/public/images/blog/thumbnail", $name)){
+                ImageOptimizer::optimize(base_path('public/images/blog/thumbnail/').$name);
+                return "images/blog/thumbnail/$name";
+            }
+            return 'images/placeholder.jpg';
+        }
+    }
+
+    public function update_visibility(Request $request,$id)
+    {
+        $blog = Blog::findOrFail($id);
+        $blog->visible = $request->visible;
+        $blog->save();
+        return "success";
     }
 }

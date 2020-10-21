@@ -45,6 +45,7 @@
                                 <th>{{ translate('Judul') }}</th>
                                 <th>{{ translate('Thumbnail') }}</th>
                                 <th>{{ translate('Dilihat') }}</th>
+                                <th>{{ translate('Tampil') }}</th>
                                 <th>{{ translate('Aksi') }}</th>
                             </tr>
                         </thead>
@@ -52,8 +53,16 @@
                             @foreach ($blogs as $key => $blog)
                                 <tr>
                                     <td>{{ $blog->title }}</td>
-                                    <td>{{ $blog->thumbnail }}</td>
+                                    <td><img src="{{ my_asset($blog->thumbnail) }}" width="10%" alt="" srcset=""></td>
                                     <td>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label class="switch">
+                                              <input type="checkbox" id="visible" data-id="{{ $blog->id }}" name="visible" value="1" {{ $blog->visible == 1 ? "checked" : "" }}>
+                                              <span class="slider round"></span>
+                                            </label>
+                                          </div>
                                     </td>
                                     <td>
                                         <div class="btn-group dropdown">
@@ -61,8 +70,8 @@
                                                 {{translate('Aksi')}} <i class="dropdown-caret"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{route('blog.edit', encrypt($product->id))}}">{{translate('Edit')}}</a></li>
-                                                <li><a onclick="confirm_modal('{{route('blog.destroy', $product->id)}}');">{{translate('Hapus')}}</a></li>
+                                                <li><a href="{{route('blog.edit', encrypt($blog->id))}}">{{translate('Edit')}}</a></li>
+                                                <li><a onclick="confirm_modal('{{route('blog.destroy', encrypt($blog->id))}}');">{{translate('Hapus')}}</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -75,4 +84,24 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function () {
+            $(".panel-body #visible").change(function () {
+                let id = $(this).data('id')
+                let value = $(this).is(':checked') ? 1 : 0;
+                let data = {
+                    _token: "{{ csrf_token() }}",
+                    visible: value
+                }
+                $.post("{{ route('blog.update-visib','vsb') }}".replace('vsb',id),data,function (data) {
+                    if (data == "success") {
+                        showAlert('success','berhasil update data')
+                    }
+                })
+            })
+        })
+    </script>
 @endsection
