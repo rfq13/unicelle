@@ -53,17 +53,17 @@
 			</ol>
 			<div class="carousel-inner img-banner">
 			  <div class="carousel-item active">
-				<img src="{{ my_asset('images\fix1\img_banner\banner1.jpg') }}" class="d-block w-100" alt="...">
+				<img src="{{ my_asset('images\fix1\img_banner\banner6.png') }}" class=" h-100 w-100 img-thumbnail" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>
 			  <div class="carousel-item img-banner">
-				<img src="{{ my_asset('images\fix1\img_banner\banner2.jpg') }}" class="d-block w-100" alt="...">
+				<img src="{{ my_asset('images\fix1\img_banner\banner2.jpg') }}" class="h-100 w-100 img-thumbnail" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>
 			  <div class="carousel-item img-banner">
-				<img src="{{ my_asset('images\fix1\img_banner\banner3.jpg') }}" class="d-block w-100" alt="...">
+				<img src="{{ my_asset('images\fix1\img_banner\banner4.jpg') }}" class="h-100 w-100 img-thumbnail" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>
@@ -297,9 +297,9 @@
                             @endphp
                                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-2 col-6">
                                     <div class="product-box-2 bg-white alt-box my-md-2">
-                                        <div class="position-relative overflow-hidden p-3">
+                                        <div class="position-relative overflow-hidden  py-1" style="padding-right: 80px; padding-left: 80px">
                                             <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                                <img class="card-img-top lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
+                                                <img class=" card-img-top lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
                                             </a>
                                             {{-- <div class="product-btns clearfix">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
