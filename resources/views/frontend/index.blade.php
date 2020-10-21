@@ -58,7 +58,7 @@
 				</div>
 			  </div>
 			  <div class="carousel-item img-banner">
-				<img src="{{ my_asset('images\fix1\img_banner\banner2.jpg') }}" class="h-100 w-100 img-thumbnail" alt="...">
+				<img src="{{ my_asset('images\fix1\img_banner\banner7.jpg') }}" class="h-100 w-100 img-thumbnail" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>
