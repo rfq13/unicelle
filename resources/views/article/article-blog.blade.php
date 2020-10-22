@@ -9,7 +9,7 @@
                         @php
                             $banner = \App\Banner::where("url","#blog")->first();
                         @endphp
-                        <img class="img__ img-fluid" src="{{my_asset($banner->photo)}}" alt="">
+                        <img class="img__ img-fluid" src="{{isset($banner) ? my_asset($banner->photo) : my_asset('images/placeholder.jpg')}}" alt="">
                     </div>
                 </div>
 
