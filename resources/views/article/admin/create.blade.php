@@ -6,43 +6,54 @@
 @php
     $categories = \App\CategoryBlog::all();
 @endphp
-    <div class="col-md">
+    <div class="col-md" onload="LoadValue()">
         <div class="panel">
             <!--Panel heading-->
             <div class="panel-heading">
+                <a href="{{ route('blog.index') }}" style="float:right;margin:2%"><i class="fa fa-long-arrow-left" aria-hidden="true"></i>Kembali</a>
                 <h3 class="panel-title">{{ translate("$operasi Blog") }}</h3>
             </div>
             <!--Panel body-->
             <div class="panel-body">
-                <form action="{{ route('blog.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ $url }}" method="POST" enctype="multipart/form-data">
+                    @if ($method == "update")
+                        @method('put')
+                    @endif
                     @csrf
                     <div class="form-group">
                       <label for="exampleFormControlInput1">{{ translate('Tampilkan Blog ?') }}</label><br>
                       <label class="switch">
-                        <input type="checkbox" name="visible" value="1">
+                        <input type="checkbox" name="visible" value="1" {{ $method == "create"? "" : $blog->visible == 1 ? "checked" : "" }}/>
                         <span class="slider round"></span>
                       </label>
                     </div>
                     <div class="form-group">
                       <label for="exampleFormControlInput1">{{ translate('Judul') }}</label>
-                      <input type="text" class="form-control" id="judul-blog" name="title" placeholder="judul blog">
+                      <input type="text" class="form-control" id="judul-blog" name="title" placeholder="judul blog" value="{{ $method == "create"? "" : $blog->title }}">
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleFormControlInput1">{{ translate('sub Judul') }}</label>
+                      <input type="text" class="form-control" id="subjudul-blog" name="subtitle" placeholder="subjudul blog" value="{{ $method == "create"? "" : $blog->subtitle }}">
                     </div>
                     <div class="form-group">
                         <label for="Category">{{__('Kategori')}}</label>
                             <select name="category" class="form-control">
                                 <option selected disabled>Category</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                    <option value="{{$category->id}}" {{ $method == "create"? "" : $blog->category_id == $category->id ? "selected" : "" }}>{{$category->name}}</option>
                                 @endforeach
                             </select>
                     </div>
                     <div class="form-group">
-                      <label for="exampleFormControlInput1">{{ translate('Thumbnail') }}</label>
-                      <input type="file" name="thumbnail" id="thumbnail" class="dropify" data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" required>
+                      <label for="exampleFormControlInput1">{{ translate('Thumbnail') }} <cite style="color: #5D5E62;font-size:12px">*pastikan gambar berukuran (255 x 130 pixel)</cite></label>
+                      <input type="file" name="thumbnail" id="thumbnail" class="dropify" data-default-file="{{ $method == "create"? "" : my_asset($blog->thumbnail) }}" data-min-width="254" data-max-width="256" data-min-hight="129" data-max-width="131"   data-max-file-size="3M" data-allowed-file-extensions="jpg png jpeg" {{ $method == "create"? "required" : "" }}>
+                      @if ($method == "update")
+                        <input type="hidden" name="oldThumb" value="{{ $blog->thumbnail }}">
+                      @endif
                     </div>
                     <div class="form-group">
                       <label for="konten-blog">Konten Blog / Artikel</label>
-                      <textarea name="content" id="konten-blog" cols="30" rows="10"></textarea>
+                      <textarea name="content" id="konten-blog" cols="30" rows="10">{{ $method == "create"? "" : $blog->content }}</textarea>
                     </div>
                     <button type="submit">simpan</button>
                   </form>
@@ -52,10 +63,8 @@
 
 @endsection
 @section('script')
-<link href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
                 $('#konten-blog').summernote({

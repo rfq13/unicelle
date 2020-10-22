@@ -59,6 +59,9 @@
     <!--Custom Stylesheet [ REQUIRED ]-->
     <link href="{{ my_asset('css/custom.css')}}" rel="stylesheet">
 
+    <!-- dropify -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" rel="stylesheet">
+
 
     <!--JAVASCRIPT-->
     <!--=================================================-->
@@ -120,6 +123,9 @@
 
     <!--Custom JavaScript [ REQUIRED ]-->
     <script src="{{ my_asset('js/custom.js')}}"></script>
+
+    <!-- dropify -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js"></script>
 
     <script type="text/javascript">
 

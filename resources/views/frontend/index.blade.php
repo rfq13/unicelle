@@ -44,29 +44,34 @@
         </a>
     </div> --}}
 
-    <div class="container mt-5">
+    <div class="container mt-3">
 		<div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
 			<ol class="carousel-indicators ">
-			  <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active " style="border-radius: 50%; height: 20px; width: 20px;"></li>
-			  <li data-target="#carouselExampleCaptions" data-slide-to="1" style="border-radius: 50%; height: 20px; width: 20px;"></li>
-			  <li data-target="#carouselExampleCaptions" data-slide-to="2" style="border-radius: 50%; height: 20px; width: 20px;"></li>
+			  <li data-target="#carouselExampleCaptions" data-slide-to="0"></li>
+			  <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+			  <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
 			</ol>
-			<div class="carousel-inner img-banner">
-			  <div class="carousel-item active">
-				<img src="{{ my_asset('images\fix1\img_banner\banner6.png') }}" class=" h-100 w-100 img-thumbnail" alt="...">
+			<div class="carousel-inner img-banner h-100">
+                @php
+                    $banners = \App\Banner::where(["published"=>1,'position'=>1])->get();
+                @endphp
+                @foreach ($banners as $keybanner => $banner)
+                <div class="carousel-item {{ $keybanner == 0 ? "active" : "img-banner h-100" }}">
+                    <img src="{{ my_asset($banner->photo) }}" class=" d-block w-100 img-fluid" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    </div>
+                </div>
+                @endforeach
+			  {{-- <div class="carousel-item img-banner h-100">
+				<img src="{{ my_asset('images\fix1\img_banner\slide-home2.2-min.png') }}" class="d-block w-100 img-fluid" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
 			  </div>
-			  <div class="carousel-item img-banner">
-				<img src="{{ my_asset('images\fix1\img_banner\banner7.jpg') }}" class="h-100 w-100 img-thumbnail" alt="...">
+			  <div class="carousel-item img-banner h-100">
+				<img src="{{ my_asset('images\fix1\img_banner\slide-home2.3-min.png') }}" class="d-block w-100 img-fluid" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
-			  </div>
-			  <div class="carousel-item img-banner">
-				<img src="{{ my_asset('images\fix1\img_banner\banner4.jpg') }}" class="h-100 w-100 img-thumbnail" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-				</div>
-			  </div>
+			  </div> --}}
 			</div>
 			<a class="carousel-control-prev slider-banner-left my-auto" href="#carouselExampleCaptions" role="button" data-slide="prev" style="height: 20px;">
 				<div class=" slider-button-right" >
@@ -297,9 +302,9 @@
                             @endphp
                                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-2 col-6">
                                     <div class="product-box-2 bg-white alt-box my-md-2">
-                                        <div class="position-relative overflow-hidden  py-1" style="padding-right: 80px; padding-left: 80px">
+                                        <div class="position-relative overflow-hidden  py-1" >
                                             <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                                <img class=" card-img-top lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
+                                                <img class="img-fluid lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
                                             </a>
                                             {{-- <div class="product-btns clearfix">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
@@ -340,7 +345,7 @@
                                             <div class="star-rating star-rating-sm mt-1">
                                                 {{ renderStarRating($product->rating) }}
                                             </div>
-                                            <h2 class="product-title p-0">
+                                            <h2 class="product-title font-weight-bold p-0">
                                                 <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{  __($product->name) }}</a>
                                             </h2>
                                             @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
@@ -400,11 +405,14 @@
             <div class="my-4">
                 <div class="container">
                     <div class="row gutters-10">
+                        @php
+                            $blogs = \App\Blog::where('visible',1)->limit(8)->orderBy('created_at','desc')->get();
+                        @endphp
                         @include('article.inc.blogs')
                     </div>
                 </div>
                 <div class="width:10px" style="text-align:center">
-                    <a href="#" class="btn mt-4 mb-5 w-25" style="background:#3BB6B1; color:#fff;">Lainnya</a>
+                    <a href="{{ route('blog.article') }}" class="btn mt-4 mb-5 w-25" style="background:#3BB6B1;color:#fff">Lainnya</a>
                 </div>
             </div>
         </div>
@@ -773,31 +781,32 @@
 @endsection
 
 @section('script')
-    <script>
+    {{-- <script>
         $(document).ready(function(){
-            // $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
-            //     $('#section_featured').html(data);
-            //     slickInit();
-            // });
+            $.post('{{ route('home.section.featured') }}', {_token:'{{ csrf_token() }}'}, function(data){
+                $('#section_featured').html(data);
+                slickInit();
+            });
 
-            // $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
-            //     $('#section_best_selling').html(data);
-            //     slickInit();
-            // });
+            $.post('{{ route('home.section.best_selling') }}', {_token:'{{ csrf_token() }}'}, function(data){
+                $('#section_best_selling').html(data);
+                slickInit();
+            });
 
-            // $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
-            //     $('#section_home_categories').html(data);
-            //     slickInit();
-            // });
+            $.post('{{ route('home.section.home_categories') }}', {_token:'{{ csrf_token() }}'}, function(data){
+                $('#section_home_categories').html(data);
+                slickInit();
+            });
 
-            // @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
-            // $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
-            //     $('#section_best_sellers').html(data);
-            //     slickInit();
-            // });
+            @if (\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+            $.post('{{ route('home.section.best_sellers') }}', {_token:'{{ csrf_token() }}'}, function(data){
+                $('#section_best_sellers').html(data);
+                slickInit();
+            });
             @endif
         });
-
+    </script> --}}
+    <script>
         $('.add').click(function () {
         if ($(this).prev().val() < 12) {
             $(this).prev().val(+$(this).prev().val() + 1);

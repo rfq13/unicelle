@@ -30,9 +30,10 @@
                     <strong>({{ translate('850px*420px') }})</strong>
                 </div>
                 <div class="col-sm-9">
-                    <div id="photo">
+                    {{-- <div id="photo">
 
-                    </div>
+                    </div> --}}
+                    <input type="file" name="photo" id="photo" class="dropify" data-min-width="1109" data-max-width="1111" data-min-hight="439" data-max-width="441"   data-max-file-size="0,3M" data-allowed-file-extensions="jpg png jpeg" required>
                 </div>
             </div>
         </div>
@@ -51,22 +52,34 @@
 
         $('.demo-select2').select2();
 
-        $("#photo").spartanMultiImagePicker({
-            fieldName:        'photo',
-            maxCount:         1,
-            rowHeight:        '200px',
-            groupClassName:   'col-md-4 col-sm-9 col-xs-6',
-            maxFileSize:      '',
-            dropFileLabel : "Drop Here",
-            onExtensionErr : function(index, file){
-                console.log(index, file,  'extension err');
-                alert('Please only input png or jpg type file')
-            },
-            onSizeErr : function(index, file){
-                console.log(index, file,  'file size too big');
-                alert('File size too big');
-            }
-        });
+        // $("#photo").spartanMultiImagePicker({
+        //     fieldName:        'photo',
+        //     maxCount:         1,
+        //     rowHeight:        '200px',
+        //     groupClassName:   'col-md-4 col-sm-9 col-xs-6',
+        //     maxFileSize:      '',
+        //     dropFileLabel : "Drop Here",
+        //     onExtensionErr : function(index, file){
+        //         console.log(index, file,  'extension err');
+        //         alert('Please only input png or jpg type file')
+        //     },
+        //     onSizeErr : function(index, file){
+        //         console.log(index, file,  'file size too big');
+        //         alert('File size too big');
+        //     }
+        // });
+        $('#photo').dropify({
+                    messages: {
+                        'default': 'Drag and drop gambar',
+                        'replace': 'Drag and drop atau click untuk mengubah gambar',
+                        'remove':  'Hapus',
+                        'error':   'Ooops, ada kesalahan.'
+                    },
+
+                    error: {
+                        'imageFormat': 'Hanya mendukung format gambar "jpg" "png" "jpeg".'
+                    }
+                });
     });
 
 </script>

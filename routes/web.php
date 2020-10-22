@@ -59,12 +59,8 @@ Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_sect
 Route::post('/category/nav-element-list', 'HomeController@get_category_items')->name('category.elements');
 
 //Frontend Arju
-Route::get('/artikel', function () {
-	return view('article.article');
-});
-Route::get('/artikel-blog', function () {
-	return view('article.article-blog');
-})->name('blog.article');
+Route::get('/artikel/{slug}', 'blogController@show')->name('detail.blog');
+Route::get('/artikel', 'blogController@search')->name('blog.article');
 Route::get('/syaratdanketentuan', function () {
 	return view('article.syaratdanketentuan');
 });

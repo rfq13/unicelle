@@ -9,6 +9,26 @@ use ImageOptimizer;
 
 class blogController extends Controller
 {
+
+    public function search(Request $request)
+    {
+        $cond = ['visible' => 1];
+        $category_id = $request->category_id;
+        $query = $request->q;
+
+        if ($category_id != null) {
+            $cond = array_merge($cond, ['category_id' => $category_id]);
+        }
+
+        $blogs = Blog::where($cond);
+
+        if ($query != null) {
+            $blogs = $blogs->where('title', 'like', '%' . $query . '%');
+        }
+        $blogs = $blogs->paginate(8);
+        return view('article.article-blog',compact('blogs'));
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -16,8 +36,9 @@ class blogController extends Controller
      */
     public function index()
     {
-        $blogs = Blog::all();
-        return view('article.admin.index',compact('blogs'));
+        $blogs = Blog::orderBy('created_at','desc')->get();
+        $banner = \App\Banner::where("url","#blog")->first();
+        return view('article.admin.index',compact(['blogs','banner']));
     }
 
     /**
@@ -28,8 +49,9 @@ class blogController extends Controller
     public function create()
     {
         $operasi = "Tulis";
-        $content = "Mulai menulis di sini";
-        return view('article.admin.create',compact(['operasi','content']));
+        $url = route('blog.store');
+        $method = "create";
+        return view('article.admin.create',compact(['operasi','url','method']));
     }
 
     /**
@@ -42,9 +64,11 @@ class blogController extends Controller
     {
         $blog = new Blog;
         $reqArray = $request->all();
-        $blog->category_id = $request->category;
         $blog->visible = array_key_exists('visible',$reqArray)? (int)$request->visible : 0;
+        $blog->category_id = $request->category;
         $blog->title = $request->title;
+        $blog->subtitle = $request->subtitle;
+        $blog->slug = str_replace(" ","-",$request->title);
         $blog->content = $request->content;
         $blog->thumbnail = $this->upload_image($request);
         $blog->save();
@@ -60,12 +84,13 @@ class blogController extends Controller
      */
     public function show($id)
     {
-        $blog = Blog::findOrFail($id);
-        if ($blog != null) {
-            return view("article.article", compact('blog'));
+        $blog = Blog::findOrFail(decrypt($id));
+        if ($blog == null || $blog->visible == 0) {
+            flash("Blog tidak ditemukan")->error();
+            return back();
         }
-        flash("Blog tidak ditemukan")->error();
-        return back();
+        $similiar = \App\Blog::where(['visible'=>1,'category_id'=>$blog->category_id])->where('id','!=',$blog->id)->limit(4)->get();
+        return view("article.article", compact(['blog','similiar']));
     }
 
     /**
@@ -76,10 +101,12 @@ class blogController extends Controller
      */
     public function edit($id)
     {
-        $id = decrypt($id);
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::findOrFail(decrypt($id));
         if ($blog != null) {
-            return view("article.edit-article", compact('blog'));
+            $operasi = "Edit";
+            $url = route('blog.update',$id);
+            $method = "update";
+            return view('article.admin.create',compact(['operasi','url','method','blog']));
         }
         flash("Blog tidak ditemukan")->error();
         return back();
@@ -94,14 +121,18 @@ class blogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $blog = Blog::findOrFail($id);
+        $blog = Blog::findOrFail(decrypt($id));
+        $reqArray = $request->all();
+        $blog->thumbnail = array_key_exists('thumbnail',$reqArray)? $this->upload_image($request,$request->oldThumb) : $request->oldThumb;
         $blog->category_id = $request->category;
         $blog->visible = $request->visible;
         $blog->title = $request->title;
+        $blog->subtitle = $request->subtitle;
         $blog->content = $request->content;
+        $blog->slug = str_replace(" ","-",$request->title);
         $blog->save();
         flash("berhasil mengubah blog")->success();
-        return back();
+        return redirect(route('blog.index'));
     }
 
     /**
@@ -121,32 +152,24 @@ class blogController extends Controller
 
     public function kategori_blog(Type $var = null)
     {
-        $categories = \App\CategoryBlog::all();
+        $categories = \App\CategoryBlog::withCount('blogs')->orderBy('blogs_count','desc')->get();
         return view('article.admin.category', compact('categories'));
     }
-    public function edit_kategori_blog(Type $var = null)
+    public function update_kategori_blog(Request $request,$id)
     {
-        $ctg = \App\CategoryBlog::where("id",$id)->first();
-        return $ctg;
-    }
-    public function create_kategori_blog(Type $var = null)
-    {
-        # code...
+        $ctg = \App\CategoryBlog::findOrFail(decrypt($id));
+        if ($ctg != null) {
+            $ctg->name = $request->name;
+            $ctg->save();
+            flash("berhasil update kategori")->success();
+            return redirect(route("blog.ctg"));
+        }
+        flash("kategori tidak ditemukan!")->danger();
+        return redirect(route("blog.ctg"));
     }
 
     public function store_kategori_blog(Request $request)
     {
-        // $icon = "placeholder-rect.jpg";
-        // if ($request->hasFile('icon')) {
-        //     $image = $request->file('icon');
-        //     $new_name = rand() . '.' . $image->getClientOriginalExtension();
-        //     $image->move(public_path('blog/icon-category'), $new_name);
-        //     $icon = $new_name;
-        // }
-        // $data = [
-        //     "title" => $request->title,
-        //     "icon" => $icon
-        // ];
         $ctg = \App\CategoryBlog::insert(['name'=>$request->name]);
         if ($ctg) {
             flash("berhasil menambah kategori blog")->success();
@@ -154,20 +177,13 @@ class blogController extends Controller
         }
     }
 
-    public function delete_ctg($id)
+    public function delete_kategori_blog($id)
     {
-        $id = explode("," , $id);
-        $ctg = \App\CategoryBlog::whereIn('id',$id);
+        $ctg = \App\CategoryBlog::findOrFail(decrypt($id));
         if ($ctg->get()!=null) {
-            foreach ($ctg->get() as $key => $cb) {
-                $src = public_path().'/blog/icon-category/'.$cb->icon;
-                \App\CategoryBlog::find($cb->id)->delete();
-                if (is_file($src)) {
-                    unlink($src);
-                }
-            }
+            $ctg->delete();
             flash("berhasil menghapus kategori blog")->success();
-            return "deleted";
+            return back();
         }
     }
     public function update_ctg(Request $request)
@@ -211,14 +227,19 @@ class blogController extends Controller
         }
     }
 
-    public function upload_image(Request $request)
+    public function upload_image(Request $request,$old=0)
     {
+        // dd($old);
         $file = '';
         if ($request->hasFile('thumbnail')) {
             $file = $request->thumbnail;
             $name   = $file->getClientOriginalName();
             if($file->move(\base_path() ."/public/images/blog/thumbnail", $name)){
                 ImageOptimizer::optimize(base_path('public/images/blog/thumbnail/').$name);
+                if ($old != 0) {
+                    unlink(public_path()."/".$old);
+                }
+                # code...
                 return "images/blog/thumbnail/$name";
             }
             return 'images/placeholder.jpg';
@@ -231,5 +252,21 @@ class blogController extends Controller
         $blog->visible = $request->visible;
         $blog->save();
         return "success";
+    }
+
+    public function update_banner(Request $request,$id)
+    {
+        $banner = \App\Banner::find($id);
+        if ($banner == null) {
+            $banner = new \App\Banner;
+        }
+        $banner->photo = $request->hasFile('banner') ? $request->banner->store('images/banners') : "";
+        ImageOptimizer::optimize(base_path('public/').$banner->photo);
+        $banner->url = "#blog";
+        $banner->position = 1;
+        $banner->published = 1;
+        $banner->save();
+        flash("berhasil update banner")->success();
+        return redirect(route('blog.index'));
     }
 }

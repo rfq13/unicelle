@@ -386,6 +386,7 @@ class HomeController extends Controller
     {
         // $products = filter_products(Product::orderBy('created_at', 'desc'))->paginate(12);
         // return view('frontend.product_listing', compact('products'));
+        dd($request->all());
         return $this->search($request);
     }
 

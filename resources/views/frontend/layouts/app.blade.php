@@ -967,10 +967,22 @@
 
     $("#inputSearchNav").on('keyup', function (e) {
         if (e.keyCode == 13) {
-            let link = $("#btnSearchNav").attr("href").replace("slug",$(this).val())
+            let link = $("#btnSearchNav").attr("data-href").replace("slug",$(this).val())
             window.location.href = link
         }
     })
+
+    $("#btnSearchNav").click(function (e) {
+        e.preventDefault()
+        if ($("#inputSearchNav").val() == "") {
+            showFrontendAlert("warning","kata kunci kosong")
+            return;
+        }
+        let link = $(this).attr("data-href").replace("slug",$("#inputSearchNav").val())
+        window.location.href = link
+    })
+
+
 
 
     $('#search').on('keyup', function(){
