@@ -141,8 +141,7 @@
                                             <div class="d-flex mt-3">
                                                 @php
                                                     $detailOrder = $order->orderDetails[0];
-                                                    $photos = json_decode($detailOrder->product->photos)[0];
-                                                    // dd($detailOrder);
+                                                    $photos = isset($detailOrder->product) ? json_decode($detailOrder->product->photos)[0] : "";
                                                 @endphp
                                                 <div class="img-produk-pesanan__ mr-3 p-1">
                                                     <img class="img-pesanan__ img-thumbnail" src="{{my_asset($photos)}}" alt="">
