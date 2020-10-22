@@ -148,7 +148,7 @@
                                                 </div>
                                                 <div class="deskripsi-pesanan__">
                                                     <div class="name-produk-pesanan__">
-                                                        <span class="judul-pesanan__" style="text-transform:capitalize"> {{ isset($detailOrder->product) ? $detailOrder->product->name : "<cite style='color:#63A6E6'>Produk tidak ditemukan</cite>"}}</span>
+                                                        <span class="judul-pesanan__" style="text-transform:capitalize"> {!! isset($detailOrder->product) ? $detailOrder->product->name : "<cite style='color:#63A6E6'>Produk tidak ditemukan</cite>"!!}</span>
                                                     </div>
                                                     <div class="jumlah-produk-pesanan mt-2">
                                                         <span class="jumlah-pesanan__">Jumlah Pesanan</span>
