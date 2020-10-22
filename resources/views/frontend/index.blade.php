@@ -62,16 +62,18 @@
                     </div>
                 </div>
                 @endforeach
-			  {{-- <div class="carousel-item img-banner h-100">
+            {{-- 
+                <div class="carousel-item img-banner h-100">
 				<img src="{{ my_asset('images\fix1\img_banner\slide-home2.2-min.png') }}" class="d-block w-100 img-fluid" alt="...">
 				<div class="carousel-caption d-none d-md-block">
 				</div>
-			  </div>
-			  <div class="carousel-item img-banner h-100">
-				<img src="{{ my_asset('images\fix1\img_banner\slide-home2.3-min.png') }}" class="d-block w-100 img-fluid" alt="...">
-				<div class="carousel-caption d-none d-md-block">
-				</div>
-			  </div> --}}
+                </div>
+                <div class="carousel-item img-banner h-100">
+                    <img src="{{ my_asset('images\fix1\img_banner\slide-home2.3-min.png') }}" class="d-block w-100 img-fluid" alt="...">
+                    <div class="carousel-caption d-none d-md-block">
+                    </div>
+                </div>
+             --}}
 			</div>
 			<a class="carousel-control-prev slider-banner-left my-auto" href="#carouselExampleCaptions" role="button" data-slide="prev" style="height: 20px;">
 				<div class=" slider-button-right" >
@@ -112,32 +114,34 @@
                 </div>
                 <div class="col">
                     {{-- Slide 1 (6 Item) lebih dari 6 turun kebawah --}}
-                    <div class="mySlides item slick">
-                        <div class="row">
                             @php
-                            $category = \App\Category::orderBy('created_at', 'desc')->get();
+                            $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
                             @endphp
-                            @foreach ($category as $key => $value)
-                                <div class="col-md-2">
-                                    <div class="my-2">
-                                        <a href="{{route('products.category',$value->slug)}}">
-                                            <div class="text-center">
-                                                <div class="margin-auto">
-                                                    <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
-                                                        <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
-                                                    </div>
+                            @foreach ($categories as $category)
+                                <div class="mySlides item slick">
+                                    <div class="row">
+                                        @foreach ($category as $key => $value)
+                                            <div class="col-md-2">
+                                                <div class="my-2">
+                                                    <a href="{{route('products.category',$value->slug)}}">
+                                                        <div class="text-center">
+                                                            <div class="margin-auto">
+                                                                <div class="mb-4 mx-auto menu-icon d-flex align-items-center" style="text-align:center;">
+                                                                    <img src="{{ my_asset($value->icon) }}" class="card-img-top mx-auto icon" alt="...">
+                                                                </div>
+                                                            </div>
+                                                            <span class="ft-icon px-2">{{$value->name}}</span>
+                                                        </div>
+                                                    </a>
                                                 </div>
-                                                <span class="ft-icon px-2">{{$value->name}}</span>
                                             </div>
-                                        </a>
+                                        @endforeach
                                     </div>
                                 </div>
                             @endforeach
-                        </div>
-                    </div>
 
                     {{-- Slide 2 (6 Item) lebih dari 6 turun kebawah --}}
-                    <div class="mySlides item slick">
+                    {{-- <div class="mySlides item slick">
                         <div class="row">
                             @php
                             $category = \App\Category::orderBy('created_at', 'desc')->get();
@@ -159,7 +163,7 @@
                                 </div>
                             @endforeach
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-1 my-auto">
                     <button class="p-3 bt-slide" onclick="plusDivs(1)"><i class="fa fa-angle-right"></i></button>
