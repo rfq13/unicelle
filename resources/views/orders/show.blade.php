@@ -28,7 +28,7 @@
     	<div class="panel-body">
     		<div class="invoice-masthead">
     			<div class="invoice-text">
-    				<h3 class="h1 text-thin mar-no text-primary">{{ translate('Order Details') }}</h3>
+    				<h3 class="h1 text-thin mar-no text-primary">{{ translate('Detail Order') }}</h3>
     			</div>
     		</div>
             <div class="row">
@@ -37,22 +37,22 @@
                     $payment_status = $order->orderDetails->first()->payment_status;
                 @endphp
                 <div class="col-lg-offset-3 col-lg-3">
-                    <label for="update_payment_status">{{translate('Payment Status')}}</label>
+                    <label for="update_payment_status">{{translate('Status Pembayaran')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_payment_status">
-                        <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Paid')}}</option>
-                        <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Unpaid')}}</option>
+                        <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Dibayar')}}</option>
+                        <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Tidak Dibayar')}}</option>
                     </select>
                 </div>
                 <div class="col-lg-3">
 					<div class="row">
-						<label for="update_delivery_status">{{ translate('Status Order :')}}</label>
+						<label for="update_delivery_status">{{ translate('Status Pesanan :')}}</label>
 					</div>
 					<input type="hidden" id="status-order" value="{{ $delivery_status }}">
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
                         <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
-                        <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option>
-						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('On delivery')}}</option>
-                        <option value="delivered" @if ($delivery_status == 'delivered') selected @endif>{{translate('Delivered')}}</option>
+                        {{-- <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option> --}}
+						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('Dikirim')}}</option>
+                        <option value="delivered" @if ($delivery_status == 'delivered') selected @endif>{{translate('Terkirim')}}</option>
 					</select>
 				</div>
 				<div class="col-lg-3">
@@ -97,7 +97,7 @@
     				<tbody>
     				<tr>
     					<td class="text-main text-bold">
-    						{{translate('Order #')}}
+    						{{translate('Pesanan #')}}
     					</td>
     					<td class="text-right text-info text-bold">
     						{{ $order->code }}
@@ -105,7 +105,7 @@
     				</tr>
     				<tr>
     					<td class="text-main text-bold">
-    						{{translate('Order Status')}}
+    						{{translate('Status Pesanan')}}
     					</td>
 						@php
 						$status = $order->orderDetails->first()->delivery_status;
@@ -127,7 +127,7 @@
     				</tr>
     				<tr>
     					<td class="text-main text-bold">
-    						{{translate('Order Date')}}
+    						{{translate('Tanggal Order')}}
     					</td>
     					<td class="text-right">
     						{{ date('d-m-Y h:i A', $order->date) }}
@@ -135,7 +135,7 @@
     				</tr>
                     <tr>
     					<td class="text-main text-bold">
-    						{{translate('Total amount')}}
+    						{{translate('Total')}}
     					</td>
     					<td class="text-right">
     						{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}
@@ -143,7 +143,7 @@
     				</tr>
                     <tr>
     					<td class="text-main text-bold">
-    						{{translate('Payment method')}}
+    						{{translate('Metode Pembayaran')}}
     					</td>
     					<td class="text-right">
     						{{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}
@@ -161,19 +161,19 @@
             				<tr class="bg-trans-dark">
                                 <th class="min-col">#</th>
                                 <th width="10%">
-            						{{translate('Photo')}}
+            						{{translate('Gambar')}}
             					</th>
             					<th class="text-uppercase">
-            						{{translate('Description')}}
+            						{{translate('Deskripsi')}}
             					</th>
                                 <th class="text-uppercase">
-            						{{translate('Delivery Type')}}
+            						{{translate('Tipe Pengiriman')}}
             					</th>
             					<th class="min-col text-center text-uppercase">
             						{{translate('Qty')}}
             					</th>
             					<th class="min-col text-center text-uppercase">
-            						{{translate('Price')}}
+            						{{translate('Harga')}}
             					</th>
             					<th class="min-col text-right text-uppercase">
             						{{translate('Total')}}
@@ -199,17 +199,17 @@
                     						<strong><a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">{{ $orderDetail->product->name }}</a></strong>
                     						<small>{{ $orderDetail->variation }}</small>
                                         @else
-                                            <strong>{{ translate('Product Unavailable') }}</strong>
+                                            <strong>{{ translate('Produk Tidak Tersedia') }}</strong>
                                         @endif
                 					</td>
                                     <td>
                                         @if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
-                                            {{ translate('Home Delivery') }}
+                                            {{ translate('Pengiriman Dirumah') }}
                                         @elseif ($orderDetail->shipping_type == 'pickup_point')
                                             @if ($orderDetail->pickup_point != null)
-                                                {{ $orderDetail->pickup_point->name }} ({{ translate('Pickup Point') }})
+                                                {{ $orderDetail->pickup_point->name }} ({{ translate('Titik Penjemputan') }})
                                             @else
-                                                {{ translate('Pickup Point') }}
+                                                {{ translate('Titik Penjemputan') }}
                                             @endif
                                         @endif
                                     </td>
@@ -241,7 +241,7 @@
     			</tr>
     			<tr>
     				<td>
-    					<strong>{{translate('Tax')}} :</strong>
+    					<strong>{{translate('Pajak')}} :</strong>
     				</td>
     				<td>
     					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }}
@@ -249,7 +249,7 @@
     			</tr>
                 <tr>
                     <td>
-                        <strong>{{translate('Shipping')}} :</strong>
+                        <strong>{{translate('Pengiriman')}} :</strong>
                     </td>
                     <td>
                         {{ single_price($order->shipping_cost) }}

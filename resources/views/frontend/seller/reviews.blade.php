@@ -43,7 +43,7 @@
                                             <th>{{ translate('Pelanggan')}}</th>
                                             <th>{{ translate('Peringkat')}}</th>
                                             <th>{{ translate('Komentar')}}</th>
-                                            <th>{{ translate('Published')}}</th>
+                                            <th>{{ translate('Tampilkan')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -80,9 +80,9 @@
                                                         <td>{{ $review->comment }}</td>
                                                         <td>
                                                             @if ($review->status == 1)
-                                                                <span class="badge badge-success">{{  translate('Published') }}</span>
+                                                                <span class="badge badge-success">{{  translate('Tampilkan') }}</span>
                                                             @else
-                                                                <span class="badge badge-danger">{{  translate('Unpublished') }}</span>
+                                                                <span class="badge badge-danger">{{  translate('Tidak diTampilkan') }}</span>
                                                             @endif
                                                         </td>
                                                     </tr>

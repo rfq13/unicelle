@@ -13,8 +13,8 @@
                     <div class="select" style="min-width: 300px;">
                         <select class="form-control demo-select2" name="rating" id="rating" onchange="filter_by_rating()">
                             <option value="">{{translate('Filter Berdasarkan Peringkat')}}</option>
-                            <option value="rating,desc">{{translate('Peringkat (High > Low)')}}</option>
-                            <option value="rating,asc">{{translate('Peringkat (Low > High)')}}</option>
+                            <option value="rating,desc">{{translate('Peringkat (Tinggi > Rendah)')}}</option>
+                            <option value="rating,asc">{{translate('Peringkat (Rendah > Tinggi)')}}</option>
                         </select>
                     </div>
                 </div>
@@ -31,7 +31,7 @@
                     <th>{{translate('Pelanggan')}}</th>
                     <th>{{translate('Peringkat')}}</th>
                     <th>{{translate('Komentar')}}</th>
-                    <th>{{translate('Published')}}</th>
+                    <th>{{translate('Tampilkan')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -73,10 +73,10 @@
             }
             $.post('{{ route('reviews.published') }}', {_token:'{{ csrf_token() }}', id:el.value, status:status}, function(data){
                 if(data == 1){
-                    showAlert('success', 'Published reviews updated successfully');
+                    showAlert('Sukses', 'Ulasan yang diterbitkan berhasil diperbarui');
                 }
                 else{
-                    showAlert('danger', 'Something went wrong');
+                    showAlert('Peringatan', 'Terjadi Kesalahan');
                 }
             });
         }

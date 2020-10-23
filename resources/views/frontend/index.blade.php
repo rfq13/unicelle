@@ -5,6 +5,137 @@
 @endsection -->
 @section('title', 'Home')
 @section('content')
+
+
+    {{-- <style>
+        @media (min-width: 768px) and (max-width: 991px) {
+    /* Show 4th slide on md if col-md-4*/
+        .carousel-inner .active.col-md-4.carousel-item + .carousel-item + .carousel-item + .carousel-item {
+            position: absolute;
+            top: 0;
+            right: -33.3333%;  /*change this with javascript in the future*/
+            z-index: -1;
+            display: block;
+            visibility: visible;
+            }
+        }
+        @media (min-width: 576px) and (max-width: 768px) {
+            /* Show 3rd slide on sm if col-sm-6*/
+            .carousel-inner .active.col-sm-6.carousel-item + .carousel-item + .carousel-item {
+                position: absolute;
+                top: 0;
+                right: -50%;  /*change this with javascript in the future*/
+                z-index: -1;
+                display: block;
+                visibility: visible;
+            }
+        }
+        @media (min-width: 576px) {
+            .carousel-item {
+                margin-right: 0;
+            }
+            /* show 2 items */
+            .carousel-inner .active + .carousel-item {
+                display: block;
+            }
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left),
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item {
+                transition: none;
+            }
+            .carousel-inner .carousel-item-next {
+                position: relative;
+                transform: translate3d(0, 0, 0);
+            }
+            /* left or forward direction */
+            .active.carousel-item-left + .carousel-item-next.carousel-item-left,
+            .carousel-item-next.carousel-item-left + .carousel-item,
+            .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(-100%, 0, 0);
+                visibility: visible;
+            }
+            /* farthest right hidden item must be also positioned for animations */
+            .carousel-inner .carousel-item-prev.carousel-item-right {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: -1;
+                display: block;
+                visibility: visible;
+            }
+            /* right or prev direction */
+            .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+            .carousel-item-prev.carousel-item-right + .carousel-item,
+            .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(100%, 0, 0);
+                visibility: visible;
+                display: block;
+                visibility: visible;
+            }
+        }
+        /* MD */
+        @media (min-width: 768px) {
+            /* show 3rd of 3 item slide */
+            .carousel-inner .active + .carousel-item + .carousel-item {
+                display: block;
+            }
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item {
+                transition: none;
+            }
+            .carousel-inner .carousel-item-next {
+                position: relative;
+                transform: translate3d(0, 0, 0);
+            }
+            /* left or forward direction */
+            .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(-100%, 0, 0);
+                visibility: visible;
+            }
+            /* right or prev direction */
+            .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(100%, 0, 0);
+                visibility: visible;
+                display: block;
+                visibility: visible;
+            }
+        }
+        /* LG */
+        @media (min-width: 991px) {
+            /* show 4th item */
+            .carousel-inner .active + .carousel-item + .carousel-item + .carousel-item {
+                display: block;
+            }
+            .carousel-inner .carousel-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carousel-item + .carousel-item + .carousel-item {
+                transition: none;
+            }
+            /* Show 5th slide on lg if col-lg-3 */
+            .carousel-inner .active.col-lg-3.carousel-item + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+                position: absolute;
+                top: 0;
+                right: -25%;  /*change this with javascript in the future*/
+                z-index: -1;
+                display: block;
+                visibility: visible;
+            }
+            /* left or forward direction */
+            .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(-100%, 0, 0);
+                visibility: visible;
+            }
+            /* right or prev direction //t - previous slide direction last item animation fix */
+            .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item + .carousel-item + .carousel-item {
+                position: relative;
+                transform: translate3d(100%, 0, 0);
+                visibility: visible;
+                display: block;
+                visibility: visible;
+            }
+        }
+    </style> --}}
     {{-- <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
@@ -96,23 +227,23 @@
 
     <div class="container">
         <h2 style="
-                font-family: Open Sans;
-                font-size: 24px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: 33px;
-                letter-spacing: 0em;
-                text-align: left;
-                height: 33px;
-                width: 273px;
-                left: 150px;
-                top: 631px;
-                border-radius: undefinedpx;
-                margin-top:50px
+                    font-family: Open Sans;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 33px;
+                    letter-spacing: 0em;
+                    text-align: left;
+                    height: 33px;
+                    width: 273px;
+                    left: 150px;
+                    top: 631px;
+                    border-radius: undefinedpx;
+                    margin-top:50px
 
-                ">Kategori Obat</h2>
+                    ">Kategori Obat</h2>
         {{-- Slider --}}
-{{-- 
+        {{--
         <div class="six_ slider mt-3">
             @php
             $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
@@ -133,10 +264,114 @@
 
         {{-- ---------------------------- --}}
         <div class="row" style="margin-bottom: 150px;">
+            {{-- @php
+            $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
+            @endphp
+            @foreach ($categories as $category)
+
+                <div class="top-content">
+                    <div id="carousel-slide1" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner row w-100 mx-auto" role="listbox">
+                            @foreach ($category as $key => $value)
+                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
+                                <a href="{{ route('products.category', $value->slug) }}">
+                                    <div class="text-center">
+                                        <div class="margin-auto">
+                                            <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
+                                                style="text-align:center;">
+                                                <img src="{{ my_asset($value->icon) }}"
+                                                    class="card-img-top mx-auto icon" alt="...">
+                                            </div>
+                                        </div>
+                                        <span class="ft-icon px-2">{{ $value->name }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                            @endforeach
+                            
+                        </div>
+                        <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
+                <br>
+
+            @endforeach --}}
+            {{-- <section class="kategori-slide6">
+                <div class="rt-container">
+                      <div class="col-rt-12">
+                          <div class='demo-container'>
+                              <div class='carousel'>
+                                <input checked='checked' class='carousel__activator' id='carousel-slide-activator-1' name='carousel' type='radio'>
+                                <input class='carousel__activator' id='carousel-slide-activator-2' name='carousel' type='radio'>
+                                <input class='carousel__activator' id='carousel-slide-activator-3' name='carousel' type='radio'>
+                                <div class='carousel__controls'>
+                                    <label class='carousel__control carousel__control--forward' for='carousel-slide-activator-2'>
+                                        👉
+                                    </label>
+                                </div>
+                                <div class='carousel__controls'>
+                                    <label class='carousel__control carousel__control--backward' for='carousel-slide-activator-1'>
+                                        👈
+                                    </label>
+                                    <label class='carousel__control carousel__control--forward' for='carousel-slide-activator-3'>
+                                        👉
+                                    </label>
+                                </div>
+                                <div class='carousel__controls'>
+                                    <label class='carousel__control carousel__control--backward' for='carousel-slide-activator-2'>
+                                        👈
+                                    </label>
+                                </div>
+                                @php
+                                $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
+                                @endphp
+                                @foreach ($categories as $category)
+                                <div class='carousel__screen'>
+                                    <div class='carousel__track'>
+                                        @foreach ($category as $key => $value)
+                                        <div class='carousel__item carousel__item--mobile-in-1 carousel__item--tablet-in-2 carousel__item--desktop-in-3'>
+                                            <div class='demo-content'>
+                                                <a href="{{ route('products.category', $value->slug) }}">
+                                                    <div class="text-center">
+                                                        <div class="margin-auto">
+                                                            <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
+                                                                style="text-align:center;">
+                                                                <img src="{{ my_asset($value->icon) }}"
+                                                                    class="card-img-top mx-auto icon" alt="...">
+                                                            </div>
+                                                        </div>
+                                                        <span class="ft-icon px-2">{{ $value->name }}</span>
+                                                    </div>
+                                                </a>
+
+                                               
+                                            </div>
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section> --}}
+
+
+
+
             <div class="col-1 my-auto">
                 <button class="p-3 bt-slide " onclick="plusDivs(-1)"><i class="fa fa-angle-left"></i></button>
             </div>
             <div class="col">
+
                 {{-- Slide 1 (6 Item) lebih dari 6 turun kebawah
                 --}}
                 @php
@@ -230,19 +465,19 @@
                 <img src="{{ my_asset($value->icon) }}" style="width:100px;" class="card-img-top mx-auto" alt="...">
                 <div class="card-body">
                     <span style="font-family: Open Sans;
-                                                    margin-top: 14.5px;
-                                                    font-size: 20px;
-                                                    font-style: normal;
-                                                    font-weight: 600;
-                                                    line-height: 27px;
-                                                    letter-spacing: 0em;
-                                                    text-align: center;
-                                                    color: #212121;
-                                                    height: 26.095947265625px;
-                                                    width: 100px;
-                                                    left: 245px;
-                                                    top: 839.900390625px;
-                                                    border-radius: nullpx;">{{ $value->name }}</span>
+                                                        margin-top: 14.5px;
+                                                        font-size: 20px;
+                                                        font-style: normal;
+                                                        font-weight: 600;
+                                                        line-height: 27px;
+                                                        letter-spacing: 0em;
+                                                        text-align: center;
+                                                        color: #212121;
+                                                        height: 26.095947265625px;
+                                                        width: 100px;
+                                                        left: 245px;
+                                                        top: 839.900390625px;
+                                                        border-radius: nullpx;">{{ $value->name }}</span>
                 </div>
             </a> --}}
             {{-- Lama --}}
@@ -296,25 +531,25 @@
 
 
             <h2 style="font-size:24px;font-family: Open Sans;
-                        font-style: normal;
-                        font-weight: 600;
-                        line-height: 33px;
-                        letter-spacing: 0em;
-                        text-align: left;
-                        ">Produk Terbaru</h2>
-            {{--
-            <p style="font-family: Open Sans;
-                            font-size: 20px;
                             font-style: normal;
-                            font-weight: 400;
-                            line-height: 27px;
+                            font-weight: 600;
+                            line-height: 33px;
                             letter-spacing: 0em;
                             text-align: left;
-                            height: 27px;width: 707px;
-                            left: 150px;
-                            top: 1069px;
-                            border-radius: undefinedpx;
-                            ">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>
+                            ">Produk Terbaru</h2>
+            {{--
+            <p style="font-family: Open Sans;
+                                font-size: 20px;
+                                font-style: normal;
+                                font-weight: 400;
+                                line-height: 27px;
+                                letter-spacing: 0em;
+                                text-align: left;
+                                height: 27px;width: 707px;
+                                left: 150px;
+                                top: 1069px;
+                                border-radius: undefinedpx;
+                                ">Dapatkan Informasi tentang aturan, petunjuk penggunaan obat dan vitamin</p>
             --}}
             <div class="mb-4 mt-2">
                 <div class="container">
@@ -381,7 +616,8 @@
                                                         @if ($flash_product->discount_type == 'percent')
                                                             <p class="mb-0 py-2 px-4"
                                                                 style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
-                                                                {{ __($flash_product->discount) }}%</p>
+                                                                {{ __($flash_product->discount) }}%
+                                                            </p>
                                                         @elseif($flash_product->discount_type == 'amount')
                                                             <p class="mb-0 py-2 px-4"
                                                                 style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
@@ -391,7 +627,8 @@
                                                         @if ($product->discount_type == 'percent')
                                                             <p class="mb-0 py-2 px-4"
                                                                 style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
-                                                                {{ __($product->discount) }}%</p>
+                                                                {{ __($product->discount) }}%
+                                                            </p>
                                                         @elseif($product->discount_type == 'amount')
                                                             <p class="mb-0 py-2 px-4"
                                                                 style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
@@ -416,12 +653,17 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        @if ($product->variant_product > 0)
-                                            <a class="btn btn-default" onclick="showAddToCartModal({{ $product->id }})"
-                                                style="width: 100%">Tambah</a>
+                                        @if ($qty > 0)
+                                            @if ($product->variant_product > 0)
+                                                <a class="btn btn-default" onclick="showAddToCartModal({{ $product->id }})"
+                                                    style="width: 100%">Tambah</a>
+                                            @else
+                                                <a class="btn btn-default" onclick="addToCart({{ $product->id }})"
+                                                    style="width: 100%">Tambah</a>
+                                            @endif
                                         @else
-                                            <a class="btn btn-default" onclick="addToCart({{ $product->id }})"
-                                                style="width: 100%">Tambah</a>
+                                                <a class="btn btn-default" onclick="showFrontendAlert('warning','Maaf produk {{ $product->name }} sedang kosong')"
+                                                    style="width: 100%">Tambah</a>
                                         @endif
                                     </div>
                                 </div>
@@ -439,33 +681,33 @@
     <section class="bg-img-artikel">
         <div class="container pt-5">
             <h2 style="
-                height: 33px;
-                width: 150px;
-                /* left: 150px;
-                top: 1939px;
-                border-radius: nullpx; */
-                font-family: Open Sans;
-                font-size: 24px;
-                font-style: normal;
-                font-weight: 600;
-                line-height: 33px;
-                letter-spacing: 0em;
-                text-align: left;
-                ">Artikel / Blog</h2>
+                    height: 33px;
+                    width: 150px;
+                    /* left: 150px;
+                    top: 1939px;
+                    border-radius: nullpx; */
+                    font-family: Open Sans;
+                    font-size: 24px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 33px;
+                    letter-spacing: 0em;
+                    text-align: left;
+                    ">Artikel / Blog</h2>
             <span style="
-                height: 27px;
-                width: 440px;
-                left: 150px;
-                top: 1982px;
-                border-radius: nullpx;
-                font-family: Open Sans;
-                font-size: 20px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 27px;
-                letter-spacing: 0em;
-                text-align: left;
-                ">Dapatkan Informasi terbaru seputar kesehatan</span>
+                    height: 27px;
+                    width: 440px;
+                    left: 150px;
+                    top: 1982px;
+                    border-radius: nullpx;
+                    font-family: Open Sans;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 27px;
+                    letter-spacing: 0em;
+                    text-align: left;
+                    ">Dapatkan Informasi terbaru seputar kesehatan</span>
             <div class="my-4">
                 <div class="container">
                     <div class="row gutters-10">
@@ -535,12 +777,7 @@
                 $featured_categories = \App\Category::where('featured', 1)->get();
                 @endphp
 
-                <div class=" @if (count($featured_categories) == 0) home-slider-full @endif">
-                    <div class="home-slide">
-                        <div class="home-slide">
-                            <div class="slick-carousel" data-slick-arrows="true" data-slick-dots="true"
-                                data-slick-autoplay="true">
-                                @foreach (\App\Slider::where('published', 1)->get() as $key => $slider)
+                <div class="  @if (\App\Slider::where('published', 1)->get() as $key => $slider)
                                     <div class="home-slide-item" style="height:275px;">
                                         <a href="{{ $slider->link }}" target="_blank">
                                             <img class="d-block w-100 h-100 lazyload"
@@ -705,9 +942,9 @@
             ->get()
         as $key => $banner)
                     <div class="col-lg-{{ 12 /
-                                        count(
-                                            \App\Banner::where('position', 1)->where('published', 1)->get(),
-                                        ) }}">
+                            count(
+                                \App\Banner::where('position', 1)->where('published', 1)->get(),
+                            ) }}">
                         <div class="media-banner mb-3 mb-lg-0">
                             <a href="{{ $banner->url }}" target="_blank" class="banner-container">
                                 <img src="{{ my_asset('frontend/images/placeholder-rect.jpg') }}"
@@ -802,9 +1039,9 @@
             ->get()
         as $key => $banner)
                     <div class="col-lg-{{ 12 /
-                                        count(
-                                            \App\Banner::where('position', 2)->where('published', 1)->get(),
-                                        ) }}">
+                            count(
+                                \App\Banner::where('position', 2)->where('published', 1)->get(),
+                            ) }}">
                         <div class="media-banner mb-3 mb-lg-0">
                             <a href="{{ $banner->url }}" target="_blank" class="banner-container">
                                 <img src="{{ my_asset('frontend/images/placeholder-rect.jpg') }}"
@@ -946,43 +1183,36 @@
                         $('#section_best_sellers').html(data);
                         slickInit();
                     }); <
-            /beautify end="@endif">
+            /beautify end="</beautify
+            end = "@endif" > ">
         });
 
     </script> --}}
 
-    <script>
-        $(document).on('ready', function () {
-            $('#dropdown').dropdown();
-            $(".six_").slick({
-                dots: true,
-                infinite: true,
-                slidesToShow: 6,
-                slidesToScroll: 6,
-                responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4,
-                        infinite: true,
-                        dots: true
-                    }
-                }, {
-                    breakpoint: 600,
-                    settings: {
-                        slidesToShow: 4,
-                        slidesToScroll: 4
-                    }
-                }, {
-                    breakpoint: 480,
-                    settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                    }
-                }]
-            });
-        });
-    </script>
+    {{-- <script>
+      $('#carousel-slide1').on('slide.bs.carousel', function (e) {
+    /*
+        CC 2.0 License Iatek LLC 2018 - Attribution required
+    */
+    var $e = $(e.relatedTarget);
+    var idx = $e.index();
+    var itemsPerSlide = 5;
+    var totalItems = $('.carousel-item').length;
+ 
+    if (idx >= totalItems-(itemsPerSlide-1)) {
+        var it = itemsPerSlide - (totalItems - idx);
+        for (var i=0; i<it; i++) {
+            // append slides to end
+            if (e.direction=="left") {
+                $('.carousel-item').eq(i).appendTo('.carousel-inner');
+            }
+            else {
+                $('.carousel-item').eq(0).appendTo('.carousel-inner');
+            }
+        }
+    }
+});
+    </script> --}}
 
     <script>
         $('.add').click(function() {

@@ -5,7 +5,7 @@
     <div class="col-lg-6 col-lg-offset-3">
         <div class="panel">
             <div class="panel-heading">
-                <h3 class="panel-title">{{translate('General Settings')}}</h3>
+                <h3 class="panel-title">{{translate('Pengaturan Umum')}}</h3>
             </div>
 
             <!--Horizontal Form-->

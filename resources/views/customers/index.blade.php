@@ -19,7 +19,7 @@
             <form class="" id="sort_customers" action="" method="GET">
                 <div class="box-inline pad-rgt pull-left">
                     <div class="" style="min-width: 200px;">
-                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type email or name & Enter') }}">
+                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Ketik nama pelanggan') }}">
                     </div>
                 </div>
             </form>
@@ -33,8 +33,8 @@
                     <th>{{translate('Nama')}}</th>
                     <th>{{translate('Alamat Email')}}</th>
                     <th>{{translate('Nomor Telepon')}}</th>
-                    <th>{{translate('Paket')}}</th>
-                    <th>{{translate('Saldo wallet')}}</th>
+                    {{-- <th>{{translate('Paket')}}</th> --}}
+                    {{-- <th>{{translate('Saldo wallet')}}</th> --}}
                     <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
             </thead>
@@ -49,12 +49,12 @@
                             <td>@if($customer->user->banned == 1) <i class="fa fa-ban text-danger" aria-hidden="true"></i> @endif {{$customer->user->name}}</td>
                             <td>{{$customer->user->email}}</td>
                             <td>{{$customer->user->phone}}</td>
-                            <td>
+                            {{-- <td>
                                 @if ($customer->user->customer_package != null)
                                     {{$customer->user->customer_package->name}}
                                 @endif
-                            </td>
-                            <td>{{single_price($customer->user->balance)}}</td>
+                            </td> --}}
+                            {{-- <td>{{single_price($customer->user->balance)}}</td> --}}
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

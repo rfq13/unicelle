@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title strong-600 heading-5">{{ translate('Order id')}}: {{ $order->code }}</h5>
+    <h5 class="modal-title strong-600 heading-5" style="color: #006064;">{{ translate('Order id')}}: {{ $order->code }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -29,6 +29,7 @@ if($ship != null || $ship != 0){
 
 
 <div class="modal-body gry-bg px-3 pt-0">
+
     <div class="pt-4">
         <ul class="process-steps clearfix">
             <li @if($status == 'pending') class="active" @else class="done" @endif>

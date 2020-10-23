@@ -62,11 +62,13 @@
                     <div class="card my-4">
                         <div class="product-gal-thumb my-3 mx-3">
                             <div class="xzoom-thumbs">
-                                @foreach (json_decode($detailedProduct->photos) as $key => $photo)
-                                    <a href="{{ my_asset($photo) }}">
-                                        <img src="{{ my_asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ my_asset($photo) }}"  @if($key == 0) xpreview="{{ my_asset($photo) }}" @endif>
-                                    </a>
-                                @endforeach
+                                @if ($detailedProduct->photos != null)
+                                    @foreach (json_decode($detailedProduct->photos) as $key => $photo)
+                                        <a href="{{ my_asset($photo) }}">
+                                            <img src="{{ my_asset('frontend/images/placeholder.jpg') }}" class="xzoom-gallery lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" width="80" data-src="{{ my_asset($photo) }}"  @if($key == 0) xpreview="{{ my_asset($photo) }}" @endif>
+                                        </a>
+                                    @endforeach
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -82,7 +84,7 @@
                                 <a href="{{ route('product', $product->slug) }}" style="text-decoration: none;">
                                     <div class="d-flex align-items-center mb-3">
                                         <div class="card">
-                                            <img class="img-serupa lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
+                                            <img class="img-serupa lazyload img-fluid" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
                                         </div>
                                         <div class="pl-3">
                                             <div class="name-produk-lainnya">
@@ -295,9 +297,19 @@
                         </div>
                         <hr>
                         <div class="deskripsi-detail-produk">
-                            <span>
-                                Deskripsi Obat
-                            </span>
+                            <h4 class="mb-3">Deskirpsi</h4>
+                            {!!$detailedProduct->description!!}
+                            @php
+                                $indikasi = $detailedProduct->indication != null ? explode(",",$detailedProduct->indication) : [];
+                            @endphp
+                            <div class="mt-3">
+                                <h4>Indikasi</h4>
+                                <ul>
+                                    @foreach ($indikasi as $in)
+                                        <li>{{ $in }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>

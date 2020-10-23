@@ -11,17 +11,17 @@
 			<input type="hidden" name="added_by" value="admin">
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Information')}}</h3>
+					<h3 class="panel-title">{{translate('Informasi Produk')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Product Name')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Nama Produk')}}</label>
 						<div class="col-lg-7">
 							<input type="text" class="form-control" name="name" placeholder="{{ translate('Product Name') }}" onchange="update_sku()" required>
 						</div>
 					</div>
 					<div class="form-group" id="category">
-						<label class="col-lg-2 control-label">{{translate('Category')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Kategori')}}</label>
 						<div class="col-lg-7">
 							<select class="form-control demo-select2-placeholder" name="category_id" id="category_id" required>
 								@foreach($categories as $category)
@@ -60,21 +60,27 @@
 						</div>
 					--}}
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Unit')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Satuan')}}</label>
 						<div class="col-lg-7">
 							<input type="text" class="form-control" name="unit" placeholder="{{ translate('Unit (e.g. KG, Pc etc)') }}" required>
 						</div>
 					</div>
                     <div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Minimum Qty')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Jumlah Minimal')}}</label>
 						<div class="col-lg-7">
 							<input type="number" class="form-control" name="min_qty" value="1" min="1" required>
 						</div>
 					</div>
-					<div class="form-group">
+					{{--<div class="form-group">
 						<label class="col-lg-2 control-label">{{translate('Tags')}}</label>
 						<div class="col-lg-7">
 							<input type="text" class="form-control" name="tags[]" placeholder="{{ translate('Type to add a tag') }}" data-role="tagsinput">
+						</div>
+					</div> --}}
+					<div class="form-group">
+						<label class="col-lg-2 control-label">{{translate('Indikasi')}}</label>
+						<div class="col-lg-7">
+							<input type="text" class="form-control" name="indication[]" placeholder="{{ translate('masukkan indikasi obat') }}" data-role="tagsinput">
 						</div>
 					</div>
 					@php
@@ -93,6 +99,7 @@
 					    $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 					@endphp
 					@if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+						{{--
 						<div class="form-group">
 							<label class="col-lg-2 control-label">{{translate('Refundable')}}</label>
 							<div class="col-lg-7">
@@ -101,17 +108,17 @@
 		                            <span class="slider round"></span></label>
 								</label>
 							</div>
-						</div>
+						</div> --}}
 					@endif
 				</div>
 			</div>
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Images')}}</h3>
+					<h3 class="panel-title">{{translate('Gambar Produk')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Gallery Images')}} <br> <small>(160x200)</small></label>
+						<label class="col-lg-2 control-label">{{translate('Gambar Produk')}} <br> <small>(160x200)</small></label>
 						<div class="col-lg-7">
 							<div id="photos">
 
@@ -119,7 +126,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Thumbnail Image')}} <small>(160x200)</small></label>
+						<label class="col-lg-2 control-label">{{translate('Thumbnail')}} <small>(160x200)</small></label>
 						<div class="col-lg-7">
 							<div id="thumbnail_img">
 
@@ -128,6 +135,7 @@
 					</div>
 				</div>
 			</div>
+			{{--
 			<div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{translate('Product Videos')}}</h3>
@@ -151,11 +159,15 @@
 					</div>
 				</div>
 			</div>
+			--}}
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Variation')}}</h3>
+					<h3 class="panel-title">{{translate('Varian Produk')}}</h3>
 				</div>
+				
+				
 				<div class="panel-body">
+					{{--
 					<div class="form-group">
 						<div class="col-lg-2">
 							<input type="text" class="form-control" value="{{translate('Colors')}}" disabled>
@@ -174,13 +186,14 @@
 							</label>
 						</div>
 					</div>
+					--}}
 
 					<div class="form-group">
 						<div class="col-lg-2">
-							<input type="text" class="form-control" value="{{translate('Attributes')}}" disabled>
+							<input type="text" class="form-control" value="{{translate('Atribut')}}" disabled>
 						</div>
 	                    <div class="col-lg-7">
-	                        <select name="choice_attributes[]" id="choice_attributes" class="form-control demo-select2" multiple data-placeholder="{{ translate('Choose Attributes') }}">
+	                        <select name="choice_attributes[]" id="choice_attributes" class="form-control demo-select2" multiple data-placeholder="{{ translate('Pilih Atribut') }}">
 								@foreach (\App\Attribute::all() as $key => $attribute)
 									<option value="{{ $attribute->id }}">{{ $attribute->name }}</option>
 								@endforeach
@@ -189,7 +202,7 @@
 	                </div>
 
 					<div>
-						<p>{{ translate('Choose the attributes of this product and then input values of each attribute') }}</p>
+						<p>{{ translate('silahkan pilih atribut varian produk') }}</p>
 						<br>
 					</div>
 
@@ -209,11 +222,11 @@
 			</div>
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product price + stock')}}</h3>
+					<h3 class="panel-title">{{translate('Harga Produk dan Jumlah Stoknya')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Unit price')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Harga Satuan')}}</label>
 						{{-- <div class="col-lg-3" style="display: none">
 							<input type="number" min="0" value="0" step="0.01" id="unit_price" placeholder="{{ translate('Unit price') }}" name="unit_price" class="form-control">
 						</div> --}}
@@ -230,23 +243,32 @@
 							<span style="font-size: 10px;font-style:italic">*HET Pasien Regular</span>
 						</div>
 					</div>
+					{{--
 					<div class="form-group">
 						<label class="col-lg-2 control-label">{{translate('Purchase price')}}</label>
 						<div class="col-lg-7">
 							<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Purchase price') }}" name="purchase_price" class="form-control" required>
 						</div>
 					</div>
+					--}}
+					
 					<div class="form-group">
+
+						{{--
 						<label class="col-lg-2 control-label">{{translate('Tax')}}</label>
 						<div class="col-lg-7">
 							<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Tax') }}" name="tax" class="form-control" required>
 						</div>
+
+
 						<div class="col-lg-1">
 							<select class="demo-select2" name="tax_type">
 								<option value="amount">{{translate('Flat')}}</option>
 								<option value="percent">{{translate('Percent')}}</option>
 							</select>
 						</div>
+						--}}
+
 					</div>
 					<div class="form-group">
 						<label class="col-lg-2 control-label">{{translate('Discount')}}</label>
@@ -274,17 +296,19 @@
 			</div>
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Description')}}</h3>
+					<h3 class="panel-title">{{translate('Deskripsi Produk')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Description')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Produk')}}</label>
 						<div class="col-lg-9">
 							<textarea class="editor" name="description"></textarea>
 						</div>
 					</div>
 				</div>
 			</div>
+
+			{{--
             @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
                 <div class="panel">
     				<div class="panel-heading bord-btm">
@@ -336,6 +360,10 @@
     				</div>
     			</div>
             @endif
+
+            --}}
+
+            {{--
 			<div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{translate('PDF Specification')}}</h3>
@@ -349,6 +377,10 @@
 					</div>
 				</div>
 			</div>
+
+			--}}
+
+			{{--
 			<div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{translate('SEO Meta Tags')}}</h3>
@@ -376,8 +408,11 @@
 					</div>
 				</div>
 			</div>
+
+			--}}
+			
 			<div class="mar-all text-right">
-				<button type="submit" name="button" class="btn btn-info" id="btnSubmit">{{ translate('Add New Product') }}</button>
+				<button type="submit" name="button" class="btn btn-info" id="btnSubmit">{{ translate('Tambah Produk Baru') }}</button>
 				{{-- <a href="#" id="btnTambah" class="btn btn-info">{{ translate('Tambah') }}</a> --}}
 			</div>
 		</form>

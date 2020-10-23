@@ -273,7 +273,7 @@
             </div>
         </section>
     --}}
-    <section class="py-4 bg-white" id="cart-summary">
+    <section class="py-4 bg-white" id="cart-summary" style="min-height: 60vh">
         <div class=" container">
             @if(Session::has('cart'))
                 <div class="row cols-xs-space cols-sm-space cols-md-space">

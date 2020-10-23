@@ -106,11 +106,11 @@
                                     <li class="{{ areActiveRoutes(['products.admin', 'products.create', 'products.admin.edit'])}}">
                                         <a class="nav-link" href="{{route('products.admin')}}">{{translate('Daftar Produk')}}</a>
                                     </li>
-                                    @if(\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
+                                    {{-- @if(\App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                                         <li class="{{ areActiveRoutes(['products.seller', 'products.seller.edit'])}}">
                                             <a class="nav-link" href="{{route('products.seller')}}">{{translate('Produk Penjual')}}</a>
                                         </li>
-                                    @endif
+                                    @endif --}}
                                     {{-- @if(\App\BusinessSetting::where('type', 'classified_product')->first()->value == 1)
                                         <li class="{{ areActiveRoutes(['classified_products'])}}">
                                             <a class="nav-link" href="{{route('classified_products')}}">{{translate('Klasifikasi Produk')}}</a>
@@ -170,7 +170,7 @@
                                 <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
                                     <a class="nav-link" href="{{ route('regular-physician-member.index') }}">
                                         <i class="fa fa-users"></i>
-                                        <span class="menu-title">{{translate('Dokter Reguler')}}</span>
+                                        <span class="menu-title">{{translate('Jenis Reguler Physician')}}</span>
                                     </a>
                                 </li>
                             </ul>
@@ -478,24 +478,24 @@
                                 <li class="{{ areActiveRoutes(['attributes.index','attributes.create','attributes.edit'])}}">
                                     <a class="nav-link" href="{{route('attributes.index')}}">{{translate('Atribut')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['coupon.index','coupon.create','coupon.edit'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['coupon.index','coupon.create','coupon.edit'])}}">
                                     <a class="nav-link" href="{{route('coupon.index')}}">{{translate('Kupon')}}</a>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{-- <li>
                                     <li class="{{ areActiveRoutes(['pick_up_points.index','pick_up_points.create','pick_up_points.edit'])}}">
                                         <a class="nav-link" href="{{route('pick_up_points.index')}}">{{translate('Point PickUp')}}</a>
                                     </li>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{-- <li>
                                     <li class="{{ areActiveRoutes(['shipping_configuration.index','shipping_configuration.edit','shipping_configuration.update'])}}">
                                         <a class="nav-link" href="{{route('shipping_configuration.index')}}">{{translate('Konfigurasi Pengiriman')}}</a>
                                     </li>
-                                </li>
-                                <li>
+                                </li> --}}
+                                {{-- <li>
                                     <li class="{{ areActiveRoutes(['countries.index','countries.edit','countries.update'])}}">
                                         <a class="nav-link" href="{{route('countries.index')}}">{{translate('Negara Pengiriman')}}</a>
                                     </li>
-                                </li>
+                                </li> --}}
                                 <li>
                                     <li class="{{ areActiveRoutes(['bank_setup'])}}">
                                         <a class="nav-link" href="{{route('bank_setup')}}">{{translate('Pengaturan Bank')}}</a>
@@ -520,15 +520,15 @@
 
                                 <!--Submenu-->
                                 <ul class="collapse">
-                                    <li class="{{ areActiveRoutes(['affiliate.configs'])}}">
+                                    {{-- <li class="{{ areActiveRoutes(['affiliate.configs'])}}">
                                         <a class="nav-link" href="{{route('affiliate.configs')}}">{{translate('Konfigurasi Afiliasi')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['affiliate.index'])}}">
                                         <a class="nav-link" href="{{route('affiliate.index')}}">{{translate('Opsi Afiliasi')}}</a>
                                     </li>
-                                    <li class="{{ areActiveRoutes(['affiliate.users', 'affiliate_users.show_verification_request', 'affiliate_user.payment_history'])}}">
+                                    {{-- <li class="{{ areActiveRoutes(['affiliate.users', 'affiliate_users.show_verification_request', 'affiliate_user.payment_history'])}}">
                                         <a class="nav-link" href="{{route('affiliate.users')}}">{{translate('Pengguna Afiliasi')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['refferals.users'])}}">
                                         <a class="nav-link" href="{{route('refferals.users')}}">{{translate('Rujukan Pengguna')}}</a>
                                     </li>
@@ -593,9 +593,9 @@
 
                                 <!--Submenu-->
                                 <ul class="collapse">
-                                    <li class="{{ areActiveRoutes(['club_points.configs'])}}">
+                                    {{-- <li class="{{ areActiveRoutes(['club_points.configs'])}}">
                                         <a class="nav-link" href="{{route('club_points.configs')}}">{{translate('Konfigurasi Poin')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['set_product_points', 'product_club_point.edit'])}}">
                                         <a class="nav-link" href="{{route('set_product_points')}}">{{translate('Tetapkan Poin Produk')}}</a>
                                     </li>
@@ -641,14 +641,14 @@
                         </li>
                         @endif --}}
 
-                        @if(Auth::user()->user_type == 'admin' || in_array('11', json_decode(Auth::user()->staff->role->permissions)))
+                        {{-- @if(Auth::user()->user_type == 'admin' || in_array('11', json_decode(Auth::user()->staff->role->permissions)))
                         <li class="{{ areActiveRoutes(['seosetting.index'])}}">
                             <a class="nav-link" href="{{ route('seosetting.index') }}">
                                 <i class="fa fa-search"></i>
                                 <span class="menu-title">{{translate('Pengaturan SEO')}}</span>
                             </a>
                         </li>
-                        @endif
+                        @endif --}}
 
                         @if(Auth::user()->user_type == 'admin' || in_array('10', json_decode(Auth::user()->staff->role->permissions)))
                         <li>

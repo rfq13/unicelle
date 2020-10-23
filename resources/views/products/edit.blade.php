@@ -2,7 +2,7 @@
 
 @section('content')
 <div>
-    <h1 class="page-header text-overflow">{{ translate('Edit Product') }}</h1>
+    <h1 class="page-header text-overflow">{{ translate('Edit Produk') }}</h1>
 </div>
 <div class="row">
 	<div class="col-lg-8 col-lg-offset-2">
@@ -12,17 +12,17 @@
 			@csrf
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Information')}}</h3>
+					<h3 class="panel-title">{{translate('Informasi produk')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-                        <label class="col-lg-2 control-label">{{translate('Product Name')}}</label>
+                        <label class="col-lg-2 control-label">{{translate('Nama Produk')}}</label>
                         <div class="col-lg-7">
                             <input type="text" class="form-control" name="name" placeholder="{{translate('Product Name')}}" value="{{$product->name}}" required>
                         </div>
                     </div>
                     <div class="form-group" id="category">
-                        <label class="col-lg-2 control-label">{{translate('Category')}}</label>
+                        <label class="col-lg-2 control-label">{{translate('Kategori')}}</label>
                         <div class="col-lg-7">
                             <select class="form-control demo-select2-placeholder" name="category_id" id="category_id" required>
                             	<option>{{ translate('Select an option') }}</option>
@@ -32,6 +32,7 @@
                             </select>
                         </div>
                     </div>
+                    {{--
                     <div class="form-group" id="subcategory">
                         <label class="col-lg-2 control-label">{{translate('Subcategory')}}</label>
                         <div class="col-lg-7">
@@ -59,24 +60,27 @@
                             </select>
                         </div>
                     </div>
+                    --}}
                     <div class="form-group">
-                        <label class="col-lg-2 control-label">{{translate('Unit')}}</label>
+                        <label class="col-lg-2 control-label">{{translate('Satuan')}}</label>
                         <div class="col-lg-7">
                             <input type="text" class="form-control" name="unit" placeholder="{{ translate('Unit (e.g. KG, Pc etc)') }}" value="{{$product->unit}}" required>
                         </div>
                     </div>
                     <div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Minimum Qty')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Jumlah Minimal')}}</label>
 						<div class="col-lg-7">
 							<input type="number" class="form-control" name="min_qty" value="@if($product->min_qty <= 1){{1}}@else{{$product->min_qty}}@endif" min="1" required>
 						</div>
 					</div>
-                    <div class="form-group">
+
+
+                    {{-- <div class="form-group">	
                         <label class="col-lg-2 control-label">{{translate('Tags')}}</label>
                         <div class="col-lg-7">
                             <input type="text" class="form-control" name="tags[]" id="tags" value="{{ $product->tags }}" placeholder="{{ translate('Type to add a tag') }}" data-role="tagsinput">
                         </div>
-                    </div>
+                    </div> --}}
 					@php
 					    $pos_addon = \App\Addon::where('unique_identifier', 'pos_system')->first();
 					@endphp
@@ -89,7 +93,7 @@
 						</div>
 					@endif
 
-					@php
+					{{-- @php
 					    $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 					@endphp
 					@if ($refund_request_addon != null && $refund_request_addon->activated == 1)
@@ -100,18 +104,18 @@
 									<input type="checkbox" name="refundable" @if ($product->refundable == 1) checked @endif>
 		                            <span class="slider round"></span></label>
 								</label>
-							</div>
+							</div>		
 						</div>
-					@endif
+					@endif --}}
 				</div>
 			</div>
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Images')}}</h3>
+					<h3 class="panel-title">{{translate('Gambar produk')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Gallery Images')}}</label>
+						<label class="col-lg-2 control-label">{{translate('Gambar Produk')}}</label>
 						<div class="col-lg-7">
 							<div id="photos">
 								@if(is_array(json_decode($product->photos)))
@@ -129,7 +133,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Thumbnail Image')}} <small>(290x300)</small></label>
+						<label class="col-lg-2 control-label">{{translate('Thumbnail')}} <small>(290x300)</small></label>
 						<div class="col-lg-7">
 							<div id="thumbnail_img">
 								@if ($product->thumbnail_img != null)
@@ -146,7 +150,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="panel">
+			
+			{{-- <div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{translate('Product Videos')}}</h3>
 				</div>
@@ -155,9 +160,9 @@
 						<label class="col-lg-2 control-label">{{translate('Video Provider')}}</label>
 						<div class="col-lg-7">
 							<select class="form-control demo-select2-placeholder" name="video_provider" id="video_provider">
-								<option value="youtube" <?php if($product->video_provider == 'youtube') echo "selected";?> >{{translate('Youtube')}}</option>
-								<option value="dailymotion" <?php if($product->video_provider == 'dailymotion') echo "selected";?> >{{translate('Dailymotion')}}</option>
-								<option value="vimeo" <?php if($product->video_provider == 'vimeo') echo "selected";?> >{{translate('Vimeo')}}</option>
+								<option value="youtube"@if($product->video_provider == 'youtube') {{ "selected"}}@endif >{{translate('Youtube')}}</option>
+								<option value="dailymotion" @if($product->video_provider == 'dailymotion') {{"selected"}}@endif >{{translate('Dailymotion')}}</option>
+								<option value="vimeo" @if($product->video_provider == 'vimeo') {{"selected"}}@endif >{{translate('Vimeo')}}</option>
 							</select>
 						</div>
 					</div>
@@ -168,37 +173,39 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> --}}
+			
+
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Variation')}}</h3>
+					<h3 class="panel-title">{{translate('Varian Produk')}}</h3>
 				</div>
 				<div class="panel-body">
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<div class="col-lg-2">
 							<input type="text" class="form-control" value="{{translate('Colors')}}" disabled>
 						</div>
 						<div class="col-lg-7">
 							<select class="form-control color-var-select" name="colors[]" id="colors" multiple>
 								@foreach (\App\Color::orderBy('name', 'asc')->get() as $key => $color)
-									<option value="{{ $color->code }}" <?php if(in_array($color->code, json_decode($product->colors))) echo 'selected'?> >{{ $color->name }}</option>
+									<option value="{{ $color->code }}" @if(in_array($color->code, json_decode($product->colors))) echo 'selected'@endif >{{ $color->name }}</option>
 								@endforeach
 							</select>
 						</div>
 						<div class="col-lg-2">
 							<label class="switch" style="margin-top:5px;">
-								<input value="1" type="checkbox" name="colors_active" <?php if(count(json_decode($product->colors)) > 0) echo "checked";?> >
+								<input value="1" type="checkbox" name="colors_active" @if(count(json_decode($product->colors)) > 0) echo "checked"@endif  >
 								<span class="slider round"></span>
 							</label>
 						</div>
-					</div>
+					</div> --}}
 
 					<div class="form-group">
 						<div class="col-lg-2">
-							<input type="text" class="form-control" value="{{translate('Attributes')}}" disabled>
+							<input type="text" class="form-control" value="{{translate('Atribut')}}" disabled>
 						</div>
 	                    <div class="col-lg-7">
-	                        <select name="choice_attributes[]" id="choice_attributes" class="form-control demo-select2" multiple data-placeholder="{{ translate('Choose Attributes') }}">
+	                        <select name="choice_attributes[]" id="choice_attributes" class="form-control demo-select2" multiple data-placeholder="{{ translate('Pilih Atribut') }}">
 								@foreach (\App\Attribute::all() as $key => $attribute)
 									<option value="{{ $attribute->id }}" @if($product->attributes != null && in_array($attribute->id, json_decode($product->attributes, true))) selected @endif>{{ $attribute->name }}</option>
 								@endforeach
@@ -207,7 +214,7 @@
 	                </div>
 
 					<div class="">
-						<p>{{ translate('Choose the attributes of this product and then input values of each attribute') }}</p>
+						<p>{{ translate('Silahkan pilih atribut varian produk') }}</p>
 						<br>
 					</div>
 
@@ -236,11 +243,11 @@
 			</div>
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product price + stock')}}</h3>
+					<h3 class="panel-title">{{translate('Harga Produk dan Jumlah Stoknya')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-                        <label class="col-lg-2 control-label">{{translate('Unit price')}}</label>
+                        <label class="col-lg-2 control-label">{{translate('Harga Satuan')}}</label>
                         {{-- <div class="col-lg-7">
                             <input type="text" placeholder="{{translate('Unit price')}}" name="unit_price" class="form-control" value="{{$product->unit_price}}" required>
 						</div> --}}
@@ -257,24 +264,24 @@
 							<span style="font-size: 10px;font-style:italic">*HET Pasien Regular</span>
 						</div>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label class="col-lg-2 control-label">{{translate('Purchase price')}}</label>
                         <div class="col-lg-7">
                             <input type="number" min="0" step="0.01" placeholder="{{translate('Purchase price')}}" name="purchase_price" class="form-control" value="{{$product->purchase_price}}" required>
                         </div>
-                    </div>
-                    <div class="form-group">
+                    </div> --}}
+                    {{-- <div class="form-group">
                         <label class="col-lg-2 control-label">{{translate('Tax')}}</label>
                         <div class="col-lg-7">
                             <input type="number" min="0" step="0.01" placeholder="{{translate('tax')}}" name="tax" class="form-control" value="{{$product->tax}}" required>
                         </div>
                         <div class="col-lg-1">
                             <select class="demo-select2" name="tax_type" required>
-                            	<option value="amount" <?php if($product->tax_type == 'amount') echo "selected";?> >{{translate('Flat')}}</option>
-                            	<option value="percent" <?php if($product->tax_type == 'percent') echo "selected";?> >{{translate('Percent')}}</option>
+                            	<option value="amount" @if($product->tax_type == 'amount') echo "selected";?> >{{translate('Flat')}}</option>
+                            	<option value="percent" @if($product->tax_type == 'percent') echo "selected"@endif >{{translate('Percent')}}</option>
                             </select>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="form-group">
                         <label class="col-lg-2 control-label">{{translate('Discount')}}</label>
                         <div class="col-lg-7">
@@ -301,18 +308,18 @@
 			</div>
 			<div class="panel">
 				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('Product Description')}}</h3>
+					<h3 class="panel-title">{{translate('Deskripsi Produk')}}</h3>
 				</div>
 				<div class="panel-body">
 					<div class="form-group">
-                        <label class="col-lg-2 control-label">{{translate('Description')}}</label>
+                        <label class="col-lg-2 control-label">{{translate('Deskripsi')}}</label>
                         <div class="col-lg-9">
                             <textarea class="editor" name="description">{{$product->description}}</textarea>
                         </div>
                     </div>
 				</div>
 			</div>
-			@if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
+			{{-- @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
                 <div class="panel">
     				<div class="panel-heading bord-btm">
     					<h3 class="panel-title">{{translate('Product Shipping Cost')}}</h3>
@@ -363,8 +370,8 @@
     					</div>
     				</div>
     			</div>
-            @endif
-			<div class="panel">
+            @endif --}}
+			{{-- <div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{translate('PDF Specification')}}</h3>
 				</div>
@@ -376,8 +383,8 @@
 						</div>
 					</div>
 				</div>
-			</div>
-			<div class="panel">
+			</div> --}}
+			{{-- <div class="panel">
 				<div class="panel-heading bord-btm">
 					<h3 class="panel-title">{{translate('SEO Meta Tags')}}</h3>
 				</div>
@@ -411,9 +418,9 @@
 						</div>
 					</div>
 				</div>
-			</div>
+			</div> --}}
 			<div class="mar-all text-right">
-				<button type="submit" name="button" class="btn btn-info" id="btnSubmit">{{ translate('Update product') }}</button>
+				<button type="submit" name="button" class="btn btn-info" id="btnSubmit">{{ translate('Perbarui Produk') }}</button>
 				{{-- <a href="#" id="btnTambah" class="btn btn-info">{{ translate('Update Product') }}</a> --}}
 			</div>
 		</form>

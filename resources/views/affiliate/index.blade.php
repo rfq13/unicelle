@@ -14,7 +14,7 @@
                         <div class="form-group">
                             <input type="hidden" name="type" value="user_registration_first_purchase">
                             <div class="col-lg-4">
-                                <label class="control-label">{{__('Pendaftaran pengguna & Pertama')}}</label>
+                                <label class="control-label">{{__('Perolehan Poin Pendaftaran pengguna')}}</label>
                             </div>
                             <div class="col-lg-6">
                                 @php
@@ -29,12 +29,12 @@
                                 <input type="number" min="0" step="0.01" max="100" class="form-control" name="percentage" value="{{ $percentage }}" placeholder="Percentage of Order Amount" required>
                             </div>
                             <div class="col-lg-2">
-                                <label class="control-label">%</label>
+                                <label class="control-label">Poin</label>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-lg-4">
-                                <label class="control-label">{{__('Status')}}</label>
+                                <label class="control-label">{{__('Aktif')}}</label>
                             </div>
                             <div class="col-lg-8">
                                 <label class="switch">

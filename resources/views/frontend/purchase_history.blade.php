@@ -6,9 +6,53 @@
         width: 59px;
         height: 70px;
     }
+
+
+    fieldset, label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+h1 { font-size: 1.5em; margin: 10px; }
+
+/****** Style untuk rating star *****/
+
+    .rating { 
+    border: none;
+    float: left;
+    }
+
+    .rating > input { display: none; } 
+    .rating > label:before { 
+    margin: 5px;
+    font-size: 1.25em;
+    font-family: FontAwesome;
+    display: inline-block;
+    content: "\f005";
+    }
+
+    .rating > .half:before { 
+    content: "\f089";
+    position: absolute;
+    }
+
+    .rating > label { 
+    color: #ddd; 
+    float: right; 
+    }
+
+    /***** CSS untuk hover nya *****/
+
+    .rating > input:checked ~ label, /* memperlihatkan warna emas pada saat di klik */
+    .rating:not(:checked) > label:hover, /* hover untuk star berikutnya */
+    .rating:not(:checked) > label:hover ~ label { color: #FFD700;  } /* hover untuk star sebelumnya  */
+
+    .rating > input:checked + label:hover, /* hover ketika mengganti rating */
+    .rating > input:checked ~ label:hover,
+    .rating > label:hover ~ input:checked ~ label, /* seleksi hover */
+    .rating > input:checked ~ label:hover ~ label { color: #FFED85;  }
 </style>
 @endsection
-
+@section('stylesheet')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/themes/fontawesome-stars.css">
+@endsection
 @section('content')
 
     <section class="gry-bg py-4 profile">
@@ -124,7 +168,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body mt-3 px-3 pt-0 mb-2">
+                        <div class="card-body mt-3 px-3 pt-0 mb-2" id="list-product">
                         @if (count($orders) > 0)
                         @foreach ($orders as $key => $order)
                             <div class="card card-pesanan__ my-3 ">
@@ -141,7 +185,7 @@
                                             <div class="d-flex mt-3">
                                                 @php
                                                     $detailOrder = $order->orderDetails[0];
-                                                    $photos = isset($detailOrder->product) ? json_decode($detailOrder->product->photos)[0] : "";
+                                                    $photos = $detailOrder->product == null ? "" : $detailOrder->product->thumbnail_img;
                                                 @endphp
                                                 <div class="img-produk-pesanan__ mr-3 p-1">
                                                     <img class="img-pesanan__ img-thumbnail" src="{{my_asset($photos)}}" alt="">
@@ -166,14 +210,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div
-                                        class="card col-md-4 mb-0  borer-bottom-unset border-top-unset border-left-unset">
+                                    <div class="card col-md-4 mb-0  borer-bottom-unset border-top-unset border-left-unset">
                                         <div class="card-body p-2">
                                             <p class="mb-0 text-left">
                                                 <span class="title-id-pesanan__">Pembayaran</span>
                                             </p>
                                             @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
-                                            <div class="jumlah-produk-pesanan mt-3">
+                                            <div class="jumlah-produk-pesanan mt-3 mb-2">
                                                 @isset($order->resi)
                                                     <span>{{ $order->resi }}</span>
                                                 @endisset
@@ -182,7 +225,6 @@
                                                 @endphp
                                                 <span class="virtual-pembayaran-pesanan__" style="text-transform:uppercase">{{ str_replace("_"," ",$order->payment_type) }}</span>
                                                 <div class="jumlah-number-pesanan__">
-
                                                     @if(json_decode($order->manual_payment) != null)
                                                     <span class="no-resi-pesanan__"> No. Rek {{json_decode($order->manual_payment)->norek  }} <br> a/n {{json_decode($order->manual_payment)->name  }}</span>
                                                     @endif
@@ -193,10 +235,18 @@
                                                 @endif
                                             </div>
                                             @elseif ($order->payment_status=="unpaid")
-                                            <div class="jumlah-produk-pesanan mt-3">
+                                            <div class="jumlah-produk-pesanan mt-3 mb-2">
                                                 <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 w-80">Konfirmasi Pembayaran</a>
                                             </div>
                                             @endif
+                                            
+                                            <select id="rating">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                              </select>
                                             
                                         </div>
                                     </div>
@@ -270,8 +320,15 @@
     </div>
 
 @endsection
+
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
     <script type="text/javascript">
+        $('#list-product #rating').barrating({
+           theme: 'fontawesome-stars'
+        });
+
+
         $(".page-link").css("backgorund-color","#006064")
 
         $('#order_details').on('hidden.bs.modal', function () {

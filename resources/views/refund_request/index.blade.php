@@ -14,10 +14,10 @@
                 <tr>
                     <th>#</th>
                     <th>{{__('Id Pesanan')}}</th>
-                    <th>{{__('Nama Penjual')}}</th>
+                    {{-- <th>{{__('Nama Penjual')}}</th> --}}
                     <th>{{__('Produk')}}</th>
                     <th>{{__('Harga')}}</th>
-                    <th>{{__('Persetujuan Penjual')}}</th>
+                    {{-- <th>{{__('Persetujuan Penjual')}}</th> --}}
                     <th>{{__('Status Pengembalian Dana')}}</th>
                     <th width="10%">{{__('Opsi')}}</th>
                 </tr>
@@ -27,11 +27,11 @@
                     <tr>
                         <td>{{ ($key+1) + ($refunds->currentPage() - 1)*$refunds->perPage() }}</td>
                         <td>{{ $refund->order->code }}</td>
-                        <td>
+                        {{-- <td>
                             @if ($refund->seller != null)
                                 {{ $refund->seller->name }}
                             @endif
-                        </td>
+                        </td> --}}
                         <td>
                             @if ($refund->orderDetail != null && $refund->orderDetail->product != null)
                                 <a href="{{ route('product', $refund->orderDetail->product->slug) }}" target="_blank" class="media-block">
@@ -52,7 +52,7 @@
                                 <div class="label label-mint">
                                     {{__('Produk Sendiri')}}
                                 </div>
-                            @else
+                            {{-- @else
                                 @if ($refund->seller_approval == 1)
                                     <div class="label label-info">
                                         {{__('Di setujui')}}
@@ -61,7 +61,7 @@
                                     <div class="label label-warning">
                                         {{__('Tertunda')}}
                                     </div>
-                                @endif
+                                @endif --}}
                             @endif
                         </td>
                         <td>

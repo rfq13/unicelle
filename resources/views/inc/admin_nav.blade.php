@@ -67,7 +67,7 @@
                             $locale = 'en';
                         }
                     @endphp
-                    @if(\App\Language::where('code', $locale)->first() != null)
+                    {{-- @if(\App\Language::where('code', $locale)->first() != null)
                         <a href="" class="dropdown-toggle top-bar-item" data-toggle="dropdown">
                             <img loading="lazy"  src="{{ my_asset('frontend/images/icons/flags/'.$locale.'.png') }}" class="flag" style="margin-right:6px;"><span class="language">{{ \App\Language::where('code', $locale)->first()->name }}</span>
                         </a>
@@ -78,7 +78,7 @@
                                 <a href="#" data-flag="{{ $language->code }}"><img loading="lazy"  src="{{ my_asset('frontend/images/icons/flags/'.$language->code.'.png') }}" class="flag" style="margin-right:6px;"><span class="language">{{ $language->name }}</span></a>
                             </li>
                         @endforeach
-                    </ul>
+                    </ul> --}}
                 </li>
 
 

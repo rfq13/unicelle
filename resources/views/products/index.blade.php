@@ -35,19 +35,19 @@
                 <div class="box-inline pad-rgt pull-left">
                     <div class="select" style="min-width: 200px;">
                         <select class="form-control demo-select2" name="type" id="type" onchange="sort_products()">
-                            <option value="">Sort by</option>
-                            <option value="rating,desc" @isset($col_name , $query) @if($col_name == 'rating' && $query == 'desc') selected @endif @endisset>{{translate('Rating (High > Low)')}}</option>
-                            <option value="rating,asc" @isset($col_name , $query) @if($col_name == 'rating' && $query == 'asc') selected @endif @endisset>{{translate('Rating (Low > High)')}}</option>
-                            <option value="num_of_sale,desc"@isset($col_name , $query) @if($col_name == 'num_of_sale' && $query == 'desc') selected @endif @endisset>{{translate('Num of Sale (High > Low)')}}</option>
-                            <option value="num_of_sale,asc"@isset($col_name , $query) @if($col_name == 'num_of_sale' && $query == 'asc') selected @endif @endisset>{{translate('Num of Sale (Low > High)')}}</option>
-                            <option value="unit_price,desc"@isset($col_name , $query) @if($col_name == 'unit_price' && $query == 'desc') selected @endif @endisset>{{translate('Base Price (High > Low)')}}</option>
-                            <option value="unit_price,asc"@isset($col_name , $query) @if($col_name == 'unit_price' && $query == 'asc') selected @endif @endisset>{{translate('Base Price (Low > High)')}}</option>
+                            <option value="">Tampilkan Berdasarkan</option>
+                            <option value="rating,desc" @isset($col_name , $query) @if($col_name == 'rating' && $query == 'desc') selected @endif @endisset>{{translate('Rating (Tinggi > Rendah)')}}</option>
+                            <option value="rating,asc" @isset($col_name , $query) @if($col_name == 'rating' && $query == 'asc') selected @endif @endisset>{{translate('Rating (Rendah > Tinggi)')}}</option>
+                            <option value="num_of_sale,desc"@isset($col_name , $query) @if($col_name == 'num_of_sale' && $query == 'desc') selected @endif @endisset>{{translate('Num of Sale (Tinggi > Rendah)')}}</option>
+                            <option value="num_of_sale,asc"@isset($col_name , $query) @if($col_name == 'num_of_sale' && $query == 'asc') selected @endif @endisset>{{translate('Num of Sale (Rendah > Tinggi)')}}</option>
+                            <option value="unit_price,desc"@isset($col_name , $query) @if($col_name == 'unit_price' && $query == 'desc') selected @endif @endisset>{{translate('Base Price (Tinggi > Rendah)')}}</option>
+                            <option value="unit_price,asc"@isset($col_name , $query) @if($col_name == 'unit_price' && $query == 'asc') selected @endif @endisset>{{translate('Base Price (Rendah > Tinggi)')}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="box-inline pad-rgt pull-left">
                     <div class="" style="min-width: 200px;">
-                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type & Enter') }}">
+                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Ketik Nama Produk') }}">
                     </div>
                 </div>
             </form>
@@ -66,13 +66,13 @@
                     @endif
                     <th>{{translate('Jumlah Penjualan')}}</th>
                     <th>{{translate('Total Stok')}}</th>
-                    <th>{{translate('Harga Reguler Dokter')}}</th>
-                    <th>{{translate('Harga Partner Dokter')}}</th>
+                    <th>{{translate('Harga Reguler Physician')}}</th>
+                    <th>{{translate('Harga Partner Physician')}}</th>
                     <th>{{translate('Harga Pasien Reguler ')}}</th>
-                    <th>{{translate('Deal Hari ini')}}</th>
-                    <th>{{translate('Peringkat')}}</th>
-                    <th>{{translate('Published')}}</th>
-                    <th>{{translate('Fitur')}}</th>
+                    {{--<th>{{translate('Deal Hari ini')}}</th>--}}
+                    {{--<th>{{translate('Peringkat')}}</th>--}}
+                    {{--<th>{{translate('Published')}}</th>--}}
+                    <th>{{translate('Tampilkan')}}</th>
                     <th>{{translate('Opsi')}}</th>
                 </tr>
             </thead>
@@ -113,13 +113,16 @@
                         <td>{{ number_format($product->regular_physician_price,2) }}</td>
                         <td>{{ number_format($product->partner_physician_price,2) }}</td>
                         <td>{{ number_format($product->pasien_regular_price,2) }}</td>
+                        {{--
                         <td><label class="switch">
-                                <input onchange="update_todays_deal(this)" value="{{ $product->id }}" type="checkbox" <?php if($product->todays_deal == 1) echo "checked";?> >
-                                <span class="slider round"></span></label></td>
+                                <input onchange="update_todays_deal(this)" value="{{ $product->id }}" type="checkbox" @if if($product->todays_deal == 1) {{"checked"}}@endif >
+                                <span class="slider round"></span></label> 
+                        </td>
+                        
                         <td>{{ $product->rating }}</td>
                         <td><label class="switch">
-                                <input onchange="update_published(this)" value="{{ $product->id }}" type="checkbox" <?php if($product->published == 1) echo "checked";?> >
-                                <span class="slider round"></span></label></td>
+                                <input onchange="update_published(this)" value="{{ $product->id }}" type="checkbox" @if if($product->published == 1) {{"checked"}}@endif >
+                                <span class="slider round"></span></label></td>--}}
                         <td><label class="switch">
                                 <input onchange="update_featured(this)" value="{{ $product->id }}" type="checkbox" <?php if($product->featured == 1) echo "checked";?> >
                                 <span class="slider round"></span></label></td>

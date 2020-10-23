@@ -137,6 +137,15 @@ class RegisterController extends Controller
                 $otpController->send_code($user);
             }
         }
+// ini diaaa
+
+        if(\App\AffiliateOption::where('type', 'user_registration_first_purchase')->first() != null){
+            $percentage = \App\AffiliateOption::where('type', 'user_registration_first_purchase')->first()->percentage;
+            $status = \App\AffiliateOption::where('type', 'user_registration_first_purchase')->first()->status;
+        }
+        else {
+            $percentage = 0;
+        }
 
         if (Cookie::has('referral_code')) {
             $referral_code = Cookie::get('referral_code');
@@ -144,6 +153,13 @@ class RegisterController extends Controller
             if ($referred_by_user != null) {
                 $user->referred_by = $referred_by_user->id;
                 $user->save();
+                $referred_by_user->poin += $percentage;
+                $referred_by_user->save();
+                $point = new \App\ClubPoint;
+                $point->user_id = $referred_by_user->id;
+                $point->points = $percentage;
+                $point->convert_status = 0;
+                $point->save();
             }
         }
 

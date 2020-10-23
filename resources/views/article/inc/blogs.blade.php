@@ -17,13 +17,12 @@
             box-shadow: 0px 0px 6px 4px rgba(0, 0, 0, 0.25);
             border-radius: 10px">
                     <a href="{{ route('detail.blog', encrypt($blog->id)) }}" class="text-center">
-                        <img class="img-fluid" src="{{ my_asset($blog->thumbnail) }}" style="
+                        <img  class="img-fluid" src="{{ my_asset($blog->thumbnail) }}" width="100%" style="
                     left: 0%;
                     right: 0%;
                     top: 0%;
                     bottom: 45.11%;
-                    border-radius: 10px 10px 0px 0px;
-                    " class="card-img-top" alt="...">
+                    border-radius: 10px 10px 0px 0px;">
                         <div class="container" style="margin-top: 10px;padding-bottom:10px">
                             <p style="
                         left: 5.47%;

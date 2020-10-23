@@ -8,13 +8,13 @@
 <!--===================================================-->
 <div class="panel">
     <div class="panel-heading bord-btm clearfix pad-all h-100">
-        <h3 class="panel-title pull-left pad-no">{{translate('Psenan')}}</h3>
+        <h3 class="panel-title pull-left pad-no">{{translate('Pesanan')}}</h3>
         <div class="pull-right clearfix">
             <form class="" id="sort_orders" action="" method="GET">
                 <div class="box-inline pad-rgt pull-left">
                     <div class="select" style="min-width: 300px;">
                         <select class="form-control demo-select2" name="payment_type" id="payment_type" onchange="sort_orders()">
-                            <option value="">{{translate('Filter by Payment Status')}}</option>
+                            <option value="">{{translate('Filter Berdasarkan Status Pembayaran')}}</option>
                             <option value="paid"  @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{translate('Dibayar')}}</option>
                             <option value="unpaid"  @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{translate('Tidak Dibayar')}}</option>
                         </select>
@@ -23,17 +23,17 @@
                 <div class="box-inline pad-rgt pull-left">
                     <div class="select" style="min-width: 300px;">
                         <select class="form-control demo-select2" name="delivery_status" id="delivery_status" onchange="sort_orders()">
-                            <option value="">{{translate('Filter by Deliver Status')}}</option>
+                            <option value="">{{translate('Filter Berdasarkan Status Pengiriman')}}</option>
                             <option value="pending"   @isset($delivery_status) @if($delivery_status == 'pending') selected @endif @endisset>{{translate('Pending')}}</option>
-                            <option value="on_review"   @isset($delivery_status) @if($delivery_status == 'on_review') selected @endif @endisset>{{translate('On review')}}</option>
-                            <option value="on_delivery"   @isset($delivery_status) @if($delivery_status == 'on_delivery') selected @endif @endisset>{{translate('On delivery')}}</option>
-                            <option value="delivered"   @isset($delivery_status) @if($delivery_status == 'delivered') selected @endif @endisset>{{translate('Delivered')}}</option>
+                            {{-- <option value="on_review"   @isset($delivery_status) @if($delivery_status == 'on_review') selected @endif @endisset>{{translate('On review')}}</option> --}}
+                            <option value="on_delivery"   @isset($delivery_status) @if($delivery_status == 'on_delivery') selected @endif @endisset>{{translate('Dikirim')}}</option>
+                            <option value="delivered"   @isset($delivery_status) @if($delivery_status == 'delivered') selected @endif @endisset>{{translate('Terkirim')}}</option>
                         </select>
                     </div>
                 </div>
                 <div class="box-inline pad-rgt pull-left">
                     <div class="" style="min-width: 200px;">
-                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type Order code & hit Enter') }}">
+                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Ketik Kode Pesanan') }}">
                     </div>
                 </div>
             </form>

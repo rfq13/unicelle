@@ -106,12 +106,12 @@
                     </td>
                 </tr>
 
-                <tr class="cart-shipping">
+                {{-- <tr class="cart-shipping">
                     <th>{{translate('Tax')}}</th>
                     <td class="text-right">
                         <span class="text-italic">{{ single_price($tax) }}</span>
                     </td>
-                </tr>
+                </tr> --}}
 
                 <tr class="cart-shipping">
                     <th>{{translate('Total Shipping')}}</th>

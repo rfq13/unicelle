@@ -19,7 +19,7 @@
             <form class="" id="sort_categories" action="" method="GET">
                 <div class="box-inline pad-rgt pull-left">
                     <div class="" style="min-width: 200px;">
-                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type name & Enter') }}">
+                        <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Ketik Kategori') }}">
                     </div>
                 </div>
             </form>
@@ -31,10 +31,10 @@
                 <tr>
                     <th>#</th>
                     <th>{{translate('Nama')}}</th>
-                    <th>{{translate('Banner')}}</th>
+                    {{-- <th>{{translate('Banner')}}</th> --}}
                     <th>{{translate('Icon')}}</th>
-                    <th>{{translate('Fitur')}}</th>
-                    <th>{{translate('Komisi')}}</th>
+                    <th>{{translate('Tampilkan')}}</th>
+                    {{-- <th>{{translate('Komisi')}}</th> --}}
                     <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
             </thead>
@@ -43,12 +43,12 @@
                     <tr>
                         <td>{{ ($key+1) + ($categories->currentPage() - 1)*$categories->perPage() }}</td>
                         <td>{{__($category->name)}}</td>
-                        <td><img loading="lazy"  class="img-md" src="{{ my_asset($category->banner) }}" alt="{{translate('banner')}}"></td>
+                        {{-- <td><img loading="lazy"  class="img-md" src="{{ my_asset($category->banner) }}" alt="{{translate('banner')}}"></td> --}}
                         <td><img loading="lazy"  class="img-xs" src="{{ my_asset($category->icon) }}" alt="{{translate('icon')}}"></td>
                         <td><label class="switch">
                             <input onchange="update_featured(this)" value="{{ $category->id }}" type="checkbox" <?php if($category->featured == 1) echo "checked";?> >
                             <span class="slider round"></span></label></td>
-                        <td>{{ $category->commision_rate }} %</td>
+                        {{-- <td>{{ $category->commision_rate }} %</td> --}}
                         <td>
                             <div class="btn-group dropdown">
                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

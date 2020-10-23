@@ -9,7 +9,7 @@
         @csrf
         <div class="panel-body">
             <div class="form-group" id="category">
-                <label class="col-lg-2 control-label">{{translate('Category')}}</label>
+                <label class="col-lg-2 control-label">{{translate('Kategori')}}</label>
                 <div class="col-lg-7">
                     <select class="form-control demo-select2-placeholder" name="category_id" id="category_id" required>
                         @foreach(\App\Category::all() as $category)
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="panel-footer text-right">
-            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
         </div>
     </form>
     <!--===================================================-->

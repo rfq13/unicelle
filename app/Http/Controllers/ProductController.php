@@ -105,6 +105,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->indication);
         $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 
         $product = new Product;
@@ -150,7 +151,8 @@ class ProductController extends Controller
 
         $product->unit = $request->unit;
         $product->min_qty = $request->min_qty;
-        $product->tags = implode('|',$request->tags);
+        // $product->tags = implode('|',$request->tags);
+        $product->indication = implode('|',$request->indication);
         $product->description = $request->description;
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
@@ -164,7 +166,7 @@ class ProductController extends Controller
         $product->regular_physician_price = $price[0];
         $product->partner_physician_price = $price[1];
         $product->pasien_regular_price = $price[2];
-        $product->purchase_price = $request->purchase_price;
+        $product->purchase_price = $sum;
         
         $product->tax = $request->tax;
         $product->tax_type = $request->tax_type;

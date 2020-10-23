@@ -7,7 +7,7 @@ $point -= Session::get('poin_use');
 }
 @endphp
 
-<nav class="navbar navbar-expand-lg navbar-light bg-white" >
+<nav class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container text-center">
         <a class="navbar-brand" href="{{ route('home') }}">
             <img class="navbar-brand" style="height: 57px;"
@@ -22,79 +22,95 @@ $point -= Session::get('poin_use');
             <div class=" input-group w-100 mx-lg-4 mx-0 mt-lg-0 mt-2">
                 <input class="form-control border-right-0" type="search" id="inputSearchNav" placeholder="Cari Produk">
                 <div class="input-group-append">
-                    <button class=" btn bg-light border-right rounded-right border-top border-bottom" data-href="{{ route('suggestion.search', 'slug') }}" id="btnSearchNav">
+                    <button class=" btn bg-light border-right rounded-right border-top border-bottom"
+                        data-href="{{ route('suggestion.search', 'slug') }}" id="btnSearchNav">
                         <span class="fa fa-search"></span>
                     </button>
-                    {{-- <a  class="nav-box-link d-none" >
+                    {{-- <a class="nav-box-link d-none">
                         <img src="{{ my_asset('img/header_dan_footer/icon/search.png') }}">
                     </a> --}}
                 </div>
             </div>
             @auth
                 <ul class="navbar-nav ml-lg-auto">
-                    <li class="nav-item my-auto mr-lg-4 mr-0">
+                    {{-- <li class="nav-item my-auto mr-lg-4 mr-0">
                         <i id="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             class="fa fa-bell-o font-weight-bold" aria-hidden="true" style="font-size: 22px "></i>
-                    </li>
+                    </li> --}}
                     <li class="nav-item my-auto mr-lg-3 mr-0">
                         <a href="{{ route('wishlists.index') }}" style="color:black">
-                            <i id="" type="button" aria-haspopup="true" aria-expanded="false" class=" fa fa-heart-o font-weight-bold"
-                                aria-hidden="true" style="font-size: 22px "></i>
+                            <div class="d-flex">
+                                <i id="" type="button" aria-haspopup="true" aria-expanded="false"
+                                    class=" fa fa-heart-o font-weight-bold" aria-hidden="true" style="font-size: 22px ">
+
+                                </i>
+                                {{-- <div
+                                    class="px-1 bg-danger align-items-center text-center justify-content-center absolute-bottom"
+                                    style="border-radius: 100px">
+                                    <span class="text-white p-0 my-auto top-0 line-height-1_2">6</span>
+                                </div> --}}
+                            </div>
                         </a>
                     </li>
                     <li class="nav-item my-auto mr-lg-3 mr-0">
                         <a href="{{ route('cart') }}">
-                            <i class="" id="" type="button" aria-haspopup="true" aria-expanded="false">
-                                <img class="mx-2" width="20" height="25"
-                                    src="{{ my_asset('img/header_dan_footer/icon/bag.png') }}">
-                            </i>
-                            @if (Session::has('cart'))
-                                <span id="cart_items_sidenav">{{ count(Session::get('cart')) }}</span>
-                            @else
-                                {{-- <span id="cart_items_sidenav">0</span>
-                                --}}
-                            @endif
+                            <div class="d-flex align-items-start">
+                                <i class="" id="" type="button" aria-haspopup="true" aria-expanded="false" style="margin-right:-12px!important;">
+                                    <img class="mx-2" width="20" height="25"
+                                        src="{{ my_asset('img/header_dan_footer/icon/bag.png') }}">
+                                </i>
+                                @if (Session::has('cart'))
+                                <a style="margin-top:-5px!important;">
+                                    <span class="nav-box-number bg-red rounded-circle p-0 m-0 line-height-1_8 px-2"
+                                        id="cart_items_sidenav">{{ count(Session::get('cart')) }}</span>
+                                </a>
+                                @else
+                                    {{-- <span id="cart_items_sidenav">0</span>
+                                    --}}
+                                @endif
+                            </div>
                         </a>
                     </li>
                     <li class="nav-item my-auto mr-lg-3 mr-0">
 
                         <div class="btn-group">
-                            <i type="button" class="fa fa-user-o font-weight-bold" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" style="font-size: 22px "> 
+                            <i type="button" class="fa fa-user-o font-weight-bold" data-toggle="dropdown"
+                                data-display="static" aria-haspopup="true" aria-expanded="false" style="font-size: 22px ">
                             </i>
                             <div class="dropdown-menu dropdown-menu-right mt-3">
                                 @auth
-                                <div class="dropdown-item d-flex align-items-center">
-                                    <img class="profile-icon"
+                                    <div class="dropdown-item d-flex align-items-center">
+                                        <img class="profile-icon"
                                             src="{{ Auth::user()->avatar_original != null ? my_asset(Auth::user()->avatar_original) : my_asset('img/header_dan_footer/icon/fb.png') }}"
                                             alt="">
-                                    <div class="ml-3">
-                                        <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">
-                                            {{ Auth::user()->name }}
-                                        </p>
-                                        <span class="text-dd-profile">{{ $point }}</span><span class="ml-2">Poin</span>
+                                        <div class="ml-3">
+                                            <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">
+                                                {{ Auth::user()->name }}
+                                            </p>
+                                            <span class="text-dd-profile">{{ $point }}</span><span class="ml-2">Poin</span>
+                                        </div>
                                     </div>
-                                </div>
-                                <a class="dropdown-item" href="{{ route('profile') }}">Akun Saya</a>
-                                <hr class=" mt-0 mb-0 mr-2 ml-2">
-                                <a class="dropdown-item" href="{{ route('purchase_history.index') }}">Pesanan</a>
-                                <hr class=" mt-0 mb-0 mr-2 ml-2">
-                                @if (Auth::user()->user_type == 'regular physician')
-                                    <a class="dropdown-item" href="{{ route('membership') }}">Membership</a>
+                                    <a class="dropdown-item" href="{{ route('profile') }}">Akun Saya</a>
                                     <hr class=" mt-0 mb-0 mr-2 ml-2">
-                                @endif
-                                <a class="dropdown-item my-2 btn bg-primary text-white"
-                                    href="{{ route('logout') }}">Logout</a>
-                            @else
-                                <a type="button" href="{{ route('user.login') }}" class="dropdown-item mt-3"
-                                    role="button">Login</a>
-                                <a href="{{ route('user.registration') }}" class="dropdown-item" type="button"
-                                    role="button">Daftar</a>
-                                <a href="{{ route('user.registration', 'physician') }}" class="dropdown-item" type="button"
-                                    role="button">Daftar Physician</a>
-                            @endauth
+                                    <a class="dropdown-item" href="{{ route('purchase_history.index') }}">Pesanan</a>
+                                    <hr class=" mt-0 mb-0 mr-2 ml-2">
+                                    @if (Auth::user()->user_type == 'regular physician')
+                                        <a class="dropdown-item" href="{{ route('membership') }}">Membership</a>
+                                        <hr class=" mt-0 mb-0 mr-2 ml-2">
+                                    @endif
+                                    <a class="dropdown-item my-2 btn bg-primary text-white"
+                                        href="{{ route('logout') }}">Logout</a>
+                                @else
+                                    <a type="button" href="{{ route('user.login') }}" class="dropdown-item mt-3"
+                                        role="button">Login</a>
+                                    <a href="{{ route('user.registration') }}" class="dropdown-item" type="button"
+                                        role="button">Daftar</a>
+                                    <a href="{{ route('user.registration', 'physician') }}" class="dropdown-item" type="button"
+                                        role="button">Daftar Physician</a>
+                                @endauth
 
                             </div>
-                          </div>
+                        </div>
 
 
                     </li>

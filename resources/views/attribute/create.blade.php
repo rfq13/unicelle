@@ -14,7 +14,7 @@
             @csrf
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="col-sm-2 control-label" for="name">{{ translate('Name')}}</label>
+                    <label class="col-sm-2 control-label" for="name">{{ translate('Nama')}}</label>
                     <div class="col-sm-10">
                         <input type="text" placeholder="{{ translate('Nama')}}" id="name" name="name" class="form-control" required>
                     </div>
