@@ -144,10 +144,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::get('create-kategori-blog','blogController@create_kategori_blog')->name('blog.create-ctg');
 	Route::post('store-kategori-blog','blogController@store_kategori_blog')->name('blog.store-ctg');
 	Route::get('delete-kategori-blog/{id}','blogController@delete_kategori_blog')->name('blog.delete-ctg');
-	Route::post('/uploadajax', 'BlogController@upload_ajx')->name('admin.imgUpload.ajax');
-	Route::post('/removeajax', 'BlogController@remove_ajx')->name('admin.deleteImg.ajax');
-	Route::post('/visible/{id}','BlogController@update_visibility')->name('blog.update-visib');
-	Route::put('/update-banner/{id}','BlogController@update_banner')->name('update.banner');
+	Route::post('/uploadajax', 'blogController@upload_ajx')->name('admin.imgUpload.ajax');
+	Route::post('/removeajax', 'blogController@remove_ajx')->name('admin.deleteImg.ajax');
+	Route::post('/visible/{id}','blogController@update_visibility')->name('blog.update-visib');
+	Route::put('/update-banner/{id}','blogController@update_banner')->name('update.banner');
 
 
 	Route::resource('flash_deals', 'FlashDealController');
