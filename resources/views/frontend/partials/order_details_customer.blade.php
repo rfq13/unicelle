@@ -32,27 +32,27 @@ if($ship != null || $ship != 0){
 
     <div class="pt-4">
         <ul class="process-steps clearfix">
-            <li @if($status == 'pending') class="active" @else class="done" @endif>
-                <div class="icon">{{ translate('1')}}</div>
-                <div class="title">{{ translate('Order placed')}}</div>
+            <li @if($status == 'pending') class="active"  @else class="done"  @endif >
+                <div class="icon text-white">{{ translate('1')}}</div>
+                <div class="title" style="color: #006064;">{{ translate('Order placed')}}</div>
             </li>
-            <li @if($status == 'on_review') class="active" @elseif($status == 'on_delivery' || $status == 'delivered') class="done" @endif>
+            <li @if($status == 'on_review') class="active" @elseif($status == 'on_delivery' || $status == 'delivered') class="done"  @endif>
                 <div class="icon">{{ translate('2')}}</div>
                 <div class="title">{{ translate('On review')}}</div>
             </li>
-            <li @if($status == 'on_delivery') class="active" @elseif($status == 'delivered') class="done" @endif>
+            <li @if($status == 'on_delivery') class="active" @elseif($status == 'delivered') class="done"  @endif>
                 <div class="icon">{{ translate('3')}}</div>
                 <div class="title">{{ translate('On delivery')}}</div>
             </li>
             <li @if($status == 'delivered') class="done" @endif>
-                <div class="icon">{{ translate('4')}}</div>
+                <div class="icon" >{{ translate('4')}}</div>
                 <div class="title">{{ translate('Delivered')}}</div>
             </li>
         </ul>
     </div>
     <div class="card mt-4">
-        <div class="card-header py-2 px-3 heading-6 strong-600 clearfix">
-            <div class="float-left">{{ translate('Order Summary')}}</div>
+        <div class="card-header py-2 px-3 heading-6 strong-600 clearfix" style="background-color: #006064;">
+            <div class="float-left text-white" >{{ translate('Order Summary')}}</div>
         </div>
         <div class="card-body pb-0">
             <div class="row">
@@ -108,7 +108,7 @@ if($ship != null || $ship != 0){
     <div class="row">
         <div class="col-lg-9">
                 <div class="card mt-4">
-                    <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Order Details')}}</div>
+                    <div class="card-header py-2 px-3 heading-6 strong-600 text-white" style="background-color: #006064;">{{ translate('Order Details')}}</div>
                     <div class="card-body pb-0">
                         <table class="details-table table table-responsive">
                             <thead>
@@ -227,7 +227,7 @@ if($ship != null || $ship != 0){
         </div>
         <div class="col-lg-3">
             <div class="card mt-4">
-                <div class="card-header py-2 px-3 heading-6 strong-600">{{ translate('Order Ammount')}}</div>
+                <div class="text-white card-header py-2 px-3 heading-6 strong-600" style="background-color: #006064;">{{ translate('Order Ammount')}}</div>
                 <div class="card-body pb-0">
                     <table class="table details-table">
                         <tbody>
