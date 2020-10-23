@@ -67,7 +67,9 @@
 <link type="text/css" href="{{ my_asset('frontend/css/bootstrap-tagsinput.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ my_asset('frontend/css/jodit.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ my_asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
-<link type="text/css" href="{{ my_asset('frontend/css/slick.css') }}" rel="stylesheet" media="all">
+{{-- <link type="text/css" href="{{ my_asset('frontend/css/slick.css') }}" rel="stylesheet" media="all"> --}}
+<link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+
 <link type="text/css" href="{{ my_asset('frontend/css/xzoom.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ my_asset('frontend/css/jssocials.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <link type="text/css" href="{{ my_asset('frontend/css/jssocials-theme-flat.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
@@ -101,6 +103,7 @@
 <link type="text/css" href="{{ my_asset('frontend/css/custom-style.css') }}" rel="stylesheet" media="all">
 
 <!-- jQuery -->
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 <script src="{{ my_asset('frontend/js/vendor/jquery.min.js') }}"></script>
 
 
@@ -869,7 +872,10 @@
 <script src="{{ my_asset('frontend/js/select2.min.js') }}"></script>
 <script src="{{ my_asset('frontend/js/nouislider.min.js') }}"></script>
 <script src="{{ my_asset('frontend/js/sweetalert2.min.js') }}"></script>
-<script src="{{ my_asset('frontend/js/slick.min.js') }}"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+{{--<script src="{{ my_asset('frontend/js/slick.min.js') }}"></script>--}}
+
 <script src="{{ my_asset('frontend/js/jssocials.min.js') }}"></script>
 <script src="{{ my_asset('frontend/js/bootstrap-tagsinput.min.js') }}"></script>
 <script src="{{ my_asset('frontend/js/jodit.min.js') }}"></script>

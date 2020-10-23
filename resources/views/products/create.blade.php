@@ -30,7 +30,7 @@
 							</select>
 						</div>
 					</div>
-					<div class="form-group" id="subcategory">
+					{{-- <div class="form-group" id="subcategory">
 						<label class="col-lg-2 control-label">{{translate('Subcategory')}}</label>
 						<div class="col-lg-7">
 							<select class="form-control demo-select2-placeholder" name="subcategory_id" id="subcategory_id" required>
@@ -56,7 +56,7 @@
 								@endforeach
 							</select>
 						</div>
-					</div>
+					</div> --}}
 					<div class="form-group">
 						<label class="col-lg-2 control-label">{{translate('Unit')}}</label>
 						<div class="col-lg-7">

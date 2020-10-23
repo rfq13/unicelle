@@ -8,9 +8,9 @@ $point -= Session::get('poin_use');
 @endphp
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white" >
-    <div class="container">
+    <div class="container text-center">
         <a class="navbar-brand" href="{{ route('home') }}">
-            <img class="navbar-brand ml-5" style="height: 57px;"
+            <img class="navbar-brand" style="height: 57px;"
                 src="{{ my_asset('img/header_dan_footer/icon/logonav.png') }}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -57,49 +57,46 @@ $point -= Session::get('poin_use');
                         </a>
                     </li>
                     <li class="nav-item my-auto mr-lg-3 mr-0">
-                        <div class="btn-group" role="group">
-                            <i class="fa fa-user-o font-weight-bold" id="btnGroupDrop1" type="button" data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false" style="font-size: 22px "></i>
 
-                            <div class="dropdown-menu pb-0"
-                                {{-- style="width: 240px; border-radius: 20px; top: 70px; left: -80px; border: 2px #000;" --}}
-                                aria-labelledby="btnGroupDrop1">
+                        <div class="btn-group">
+                            <i type="button" class="fa fa-user-o font-weight-bold" data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false" style="font-size: 22px "> 
+                            </i>
+                            <div class="dropdown-menu dropdown-menu-right mt-3">
                                 @auth
-                                    <div class="row">
-                                        <div class="ml-4 mr-2 pr-0">
-                                            <img class="profile-icon"
-                                                src="{{ Auth::user()->avatar_original != null ? my_asset(Auth::user()->avatar_original) : my_asset('img/header_dan_footer/icon/fb.png') }}"
-                                                alt="">
-                                        </div>
-                                        <div class="col pl-0 mt-2" style="width:20px; text-align:left;">
-                                            <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">
-                                                {{ Auth::user()->name }}
-                                            </p>
-                                            <span class="text-dd-profile">{{ $point }}</span><span class="ml-2">point</span>
-                                        </div>
+                                <div class="dropdown-item d-flex align-items-center">
+                                    <img class="profile-icon"
+                                            src="{{ Auth::user()->avatar_original != null ? my_asset(Auth::user()->avatar_original) : my_asset('img/header_dan_footer/icon/fb.png') }}"
+                                            alt="">
+                                    <div class="ml-3">
+                                        <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">
+                                            {{ Auth::user()->name }}
+                                        </p>
+                                        <span class="text-dd-profile">{{ $point }}</span><span class="ml-2">Poin</span>
                                     </div>
-                                    <a class="dropdown-item" href="{{ route('profile') }}">Akun Saya</a>
+                                </div>
+                                <a class="dropdown-item" href="{{ route('profile') }}">Akun Saya</a>
+                                <hr class=" mt-0 mb-0 mr-2 ml-2">
+                                <a class="dropdown-item" href="{{ route('purchase_history.index') }}">Pesanan</a>
+                                <hr class=" mt-0 mb-0 mr-2 ml-2">
+                                @if (Auth::user()->user_type == 'regular physician')
+                                    <a class="dropdown-item" href="{{ route('membership') }}">Membership</a>
                                     <hr class=" mt-0 mb-0 mr-2 ml-2">
-                                    <a class="dropdown-item" href="{{ route('purchase_history.index') }}">Pesanan</a>
-                                    <hr class=" mt-0 mb-0 mr-2 ml-2">
-                                    @if (Auth::user()->user_type == 'regular physician')
-                                        <a class="dropdown-item" href="{{ route('membership') }}">Membership</a>
-                                        <hr class=" mt-0 mb-0 mr-2 ml-2">
-                                    @endif
-                                    <a class="dropdown-item" style="background-color:#3B6CB6; color:#fff"
-                                        href="{{ route('logout') }}">Logout</a>
-                                @else
-                                    <a type="button" href="{{ route('user.login') }}" class="dropdown-item mt-3"
-                                        role="button">Login</a>
-                                    <a href="{{ route('user.registration') }}" class="dropdown-item" type="button"
-                                        role="button">Daftar</a>
-                                    <a href="{{ route('user.registration', 'physician') }}" class="dropdown-item" type="button"
-                                        role="button">Daftar Physician</a>
-                                @endauth
+                                @endif
+                                <a class="dropdown-item my-2 btn bg-primary text-white"
+                                    href="{{ route('logout') }}">Logout</a>
+                            @else
+                                <a type="button" href="{{ route('user.login') }}" class="dropdown-item mt-3"
+                                    role="button">Login</a>
+                                <a href="{{ route('user.registration') }}" class="dropdown-item" type="button"
+                                    role="button">Daftar</a>
+                                <a href="{{ route('user.registration', 'physician') }}" class="dropdown-item" type="button"
+                                    role="button">Daftar Physician</a>
+                            @endauth
 
                             </div>
-                            <!-- <a  class="btn btn-outline-success mr-2 my-sm-2" type="button" role="button">Logout</a> -->
-                        </div>
+                          </div>
+
+
                     </li>
                 </ul>
 
