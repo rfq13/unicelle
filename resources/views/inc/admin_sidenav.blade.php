@@ -91,9 +91,9 @@
 
                                 <!--Submenu-->
                                 <ul class="collapse">
-                                    <li class="{{ areActiveRoutes(['brands.index', 'brands.create', 'brands.edit'])}}">
+                                    {{-- <li class="{{ areActiveRoutes(['brands.index', 'brands.create', 'brands.edit'])}}">
                                         <a class="nav-link" href="{{route('brands.index')}}">{{translate('Brand')}}</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="{{ areActiveRoutes(['categories.index', 'categories.create', 'categories.edit'])}}">
                                         <a class="nav-link" href="{{route('categories.index')}}">{{translate('Kategori')}}</a>
                                     </li>

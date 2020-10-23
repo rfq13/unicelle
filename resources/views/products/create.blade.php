@@ -30,33 +30,35 @@
 							</select>
 						</div>
 					</div>
-					{{-- <div class="form-group" id="subcategory">
-						<label class="col-lg-2 control-label">{{translate('Subcategory')}}</label>
-						<div class="col-lg-7">
-							<select class="form-control demo-select2-placeholder" name="subcategory_id" id="subcategory_id" required>
+					{{-- 
+						<div class="form-group" id="subcategory">
+							<label class="col-lg-2 control-label">{{translate('Subcategory')}}</label>
+							<div class="col-lg-7">
+								<select class="form-control demo-select2-placeholder" name="subcategory_id" id="subcategory_id" required>
 
-							</select>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="form-group" id="subsubcategory">
-						<label class="col-lg-2 control-label">{{translate('Sub Subcategory')}}</label>
-						<div class="col-lg-7">
-							<select class="form-control demo-select2-placeholder" name="subsubcategory_id" id="subsubcategory_id">
+						<div class="form-group" id="subsubcategory">
+							<label class="col-lg-2 control-label">{{translate('Sub Subcategory')}}</label>
+							<div class="col-lg-7">
+								<select class="form-control demo-select2-placeholder" name="subsubcategory_id" id="subsubcategory_id">
 
-							</select>
+								</select>
+							</div>
 						</div>
-					</div>
-					<div class="form-group" id="brand">
-						<label class="col-lg-2 control-label">{{translate('Brand')}}</label>
-						<div class="col-lg-7">
-							<select class="form-control demo-select2-placeholder" name="brand_id" id="brand_id">
-								<option value="">{{ ('Select Brand') }}</option>
-								@foreach (\App\Brand::all() as $brand)
-									<option value="{{ $brand->id }}">{{ $brand->name }}</option>
-								@endforeach
-							</select>
+						<div class="form-group" id="brand">
+							<label class="col-lg-2 control-label">{{translate('Brand')}}</label>
+							<div class="col-lg-7">
+								<select class="form-control demo-select2-placeholder" name="brand_id" id="brand_id">
+									<option value="">{{ ('Select Brand') }}</option>
+									@foreach (\App\Brand::all() as $brand)
+										<option value="{{ $brand->id }}">{{ $brand->name }}</option>
+									@endforeach
+								</select>
+							</div>
 						</div>
-					</div> --}}
+					--}}
 					<div class="form-group">
 						<label class="col-lg-2 control-label">{{translate('Unit')}}</label>
 						<div class="col-lg-7">
