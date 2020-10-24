@@ -221,8 +221,9 @@ class RefundRequestController extends Controller
         $order_detail = OrderDetail::findOrFail($id);
         if ($order_detail->product != null && $order_detail->product->refundable == 1) {
             $authpoin = $request->session()->has('poin_use') ? $request->session()->get('poin_use') : Auth::user()->poin;
+            // dd($authpoin);
             if ($authpoin>(int)$poin) {
-                $authpoin = $authpoin - $poin;
+                $authpoin -= (int)$poin;
                 $request->session()->put('poin_use',$authpoin);
             }
             // dd($request->session()->get('poin_use'));
