@@ -53,8 +53,10 @@
 <section class="gry-bg py-4 profile">
     <div class="container">
         <div class="row cols-xs-space cols-sm-space cols-md-space">
-            <div class="col-lg-4 d-none d-lg-block card">
+            <div class="col-lg-4 d-none d-lg-block">
+                <div class="card mr-2">
                     @include('frontend.inc.customer_side_nav')
+                </div>
             </div>
 
             <div class="col-lg-8">

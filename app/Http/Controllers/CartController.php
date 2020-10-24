@@ -9,6 +9,7 @@ use App\Category;
 use Session;
 use App\Color;
 use Cookie;
+use Auth;
 
 class CartController extends Controller
 {
@@ -68,7 +69,16 @@ class CartController extends Controller
 
         if($str != null && $product->variant_product){
             $product_stock = $product->stocks->where('variant', $str)->first();
-            $price = $product_stock->price;
+            if (Auth::user()->user_type == "regular physician") {
+                $price = $product_stock->regular_physician_price;
+            }elseif (Auth::user()->user_type == "partner physician") {
+                $price = $product_stock->partner_physician_price;
+            }elseif (Auth::user()->user_type == "pasien reg") {
+                $price = $product_stock->pasien_regular_price;
+            }else {
+                $price = $product_stock->price;
+            }
+
             $quantity = $product_stock->qty;
 
             if($quantity >= $request['quantity']){
@@ -81,7 +91,15 @@ class CartController extends Controller
             }
         }
         else{
-            $price = $product->unit_price;
+            if (Auth::user()->user_type == "regular physician") {
+                $price = $product->regular_physician_price;
+            }elseif (Auth::user()->user_type == "partner physician") {
+                $price = $product->partner_physician_price;
+            }elseif (Auth::user()->user_type == "pasien reg") {
+                $price = $product->pasien_regular_price;
+            }else {
+                $price = $product->unit_price;
+            }
         }
 
         //discount calculation based on flash deal and regular discount
@@ -162,6 +180,7 @@ class CartController extends Controller
     //removes from Cart
     public function removeFromCart(Request $request)
     {
+        // dd($request->all());
         if($request->session()->has('cart')){
             $cart = $request->session()->get('cart', collect([]));
             $cart->forget($request->key);

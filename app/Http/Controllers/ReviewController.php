@@ -81,6 +81,30 @@ class ReviewController extends Controller
         return back();
     }
 
+    public function ratingOrder(Request $request)
+    {
+        $review = Review::where(["user_id"=>Auth::user()->id,"product_id"=>$request->product_id])->first();
+        if ($review == null) {
+            $review = new Review;
+        }
+        $review->product_id = $request->product_id;
+        $review->user_id = Auth::user()->id;
+        $review->rating = $request->rating;
+        $review->viewed = '0';
+        if($review->save()){
+            $product = Product::findOrFail($request->product_id);
+            if(count(Review::where('product_id', $product->id)->where('status', 1)->get()) > 0){
+                $product->rating = Review::where('product_id', $product->id)->where('status', 1)->sum('rating')/count(Review::where('product_id', $product->id)->where('status', 1)->get());
+            }
+            else {
+                $product->rating = 0;
+            }
+            $product->save();
+            return "sukses";
+        }
+        return "failed";
+    }
+
     /**
      * Display the specified resource.
      *

@@ -73,7 +73,7 @@
                                         <td scope="row">2020-09-16 &nbsp; 11:59:34</td>
                                     </tr>
                                     <tr>
-                                        <td scope="row">Poin Pembelian</td>
+                                        {{-- <td scope="row">Poin Pembelian</td> --}}
                                         <th scope="row">190 poin</th>
                                         <td scope="row">2020-09-16 &nbsp; 11:59:34</td>
                                     </tr>

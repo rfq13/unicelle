@@ -121,11 +121,11 @@
                         
                         <td>{{ $product->rating }}</td>
                         <td><label class="switch">
-                                <input onchange="update_published(this)" value="{{ $product->id }}" type="checkbox" @if if($product->published == 1) {{"checked"}}@endif >
+                                <input onchange="update_featured(this)" value="{{ $product->id }}" type="checkbox" @if($product->featured == 1) {{ "checked" }}@endif >
                                 <span class="slider round"></span></label></td>--}}
                         <td><label class="switch">
-                                <input onchange="update_featured(this)" value="{{ $product->id }}" type="checkbox" <?php if($product->featured == 1) echo "checked";?> >
-                                <span class="slider round"></span></label></td>
+                            <input onchange="update_published(this)" value="{{ $product->id }}" type="checkbox" @if($product->published == 1) {{"checked"}}@endif >
+                            <span class="slider round"></span></label></td>
                         <td>
                             <div class="btn-group dropdown">
                                 <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

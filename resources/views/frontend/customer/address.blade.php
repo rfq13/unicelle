@@ -21,8 +21,10 @@
     <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
-                <div class="card col-lg-4 d-none d-lg-block">
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="card mr-2">
                     @include('frontend.inc.customer_side_nav')
+                </div>
                 </div>
                 <div class="col-lg-8"  style="margin-top: 352px;">
                     <!-- Page title -->
@@ -185,12 +187,12 @@
                                 <div class="row">
                                     <div class="col">
                                         <div class="card">
-                                            <div class="card-header  bg-transparent mb-0">
+                                            <div class="card-header bg-transparent mb-0">
                                                 <div class="row align-items-center">
-                                                    <div class="col-lg-6 col-md-4 col-sm-4 col-6 p-3">
-                                                        <span class="head-card-akun__ address-user">Alamat Saya</span>
+                                                    <div class="col-lg-6 col-md-4 col-sm-4 col-6 py-0">
+                                                        <span class="head-card-akun__">Alamat Saya</span>
                                                     </div>
-                                                    <div class="col-lg-6 col-md-4 col-sm-4 col-6 text-right">
+                                                    <div class="col-lg-6 col-md-4 col-sm-4 col-6 text-right py-0">
                                                         <a href="#" onclick="add_new_address()"><i style="color:#007bff;font-size:17px" class="fa fa-plus mr-1"></i> <span style="color:#007bff;font-size:17px" class="add-alamat-profil__">Tambah Alamat Baru</span></a>
                                                     </div>
                                                 </div>

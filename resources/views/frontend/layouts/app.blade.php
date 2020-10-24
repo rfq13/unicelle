@@ -86,6 +86,8 @@
 <!-- Style -->
 <link type="text/css" href="{{ my_asset('css/style.css') }}" rel="stylesheet" media="all">
 
+
+
 <!-- <link rel="stylesheet" href="{{ url('public/css/header_dan_footer.css') }}" type="text/css" media="all"> -->
 @yield('stylesheet')
 

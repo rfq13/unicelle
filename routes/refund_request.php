@@ -27,7 +27,7 @@ Route::group(['middleware' => ['user', 'verified']], function(){
     Route::get('refund-request', 'RefundRequestController@vendor_index')->name('vendor_refund_request');
     Route::get('sent-refund-request', 'RefundRequestController@customer_index')->name('customer_refund_request');
     Route::post('refund-reuest-vendor-approval', 'RefundRequestController@request_approval_vendor')->name('vendor_refund_approval');
-    Route::get('refund-request/{id}', 'RefundRequestController@refund_request_send_page')->name('refund_request_send_page');
+    Route::get('refund-request/{id}/{poin?}', 'RefundRequestController@refund_request_send_page')->name('refund_request_send_page');
 });
 
 Route::group(['middleware' => ['auth']], function(){

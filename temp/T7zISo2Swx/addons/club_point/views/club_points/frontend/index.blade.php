@@ -7,15 +7,18 @@
     <section class="gry-bg py-4 profile">
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
-                <div class="col-lg-3 d-none d-lg-block">
-                    @if(Auth::user()->user_type == 'seller')
-                        @include('frontend.inc.seller_side_nav')
-                    @elseif(Auth::user()->user_type == 'customer')
-                        @include('frontend.inc.customer_side_nav')
-                    @endif
+                <div class="col-lg-4 d-none d-lg-block">
+                    <div class="card mr-2">
+                        
+                        @if(Auth::user()->user_type == 'seller')
+                            @include('frontend.inc.seller_side_nav')
+                        @elseif(Auth::user()->user_type == 'customer')
+                            @include('frontend.inc.customer_side_nav')
+                        @endif
+                    </div>
                 </div>
 
-                <div class="col-lg-9">
+                <div class="col-lg-8">
                     <div class="main-content">
                         <!-- Page title -->
                         <div class="page-title">

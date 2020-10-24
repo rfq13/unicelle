@@ -93,7 +93,7 @@
 						</div>
 					@endif
 
-					{{-- @php
+					@php
 					    $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 					@endphp
 					@if ($refund_request_addon != null && $refund_request_addon->activated == 1)
@@ -106,7 +106,7 @@
 								</label>
 							</div>		
 						</div>
-					@endif --}}
+					@endif
 				</div>
 			</div>
 			<div class="panel">

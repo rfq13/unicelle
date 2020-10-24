@@ -99,8 +99,7 @@
 					    $refund_request_addon = \App\Addon::where('unique_identifier', 'refund_request')->first();
 					@endphp
 					@if ($refund_request_addon != null && $refund_request_addon->activated == 1)
-						{{--
-						<div class="form-group">
+							<div class="form-group">
 							<label class="col-lg-2 control-label">{{translate('Refundable')}}</label>
 							<div class="col-lg-7">
 								<label class="switch" style="margin-top:5px;">
@@ -108,7 +107,7 @@
 		                            <span class="slider round"></span></label>
 								</label>
 							</div>
-						</div> --}}
+							</div>
 					@endif
 				</div>
 			</div>
@@ -168,24 +167,24 @@
 				
 				<div class="panel-body">
 					{{--
-					<div class="form-group">
-						<div class="col-lg-2">
-							<input type="text" class="form-control" value="{{translate('Colors')}}" disabled>
+						<div class="form-group">
+							<div class="col-lg-2">
+								<input type="text" class="form-control" value="{{translate('Colors')}}" disabled>
+							</div>
+							<div class="col-lg-7">
+								<select class="form-control color-var-select" name="colors[]" id="colors" multiple disabled>
+									@foreach (\App\Color::orderBy('name', 'asc')->get() as $key => $color)
+										<option value="{{ $color->code }}">{{ $color->name }}</option>
+									@endforeach
+								</select>
+							</div>
+							<div class="col-lg-2">
+								<label class="switch" style="margin-top:5px;">
+									<input value="1" type="checkbox" name="colors_active">
+									<span class="slider round"></span>
+								</label>
+							</div>
 						</div>
-						<div class="col-lg-7">
-							<select class="form-control color-var-select" name="colors[]" id="colors" multiple disabled>
-								@foreach (\App\Color::orderBy('name', 'asc')->get() as $key => $color)
-									<option value="{{ $color->code }}">{{ $color->name }}</option>
-								@endforeach
-							</select>
-						</div>
-						<div class="col-lg-2">
-							<label class="switch" style="margin-top:5px;">
-								<input value="1" type="checkbox" name="colors_active">
-								<span class="slider round"></span>
-							</label>
-						</div>
-					</div>
 					--}}
 
 					<div class="form-group">
@@ -307,78 +306,6 @@
 					</div>
 				</div>
 			</div>
-
-			{{--
-            @if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'product_wise_shipping')
-                <div class="panel">
-    				<div class="panel-heading bord-btm">
-    					<h3 class="panel-title">{{translate('Product Shipping Cost')}}</h3>
-    				</div>
-    				<div class="panel-body">
-    					<div class="row bord-btm">
-    						<div class="col-md-2">
-    							<div class="panel-heading">
-    								<h3 class="panel-title">{{translate('Free Shipping')}}</h3>
-    							</div>
-    						</div>
-    						<div class="col-md-10">
-    							<div class="form-group">
-    								<label class="col-lg-2 control-label">{{translate('Status')}}</label>
-    								<div class="col-lg-7">
-    									<label class="switch" style="margin-top:5px;">
-    										<input type="radio" name="shipping_type" value="free" checked>
-    										<span class="slider round"></span>
-    									</label>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    					<div class="row">
-    						<div class="col-md-2">
-    							<div class="panel-heading">
-    								<h3 class="panel-title">{{translate('Flat Rate')}}</h3>
-    							</div>
-    						</div>
-    						<div class="col-md-10">
-    							<div class="form-group">
-    								<label class="col-lg-2 control-label">{{translate('Status')}}</label>
-    								<div class="col-lg-7">
-    									<label class="switch" style="margin-top:5px;">
-    										<input type="radio" name="shipping_type" value="flat_rate" checked>
-    										<span class="slider round"></span>
-    									</label>
-    								</div>
-    							</div>
-    							<div class="form-group">
-    								<label class="col-lg-2 control-label">{{translate('Shipping cost')}}</label>
-    								<div class="col-lg-7">
-    									<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Shipping cost') }}" name="flat_shipping_cost" class="form-control" required>
-    								</div>
-    							</div>
-    						</div>
-    					</div>
-    				</div>
-    			</div>
-            @endif
-
-            --}}
-
-            {{--
-			<div class="panel">
-				<div class="panel-heading bord-btm">
-					<h3 class="panel-title">{{translate('PDF Specification')}}</h3>
-				</div>
-				<div class="panel-body">
-					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('PDF Specification')}}</label>
-						<div class="col-lg-7">
-							<input type="file" class="form-control" placeholder="{{ translate('PDF') }}" name="pdf" accept="application/pdf">
-						</div>
-					</div>
-				</div>
-			</div>
-
-			--}}
 
 			{{--
 			<div class="panel">

@@ -162,7 +162,7 @@ class ProductController extends Controller
         $sum = array_sum($price);               
         $sum = $sum / $count; 
 
-        $product->unit_price = $sum;
+        $product->unit_price = min($price);
         $product->regular_physician_price = $price[0];
         $product->partner_physician_price = $price[1];
         $product->pasien_regular_price = $price[2];
@@ -275,11 +275,12 @@ class ProductController extends Controller
                         }
                     }
                 }
-                // $item = array();
-                // $item['price'] = $request['price_'.str_replace('.', '_', $str)];
-                // $item['sku'] = $request['sku_'.str_replace('.', '_', $str)];
-                // $item['qty'] = $request['qty_'.str_replace('.', '_', $str)];
-                // $variations[$str] = $item;
+                
+                $stock_price = [
+                    'rpp' => $request['price_'.str_replace('.', '_', $str).'_rpp'],
+                    'ppp' => $request['price_'.str_replace('.', '_', $str).'_ppp'],
+                    'prp' => $request['price_'.str_replace('.', '_', $str).'_prp']
+                ];
 
                 $product_stock = ProductStock::where('product_id', $product->id)->where('variant', $str)->first();
                 if($product_stock == null){
@@ -289,9 +290,17 @@ class ProductController extends Controller
 
                 $product_stock->variant = $str;
                 $product_stock->price = $request['price_'.str_replace('.', '_', $str)];
+                $product_stock->regular_physician_price = $stock_price['rpp'];
+                $product_stock->partner_physician_price = $stock_price['ppp'];
+                $product_stock->pasien_regular_price = $stock_price['prp'];
                 $product_stock->sku = $request['sku_'.str_replace('.', '_', $str)];
                 $product_stock->qty = $request['qty_'.str_replace('.', '_', $str)];
                 $product_stock->save();
+
+                $product = \App\Product::findOrFail($product_stock->product_id);
+                $product->variant_product = 1;
+                $product->unit_price = min($stock_price);
+                $product->save();
             }
         }
         //combinations end
@@ -409,7 +418,7 @@ class ProductController extends Controller
 
         $product->unit = $request->unit;
         $product->min_qty = $request->min_qty;
-        $product->tags = implode('|',$request->tags);
+        // $product->tags = implode('|',$request->tags);
         $product->description = $request->description;
         $product->video_provider = $request->video_provider;
         $product->video_link = $request->video_link;
@@ -547,6 +556,9 @@ class ProductController extends Controller
 
                 $product_stock->variant = $str;
                 $product_stock->price = $request['price_'.str_replace('.', '_', $str)];
+                $product_stock->regular_physician_price = $request['price_'.str_replace('.', '_', $str).'_rpp'];
+                $product_stock->partner_physician_price = $request['price_'.str_replace('.', '_', $str).'_ppp'];
+                $product_stock->pasien_regular_price = $request['price_'.str_replace('.', '_', $str).'_prp'];
                 $product_stock->sku = $request['sku_'.str_replace('.', '_', $str)];
                 $product_stock->qty = $request['qty_'.str_replace('.', '_', $str)];
 
@@ -675,12 +687,11 @@ class ProductController extends Controller
         if($request->has('colors_active') && $request->has('colors') && count($request->colors) > 0){
             $colors_active = 1;
             array_push($options, $request->colors);
-        }
-        else {
+        } else {
             $colors_active = 0;
         }
 
-        $unit_price = $request->unit_price;
+        $unit_price = ["rpp"=>$request->regular_physician_price,"ppp"=>$request->partner_physician_price,"prp"=>$request->pasien_regular_price];
         $product_name = $request->name;
 
         if($request->has('choice_no')){
@@ -697,6 +708,7 @@ class ProductController extends Controller
 
     public function sku_combination_edit(Request $request)
     {
+        // dd($request->all());
         $product = Product::findOrFail($request->id);
 
         $options = array();

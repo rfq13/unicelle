@@ -124,7 +124,7 @@ ul.categories--style-3 > li > ul > li > a.active,
 .sub-category-menu ul li a:hover,
 .product-box-2 .add-to-cart
 {
-    color: #e62e04;
+    color: #006064;
 }
 
 .hov-shaddow:hover{
@@ -228,14 +228,14 @@ input:checked + .toggle-switch-slider:before,
 .product-box-1 .cart-add .btn:hover,
 .aiz-rounded-check:after
 {
-    background: #e62e04;
+    background: #006064!important;
 }
 
 
 
 .pace .pace-progress,
 .widget-profile-menu a:hover {
-    background: #e62e04 !important;
+    background: #006064 !important;
 }
 
 
@@ -282,7 +282,7 @@ input:checked + .toggle-switch-slider:before,
 .product-box-2 .add-to-cart:hover
 
 {
-    background-color: #e62e04;
+    background-color: #006064;
 }
 
 
@@ -379,7 +379,7 @@ a > .feature--boxed-border:hover,
 .seller-shop-menu li a:hover,
 .aiz-megabox>input:checked~.aiz-megabox-elem, .aiz-megabox>input:checked~.aiz-megabox-elem
 {
-    border-color: #e62e04;
+    border-color: #006064;
 }
 
 .btn-base-1.btn-outline,
@@ -387,7 +387,7 @@ a > .feature--boxed-border:hover,
 .btn-base-1.btn-outline:focus,
 .btn-base-1.btn-outline:hover
 {
-    border-color: #e62e04 !important;
+    border-color: #006064 !important;
 }
 
 .slice--arrow.slice--arrow.bg-base-1:before,
@@ -397,7 +397,7 @@ a > .feature--boxed-border:hover,
 .icon-block--arrow .block-icon:after
 
 {
-    border-top-color: #e62e04;
+    border-top-color: #006064;
 }
 
 
@@ -418,14 +418,14 @@ a > .feature--boxed-border:hover,
     .navbar-dropdown--inverse .mega-dropdown-menu .meganav-section-title > a:hover
 
     {
-        color: #e62e04;
+        color: #006064;
     }
 
     .tabs .nav-pills.nav-pills--rounded .active .nav-pill .nav-pill-circle,
     .tabs .nav-pills.nav-pills--rounded a.active:hover .nav-pill .nav-pill-circle
     
     {
-        background: #e62e04;
+        background: #006064;
     }
 
 
@@ -447,7 +447,7 @@ a > .feature--boxed-border:hover,
     .navbar-inverse .dropdown-menu .dropdown-item:focus,
     .navbar-inverse .dropdown-menu .dropdown-item:hover
     {
-        color: #e62e04;
+        color: #006064;
     }
 }
 
@@ -461,18 +461,18 @@ a > .feature--boxed-border:hover,
     .navbar-aside .navbar-expand-lg .navbar-nav .show .nav-link:hover
     
     {
-        color: #e62e04;
+        color: #006064;
     }
 }
 
 
 .shape-container[data-shape-fill="primary"] .shape-item {
-    fill: #e62e04;
+    fill: #006064;
 }
 
 
 input:focus + .toggle-switch-slider {
-    box-shadow: 0 0 1px #e62e04;
+    box-shadow: 0 0 1px #006064;
 }
 
 
@@ -482,7 +482,7 @@ input:focus + .toggle-switch-slider {
 }
 
 .photostream .photo-wrapper img:hover {
-    box-shadow: 0 0 0 3px #e62e04;
+    box-shadow: 0 0 0 3px #006064;
 }
 
 .map-container address {

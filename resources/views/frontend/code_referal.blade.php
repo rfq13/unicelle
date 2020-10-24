@@ -23,7 +23,7 @@
                     <div class="card">
                         <div class="card-header  bg-transparent mb-0">
                             <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-4 col-sm-4 col-6 p-3">
+                                <div class="col-lg-6 col-md-4 col-sm-4 col-6 py-0">
                                     <span class="head-card-akun__">Kode Referal</span>
                                 </div>
                             </div>

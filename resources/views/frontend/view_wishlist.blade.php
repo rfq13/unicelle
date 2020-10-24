@@ -108,12 +108,8 @@
                     --}}
 
                     <div class="card">
-                        <div class="card-header  bg-transparent mb-0">
-                            <div class="row align-items-center">
-                                <div class="col-lg-6 col-md-4 col-sm-4 col-6 p-3">
-                                    <span class="head-card-akun__">Produk Disimpan</span>
-                                </div>
-                            </div>
+                        <div class="card-header bg-transparent mb-0">
+                            <span class="head-card-akun__">Produk Disimpan</span>
                         </div>
                         <div class="card-body mx-4 px-0 pt-0 mb-2">
                             <div class="row">
@@ -152,8 +148,8 @@
                                 <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-2 col-6">
                                     <div class="product-box-2 bg-white alt-box my-md-2">
                                         <div class="position-relative overflow-hidden">
-                                            <a href="{{ route('product', $product->slug) }}" class="d-block product-image h-100 text-center" tabindex="0">
-                                                <img class="card-img-top lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
+                                            <a href="{{ route('product', $product->slug) }}" class="d-block  h-100 text-center" tabindex="0">
+                                                <img class="img-fluid w-100 lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
                                             </a>
                                             <div class="product-btns clearfix">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">

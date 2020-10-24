@@ -84,7 +84,7 @@
                                 <a href="{{ route('product', $product->slug) }}" style="text-decoration: none;">
                                     <div class="d-flex align-items-center mb-3">
                                         <div class="card">
-                                            <img class="img-serupa lazyload img-fluid" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
+                                            <img class="p-2 lazyload img-fluid" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}" width="60" height="60">
                                         </div>
                                         <div class="pl-3">
                                             <div class="name-produk-lainnya">
@@ -129,40 +129,43 @@
                                     </div>
                                 </div>
                                 <div class="col-6 text-right">
-                                    <ul class="inline-links inline-links--style-1">
-                                        @php
-                                            $qty = 0;
-                                            if($detailedProduct->variant_product){
-                                                foreach ($detailedProduct->stocks as $key => $stock) {
-                                                    $qty += $stock->qty;
-                                                }
-                                            }
-                                            else{
-                                                $qty = $detailedProduct->current_stock;
-                                            }
-                                            
-                                        @endphp
-                                        @if ($qty > 0)
-                                            <li>
-                                                <span class="badge badge-md badge-pill bg-green" style="font-weight: 900;">{{ translate('In stock')}}</span>
-                                            </li>
-                                        @else
-                                            <li>
-                                                <span class="badge badge-md badge-pill bg-red">{{ translate('Out of stock')}}</span>
-                                            </li>
-                                        @endif
-                                    </ul>
+                                    
                                 </div>
                             </div>
-                            <span class="badge badge-pill badge-md badge-primary" style="font-weight: bold;">{{ $detailedProduct->earn_point > 0 ? $detailedProduct->earn_point : ''}} Point</span>
+                                <ul class="inline-links inline-links--style-1 mt-1">
+                                    @php
+                                        $qty = 0;
+                                        if($detailedProduct->variant_product){
+                                            foreach ($detailedProduct->stocks as $key => $stock) {
+                                                $qty += $stock->qty;
+                                            }
+                                        }
+                                        else{
+                                            $qty = $detailedProduct->current_stock;
+                                        }
+                                        
+                                    @endphp
+                                    <li class="mr-1">
+                                        <span class="badge badge-pill badge-md badge-primary" style="font-weight: bold;">{{ $detailedProduct->earn_point > 0 ? $detailedProduct->earn_point : ''}} Point</span>
+                                    </li>
+                                    @if ($qty > 0)
+                                        <li>
+                                            <span class="badge badge-pill badge-md badge-success" style="font-weight: 900;">{{ translate('In stock')}}</span>
+                                        </li>
+                                    @else
+                                        <li>
+                                            <span class="badge badge-pill badge-md badge-danger">{{ translate('Out of stock')}}</span>
+                                        </li>
+                                    @endif
+                                </ul>
                             <div class="harga__produk">
                                 <span class="price__produk">
                                 @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
-                                        <div class="row no-gutters mt-4">
-                                            <div class="col-2">
+                                        <div class="row no-gutters mt-1">
+                                            <div class="col-3">
                                                 <span class="harga__"> Harga</span>
                                             </div>
-                                            <div class="col-10">
+                                            <div class="col-9">
                                                 <div class="product-price-old">
                                                     <del>
                                                         {{ home_price($detailedProduct->id) }}
@@ -174,11 +177,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="row no-gutters mt-3">
-                                            <div class="col-2">
-                                                <div class="product-description-label mt-1">{{ translate('Discount Price')}}:</div>
+                                        <div class="row no-gutters mt-2">
+                                            <div class="col-3">
+                                                <div class="product-description-label mt-1">{{ translate('Discount Price')}} :</div>
                                             </div>
-                                            <div class="col-10">
+                                            <div class="col-9">
                                                 <div class="product-price">
                                                     <strong>
                                                         {{ home_discounted_price($detailedProduct->id) }}
@@ -206,7 +209,7 @@
 
                                 @endif
                                 </span>
-                                <form id="option-choice-form" class="mt-3">
+                                <form id="option-choice-form" class="mt-2">
                                         @csrf
                                         <input type="hidden" name="id" value="{{ $detailedProduct->id }}">
                                     <!-- <div class="col-10"> -->
@@ -241,10 +244,10 @@
                                     <!-- </div> -->
                                         <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
                                             <div class="col-2">
-                                                <div class="product-description-label">{{ translate('Jumlah')}}:</div>
+                                                <div class="product-description-label font-size-1">{{ translate('Jumlah')}} :</div>
                                             </div>
                                             <div class="col-10">
-                                                <div class="product-price">
+                                                <div class="product-price font-size-1 font-weight-bold">
                                                     <strong id="chosen_pricek">
 
                                                     </strong>
@@ -266,9 +269,9 @@
                                         --}}
                                         @if ($detailedProduct->choice_options != null)
                                             @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
-                                                <div class="row">
-                                                    <div class="col-2 my-auto">
-                                                        <p>{{ \App\Attribute::find($choice->attribute_id)->name }}:</p>
+                                                <div class="row align-items-center">
+                                                    <div class="col-2 ">
+                                                        <p class="font-size-1 font-weight-bold">{{ \App\Attribute::find($choice->attribute_id)->name }} :</p>
                                                     </div>
                                                     <div class="col-10 pl-0">
                                                         <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">

@@ -21,10 +21,8 @@
 
                 <div class="col-lg-8">
                     <div class="card">
-                        <div class="card-header bg-transparent ">
-                            <div class="p-3">
-                                <span class="head-card-akun__">Profil</span>
-                            </div>
+                        <div class="card-header bg-transparent ">                            
+                            <span class="head-card-akun__">Profil</span>
                         </div>
                         <div class="card-body mx-4 px-0">
                             <form id="update-profile" action="{{ route('customer.profile.update') }}" method="POST" enctype="multipart/form-data">

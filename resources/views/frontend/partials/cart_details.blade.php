@@ -20,7 +20,7 @@
                                 @php
                                 $total = 0;
                                 @endphp
-                                @foreach (Session::get('cart') as $key => $cartItem)
+                                @foreach (Session::get('cart') as $keyi => $cartItem)
                                     @php
                                     $product = \App\Product::find($cartItem['id']);
                                     $total = $total + $cartItem['price']*$cartItem['quantity'];
@@ -58,13 +58,13 @@
                                                 {{--
                                                     <div class="input-group input-group--style-2 pr-4" style="width: 130px;">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-number" type="button" max="{{$qty}}" data-type="minus" data-field="quantity[{{ $key }}]">
+                                                            <button class="btn btn-number" type="button" max="{{$qty}}" data-type="minus" data-field="quantity[{{ $keyi }}]">
                                                                 <i class="la la-minus"></i>
                                                             </button>
                                                         </span>
-                                                        <input type="text" id="quantity{{ $key }}" name="quantity[{{ $key }}]" class="qty__number text-center mx-1" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="{{$qty}}" data-key="{{ $key }}" onchange="updateQuantity({{$key}},this)">
+                                                        <input type="text" id="quantity{{ $keyi }}" name="quantity[{{ $keyi }}]" class="qty__number text-center mx-1" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="{{$qty}}" data-key="{{ $keyi }}" onchange="updateQuantity({{$keyi}},this)">
                                                         <span class="input-group-btn">
-                                                            <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
+                                                            <button class="btn btn-number" type="button" data-type="plus" data-field="quantity[{{ $keyi }}]">
                                                                 <i class="la la-plus"></i>
                                                             </button>
                                                         </span>
@@ -73,11 +73,11 @@
                                                 <div class="p-2 mx-3 col-3 text-center">
                                                     <div class="qty__cart">
                                                         <div id="field1" class="d-flex align-items-center ">
-                                                            <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="minus" data-key="{{ $key }}" data-field="quantity[{{ $key }}]">
+                                                            <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="minus" data-key="{{ $keyi }}" data-field="quantity[{{ $keyi }}]">
                                                                 <i class="fa fa-minus"></i>
                                                                 </button>
-                                                            <input type="text" id="quantity{{ $key }}" name="quantity[{{ $key }}]" class="input-number qty__number text-center mx-1" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="{{$qty}}" onchange="updateQuantity({{$key}},this)">
-                                                            <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="plus" data-key="{{ $key }}" data-field="quantity[{{ $key }}]">
+                                                            <input type="text" id="quantity{{ $keyi }}" name="quantity[{{ $keyi }}]" class="input-number qty__number text-center mx-1" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="{{$qty}}" onchange="updateQuantity({{$keyi}},this)">
+                                                            <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="plus" data-key="{{ $keyi }}" data-field="quantity[{{ $keyi }}]">
                                                             <i class="fa fa-plus"></i>
                                                             </button>
                                                         </div>
@@ -89,7 +89,7 @@
                                             <span>{{ single_price($cartItem['price']*$cartItem['quantity']) }}</span>
                                         </td>
                                         <td class="product-remove">
-                                            <a href="#" onclick="removeFromCartView(event, {{ $key }})" class="text-right pl-4">
+                                            <a href="#" onclick="removeFromCartView(event, {{ $keyi }})" class="text-right pl-4">
                                                 <i class="la la-trash"></i>
                                             </a>
                                         </td>

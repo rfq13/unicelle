@@ -188,7 +188,7 @@
                 @endphp
                 @foreach ($banners as $keybanner => $banner)
                     <div class="carousel-item {{ $keybanner == 0 ? 'active' : 'img-banner h-100' }}">
-                        <img src="{{ my_asset($banner->photo) }}" class=" d-block w-100 img-fluid" alt="...">
+                        <img src="{{ my_asset($banner->photo) }}" class=" d-block w-100 img-fluid" alt="..." width="1110" height="100%">
                         <div class="carousel-caption d-none d-md-block">
                         </div>
                     </div>
@@ -389,7 +389,7 @@
                                                     <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
                                                         style="text-align:center;">
                                                         <img src="{{ my_asset($value->icon) }}"
-                                                            class="card-img-top mx-auto icon" alt="...">
+                                                            class="card-img-top mx-auto icon" alt="..." width="100" height="100">
                                                     </div>
                                                 </div>
                                                 <span class="ft-icon px-2">{{ $value->name }}</span>
@@ -554,7 +554,7 @@
             <div class="mb-4 mt-2">
                 <div class="container">
                     @php
-                    $products = \App\Product::orderBy('created_at','desc')
+                    $products = \App\Product::where('published',1)->orderBy('created_at','desc')
                     ->limit(12)
                     ->get();
                     @endphp
@@ -709,13 +709,11 @@
                     text-align: left;
                     ">Dapatkan Informasi terbaru seputar kesehatan</span>
             <div class="my-4">
-                <div class="container">
-                    <div class="row gutters-10">
-                        @php
-                        $blogs = \App\Blog::where('visible',1)->limit(8)->orderBy('created_at','desc')->get();
-                        @endphp
-                        @include('article.inc.blogs')
-                    </div>
+                <div class="row">
+                    @php
+                    $blogs = \App\Blog::where('visible',1)->limit(8)->orderBy('created_at','desc')->get();
+                    @endphp
+                    @include('article.inc.blogs')
                 </div>
                 <div class="width:10px" style="text-align:center">
                     <a href="{{ route('blog.article') }}" class="btn mt-4 mb-5 w-25"

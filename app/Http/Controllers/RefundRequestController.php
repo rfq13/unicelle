@@ -216,10 +216,16 @@ class RefundRequestController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function refund_request_send_page($id)
+    public function refund_request_send_page(Request $request,$id,$poin=0)
     {
         $order_detail = OrderDetail::findOrFail($id);
         if ($order_detail->product != null && $order_detail->product->refundable == 1) {
+            $authpoin = $request->session()->has('poin_use') ? $request->session()->get('poin_use') : Auth::user()->poin;
+            if ($authpoin>(int)$poin) {
+                $authpoin = $authpoin - $poin;
+                $request->session()->put('poin_use',$authpoin);
+            }
+            // dd($request->session()->get('poin_use'));
             return view('refund_request.frontend.refund_request.create', compact('order_detail'));
         }
         else {

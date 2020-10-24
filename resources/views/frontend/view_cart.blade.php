@@ -298,7 +298,7 @@
                                         $total = 0;
                                         @endphp
                                         @if(Session::has('cart'))
-                                        @foreach (Session::get('cart') as $key => $cartItem)
+                                        @foreach (Session::get('cart') as $keyi => $cartItem)
                                             @php
                                                 $product = \App\Product::find($cartItem['id']);
                                                 $total = $total + $cartItem['price']*$cartItem['quantity'];
@@ -359,11 +359,11 @@
                                                         <div class="p-2 mx-3 col-3 text-center">
                                                             <div class="qty__cart">
                                                                 <div id="field1" class="d-flex align-items-center ">
-                                                                    <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="minus" data-field="quantity[{{ $key }}]">
+                                                                    <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="minus" data-field="quantity[{{ $keyi }}]">
                                                                         <i class="fa fa-minus"></i>
                                                                      </button>
-                                                                    <input type="text" id="quantity{{ $key }}" name="quantity[{{ $key }}]" class="qty__number text-center mx-1" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="{{$qty}}" data-key="{{ $key }}" onchange="updateQuantity({{$key}},this)">
-                                                                    <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="plus" data-field="quantity[{{ $key }}]">
+                                                                    <input type="text" id="quantity{{ $keyi }}" name="quantity[{{ $keyi }}]" class="qty__number text-center mx-1" placeholder="1" value="{{ $cartItem['quantity'] }}" min="1" max="{{$qty}}" data-key="{{ $keyi }}" onchange="updateQuantity({{$keyi}},this)">
+                                                                    <button class="btn btn-number sub justify-content-center align-items-center" type="button" data-type="plus" data-field="quantity[{{ $keyi }}]">
                                                                     <i class="fa fa-plus"></i>
                                                                     </button>
                                                                 </div>
@@ -375,7 +375,7 @@
                                                     <span>{{ single_price(($cartItem['price']+$cartItem['tax'])*$cartItem['quantity']) }}</span>
                                                 </td>
                                                 <td class="product-remove">
-                                                    <a href="#" onclick="removeFromCartView(event, {{ $key }})" class="text-right pl-4">
+                                                    <a href="#" onclick="removeFromCartView(event, {{ $keyi }})" class="text-right pl-4">
                                                         <i class="la la-trash"></i>
                                                     </a>
                                                 </td>
@@ -415,9 +415,13 @@
                 </div>
             </div>
             @else
-                <div class="dc-header">
-                    <h3 class="heading heading-6 strong-700">{{ translate('Your Cart is empty')}}</h3>
-                </div>
+                {{-- <div class="dc-header bg-light p-3 px-5 ">
+                    <h3 class="m-0 p-0 heading heading-6 strong-700">{{ translate('Your Cart is empty!')}}</h3>
+                </div> --}}
+                        <div class="text-center">
+                            <img class="img-fluid"  width="400"
+                        src="{{ my_asset('images/icon/bg-cart-empty.png') }}">
+                        </div>
             @endif
         </div>
     </section>

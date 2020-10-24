@@ -51,7 +51,9 @@
 					<label for="" class="control-label">{{ $str }}</label>
 				</td>
 				<td>
-					<input type="number" name="price_{{ $str }}" value="{{ $unit_price }}" min="0" step="0.01" class="form-control" required>
+					<cite style="font-size: 82%">HET Regular Physician</cite><input type="number" name="price_{{ $str }}_rpp" value="{{ $unit_price["rpp"] }}" min="0" step="0.01" class="form-control" required>
+					<cite style="font-size: 82%">HET Partner Physician</cite><input type="number" name="price_{{ $str }}_ppp" value="{{ $unit_price["ppp"] }}" min="0" step="0.01" class="form-control" required>
+					<cite style="font-size: 82%">HET Pasien Regular</cite><input type="number" name="price_{{ $str }}_prp" value="{{ $unit_price["prp"] }}" min="0" step="0.01" class="form-control" required>
 				</td>
 				<td>
 					<input type="text" name="sku_{{ $str }}" value="{{ $sku }}" class="form-control" required>

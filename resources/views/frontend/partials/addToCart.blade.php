@@ -223,15 +223,19 @@
                             <button type="button"
                                     class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
                                     onclick="addToCart()">
-                                <i class="la la-shopping-cart"></i>
-                                <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
+                        <div class="d-none d-md-inline-block">
+                            <i class="la la-shopping-cart mr-2"></i>
+                            <span class=""> {{ translate('Add to cart')}}</span>
+                        </div>
                             </button>
                         @elseif($qty > 0)
                             <button type="button"
                                     class="btn btn-styled btn-alt-base-1 c-white btn-icon-left strong-700 hov-bounce hov-shaddow ml-2 add-to-cart"
                                     onclick="addToCart()">
-                                <i class="la la-shopping-cart"></i>
-                                <span class="d-none d-md-inline-block"> {{ translate('Add to cart')}}</span>
+                                    <div class="d-none d-md-inline-block">
+                                        <i class="la la-shopping-cart mr-2" style="font-size: 20px;"></i>
+                                        <span class=""> {{ translate('Add to cart')}}</span>
+                                    </div>
                             </button>
                         @else
                             <button type="button" class="btn btn-styled btn-base-3 btn-icon-left strong-700" disabled>

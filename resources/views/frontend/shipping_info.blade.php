@@ -26,7 +26,7 @@ div.pac-container {
         <div class="container">
             <div class="row">
                 <div class="card col-lg-6">
-                    <p class="mt-4" style="font-size: 20px;">Checkout</p>
+                    <p class="ml-2 mt-4 mb-0" style="font-size: 20px; font-weight:600; ">Checkout</p>
                     <hr>
                     <div class="card mb-4" style="padding-left: 2%; padding-right: 2%;" id="all-addr">
                         <div class="container" style="border-bottom:1px solid #C4C4C4">
@@ -39,34 +39,34 @@ div.pac-container {
                                     <input type="radio" style="display:none" name="address_id" value="{{ $address->id }}" {{$address->set_default == 1 ? 'checked' : ''}} required>
                                         <div class="d-flex align-items-center {{$key == 0 ? 'mt-2':''}}" style="padding-left: 0%; border-bottom:1px solid #C4C4C4">
                                             <div class="col-8 py-2">
-                                                <table style="width: 100%;font-size: xx-small;">
+                                                <table style="width: 100%;font-size: medium;">
                                                     <tbody>
                                                         <tr>
-                                                            <td style="width: 40%" valign="top">Penerima</td>
-                                                            <td valign="top"><span style="text-transform:capitalize;font-weight: bold">@if($address->receiver) {{$address->receiver}} @else {{Auth::user()->name}} @endif</span></td>
+                                                            <td class="w-50 pb-2" valign="top">Penerima</td>
+                                                            <td valign="top" class="text-capitalize"><span style="font-weight: bold">@if($address->receiver) {{$address->receiver}} @else {{Auth::user()->name}} @endif</span></td>
                                                         </tr>
                                                          <tr>
-                                                            <td style="width: 40%" valign="top">No. Telepone</td>
+                                                            <td class="w-50 pb-2" valign="top">No. Telepone</td>
                                                             <td valign="top">{{$address->phone}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="width: 40%" valign="top">Alamat<br>pengiriman</td>
-                                                            <td valign="top">{{$address->address}}</td>
+                                                            <td class="w-50 pb-2" valign="top">Alamat Pengiriman</td>
+                                                            <td valign="top" class="text-capitalize">{{$address->address}}</td>
                                                         </tr>
                                                         <tr>
-                                                            <td style="width: 40%" valign="top">Daerah<br>pengiriman</td>
+                                                            <td class="w-50 pb-2" valign="top">Daerah Pengiriman</td>
                                                             <td valign="top">{{$address->province}}, {{$address->city}}, {{$address->subdistrict}}, {{$address->postal_code}}</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
-                                            <div class="col-4 ml-4">
-                                                <div class="address"> 
-                                                    <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn btn-sm {{$address->set_default ? 'btn-default' : 'btn-secondary'}} col-8 ml-2 mb-3" data-lat="{{ $address->lat }}" data-lng="{{ $address->lng }}">Default</a>
+                                            <div class="col-4 p-3">
+                                                <div class="address text-center"> 
+                                                    <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn w-100 {{$address->set_default ? 'btn-default' : 'btn-secondary'}} " data-lat="{{ $address->lat }}" data-lng="{{ $address->lng }}">Default</a>
                                                 </div>
-                                                <div class="address">
-                                                    <a href="{{route('addresses.destroy', $address->id)}}"><i class="fa fa-trash ml-5" ></i></a>
-                                                    <a id="btnedit" data-value="{{ json_encode($address) }}" href="#"><i class="fa fa-pencil ml-3"></i></a>
+                                                <div class="address text-center mt-3">
+                                                    <a href="{{route('addresses.destroy', $address->id)}}"><i class="fa fa-trash mr-4" style="font-size: 24px;"></i></a>
+                                                    <a id="btnedit" data-value="{{ json_encode($address) }}" href="#"><i class="fa fa-pencil" style="font-size: 24px;"></i></a>
                                                 </div>
                                             </div>
                                         </div>

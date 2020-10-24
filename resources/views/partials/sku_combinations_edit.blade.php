@@ -17,7 +17,6 @@
 			</tr>
 		</thead>
 		<tbody>
-
 @foreach ($combinations as $key => $combination)
 	@php
 		$sku = '';
@@ -47,22 +46,30 @@
 	@if(strlen($str) > 0)
 		<tr>
 			<td>
-				<label for="" class="control-label">{{ $str }}</label>
+				<label for="" class="control-label">{{ $str}}</label>
 			</td>
 			<td>
-				<input type="number" name="price_{{ $str }}" value="@php
-                    if ($product->unit_price == $unit_price) {
-						if(($stock = $product->stocks->where('variant', $str)->first()) != null){
-	                        echo $stock->price;
-	                    }
-	                    else{
-	                        echo $unit_price;
-	                    }
-                    }
-					else{
-						echo $unit_price;
-					}
-                @endphp" min="0" step="0.01" class="form-control" required>
+				@php
+					$sku_price = \App\ProductStock::where(['product_id'=>$product->id,'variant'=>$str])->first();
+					$rpp = $sku_price->regular_physician_price;
+					$ppp = $sku_price->partner_physician_price;
+					$prp = $sku_price->pasien_regular_price;
+                    // if ($product->unit_price == $unit_price) {
+					// 	if(($stock = $product->stocks->where('variant', $str)->first()) != null){
+	                //         echo $stock->price;
+	                //     }
+	                //     else{
+	                //         echo $unit_price;
+	                //     }
+                    // }
+					// else{
+					// 	echo $unit_price;
+					// }
+					// dd($price);
+                @endphp
+				<cite style="font-size: 82%">HET Regular Physician</cite><input type="number" name="price_{{ $str }}_rpp" value="{{ $rpp }}" min="0"  class="form-control" required>
+				<cite style="font-size: 82%">HET Partner Physician</cite><input type="number" name="price_{{ $str }}_ppp" value="{{ $ppp }}" min="0"  class="form-control" required>
+				<cite style="font-size: 82%">HET Pasien Regular</cite><input type="number" name="price_{{ $str }}_prp" value="{{ $prp }}" min="0"  class="form-control" required>
 			</td>
 			<td>
 				<input type="text" name="sku_{{ $str }}" value="{{ $sku }}" class="form-control" required>

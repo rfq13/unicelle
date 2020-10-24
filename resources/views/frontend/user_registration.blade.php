@@ -92,7 +92,7 @@
                                         @endif
                                     </div>
                                     <div class="col">
-                                        <label for="exampleFormControlFile1" class="font-weight-light">Pilih File Foto</label>
+                                        <label for="exampleFormControlFile1" class="font-weight-light">Surat Izin Praktek Dokter</label>
                                         <input type="file" class="form-control-file" name="fhoto" id="exampleFormControlFile1" required>
                                     </div>
                                 </div>
