@@ -31,7 +31,7 @@ class ProductController extends Controller
         $query = null;
         $sort_search = null;
 
-        $products = Product::where('added_by', 'admin');
+        $products = Product::where('added_by', 'admin')->withCount('orderDetails');
 
         if ($request->type != null){
             $var = explode(",", $request->type);

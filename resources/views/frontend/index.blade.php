@@ -581,11 +581,11 @@
                                     @continue
                                 @endif
                                 <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-6">
-                                    <div class="product-box-2 bg-white alt-box my-md-2">
-                                        <div class="position-relative overflow-hidden  py-1">
+                                    <div class="product-box-2 bg-white my-md-2">
+                                        <div class="position-relative overflow-hidden py-3" style="height: 200px">
                                             <a href="{{ route('product', $product->slug) }}"
-                                                class="d-block products-img img text-center" tabindex="0">
-                                                <img class="img-fluid lazyload m-3"
+                                                class="d-block product-image text-center" tabindex="0">
+                                                <img class="img-fluid lazyload m-1"
                                                     src="{{ my_asset('frontend/images/placeholder.jpg') }}"
                                                     data-src="{{ my_asset($product->thumbnail_img) }}"
                                                     alt="{{ __($product->name) }}">

@@ -25,6 +25,15 @@ if($ship != null || $ship != 0){
         }
     }
     }
+
+    if ($order->payment_status ==  "paid") {
+        foreach($order->orderDetails as $key => $value){
+            if ( $value->delivery_status != "on_delivery" &&  $value->delivery_status != "delivered") {
+                $value->delivery_status = "on_review";
+                $value->save();
+            }
+        }
+    }
     
     
 @endphp
@@ -139,7 +148,7 @@ if($ship != null || $ship != 0){
                                                     $detailOrder->product->thumbnail_img;
                                                 @endphp
                                                 <a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">
-                                                    <img src="{{ my_asset($photos) }}" alt="" width="40" height="40" class="img-fluid mr-2">
+                                                    <img src="{{ my_asset($orderDetail->product->thumbnail_img) }}" alt="" width="40" height="40" class="img-fluid mr-2">
                                                         {{ $orderDetail->product->name }}
                                                     </div>
                                                 </a>
@@ -169,11 +178,11 @@ if($ship != null || $ship != 0){
                                                                 <option value="5" {{ $rating == 5 ? "selected" : "" }}>5</option>
                                                             </select>
                                                         </div>
-                                                        <a href="#" id="reviewtext">
+                                                        <a href="#" id="reviewtext{{ $key }}">
                                                             <cite>{{ $rating != 0 ? "ubah review ?":"masukkan review anda" }}</cite>
                                                         </a>
                                                         <script>
-                                                            $("#reviewtext").click(function (e) {
+                                                            $("#reviewtext{{ $key }}").click(function (e) {
                                                                 e.preventDefault()
                                                                 $("#divratings{{ $key }}").hide()
                                                                 $("#divrating{{ $key }}").show()
@@ -193,7 +202,7 @@ if($ship != null || $ship != 0){
                                                                                 $('#ratings{{ $key }}').barrating('set', value);
                                                                                 $("#divrating{{ $key }}").hide()
                                                                                 $("#divratings{{ $key }}").show()
-                                                                                $("#reviewtext").html("<cite style='color:green'>berhasil review!</cite>")
+                                                                                $("#reviewtext{{ $key }}").html("<cite style='color:green'>berhasil review!</cite>")
                                                                             }
                                                                         })
                                                                     } else {
@@ -352,7 +361,7 @@ if($ship != null || $ship != 0){
             </div> --}}
             @if ($order->payment_status == "paid")
             @if ($order->user_status_konfrimasi == null )
-                    <a href="{{ route('confirm.order',encrypt($order->id)) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%">{{  translate('Konfirmasi') }}</a>
+                    <a href="{{ route('confirm.order',encrypt($order->id)) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%;"><span style="font-size:15px;color:#FFFFFF">{{  translate('Konfirmasi') }}</span></a>
                     <cite style="color: darkslategrey;font-size:12px">*lakukan konfirmasi order telah selesai</cite>
                 @endif
             @endif

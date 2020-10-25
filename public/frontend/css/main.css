@@ -2338,7 +2338,8 @@ ul.seller-brand-list .brand-item {
     -ms-webkit-transform: translateY(-5px);
 }
 .product-box-2 .product-image img {
-    height: 130px;
+width: 75%;
+height: 100%;    
 }
 
 .product-box-2 .overflow-hidden {
@@ -2381,7 +2382,7 @@ ul.seller-brand-list .brand-item {
     color: #fff;
 }
 .product-box-2.alt-box .product-image img {
-    height: 200px;
+    width: 100px;
 }
 .product-box-2.alt-box .product-btns {
     right: auto;
