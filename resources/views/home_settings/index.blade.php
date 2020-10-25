@@ -6,27 +6,26 @@
 
         <!--Nav Tabs-->
         <ul class="nav nav-tabs">
-            <li class="active">
+            {{-- <li class="active">
                 <a data-toggle="tab" href="#demo-lft-tab-1" aria-expanded="true">{{ translate('Slider Beranda') }}</a>
-            </li>
+            </li> --}}
             <li class="">
-                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="false">{{ translate('Banner Beranda 1') }}</a>
+                <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="true">{{ translate('Banner Beranda 1') }}</a>
             </li>
             <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ translate('Kategori Beranda') }}</a>
             </li>
-            <li class="">
+            {{-- <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ translate('Banner Beranda 2') }}</a>
-            </li>
-            <li class="">
+            </li> --}}
+            {{-- <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-5" aria-expanded="false">{{ translate('Kategori Utama Beranda') }}</a>
-            </li>
+            </li> --}}
         </ul>
 
         <!--Tabs Content-->
         <div class="tab-content">
-            <div id="demo-lft-tab-1" class="tab-pane fade active in">
-
+            {{-- <div id="demo-lft-tab-1" class="tab-pane fade">
                 <div class="row">
                     <div class="col-sm-12">
                         <a onclick="add_slider()" class="btn btn-rounded btn-info pull-right">{{translate('Tambah Slider Baru')}}</a>
@@ -57,7 +56,7 @@
                                         <td><img loading="lazy"  class="img-md" src="{{ my_asset($slider->photo)}}" alt="Gambar Slider"></td>
                                         <td>{{$slider->link}}</td>
                                         <td><label class="switch">
-                                            <input onchange="update_slider_published(this)" value="{{ $slider->id }}" type="checkbox" <?php if($slider->published == 1) echo "checked";?> >
+                                            <input onchange="update_slider_published(this)" value="{{ $slider->id }}" type="checkbox" @if($slider->published == 1) echo "checked" @endif >
                                             <span class="slider round"></span></label></td>
                                         <td>
                                             <div class="btn-group dropdown">
@@ -76,8 +75,8 @@
 
                     </div>
                 </div>
-            </div>
-            <div id="demo-lft-tab-2" class="tab-pane fade">
+            </div> --}}
+            <div id="demo-lft-tab-2" class="tab-pane fade active in">
 
                 <div class="row">
                     <div class="col-sm-12">

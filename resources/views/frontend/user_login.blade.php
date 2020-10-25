@@ -29,7 +29,7 @@
                     
 
                     <div class="card bg-form">
-                        <form class="form-default p-3" role="form" action="{{ route('login') }}" method="POST">
+                        <form class="form-default p-3" id="login-form" role="form" action="{{ route('login') }}" method="POST">
                             @csrf
                             <h5 class="mb-4 mt-2">Login</h5>
 
@@ -72,10 +72,10 @@
                             </div> -->
                             <!-- </div> -->
 
-                            <button type="submit" class="btn btn-secondary1" style="width: 100%;">Login</button>
-                            <div class="form-group mt-2">
+                            <div class="form-group mb-2">
                                 <div id="recaptcha-container"></div>
                             </div>
+                            <button type="submit" class="btn btn-secondary1" style="width: 100%;">Login</button>
 
                             <div class="text-center m-4">
                                 <a href="{{ route('password.request') }}" class="lupa-pass" data-toggle="modal" data-target="#registerOTP">Lupa Kata
@@ -213,7 +213,7 @@
         //making the CAPTCHA  a required field for form submission
         $(document).ready(function(){
             // alert('helloman');
-            $("#reg-form").on("submit", function(evt)
+            $("#login-form").on("submit", function(evt)
             {
                 var response = grecaptcha.getResponse();
                 if(response.length == 0)
@@ -225,7 +225,7 @@
                 }
                 //captcha verified
                 //do the rest of your validations here
-                $("#reg-form").submit();
+                $("#login-form").submit();
             });
         });
 

@@ -319,17 +319,17 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li class="{{ areActiveRoutes(['stock_report.index'])}}">
-                                    <a class="nav-link" href="{{ route('stock_report.index') }}">{{translate('Stock Report Laporan Stok')}}</a>
+                                    <a class="nav-link" href="{{ route('stock_report.index') }}">{{translate('Laporan Stok')}}</a>
                                 </li>
                                 <li class="{{ areActiveRoutes(['in_house_sale_report.index'])}}">
                                     <a class="nav-link" href="{{ route('in_house_sale_report.index') }}">{{translate('Laporan Penjualan')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['seller_report.index'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['seller_report.index'])}}">
                                     <a class="nav-link" href="{{ route('seller_report.index') }}">{{translate('Laporan Penjual')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['seller_sale_report.index'])}}">
+                                </li> --}}
+                                {{-- <li class="{{ areActiveRoutes(['seller_sale_report.index'])}}">
                                     <a class="nav-link" href="{{ route('seller_sale_report.index') }}">{{translate('Laporan Penjualan dari Penjual')}}</a>
-                                </li>
+                                </li> --}}
                                 <li class="{{ areActiveRoutes(['wish_report.index'])}}">
                                     <a class="nav-link" href="{{ route('wish_report.index') }}">{{translate('Laporan Permintaan Produk')}}</a>
                                 </li>
@@ -373,9 +373,9 @@
                                 <li class="{{ areActiveRoutes(['activation.index'])}}">
                                     <a class="nav-link" href="{{route('activation.index')}}">{{translate('Aktivasi')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['payment_method.index'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['payment_method.index'])}}">
                                     <a class="nav-link" href="{{ route('payment_method.index') }}">{{translate('Metode Pembayaran')}}</a>
-                                </li>
+                                </li> --}}
                                 <li class="{{ areActiveRoutes(['smtp_settings.index'])}}">
                                     <a class="nav-link" href="{{ route('smtp_settings.index') }}">{{translate('Pengaturan SMTP')}}</a>
                                 </li>
@@ -385,9 +385,9 @@
                                 <li class="{{ areActiveRoutes(['google_recaptcha.index'])}}">
                                     <a class="nav-link" href="{{ route('google_recaptcha.index') }}">{{translate('Google reCAPTCHA')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['facebook_chat.index'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['facebook_chat.index'])}}">
                                     <a class="nav-link" href="{{ route('facebook_chat.index') }}">{{translate('Facebook Chat & Pixel')}}</a>
-                                </li>
+                                </li> --}}
                                 <li class="{{ areActiveRoutes(['social_login.index'])}}">
                                     <a class="nav-link" href="{{ route('social_login.index') }}">{{translate('Social Media Login')}}</a>
                                 </li>
@@ -423,21 +423,21 @@
                                     <!--Submenu-->
                                     <ul class="collapse">
 
-                                        <li class="{{ areActiveRoutes(['sellerpolicy.index'])}}">
+                                        {{-- <li class="{{ areActiveRoutes(['sellerpolicy.index'])}}">
                                             <a class="nav-link" href="{{route('sellerpolicy.index', 'seller_policy')}}">{{translate('Kebijakan Penjual')}}</a>
-                                        </li>
-                                        <li class="{{ areActiveRoutes(['returnpolicy.index'])}}">
+                                        </li> --}}
+                                        {{-- <li class="{{ areActiveRoutes(['returnpolicy.index'])}}">
                                             <a class="nav-link" href="{{route('returnpolicy.index', 'return_policy')}}">{{translate('Kebijakan Kembali')}}</a>
-                                        </li>
-                                        <li class="{{ areActiveRoutes(['supportpolicy.index'])}}">
+                                        </li> --}}
+                                        {{-- <li class="{{ areActiveRoutes(['supportpolicy.index'])}}">
                                             <a class="nav-link" href="{{route('supportpolicy.index', 'support_policy')}}">{{translate('Kebijakan Dukungan')}}</a>
-                                        </li>
+                                        </li> --}}
                                         <li class="{{ areActiveRoutes(['terms.index'])}}">
                                             <a class="nav-link" href="{{route('terms.index', 'terms')}}">{{translate('Syarat & Ketentuan')}}</a>
                                         </li>
-                                        <li class="{{ areActiveRoutes(['privacypolicy.index'])}}">
+                                        {{-- <li class="{{ areActiveRoutes(['privacypolicy.index'])}}">
                                             <a class="nav-link" href="{{route('privacypolicy.index', 'privacy_policy')}}">{{translate('Kebijakan Privasi')}}</a>
-                                        </li>
+                                        </li> --}}
                                     </ul>
 
                                 </li>
@@ -446,21 +446,21 @@
                                         <span class="menu-title">{{translate('Tentang Unicelle')}}</span>
                                     </a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['pages.index', 'pages.create', 'pages.edit'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['pages.index', 'pages.create', 'pages.edit'])}}">
                                     <a class="nav-link" href="{{route('pages.index')}}">{{translate('Halaman Kustom')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['links.index', 'links.create', 'links.edit'])}}">
+                                </li> --}}
+                                {{-- <li class="{{ areActiveRoutes(['links.index', 'links.create', 'links.edit'])}}">
                                     <a class="nav-link" href="{{route('links.index')}}">{{translate('Tautan')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['generalsettings.index'])}}">
+                                </li> --}}
+                                {{-- <li class="{{ areActiveRoutes(['generalsettings.index'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.index')}}">{{translate('Pengaturan Umum')}}</a>
-                                </li>
+                                </li> --}}
                                 <li class="{{ areActiveRoutes(['generalsettings.logo'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.logo')}}">{{translate('Pengaturan Logo')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['generalsettings.color'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.color')}}">{{translate('Pengaturan Warna')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
