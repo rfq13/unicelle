@@ -93,14 +93,10 @@
                                             <span class="text__harga">Harga</span>
                                             <div class="price ">
                                                 <div class="price-box">
-                                                    @auth
-                                                        @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                            <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                        @endif
-                                                        <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
-                                                    @else
-                                                        <cite style="color: #95adab;font-size:85%">Login untuk melihat harga</cite>
-                                                    @endauth
+                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                    @endif
+                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,16 +183,12 @@
                                             </div>
                                             <div class="col-9">
                                                 <div class="product-price">
-                                                    @auth
-                                                        <strong>
-                                                            {{ home_discounted_price($detailedProduct->id) }}
-                                                        </strong>
-                                                        @if($detailedProduct->unit != null)
-                                                            <span class="piece">/{{ $detailedProduct->unit }}</span>
-                                                        @endif
-                                                    @else
-                                                        <cite style="color: #95adab;font-size:85%">Login untuk melihat harga</cite>
-                                                    @endauth
+                                                    <strong>
+                                                        {{ home_discounted_price($detailedProduct->id) }}
+                                                    </strong>
+                                                    @if($detailedProduct->unit != null)
+                                                        <span class="piece">/{{ $detailedProduct->unit }}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -207,13 +199,9 @@
                                             </div>
                                             <div class="row">
                                                 <div class="product-price">
-                                                    @auth
                                                     <strong>
                                                         {{ home_discounted_price($detailedProduct->id) }}
                                                     </strong>
-                                                    @else
-                                                        <cite style="color: #95adab;font-size:85%">Login untuk melihat harga</cite>
-                                                    @endauth
                                                     {{-- <span class="piece">/{{ $detailedProduct->unit }}</span> --}}
                                                 </div>
                                             </div>
@@ -255,21 +243,16 @@
                                         </div>
                                     <!-- </div> -->
                                         <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
-                                            @auth
-                                                <div class="col-2">
-                                                    <div class="product-description-label font-size-1">{{ translate('Jumlah')}} :</div>
+                                            <div class="col-2">
+                                                <div class="product-description-label font-size-1">{{ translate('Jumlah')}} :</div>
+                                            </div>
+                                            <div class="col-10">
+                                                <div class="product-price font-size-1 font-weight-bold">
+                                                    <strong id="chosen_pricek">
+
+                                                    </strong>
                                                 </div>
-                                                <div class="col-10">
-                                                    <div class="product-price font-size-1 font-weight-bold">
-                                                            
-                                                        <strong id="chosen_pricek">
-                                                            
-                                                        </strong>
-                                                    </div>
-                                                </div>
-                                            @else
-                                                <cite style="color: #95adab;font-size:85%">Login untuk melihat harga</cite>
-                                            @endauth
+                                            </div>
                                         </div>
                                         {{-- 
                                             <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
@@ -311,7 +294,7 @@
                             <hr>
                             <strong id="chosen_price"></strong>
                             <div class="d-flex align-items-center mt-3">
-                                <a class="btn btn-primary1 mr-4" href="#" onclick="@auth addToCart() @else showFrontendAlert('warning','anda belum login') @endauth">Tambah Keranjang</a>
+                                <a class="btn btn-primary1 mr-4" href="#" onclick="addToCart()">Tambah Keranjang</a>
                                 <a class="add__wishlist" href="#" onclick="addToWishList({{ $detailedProduct->id }})">+Tambah Ke Wishlist</a>
                             </div>
                         </div>

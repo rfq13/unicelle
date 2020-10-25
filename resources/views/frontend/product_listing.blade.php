@@ -503,44 +503,40 @@
                                                 </div>
                                                 <div class="p-md-3 p-2">
                                                     <div class="price-box">
-                                                        @auth
-                                                            @if (home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                                <del
-                                                                    class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                            @endif
-                                                            <span
-                                                                class="product-price strong-600">{{ home_discounted_price($product->id) }}
-                                                            </span>
-                                                            @if (home_price($product->id) != home_discounted_price($product->id))
-                                                                @if ($flash_product)
-                                                                    @if ($flash_product->discount_type == 'percent')
-                                                                        <p class="mb-0 py-2 px-4"
-                                                                            style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
-                                                                            {{ __($flash_product->discount) }}%
-                                                                        </p>
-                                                                    @elseif($flash_product->discount_type == 'amount')
-                                                                        <p class="mb-0 py-2 px-4"
-                                                                            style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
-                                                                            Potongan Rp {{ __($flash_product->discount) }}</p>
-                                                                    @endif
-                                                                @else
-                                                                    @if ($product->discount_type == 'percent')
-                                                                        <p class="mb-0 py-2 px-4"
-                                                                            style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
-                                                                            {{ __($product->discount) }}%
-                                                                        </p>
-                                                                    @elseif($product->discount_type == 'amount')
-                                                                        <p class="mb-0 py-2 px-4"
-                                                                            style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
-                                                                            Potongan Rp {{ __($product->discount) }}</p>
-                                                                    @endif
+                                                        @if (home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                            <del
+                                                                class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                        @endif
+                                                        <span
+                                                            class="product-price strong-600">{{ home_discounted_price($product->id) }}
+                                                        </span>
+                                                        @if (home_price($product->id) != home_discounted_price($product->id))
+                                                            @if ($flash_product)
+                                                                @if ($flash_product->discount_type == 'percent')
+                                                                    <p class="mb-0 py-2 px-4"
+                                                                        style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
+                                                                        {{ __($flash_product->discount) }}%
+                                                                    </p>
+                                                                @elseif($flash_product->discount_type == 'amount')
+                                                                    <p class="mb-0 py-2 px-4"
+                                                                        style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
+                                                                        Potongan Rp {{ __($flash_product->discount) }}</p>
                                                                 @endif
                                                             @else
-                                                                <p class="d-none"></p>
+                                                                @if ($product->discount_type == 'percent')
+                                                                    <p class="mb-0 py-2 px-4"
+                                                                        style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
+                                                                        {{ __($product->discount) }}%
+                                                                    </p>
+                                                                @elseif($product->discount_type == 'amount')
+                                                                    <p class="mb-0 py-2 px-4"
+                                                                        style="position: absolute; top: 0; left: 0; margin-top: 20px; background-color: #006064; color: white;">
+                                                                        Potongan Rp {{ __($product->discount) }}</p>
+                                                                @endif
                                                             @endif
                                                         @else
-                                                            <cite style="color: #95adab;font-size:85%">Login untuk melihat harga</cite>
-                                                        @endauth
+                                                            <p class="d-none"></p>
+                                                        @endif
                                                     </div>
                                                     <div class="star-rating star-rating-sm mt-1">
                                                         {{ renderStarRating($product->rating) }}
