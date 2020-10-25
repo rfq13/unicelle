@@ -52,14 +52,19 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li>
-                                                <a id="btnEdit{{$user->id}}" {{$user->verify == 0 ? "" : 'class="btn btn-danger"'}} href="#" onclick="activation({{$user->id}})">
+                                                <a id="btnEdit{{$user->id}}" {{$user->verify == 0 ? "" : 'class="btn btn-danger"'}} href="#" onclick=" 
+                                                @if($user->user != null) 
+                                                    activation({{$user->id}}) 
+                                                @else 
+                                                    showAlert('danger','user tidak ditemukan') 
+                                                @endif">
                                                     {{$user->verify == 0 ? translate('Aktifkan') : translate('Nonaktifkan')}}
                                                 </a>
                                             </li>
                                             <li>
                                                 <a onclick="confirm_modal(`{{route('admin.usermember.destroy', $user->id)}}`);" style="background-color:#428df5;color:white">{{translate('Hapus')}}</a>
                                             </li>
-                                            <li><a href="#" id="btnDetail" onclick="detail({{ json_encode($user->user) }},{{ json_encode($user->user->instansi) }})">Detail</a></li>
+                                            <li><a href="#" id="btnDetail" onclick="@if($user->user != null) detail({{ json_encode($user->user) }},{{ json_encode($user->user->instansi) }})@else showAlert('danger','user tidak ditemukan') @endif">Detail</a></li>
                                         </ul>
                                     </div>
                                 </td>

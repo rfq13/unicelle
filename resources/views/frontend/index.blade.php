@@ -580,12 +580,12 @@
                                 @if ($qty < 1)
                                     @continue
                                 @endif
-                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-6">
+                                <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6">
                                     <div class="product-box-2 bg-white my-md-2">
-                                        <div class="position-relative overflow-hidden py-3" style="height: 200px">
+                                        <div class="position-relative overflow-hidden" style="height: 250px">
                                             <a href="{{ route('product', $product->slug) }}"
                                                 class="d-block product-image text-center" tabindex="0">
-                                                <img class="img-fluid lazyload m-1"
+                                                <img class="img-fluid lazyload mx-1"
                                                     src="{{ my_asset('frontend/images/placeholder.jpg') }}"
                                                     data-src="{{ my_asset($product->thumbnail_img) }}"
                                                     alt="{{ __($product->name) }}">
