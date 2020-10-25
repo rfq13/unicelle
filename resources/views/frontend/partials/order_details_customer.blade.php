@@ -179,7 +179,7 @@ if($ship != null || $ship != 0){
                                                             </select>
                                                         </div>
                                                         <a href="#" id="reviewtext{{ $key }}">
-                                                            <cite>{{ $rating != 0 ? "ubah review ?":"masukkan review anda" }}</cite>
+                                                            <cite>{{ $rating != 0 ? "ubah review ?":"klik disini, lalu masukkan review anda" }}</cite>
                                                         </a>
                                                         <script>
                                                             $("#reviewtext{{ $key }}").click(function (e) {
@@ -311,7 +311,7 @@ if($ship != null || $ship != 0){
                 @endif
         </div>
         <div class="col-lg-3">
-            {{-- <div class="card mt-4">
+            <div class="card mt-4">
                 <div class="text-white card-header py-2 px-3 heading-6 strong-600" style="background-color: #006064;">{{ translate('Order Ammount')}}</div>
                 <div class="card-body pb-0">
                     <table class="table details-table">
@@ -328,18 +328,18 @@ if($ship != null || $ship != 0){
                                     <span class="text-italic">{{ single_price($order->shipping_cost) }}</span>
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <th>{{ translate('Tax')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->orderDetails->sum('tax')) }}</span>
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr> --}}
+                            {{-- <tr>
                                 <th>{{ translate('Coupon Discount')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->coupon_discount) }}</span>
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <th>{{ translate('Point Discount')}}</th>
                                 <td class="text-right">
@@ -355,10 +355,10 @@ if($ship != null || $ship != 0){
                         </tbody>
                     </table>
                 </div>
-                @if ($order->manual_payment && $order->manual_payment_data == null)
+                {{-- @if ($order->manual_payment && $order->manual_payment_data == null)
                     <button onclick="show_make_payment_modal({{ $order->id }})" class="btn btn-block btn-base-1">{{ translate('Make Payment')}}</button>
-                @endif
-            </div> --}}
+                @endif --}}
+            </div>
             @if ($order->payment_status == "paid")
             @if ($order->user_status_konfrimasi == null )
                     <a href="{{ route('confirm.order',encrypt($order->id)) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%;"><span style="font-size:15px;color:#FFFFFF">{{  translate('Konfirmasi') }}</span></a>

@@ -65,6 +65,7 @@ class LoginController extends Controller
         $referral_code = str_replace("=","",encrypt($user->id));
         $referral_code = substr($referral_code,strlen($referral_code)-10);
 
+
         $userData = json_decode($userData);
 
         $user->phone = $userData->phone;
@@ -73,6 +74,10 @@ class LoginController extends Controller
         $user->user_type = "pasien reg";
         $user->referral_code = $referral_code;
         if($user->save()){
+            $uid=  $user->id;
+            $cust = new \App\Customer;
+            $cust->user_id = $uid;
+            $cust->save();
             if($this->bindUser($userData->phone) == "sukses"){
                 return "sukses";
             };

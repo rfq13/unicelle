@@ -29,7 +29,7 @@
                             <span class="text-verifikasi-email__">
                                 Sebelum masuk pada akun, harap verifikasi Email anda. Jika tidak menerima Email
                                 Verifikasi.
-                                <a href="" class="link-verifikasi-email__"> Klik untuk mengirm ulang verifikasi </a>
+                                <a href="" class="link-verifikasi-email__"> Klik untuk mengirim ulang verifikasi </a>
                             </span>
                         </div>
                     </div>
