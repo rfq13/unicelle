@@ -582,7 +582,7 @@
                                 @endif
                                 <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6">
                                     <div class="product-box-2 bg-white my-md-2">
-                                        <div class="position-relative overflow-hidden" style="height: 250px">
+                                        <div class="position-relative overflow-hidden">
                                             <a href="{{ route('product', $product->slug) }}"
                                                 class="d-block product-image text-center" tabindex="0">
                                                 <img class="img-fluid lazyload mx-1"
