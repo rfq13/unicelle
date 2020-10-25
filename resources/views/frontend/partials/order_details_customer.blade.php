@@ -302,7 +302,7 @@ if($ship != null || $ship != 0){
                 @endif
         </div>
         <div class="col-lg-3">
-            <div class="card mt-4">
+            {{-- <div class="card mt-4">
                 <div class="text-white card-header py-2 px-3 heading-6 strong-600" style="background-color: #006064;">{{ translate('Order Ammount')}}</div>
                 <div class="card-body pb-0">
                     <table class="table details-table">
@@ -349,7 +349,7 @@ if($ship != null || $ship != 0){
                 @if ($order->manual_payment && $order->manual_payment_data == null)
                     <button onclick="show_make_payment_modal({{ $order->id }})" class="btn btn-block btn-base-1">{{ translate('Make Payment')}}</button>
                 @endif
-            </div>
+            </div> --}}
             @if ($order->payment_status == "paid")
             @if ($order->user_status_konfrimasi == null )
                     <a href="{{ route('confirm.order',encrypt($order->id)) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%">{{  translate('Konfirmasi') }}</a>
