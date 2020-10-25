@@ -666,6 +666,9 @@ class OrderController extends Controller
             $value->save();
         }
         $order->save();
+        $upoin = Session::has('poin_use') ? Session::get('poin_use') : Auth::user()->poin;
+        $upoin += $poin;
+        Session::put('poin_use',$upoin);
         flash('berhasil melakukan konfimasi')->success();
         return redirect()->back();
     }

@@ -815,6 +815,14 @@
 	border-radius: 10px 10px 10px 10px !important;
 	background-color:#3BB6B1;
 }
+.carousel-indicators li.{
+	width:50px !important;
+	height:50px !important;
+	border: 1px !important;
+	margin-top:10px !important;
+	border-radius: 50% !important;
+	background-color:#3BB6B1;
+}
 
 /* ---------------------------- */
 
