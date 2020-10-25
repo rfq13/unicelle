@@ -9,6 +9,10 @@ return;
 }
 @endphp
 @extends('frontend.layouts.app')
+@section('stylesheet')
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/themes/fontawesome-stars.css">
+@endsection
 @section('title', 'Dropshipper')
 @section('content')
     <section class="gry-bg py-4 profile">
@@ -45,7 +49,7 @@ return;
                                         <select class="form-control" name="sort" onchange="filter()" style="width:70%">
                                             <option value="1" {{ $sort == '1' ? 'selected' : '' }}>Terbaru</option>
                                             <option value="2" {{ $sort == '2' ? 'selected' : '' }}>Terlama</option>
-                                            <option value="3" {{ $sort == '3' ? 'selected' : '' }}>Terbaik</option>
+                                            {{-- <option value="3" {{ $sort == '3' ? 'selected' : '' }}>Terbaik</option> --}}
                                         </select>
                                     </div>
                                 </div>
@@ -119,7 +123,7 @@ return;
                                                                 <span class="virtual-pembayaran-pesanan__"
                                                                     style="text-transform:uppercase">{{ str_replace('_', ' ', $order->payment_type) }}</span>
                                                                 <div class="jumlah-number-pesanan__">
-                                                                    <span class="no-resi-pesanan__"> No. Rek
+                                                                    <span class="no-resi-pesanan__"> No. Rekening
                                                                         {{ json_decode($order->manual_payment)->norek }}
                                                                         <br> a/n
                                                                         {{ json_decode($order->manual_payment)->name }}</span>
@@ -439,6 +443,7 @@ return;
     </section>
 @endsection
 @section('script')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
     <script type="text/javascript">
         $('#order_details').on('hidden.bs.modal', function() {
             location.reload();
