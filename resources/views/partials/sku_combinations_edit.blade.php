@@ -51,9 +51,9 @@
 			<td>
 				@php
 					$sku_price = \App\ProductStock::where(['product_id'=>$product->id,'variant'=>$str])->first();
-					$rpp = $sku_price->regular_physician_price;
-					$ppp = $sku_price->partner_physician_price;
-					$prp = $sku_price->pasien_regular_price;
+					$rpp = $sku_price != null ? $sku_price->regular_physician_price : 0;
+					$ppp = $sku_price != null ? $sku_price->partner_physician_price : 0;
+					$prp = $sku_price != null ? $sku_price->pasien_regular_price : 0;
                     // if ($product->unit_price == $unit_price) {
 					// 	if(($stock = $product->stocks->where('variant', $str)->first()) != null){
 	                //         echo $stock->price;

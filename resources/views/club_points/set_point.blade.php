@@ -11,7 +11,7 @@
                             <tr>
                                 <th>#</th>
                                 <th width="20%">{{__('Nama')}}</th>
-                                <th>{{__('Pemilik Produk')}}</th>
+                                {{-- <th>{{__('Pemilik Produk')}}</th> --}}
                                 <th>{{__('Jumlah Penjualan')}}</th>
                                 <th>{{__('Harga Dasar')}}</th>
                                 <th>{{__('Peringkat')}}</th>
@@ -31,11 +31,11 @@
                                             <div class="media-body">{{ __($product->name) }}</div>
                                         </a>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                     @if ($product->user != null)
                                         {{ $product->user->name }}
                                     @endif
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         @php
                                             $qty = 0;

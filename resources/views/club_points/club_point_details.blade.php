@@ -10,8 +10,8 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th width="20%">{{__('Product Name')}}</th>
-                                <th>{{__('Points')}}</th>
+                                <th width="20%">{{__('Nama Produk')}}</th>
+                                <th>{{__('Point')}}</th>
                                 <th>{{__('Earned At')}}</th>
                             </tr>
                         </thead>

@@ -57,10 +57,10 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>{{ __('Date') }}</th>
-                                            <th>{{__('Points')}}</th>
-                                            <th>{{__('Converted')}}</th>
-                                            <th>{{__('Action')}}</th>
+                                            <th>{{ __('Tanggal') }}</th>
+                                            <th>{{__('Point')}}</th>
+                                            <th>{{__('Dikonversi')}}</th>
+                                            <th>{{__('Aksi')}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
