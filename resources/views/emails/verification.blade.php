@@ -282,7 +282,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="center" valign="top" style="padding: 40px 10px 40px 10px;"> 
-                            <img src="{{ $array['logo'] }}" alt="">
+                            <img src="{{ $array['logo'] }}" alt="" style="width: 30%">
                         </td>
                     </tr>
                 </table>

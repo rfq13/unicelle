@@ -37,7 +37,8 @@
             </div>
         </div>
         <div class="panel-footer text-right">
-            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+            <a class="btn btn-purple" role="button" href="{{route('home_settings.index')}}">{{translate('Kembali')}}</a>
+            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
         </div>
     </form>
     <!--===================================================-->
