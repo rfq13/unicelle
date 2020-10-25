@@ -55,18 +55,18 @@ if($ship != null || $ship != 0){
     </div>
     <div class="card mt-4">
         <div class="card-header py-2 px-3 heading-6 strong-600 clearfix" style="background-color: #006064;">
-            <div class="float-left text-white" >{{ translate('Order Summary')}}</div>
+            <div class="float-left text-white" >{{ translate('Ringkasan Pesanan')}}</div>
         </div>
         <div class="card-body pb-0">
             <div class="row">
                 <div class="col-lg-6">
                     <table class="details-table table">
                         <tr>
-                            <td class="w-50 strong-600">{{ translate('Order Code')}}:</td>
+                            <td class="w-50 strong-600">{{ translate('Kode Pesanan')}}:</td>
                             <td>{{ $order->code }}</td>
                         </tr>
                         <tr>
-                            <td class="w-50 strong-600">{{ translate('Customer')}}:</td>
+                            <td class="w-50 strong-600">{{ translate('Pelanggan')}}:</td>
                             <td>{{ $order->user->name }}</td>
                         </tr>
                         <tr>
@@ -84,23 +84,23 @@ if($ship != null || $ship != 0){
                 <div class="col-lg-6">
                     <table class="details-table table">
                         <tr>
-                            <td class="w-50 strong-600">{{ translate('Order date')}}:</td>
+                            <td class="w-50 strong-600">{{ translate('Tanggal Pesanan')}}:</td>
                             <td>{{ date('d-m-Y H:i A', $order->date) }}</td>
                         </tr>
                         <tr>
-                            <td class="w-50 strong-600">{{ translate('Order status')}}:</td>
+                            <td class="w-50 strong-600">{{ translate('Status Pesanan')}}:</td>
                             <td>{{ ucfirst(str_replace('_', ' ', $status)) }}</td>
                         </tr>
                         <tr>
-                            <td class="w-50 strong-600">{{ translate('Total order amount')}}:</td>
+                            <td class="w-50 strong-600">{{ translate('Jumlah Total Pesanan')}}:</td>
                             <td>{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}</td>
                         </tr>
                         <tr>
-                            <td class="w-50 strong-600">{{ translate('Shipping method')}}:</td>
+                            <td class="w-50 strong-600">{{ translate('Metode Pengiriman')}}:</td>
                             <td>{{ translate('Flat shipping rate')}}</td>
                         </tr>
                         <tr>
-                            <td class="w-50 strong-600">{{ translate('Payment method')}}:</td>
+                            <td class="w-50 strong-600">{{ translate('Metode Pembayaran')}}:</td>
                             <td>{{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}</td>
                         </tr>
                     </table>
@@ -117,7 +117,7 @@ if($ship != null || $ship != 0){
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th width="30%">{{ translate('Product')}}</th>
+                                    <th width="30%">{{ translate('Produk')}}</th>
                                     <th>{{ translate('Variation')}}</th>
                                     <th>{{ translate('Quantity')}}</th>
                                     <th>{{ translate('Delivery Type')}}</th>
@@ -351,7 +351,7 @@ if($ship != null || $ship != 0){
                 @endif
             </div>
             @if ($order->payment_status == "paid")
-                @if ($order->user_status_konfrimasi == null )
+            @if ($order->user_status_konfrimasi == null )
                     <a href="{{ route('confirm.order',encrypt($order->id)) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%">{{  translate('Konfirmasi') }}</a>
                     <cite style="color: darkslategrey;font-size:12px">*lakukan konfirmasi order telah selesai</cite>
                 @endif

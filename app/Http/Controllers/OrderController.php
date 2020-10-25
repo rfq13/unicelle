@@ -78,12 +78,13 @@ class OrderController extends Controller
         $delivery_status = null;
         $sort_search = null;
         $admin_user_id = User::where('user_type', 'admin')->first()->id;
+        // dd($admin_user_id);
         $orders = DB::table('orders')
-                    ->orderBy('code', 'desc')
-                    ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-                    ->where('order_details.seller_id', $admin_user_id)
-                    ->select('orders.id')
-                    ->distinct();
+        ->orderBy('code', 'desc')
+        ->join('order_details', 'orders.id', '=', 'order_details.order_id')
+        ->where('order_details.seller_id', $admin_user_id)
+        ->select('orders.id')
+        ->distinct();
 
         if ($request->payment_type != null){
             $orders = $orders->where('order_details.payment_status', $request->payment_type);
