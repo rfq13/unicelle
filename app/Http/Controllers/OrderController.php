@@ -657,7 +657,7 @@ class OrderController extends Controller
         return view('frontend.dropshipper', compact(['orders','bank_setting','config','tgl','sort','q']));
     }
 
-    public function confirm_order($id)
+    public function confirm_order($id,$poin)
     {
         $order = order::with('orderDetails')->where('id',decrypt($id))->first();
         $order->user_status_konfrimasi = 1;

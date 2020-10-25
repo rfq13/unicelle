@@ -1,7 +1,7 @@
 
 
 <div class="modal-header">
-    <h5 class="modal-title strong-600 heading-5" style="color: #006064;">{{ translate('Order id')}}: {{ $order->code }}</h5>
+    <h5 class="modal-title strong-600 heading-5" style="color: #006064;">{{ translate('Id Pesanan')}}: {{ $order->code }}</h5>
     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -104,33 +104,36 @@ if($ship != null || $ship != 0){
                             <td class="w-50 strong-600">{{ translate('Jumlah Total Pesanan')}}:</td>
                             <td>{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td class="w-50 strong-600">{{ translate('Metode Pengiriman')}}:</td>
                             <td>{{ translate('Flat shipping rate')}}</td>
-                        </tr>
-                        <tr>
+                        </tr> --}}
+                        {{-- <tr>
                             <td class="w-50 strong-600">{{ translate('Metode Pembayaran')}}:</td>
                             <td>{{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}</td>
-                        </tr>
+                        </tr> --}}
                     </table>
                 </div>
             </div>
         </div>
     </div>
+                                    @php
+                                        $totalPoint = [];
+                                    @endphp
     <div class="row">
         <div class="col-lg-9">
                 <div class="card mt-4">
-                    <div class="card-header py-2 px-3 heading-6 strong-600 text-white" style="background-color: #006064;">{{ translate('Order Details')}}</div>
+                    <div class="card-header py-2 px-3 heading-6 strong-600 text-white" style="background-color: #006064;">{{ translate('Detail Pesanan')}}</div>
                     <div class="card-body pb-0">
                         <table class="details-table table table-responsive">
                             <thead>
                                 <tr>
                                     <th>#</th>
                                     <th width="30%">{{ translate('Produk')}}</th>
-                                    <th>{{ translate('Variation')}}</th>
-                                    <th>{{ translate('Quantity')}}</th>
-                                    <th>{{ translate('Delivery Type')}}</th>
-                                    <th>{{ translate('Price')}}</th>
+                                    <th>{{ translate('Variasi')}}</th>
+                                    <th>{{ translate('Jumlah')}}</th>
+                                    <th>{{ translate('Tipe Pengiriman')}}</th>
+                                    <th>{{ translate('Harga')}}</th>
                                     @if ($refund_request_addon != null && $refund_request_addon->activated == 1 && $order->user_status_konfrimasi != 1)
                                         <th>{{ translate('')}}</th>
                                     @endif
@@ -143,6 +146,7 @@ if($ship != null || $ship != 0){
                                         <td>
                                             @if ($orderDetail->product != null)
                                                 @php
+                                                    array_push($totalPoint,$orderDetail->product->earn_point);
                                                     $detailOrder = $order->orderDetails[0];
                                                     $photos = $detailOrder->product == null ? "" :
                                                     $detailOrder->product->thumbnail_img;
@@ -215,7 +219,7 @@ if($ship != null || $ship != 0){
                                                 @endif
                                             @else
                                            
-                                                <strong>{{  translate('Product Unavailable') }}</strong>
+                                                <strong>{{  translate('Produk Tidak Tersedia') }}</strong>
                                             @endif
                                         </td>
                                         <td class="text-center">
@@ -249,15 +253,15 @@ if($ship != null || $ship != 0){
                                             @endphp
                                             <td class="text-center">
                                                 @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' &&$order->user_status_konfrimasi != 1)
-                                                    <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $orderDetail->product->earn_point }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Refund') }}</a>
+                                                    <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $orderDetail->product->earn_point }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Pengembalian Dana') }}</a>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
-                                                    <span class="strong-600">{{  translate('Pending') }}</span>
+                                                    <span class="strong-600">{{  translate('Tertunda') }}</span>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
-                                                    <span class="strong-600">{{  translate('Approved') }}</span>
+                                                    <span class="strong-600">{{  translate('Disetujui') }}</span>
                                                 @elseif ($orderDetail->product->refundable != 0)
                                                     <span class="strong-600">{{  translate('N/A') }}</span>
                                                 @else
-                                                    <span class="strong-600">{{  translate('Non-refundable') }}</span>
+                                                    <span class="strong-600">{{  translate('Tidak bisa dikembalikan') }}</span>
                                                 @endif
                                             </td>
                                         @endif
@@ -312,7 +316,7 @@ if($ship != null || $ship != 0){
         </div>
         <div class="col-lg-3">
             <div class="card mt-4">
-                <div class="text-white card-header py-2 px-3 heading-6 strong-600" style="background-color: #006064;">{{ translate('Order Ammount')}}</div>
+                <div class="text-white card-header py-2 px-3 heading-6 strong-600" style="background-color: #006064;">{{ translate('Jumlah pesanan')}}</div>
                 <div class="card-body pb-0">
                     <table class="table details-table">
                         <tbody>
@@ -323,7 +327,7 @@ if($ship != null || $ship != 0){
                                 </td>
                             </tr>
                             <tr>
-                                <th>{{ translate('Shipping')}}</th>
+                                <th>{{ translate('Pengiriman')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->shipping_cost) }}</span>
                                 </td>
@@ -341,7 +345,7 @@ if($ship != null || $ship != 0){
                                 </td>
                             </tr> --}}
                             <tr>
-                                <th>{{ translate('Point Discount')}}</th>
+                                <th>{{ translate('Point Diskon')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->poin_convert) }}</span>
                                 </td>
@@ -361,7 +365,7 @@ if($ship != null || $ship != 0){
             </div>
             @if ($order->payment_status == "paid")
             @if ($order->user_status_konfrimasi == null )
-                    <a href="{{ route('confirm.order',encrypt($order->id)) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%;"><span style="font-size:15px;color:#FFFFFF">{{  translate('Konfirmasi') }}</span></a>
+                    <a href="{{ route('confirm.order',['id'=>encrypt($order->id),'poin'=>array_sum($totalPoint)]) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%;"><span style="font-size:15px;color:#FFFFFF">{{  translate('Konfirmasi') }}</span></a>
                     <cite style="color: darkslategrey;font-size:12px">*lakukan konfirmasi order telah selesai</cite>
                 @endif
             @endif

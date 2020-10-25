@@ -1,9 +1,9 @@
 @php
 if(Auth::check()){
 $point = Auth::user()->poin;
-    // if (Session::has('poin_use')) {
-    //     $point -= Session::get('poin_use');
-    // }
+    if (Session::has('poin_use')) {
+        $point -= Session::get('poin_use');
+    }
 }
 @endphp
 

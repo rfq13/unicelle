@@ -93,10 +93,14 @@
                                             <span class="text__harga">Harga</span>
                                             <div class="price ">
                                                 <div class="price-box">
-                                                    @if(home_base_price($product->id) != home_discounted_base_price($product->id))
-                                                        <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
-                                                    @endif
-                                                    <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+                                                    @auth
+                                                        @if(home_base_price($product->id) != home_discounted_base_price($product->id))
+                                                            <del class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
+                                                        @endif
+                                                        <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
+                                                    @else
+                                                        <cite style="color: #95adab;font-size:85%">Login untuk melihat harga</cite>
+                                                    @endauth
                                                 </div>
                                             </div>
                                         </div>
@@ -158,6 +162,7 @@
                                         </li>
                                     @endif
                                 </ul>
+                                @auth
                             <div class="harga__produk">
                                 <span class="price__produk">
                                 @if(home_price($detailedProduct->id) != home_discounted_price($detailedProduct->id))
@@ -297,6 +302,13 @@
                                 <a class="btn btn-primary1 mr-4" href="#" onclick="addToCart()">Tambah Keranjang</a>
                                 <a class="add__wishlist" href="#" onclick="addToWishList({{ $detailedProduct->id }})">+Tambah Ke Wishlist</a>
                             </div>
+                            
+                            @else
+                            {{-- <br> --}}
+                            <div class="row">
+                                <cite style="color: #95adab;font-size:85%;margin-top:2%">Login untuk melihat harga</cite>
+                            </div>
+                            @endauth
                         </div>
                         <hr>
                         <div class="deskripsi-detail-produk">
