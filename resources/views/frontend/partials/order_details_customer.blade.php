@@ -36,20 +36,20 @@ if($ship != null || $ship != 0){
     <div class="pt-4">
         <ul class="process-steps clearfix">
             <li @if($status == 'pending') class="active"  @else class="done"  @endif >
-                <div class="icon">{{ translate('1')}}</div>
-                <div class="title">{{ translate('Order placed')}}</div>
+                <div class="icon">{{ translate('0')}}</div>
+                <div class="title">{{ translate('Perlu Dibayar')}}</div>
             </li>
             <li @if($status == 'on_review') class="active" @elseif($status == 'on_delivery' || $status == 'delivered') class="done"  @endif>
-                <div class="icon">{{ translate('2')}}</div>
-                <div class="title">{{ translate('On review')}}</div>
+                <div class="icon">{{ translate('1')}}</div>
+                <div class="title">{{ translate('Diproses Admin')}}</div>
             </li>
             <li @if($status == 'on_delivery') class="active" @elseif($status == 'delivered') class="done"  @endif>
-                <div class="icon">{{ translate('3')}}</div>
-                <div class="title">{{ translate('On delivery')}}</div>
+                <div class="icon">{{ translate('2')}}</div>
+                <div class="title">{{ translate('Dalam Pengiriman')}}</div>
             </li>
             <li @if($status == 'delivered') class="done" @endif>
-                <div class="icon" >{{ translate('4')}}</div>
-                <div class="title">{{ translate('Delivered')}}</div>
+                <div class="icon" >{{ translate('3')}}</div>
+                <div class="title">{{ translate('Selesai')}}</div>
             </li>
         </ul>
     </div>
@@ -122,8 +122,8 @@ if($ship != null || $ship != 0){
                                     <th>{{ translate('Quantity')}}</th>
                                     <th>{{ translate('Delivery Type')}}</th>
                                     <th>{{ translate('Price')}}</th>
-                                    @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
-                                        <th>{{ translate('Refund')}}</th>
+                                    @if ($refund_request_addon != null && $refund_request_addon->activated == 1 && $order->user_status_konfrimasi != 1)
+                                        <th>{{ translate('')}}</th>
                                     @endif
                                 </tr>
                             </thead>
@@ -144,7 +144,7 @@ if($ship != null || $ship != 0){
                                                     </div>
                                                 </a>
                                                 @if ($orderDetail->delivery_status == "delivered")
-                                                    @if ($orderDetail->confirmed == 1 )
+                                                    @if ($order->user_status_konfrimasi == 1 )
                                                         @php
                                                             $order_rating = \App\Review::where(['product_id'=>$orderDetail->product->id,'user_id'=>Auth::user()->id])->first();
                                                             $rating = $order_rating != null ? $order_rating->rating : 0;
@@ -236,10 +236,11 @@ if($ship != null || $ship != 0){
                                                 $no_of_max_day = \App\BusinessSetting::where('type', 'refund_request_time')->first()->value;
                                                 $last_refund_date = $orderDetail->created_at->addDays($no_of_max_day);
                                                 $today_date = Carbon\Carbon::now();
+                                                // $point_use = 
                                             @endphp
                                             <td class="text-center">
-                                                @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered')
-                                                    <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $orderDetail->product->earn_point }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Send') }}</a>
+                                                @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' &&$order->user_status_konfrimasi != 1)
+                                                    <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $orderDetail->product->earn_point }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Refund') }}</a>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
                                                     <span class="strong-600">{{  translate('Pending') }}</span>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
@@ -251,13 +252,7 @@ if($ship != null || $ship != 0){
                                                 @endif
                                             </td>
                                         @endif
-                                        @if ($orderDetail->delivery_status == "delivered")
-                                            @if ($orderDetail->confirmed == 0 )
-                                                <td class="text-center">
-                                                    <a href="{{ route('confirm.product',encrypt($orderDetail->id)) }}" class="btn btn-primary">Konfirmasi Penerimaan Produk</a>
-                                                </td>
-                                            @endif
-                                        @endif
+                                        
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -351,9 +346,15 @@ if($ship != null || $ship != 0){
                         </tbody>
                     </table>
                 </div>
+                @if ($order->manual_payment && $order->manual_payment_data == null)
+                    <button onclick="show_make_payment_modal({{ $order->id }})" class="btn btn-block btn-base-1">{{ translate('Make Payment')}}</button>
+                @endif
             </div>
-            @if ($order->manual_payment && $order->manual_payment_data == null)
-                <button onclick="show_make_payment_modal({{ $order->id }})" class="btn btn-block btn-base-1">{{ translate('Make Payment')}}</button>
+            @if ($order->payment_status == "paid")
+                @if ($order->user_status_konfrimasi == null )
+                    <a href="{{ route('confirm.order',encrypt($order->id)) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%">{{  translate('Konfirmasi') }}</a>
+                    <cite style="color: darkslategrey;font-size:12px">*lakukan konfirmasi order telah selesai</cite>
+                @endif
             @endif
         </div>
     </div>

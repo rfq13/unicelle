@@ -656,10 +656,14 @@ class OrderController extends Controller
         return view('frontend.dropshipper', compact(['orders','bank_setting','config','tgl','sort','q']));
     }
 
-    public function confirm_product($id)
+    public function confirm_order($id)
     {
-        $order = \App\OrderDetail::findOrFail(decrypt($id));
-        $order->confirmed = 1;
+        $order = order::with('orderDetails')->where('id',decrypt($id))->first();
+        $order->user_status_konfrimasi = 1;
+        foreach ($order->orderDetails as $key => $value) {
+            $value->delivery_status = "delivered";
+            $value->save();
+        }
         $order->save();
         flash('berhasil melakukan konfimasi')->success();
         return redirect()->back();

@@ -10,12 +10,12 @@
 			$penerima = $ship->delivery_status->pod_receiver;
 			$tglTerima = $ship->delivery_status->pod_date." ".$ship->delivery_status->pod_time;
 
-			if ($ship->delivered) {
-				foreach ($order->orderDetails as $key => $detail) {
-					$detail->delivery_status = "delivered";
-					$detail->save();
-				}
-			}
+			// if ($ship->delivered) {
+			// 	foreach ($order->orderDetails as $key => $detail) {
+			// 		$detail->delivery_status = "delivered";
+			// 		$detail->save();
+			// 	}
+			// }
 		}
 		// dd($rajaongkir);
 	}
@@ -52,7 +52,7 @@
                         <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
                         {{-- <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option> --}}
 						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('Dikirim')}}</option>
-                        <option value="delivered" @if ($delivery_status == 'delivered') selected @endif>{{translate('Terkirim')}}</option>
+                        @if ($delivery_status == 'delivered')<option value="delivered" selected>{{translate('Terkirim')}}</option>@endif
 					</select>
 				</div>
 				<div class="col-lg-3">
@@ -108,23 +108,33 @@
     						{{translate('Status Pesanan')}}
     					</td>
 						@php
-						$status = $order->orderDetails->first()->delivery_status;
-						if (isset($order->resi)) {
-							if ($rajaongkir->status->code == 200) {
-								$status = $statusKirim;
-							}
-						}
+						// dd([$order->orderDetails->first()->delivery_status,$order->orderDetails->first()->delivery_status=="delivered"]);
+						$status = $order->orderDetails->first()->delivery_status == "on_delivery" ? "Dikirim":"Pending";
+						$status = $order->orderDetails->first()->delivery_status == "delivered" ? "Terkirim" : $status;
+						// if (isset($order->resi)) {
+						// 	if ($rajaongkir->status->code == 200) {
+						// 		$status = $statusKirim;
+						// 	}
+						// }
                         @endphp
     					<td class="text-right">
-							<a href="#" data-toggle="modal" data-target="#modalManifest">
-								@if($status == 'delivered')
-									<span class="badge badge-success">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
-								@else
-									<span class="badge badge-info">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
-								@endif
+							<a href="#" {{ isset($order->resi) ? 'data-toggle="modal" data-target="#modalManifest"' : "" }}>
+								<span class="badge {{ $order->orderDetails->first()->delivery_status == "delivered" ? "badge-success" : "badge-info" }}">{{ ucfirst(str_replace('_', ' ', $status)) }}</span>
 							</a>
     					</td>
-    				</tr>
+					</tr>
+					@if (isset($order->resi) && $rajaongkir->status->code == 200)
+					<tr>
+						<td class="text-main text-bold">
+						{{translate('Status Pengiriman')}}
+						</td>
+						<td class="text-right">
+							<a href="#" data-toggle="modal" data-target="#modalManifest">
+								<span class="badge badge-info">{{ ucfirst(str_replace('_', ' ', $statusKirim)) }}</span>
+							</a>
+    					</td>
+					</tr>
+					@endif
     				<tr>
     					<td class="text-main text-bold">
     						{{translate('Tanggal Order')}}

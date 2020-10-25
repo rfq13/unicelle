@@ -423,15 +423,33 @@ if (! function_exists('home_price')) {
         $lowest_price = $product->unit_price;
         $highest_price = $product->unit_price;
 
-        if ($product->variant_product) {
-            foreach ($product->stocks as $key => $stock) {
-                if($lowest_price > $stock->price){
-                    $lowest_price = $stock->price;
-                }
-                if($highest_price < $stock->price){
-                    $highest_price = $stock->price;
-                }
+        if (Auth::check()) {
+            $utype = Auth::user()->user_type;
+            switch ($utype) {
+                case 'regular physician':
+                    $lowest_price = $product->regular_physician_price;
+                    $highest_price = $product->regular_physician_price;
+                    break;
+                case 'partner physician':
+                    $lowest_price = $product->partner_physician_price;
+                    $highest_price = $product->partner_physician_price;
+                    break;
+                case 'pasien reg':
+                    $lowest_price = $product->pasien_regular_price;
+                    $highest_price = $product->pasien_regular_price;
+                    break;
+                default:
+                    $lowest_price = $product->unit_price;
+                    $highest_price = $product->unit_price;
+                    break;
             }
+        }
+        
+        if ($product->variant_product && Auth::check()) {
+            $usr = Auth::user()->user_type == "pasien reg" ? "pasien_regular_price" : str_replace(" ","_",Auth::user()->user_type."_price");
+            $price = $product->stocks->pluck($usr);
+            $lowest_price = $price->min();
+            $highest_price = $price->max();
         }
 
         if($product->tax_type == 'percent'){
@@ -460,9 +478,9 @@ if (! function_exists('home_discounted_price')) {
     function home_discounted_price($id)
     {
         $product = Product::findOrFail($id);
-        $price = $product->min('unit_price');
-        $lowest_price = $product->min('unit_price');
-        $highest_price = $product->min('unit_price');
+        $price = $product->unit_price;
+        $lowest_price = $product->unit_price;
+        $highest_price = $product->unit_price;
         if (Auth::check()) {
             $utype = Auth::user()->user_type;
             switch ($utype) {
