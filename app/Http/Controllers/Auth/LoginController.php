@@ -146,7 +146,6 @@ class LoginController extends Controller
             // CoreComponentRepository::instantiateShopRepository();
             return redirect()->route('admin.dashboard');
         } else {
-
             if (session('link') != null) {
                 return redirect(session('link'));
             } else {

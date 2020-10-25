@@ -138,6 +138,10 @@
                                                 <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
                                             </div>
                                     @endif
+                                    <div class="form-group">
+                                        <div id="recaptcha-container"></div>
+                                    </div>
+
                                     <button type="submit" class="btn btn-secondary1 my-2" style="width: 50%;"><a
                                             href="#"></a>Daftar</button>
                                     <a href="{{route('user.registration')}}" class="btn btn-secondary1 my-2" style="width: 50%;">Daftar Sebagai Pasien</a>
@@ -230,6 +234,10 @@
                                         <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
                                     </div>
                                 @endif 
+
+                                <div class="form-group">
+                                    <div id="recaptcha-container"></div>
+                                </div>
 
                                 <button type="submit" class="btn btn-secondary1 mb-2" style="width: 100%;">
                                     <a href="#"></a>Daftar

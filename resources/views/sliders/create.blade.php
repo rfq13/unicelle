@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">{{translate('Slider Information')}}</h3>
+        <h3 class="panel-title">{{translate('Informasi Slider')}}</h3>
     </div>
 
     <!--Horizontal Form-->
@@ -16,7 +16,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-3">
-                    <label class="control-label">{{translate('Slider Images')}}</label>
+                    <label class="control-label">{{translate('Gambar Slider')}}</label>
                     <strong>(850px*315px)</strong>
                 </div>
                 <div class="col-sm-9">
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="panel-footer text-right">
-            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
         </div>
     </form>
     <!--===================================================-->

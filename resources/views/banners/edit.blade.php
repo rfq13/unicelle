@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">{{translate('Banner Information')}}</h3>
+        <h3 class="panel-title">{{translate('Informasi Banner')}}</h3>
     </div>
 
     <!--Horizontal Form-->
@@ -17,7 +17,7 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-3">
-                    <label class="control-label">{{translate('Banner Images')}}</label>
+                    <label class="control-label">{{translate('Gambar Banner')}}</label>
                     <strong>({{ translate('850px*420px') }})</strong>
                 </div>
                 <div class="col-sm-9">

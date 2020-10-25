@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">{{translate('Home Categories')}}</h3>
+        <h3 class="panel-title">{{translate('Kategori Beranda')}}</h3>
     </div>
 
     <!--Horizontal Form-->

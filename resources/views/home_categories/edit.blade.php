@@ -1,6 +1,6 @@
 <div class="panel">
     <div class="panel-heading">
-        <h3 class="panel-title">{{translate('Home Categories')}}</h3>
+        <h3 class="panel-title">{{translate('Kategori Beranda')}}</h3>
     </div>
 
     <!--Horizontal Form-->
@@ -10,7 +10,7 @@
         <input type="hidden" name="_method" value="PATCH">
         <div class="panel-body">
             <div class="form-group" id="category">
-                <label class="col-lg-2 control-label">{{translate('Category')}}</label>
+                <label class="col-lg-2 control-label">{{translate('Kategori')}}</label>
                 <div class="col-lg-7">
                     <select class="form-control demo-select2-placeholder" name="category_id" id="category_id" required>
                         @foreach(\App\Category::all() as $category)
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="panel-footer text-right">
-            <button class="btn btn-purple" type="submit">{{translate('Save')}}</button>
+            <button class="btn btn-purple" type="submit">{{translate('Simpan')}}</button>
         </div>
     </form>
     <!--===================================================-->

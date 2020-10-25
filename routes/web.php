@@ -50,6 +50,10 @@ Route::post('/subsubcategories/get_attributes_by_subsubcategory', 'SubSubCategor
 
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home',function ()
+{
+	return back();
+});
 Route::get('/test', 'HomeController@test')->name('test');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');

@@ -73,6 +73,9 @@
                             <!-- </div> -->
 
                             <button type="submit" class="btn btn-secondary1" style="width: 100%;">Login</button>
+                            <div class="form-group mt-2">
+                                <div id="recaptcha-container"></div>
+                            </div>
 
                             <div class="text-center m-4">
                                 <a href="{{ route('password.request') }}" class="lupa-pass" data-toggle="modal" data-target="#registerOTP">Lupa Kata
