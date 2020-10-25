@@ -282,7 +282,7 @@
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="center" valign="top" style="padding: 40px 10px 40px 10px;"> 
-                            <img src="{{ $array['logo'] }}" alt="" style="width: 30%">
+                            <img src="{{ $array['logo'] }}" alt="" style="width: 20%">
                         </td>
                     </tr>
                 </table>
@@ -329,17 +329,17 @@
                     </tr> <!-- COPY -->
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 20px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;"><a href="{{ $array['link'] }}" target="_blank" style="color: #95DAD5;">{{ $array['link'] }}</a></p>
+                            <p style="margin: 0;font-size:50%"><a href="{{ $array['link'] }}" target="_blank" style="color: #95DAD5;">{{ $array['link'] }}</a></p>
                         </td>
                     </tr>
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 20px 30px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Jika Anda memiliki pertanyaan, cukup balas email ini — kami akan selalu membantu dengan senang hati.</p>
+                            <p style="margin: 0;font-size:60%">Jika Anda memiliki pertanyaan, cukup balas email ini — kami akan selalu membantu dengan senang hati.</p>
                         </td>
                     </tr>
                     <tr>
                         <td bgcolor="#ffffff" align="left" style="padding: 0px 30px 40px 30px; border-radius: 0px 0px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;">
-                            <p style="margin: 0;">Salam,<br><a href="{{ env('APP_URL') }}" target="_blank" class="link" style="color:#666666; text-decoration:none;"><span class="link" style="color:#666666; text-decoration:none;">{{ env('APP_NAME') }} team</span></a></p>
+                            <p style="margin: 0;font-size:50%">Salam,<br><a href="{{ env('APP_URL') }}" target="_blank" class="link" style="color:#666666; text-decoration:none;"><span class="link" style="color:#666666; text-decoration:none;">{{ env('APP_NAME') }} team</span></a></p>
                         </td>
                     </tr>
                 </table>
