@@ -577,12 +577,15 @@
                                 $qty = $product->current_stock;
                                 }
                                 @endphp
-                                <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-2 col-6">
+                                @if ($qty < 1)
+                                    @continue
+                                @endif
+                                <div class="col-xxl-2 col-xl-2 col-lg-2 col-md-2 col-6">
                                     <div class="product-box-2 bg-white alt-box my-md-2">
                                         <div class="position-relative overflow-hidden  py-1">
                                             <a href="{{ route('product', $product->slug) }}"
                                                 class="d-block product-image h-100 text-center" tabindex="0">
-                                                <img class="img-fluid lazyload"
+                                                <img class="img-fluid lazyload" height="50"
                                                     src="{{ my_asset('frontend/images/placeholder.jpg') }}"
                                                     data-src="{{ my_asset($product->thumbnail_img) }}"
                                                     alt="{{ __($product->name) }}">

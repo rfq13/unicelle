@@ -198,7 +198,7 @@ $config =  json_decode( $bank_setting->value);
                                       <td>: {{ $config->BANK_NAME }}</td>
                                   </tr>
                                   <tr>
-                                      <th>No. Rek</th>
+                                      <th>No. Rekening</th>
                                       <td>: {{ $config->BANK_NO_REK }}</td>
                                   </tr>
                                   <tr>

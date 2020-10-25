@@ -73,6 +73,12 @@
 							<input type="number" class="form-control" name="min_qty" value="@if($product->min_qty <= 1){{1}}@else{{$product->min_qty}}@endif" min="1" required>
 						</div>
 					</div>
+					<div class="form-group">
+						<label class="col-lg-2 control-label">{{translate('Indikasi')}}</label>
+						<div class="col-lg-7">
+							<input type="text" class="form-control" name="indication[]" value="{{ $product->indication }}" placeholder="{{ translate('masukkan indikasi obat') }}" data-role="tagsinput">
+						</div>
+					</div>
 
 
                     {{-- <div class="form-group">	
