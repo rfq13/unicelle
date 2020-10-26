@@ -31,7 +31,9 @@
                         font-size: 14px;
                         line-height: 16px;
                         color: #424242;
-                        ">{{ $blog->subtitle }}</p>
+                        ">
+                        {{ $blog->subtitle }}    
+                    </p>
                 </div>
             </a>
         </div>

@@ -177,7 +177,7 @@
 
     <div class="container mt-3">
         <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators ">
+            <ol class="carousel-indicators mx-auto" style=" bottom:30px; right:0px;">
                 <li data-target="#carouselExampleCaptions" data-slide-to="0"></li>
                 <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
                 <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
@@ -216,7 +216,7 @@
                 <span class="sr-only">Previous</span>
             </a>
             <a class="carousel-control-next slider-banner-right  my-auto" href="#carouselExampleCaptions" role="button"
-                data-slide="next">
+                data-slide="next" style="height: 20px;">
                 <div class=" slider-button-right">
                     <i class="fa fa-angle-right" aria-hidden="true" style="font-size:50px; color:black"></i>
                 </div>
@@ -292,14 +292,14 @@
             <a data-slide="next" href="#carouselExampleControlla" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
         </div> --}}
 
-        <div class="row" style="margin-bottom: 150px;">
+        <div class="row" style="height:250px; margin-bottom: 100px;">
             <div class="col-1 my-auto px-0">
                 <a data-slide="prev" href="#Carousel" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
             </div>
             <div class="col">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div id="Carousel" class="carousel slide">
+                        <div id="Carousel" class="carousel slide p-0 mx-auto my-auto">
                             <div class="carousel-inner">
                                 @foreach ($categories as $k=> $category)
                                     <div class="item {{ $k == 0 ? "active" : "" }} carousel-item">
@@ -555,7 +555,7 @@
                                             </div>
                                             <h2 class="product-title font-weight-bold p-0">
                                                 <a href="{{ route('product', $product->slug) }}"
-                                                    class=" text-truncate">{{ __($product->name) }}</a>
+                                                    class="text-truncate">{{ __($product->name) }}</a>
                                             </h2>
                                             @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
                                                 <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
