@@ -29,7 +29,7 @@
                     
 
                     <div class="card bg-form">
-                        <form class="form-default p-3" id="login-form" role="form" action="{{ route('login') }}" method="POST">
+                        <form class="form-default p-3" id="login-form" role="form" action="{{ route('user.login.post') }}" method="POST">
                             @csrf
                             <h5 class="mb-4 mt-2">Login</h5>
 
@@ -42,20 +42,20 @@
                                         </span>
                                     @endif
                                 @else
-                                    <input type="email" class="form-control h-auto form-control-lg {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
-                                    @if ($errors->has('email'))
+                                    <input type="email" class="form-control h-auto form-control-lg {{ $errors->has('email') ? 'is-invalid' : $type == "2" ? 'is-invalid' : "" }}" value="{{ old('email') }} {{ $email != "0" ? $email : "" }}" placeholder="{{  translate('Email') }}" name="email">
+                                    @if ($errors->has('email') || $type == "2")
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('email') }}</strong>
+                                            <strong>{{ $errors->first('email') }}{{$msg}}</strong>
                                         </span>
                                     @endif
                                 @endif
                             </div>
 
                             <div class="form-group">
-                                <input type="password" class="form-control h-auto form-control-lg {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ translate('Password')}}" name="password" id="password">
-                                @if ($errors->has('password'))
+                                <input type="password" class="form-control h-auto form-control-lg {{ $errors->has('password') ? ' is-invalid' : $type == "1" ? 'is-invalid' : "" }} }}" placeholder="{{ translate('Password')}}" name="password" id="password">
+                                @if ($errors->has('password') || $type == "1")
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
+                                        <strong>{{ $errors->first('password') }}{{ $msg != "0" ? $msg : "" }}</strong>
                                     </span>
                                 @endif
                             </div>

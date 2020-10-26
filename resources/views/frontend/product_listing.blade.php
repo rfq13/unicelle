@@ -167,7 +167,7 @@
                                     <li class="active"><a href="{{ route('products.subsubcategory', \App\SubSubCategory::find($subsubcategory_id)->slug) }}">{{ \App\SubSubCategory::find($subsubcategory_id)->name }}</a></li>
                                 @endif
                             </ul>
-                            <div class="row col ridge ml-5">
+                            <div class="row col ridge ml-5 mt-3">
                                 <p class="text-urutkan mt-4 ml-3">Urutkan</p>
                                 <a class="col-3 btn {{ isset($sort_by) && $sort_by == '5' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 ml-3 mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(5)">Terlaris</a>
                                 <a class="col-3 btn {{ isset($sort_by) && $sort_by == '4' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 mt-3 mb-3 "id="btn-urutkan" href="#" onclick="select(4)">Harga Tertinggi</a>
@@ -477,14 +477,14 @@
                                         }
                                     @endphp
                                         <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-2 col-6">
-                                            <div class="product-box-2 bg-white alt-box my-md-2">
+                                            <div class="card bg-white alt-box my-md-3 ">
                                                 <div class="position-relative overflow-hidden  py-1">
                                                     <a href="{{ route('product', $product->slug) }}"
-                                                        class="d-block product-image h-100 text-center" tabindex="0">
+                                                        class="d-block product-image h-100 text-center p-2" tabindex="0">
                                                         <img class="img-fluid lazyload"
                                                             src="{{ my_asset('frontend/images/placeholder.jpg') }}"
                                                             data-src="{{ my_asset($product->thumbnail_img) }}"
-                                                            alt="{{ __($product->name) }}">
+                                                            alt="{{ __($product->name) }}" style="max-height: 200px; max-width: 160px; min-height: 200px; min-width: 160px;">
                                                     </a>
                                                     {{-- <div class="product-btns clearfix">
                                                         <button class="btn add-wishlist" title="Add to Wishlist"

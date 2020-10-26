@@ -35,12 +35,12 @@ use Illuminate\Support\Facades\Crypt;
 
 class HomeController extends Controller
 {
-    public function login()
+    public function login($type="0",$msg="0",$email="0")
     {
         if (Auth::check()) {
             return redirect()->route('home');
         }
-        return view('frontend.user_login');
+        return view('frontend.user_login',compact(["type",'msg','email']));
     }
 
 
@@ -295,6 +295,13 @@ class HomeController extends Controller
      */
     public function index()
     {
+        if (Auth::check()) {
+            $user = Auth::user();        
+            if ($user->physician_verification != null && $user->physician_verification->verify == 0) {
+                Auth::logout();
+                flash("mohon maaf akun anda belum dapat digunakan, tunggu konfirmasi admin");
+            }
+        }
         return view('frontend.index');
     }
 

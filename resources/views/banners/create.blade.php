@@ -27,7 +27,7 @@
             <div class="form-group">
                 <div class="col-sm-3">
                     <label class="control-label">{{translate('Gambar Banner')}}</label>
-                    <strong>({{ translate('850px*420px') }})</strong>
+                    <strong>({{ translate('1110px*440px') }})</strong>
                 </div>
                 <div class="col-sm-9">
                     {{-- <div id="photo">

@@ -10,6 +10,7 @@ use App\Customer;
 use Illuminate\Http\Request;
 use CoreComponentRepository;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -169,7 +170,7 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        flash(translate('Invalid email or password'))->error();
+        flash("translate('Invalid email or password')")->error();
         return back();
     }
 
@@ -199,6 +200,33 @@ class LoginController extends Controller
         $request->session()->invalidate();
 
         return $this->loggedOut($request) ?: redirect()->route($redirect_route);
+    }
+
+    public function user_login(Request $request)
+    {
+        $messages = [
+            'required' => ':attribute wajib diisi',
+            'email' => ':attribute harus berformat email',
+            'min' => ':attribute harus diisi minimal :min karakter'
+        ];
+        $this->validate($request,[
+            'email' => 'required|email',
+            'password' => 'required|min:6'
+        ],$messages);
+
+        $user = User::where("email",$request->email)->first();
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                if ($user->user_type == "admin") {
+                    flash("gunakan link login admin yang benar")->error();
+                    return redirect(route('home'));
+                }
+                auth()->login($user, true);
+                return redirect(route('home'));
+            }
+            return redirect(route('user.login',['type'=>1,'msg'=>'password salah']));
+        }
+        return redirect(route('user.login',['type'=>2,'msg'=>"user dengan email $request->email tidak ditemukan",'email' => $request->email]));
     }
 
     /**

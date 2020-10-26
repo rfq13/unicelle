@@ -53,8 +53,8 @@
                         <!-- <img class="detail-img-produk" src="{{my_asset('\images\icon\obat.png')}}" alt=""> -->
                         <div class="product-gal sticky-top col">
                             @if(is_array(json_decode($detailedProduct->photos)) && count(json_decode($detailedProduct->photos)) > 0)
-                                <div class="product-gal-img d-flex align-items-center mx-auto" style="background-color: white width:100%;">
-                                    <img src="{{ my_asset('frontend/images/placeholder.jpg') }}" class="img-detail xzoom img-fluid lazyload mx-auto img-detail" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ my_asset(json_decode($detailedProduct->photos)[0]) }}" />
+                                <div class="product-gal-img d-flex align-items-center mx-auto w-100" style="background-color: white;">
+                                    <img src="{{ my_asset('frontend/images/placeholder.jpg') }}" class="img-detail xzoom img-fluid lazyload mx-auto img-detail" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset(json_decode($detailedProduct->photos)[0]) }}" xoriginal="{{ my_asset(json_decode($detailedProduct->photos)[0]) }}" style="width: 160px!important;" />
                                 </div>
                             @endif
                         </div>
@@ -184,7 +184,7 @@
 
                                         <div class="row no-gutters mt-2">
                                             <div class="col-3">
-                                                <div class="product-description-label mt-1">{{ translate('Discount Price')}} :</div>
+                                                <div class="product-description-label mt-1">{{ translate('Harga Diskon')}} :</div>
                                             </div>
                                             <div class="col-9">
                                                 <div class="product-price">

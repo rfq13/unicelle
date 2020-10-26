@@ -3,13 +3,10 @@
     <div class="col-lg-3">
         <div class="card mb-2" style="box-shadow: 0px 0px 6px 4px rgba(0, 0, 0, 0.25);
             border-radius: 10px">
-            <a href="{{ route('detail.blog', encrypt($blog->id)) }}" class="text-center">
+            <a href="{{ route('detail.blog', encrypt($blog->id)) }}" class="text-center p-0 m-0">
                 <img class="img-fluid" src="{{ my_asset($blog->thumbnail) }}" width="" height="130" style="
-                    left: 0%;
-                    right: 0%;
-                    top: 0%;
-                    bottom: 45.11%;
-                    border-radius: 10px 10px 0px 0px;">
+                    border-radius: 10px 10px 0px 0px; 
+                    max-height: 130px; max-width: 255px;" >
                 <div class="mt-3 p-2">
                     <p style="
                         left: 5.47%;
@@ -31,7 +28,7 @@
                         font-family: Open Sans;
                         font-style: normal;
                         font-weight: normal;
-                        font-size: 12px;
+                        font-size: 14px;
                         line-height: 16px;
                         color: #424242;
                         ">{{ $blog->subtitle }}</p>

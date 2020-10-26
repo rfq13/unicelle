@@ -339,8 +339,8 @@
 			--}}
 			
 			<div class="mar-all text-right">
-				<button type="submit" name="button" class="btn btn-info" id="btnSubmit">{{ translate('Tambah Produk Baru') }}</button>
-				{{-- <a href="#" id="btnTambah" class="btn btn-info">{{ translate('Tambah') }}</a> --}}
+				<button type="submit" name="button" style="display: none" class="btn btn-info" id="btnSubmit">{{ translate('Tambah Produk Baru') }}</button>
+				<a href="#" id="btnTambah" class="btn btn-info">{{ translate('Tambah Produk Baru') }}</a>
 			</div>
 		</form>
 	</div>
@@ -351,6 +351,15 @@
 
 @section('script')
 <script type="text/javascript">
+
+	$("#btnTambah").click(function (e) {
+		e.preventDefault()
+		if($("input[name='thumbnail_img']").val() == ""){
+			showAlert("danger","Thumbnail produk harus diisi")
+			return
+		}
+		$("#btnSubmit").click()
+	})
 
 	function add_more_customer_choice_option(i, name){
 		$('#customer_choice_options').append('<div class="form-group"><div class="col-lg-2"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice[]" value="'+name+'" placeholder="{{ translate('Choice Title') }}" readonly></div><div class="col-lg-7"><input type="text" class="form-control" name="choice_options_'+i+'[]" placeholder="{{ translate('Enter choice values') }}" data-role="tagsinput" onchange="update_sku()"></div></div>');
@@ -515,6 +524,7 @@
 				alert('File size too big');
 			}
 		});
+		$("input[name='thumbnail_img']").attr('required',true)
 	});
 
 	$('#category_id').on('change', function() {

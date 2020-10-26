@@ -6,15 +6,7 @@
 @endif
 <head>
 
-@php
-    if (Auth::check()) {
-        $user = Auth::user();        
-        if ($user->physician_verification != null && $user->physician_verification->verify == 0) {
-            Auth::logout();
-            flash("mohon maaf akun anda belum dapat digunakan, tunggu konfirmasi admin");
-        }
-    }
-    
+@php    
     $seosetting = \App\SeoSetting::first();
 @endphp
 <meta charset="utf-8">
@@ -815,18 +807,20 @@
 	border-radius: 10px 10px 10px 10px !important;
 	background-color:#3BB6B1;
 }
-.carousel-indicators li.{
-	width:50px !important;
-	height:50px !important;
+.carousel-indicators li{
+	width:15px !important;
+	height:15px !important;
 	border: 1px !important;
 	margin-top:10px !important;
 	border-radius: 50% !important;
-	background-color:#3BB6B1;
+    background-color:white;
+    opacity: 100% !important;
 }
+
 
 /* ---------------------------- */
 
-.carousel {
+/* .carousel {
   min-width: 900px;
   max-width: 1236px;
   margin-left: auto;
@@ -1141,6 +1135,39 @@
 .img-detail{
     width: 60%;
     height: 85%;
+} */
+
+body{padding-top:20px;}
+.carousel {
+    margin-bottom: 0;
+    padding: 0 40px 30px 40px;
+}
+/* The controlsy */
+.carousel-control {
+	left: -12px;
+    height: 40px;
+	width: 40px;
+    background: none repeat scroll 0 0 #222222;
+    border: 4px solid #FFFFFF;
+    border-radius: 23px 23px 23px 23px;
+    margin-top: 90px;
+}
+.carousel-control.right {
+	right: -12px;
+}
+/* The indicators */
+.carousel-indicators {
+	right: 50%;
+	top: auto;
+	bottom: -10px;
+	margin-right: -19px;
+}
+/* The colour of the indicators */
+.carousel-indicators li {
+	background: #cecece;
+}
+.carousel-indicators .active {
+background: #428bca;
 }
 
 /* ------------------------------- */

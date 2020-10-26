@@ -35,7 +35,8 @@ Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.ch
 
 Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.login');
 Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
-Route::get('/users/login', 'HomeController@login')->name('user.login');
+Route::get('/users/login/{type?}/{msg?}/{email?}', 'HomeController@login')->name('user.login');
+Route::post('/user/login', 'Auth\LoginController@user_login')->name('user.login.post');
 Route::get('/users/login-otp', 'HomeController@login_otp')->name('user.login-otp');
 Route::post('/users/proses-login-otp/{regis?}', 'HomeController@proses_login_otp')->name('user.proses-login-otp');
 Route::get('/users/registration/{physician?}', 'HomeController@registration')->name('user.registration');

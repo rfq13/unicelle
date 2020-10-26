@@ -261,178 +261,82 @@
                 </div>
             @endforeach
         </div> --}}
+        @php
+        $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
+        @endphp
+        
+        
 
-        {{-- ---------------------------- --}}
-        <div class="row" style="margin-bottom: 150px;">
-            {{-- @php
-            $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
-            @endphp
-            @foreach ($categories as $category)
-
-                <div class="top-content">
-                    <div id="carousel-slide1" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner row w-100 mx-auto" role="listbox">
-                            @foreach ($category as $key => $value)
-                            <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
-                                <a href="{{ route('products.category', $value->slug) }}">
-                                    <div class="text-center">
-                                        <div class="margin-auto">
-                                            <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
-                                                style="text-align:center;">
-                                                <img src="{{ my_asset($value->icon) }}"
-                                                    class="card-img-top mx-auto icon" alt="...">
-                                            </div>
-                                        </div>
-                                        <span class="ft-icon px-2">{{ $value->name }}</span>
-                                    </div>
-                                </a>
-                            </div>
-                            @endforeach
-                            
-                        </div>
-                        <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Previous</span>
-                        </a>
-                        <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="sr-only">Next</span>
-                        </a>
-                    </div>
-                </div>
-                <br>
-
-            @endforeach --}}
-            {{-- <section class="kategori-slide6">
-                <div class="rt-container">
-                      <div class="col-rt-12">
-                          <div class='demo-container'>
-                              <div class='carousel'>
-                                <input checked='checked' class='carousel__activator' id='carousel-slide-activator-1' name='carousel' type='radio'>
-                                <input class='carousel__activator' id='carousel-slide-activator-2' name='carousel' type='radio'>
-                                <input class='carousel__activator' id='carousel-slide-activator-3' name='carousel' type='radio'>
-                                <div class='carousel__controls'>
-                                    <label class='carousel__control carousel__control--forward' for='carousel-slide-activator-2'>
-                                        👉
-                                    </label>
-                                </div>
-                                <div class='carousel__controls'>
-                                    <label class='carousel__control carousel__control--backward' for='carousel-slide-activator-1'>
-                                        👈
-                                    </label>
-                                    <label class='carousel__control carousel__control--forward' for='carousel-slide-activator-3'>
-                                        👉
-                                    </label>
-                                </div>
-                                <div class='carousel__controls'>
-                                    <label class='carousel__control carousel__control--backward' for='carousel-slide-activator-2'>
-                                        👈
-                                    </label>
-                                </div>
-                                @php
-                                $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
-                                @endphp
-                                @foreach ($categories as $category)
-                                <div class='carousel__screen'>
-                                    <div class='carousel__track'>
-                                        @foreach ($category as $key => $value)
-                                        <div class='carousel__item carousel__item--mobile-in-1 carousel__item--tablet-in-2 carousel__item--desktop-in-3'>
-                                            <div class='demo-content'>
-                                                <a href="{{ route('products.category', $value->slug) }}">
-                                                    <div class="text-center">
-                                                        <div class="margin-auto">
-                                                            <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
-                                                                style="text-align:center;">
-                                                                <img src="{{ my_asset($value->icon) }}"
-                                                                    class="card-img-top mx-auto icon" alt="...">
-                                                            </div>
-                                                        </div>
-                                                        <span class="ft-icon px-2">{{ $value->name }}</span>
-                                                    </div>
-                                                </a>
-
-                                               
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section> --}}
-
-
-
-
-            <div class="col-1 my-auto">
-                <button class="p-3 bt-slide " onclick="plusDivs(-1)"><i class="fa fa-angle-left"></i></button>
-            </div>
-            <div class="col">
-
-                {{-- Slide 1 (6 Item) lebih dari 6 turun kebawah
-                --}}
-                @php
-                $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
-                @endphp
-                @foreach ($categories as $category)
-                    <div class="mySlides item slick">
-                        <div class="row">
-                            @foreach ($category as $key => $value)
-                                <div class="col-md-2">
+        {{-- <div id="carouselExampleControlla" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+                @foreach ($categories as $k => $category)
+                    <div class="carousel-item active">
+                        @foreach ($category as $key => $value)
+                            <div class="row">
+                                <div class="col">
                                     <div class="my-2">
                                         <a href="{{ route('products.category', $value->slug) }}">
-                                            <div class="text-center">
-                                                <div class="margin-auto">
-                                                    <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
-                                                        style="text-align:center;">
                                                         <img src="{{ my_asset($value->icon) }}"
                                                             class="card-img-top mx-auto icon" alt="..." width="100" height="100">
-                                                    </div>
-                                                </div>
                                                 <span class="ft-icon px-2">{{ $value->name }}</span>
                                             </div>
                                         </a>
                                     </div>
                                 </div>
-                            @endforeach
-                        </div>
-                    </div>
-                @endforeach
-
-                {{-- Slide 2 (6 Item) lebih dari 6 turun kebawah
-                --}}
-                {{-- <div class="mySlides item slick">
-                    <div class="row">
-                        @php
-                        $category = \App\Category::orderBy('created_at', 'desc')->get();
-                        @endphp
-                        @foreach ($category as $key => $value)
-                            <div class="col-md-2">
-                                <div class="my-2">
-                                    <a href="{{ route('products.category', $value->slug) }}">
-                                        <div class="text-center">
-                                            <div class="margin-auto">
-                                                <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
-                                                    style="text-align:center;">
-                                                    <img class="" src="assets/images/bg-login.jpg" style="width:100%">
-                                                </div>
-                                            </div>
-                                            <span class="ft-icon px-2">{{ $value->name }}</span>
-                                        </div>
-                                    </a>
-                                </div>
                             </div>
                         @endforeach
                     </div>
-                </div> --}}
+                @endforeach
             </div>
-            <div class="col-1 my-auto">
-                <button class="p-3 bt-slide" onclick="plusDivs(1)"><i class="fa fa-angle-right"></i></button>
+            <a data-slide="prev" href="#carouselExampleControlla" class="p-3 bt-slide"><i class="fa fa-angle-right"></i></a>
+            <a data-slide="next" href="#carouselExampleControlla" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
+        </div> --}}
+
+        <div class="row" style="margin-bottom: 150px;">
+            <div class="col-1 my-auto px-0">
+                <a data-slide="prev" href="#Carousel" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
+            </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div id="Carousel" class="carousel slide">
+                            <div class="carousel-inner">
+                                @foreach ($categories as $k=> $category)
+                                    <div class="item {{ $k == 0 ? "active" : "" }} carousel-item">
+                                        <div class="row">
+                                            @foreach ($category as $key => $value)
+                                                <div class="col-md-2">
+                                                    <div class="my-2">
+                                                        <a href="{{ route('products.category', $value->slug) }}">
+                                                            <div class="text-center">
+                                                                <div class="margin-auto">
+                                                                    <div class="mb-4 mx-auto menu-icon d-flex align-items-center"
+                                                                        style="text-align:center;">
+                                                                        <img src="{{ my_asset($value->icon) }}"
+                                                                            class="card-img-top mx-auto icon" alt="..." width="100" height="100">
+                                                                    </div>
+                                                                </div>
+                                                                <span class="ft-icon px-2">{{ $value->name }}</span>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-1 my-auto px-0 text-right">
+                <a data-slide="next" href="#Carousel" class="p-3 bt-slide"><i class="fa fa-angle-right"></i></a>
             </div>
         </div>
+
+
+        <!--.container-->
         {{-- END SLIDER --}}
         <div class="mb-4">
             {{-- <div class="container ">
@@ -581,14 +485,14 @@
                                     @continue
                                 @endif
                                 <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6">
-                                    <div class="product-box-2 bg-white my-md-2">
+                                    <div class="card bg-white my-md-3">
                                         <div class="position-relative overflow-hidden">
                                             <a href="{{ route('product', $product->slug) }}"
-                                                class="d-block product-image text-center" tabindex="0">
-                                                <img class="img-fluid lazyload mx-1"
+                                                class="d-block product-image text-center p-2" tabindex="0">
+                                                <img class="img-fluid lazyload "
                                                     src="{{ my_asset('frontend/images/placeholder.jpg') }}"
                                                     data-src="{{ my_asset($product->thumbnail_img) }}"
-                                                    alt="{{ __($product->name) }}">
+                                                    alt="{{ __($product->name) }}" style="max-height: 200px; max-width: 160px; min-height: 200px; min-width: 160px;">
                                             </a>
                                             {{-- <div class="product-btns clearfix">
                                                 <button class="btn add-wishlist" title="Add to Wishlist"
@@ -676,9 +580,9 @@
                                 </div>
                         @endforeach
                     </div>
-                    <div class="width:10px" style="text-align:center">
-                        <a href="{{ route('products') }}" class="btn mt-5"
-                            style="background:#3BB6B1; color:#fff; width:20%;">Selengkapnya</a>
+                    <div class="text-center">
+                        <a href="{{ route('products') }}" class="btn mt-5 w-25"
+                            style="background:#3BB6B1; color:#fff;">Selengkapnya</a>
                     </div>
                 </div>
             </div>
@@ -1266,4 +1170,16 @@
         });
 
     </script>
+
+    {{-- slider --}}
+<script>
+
+$(document).ready(function() {
+    $('#Carousel').carousel({
+        interval: 5000
+    })
+});
+</script>
+    
+    {{-- slider --}}
 @endsection
