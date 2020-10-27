@@ -1,13 +1,11 @@
-@if (Auth::user()->user_type != "regular physician")
-    abort(404);
-@endif
 @php
+    if (Auth::user()->user_type != "regular physician"){
+        abort(404);
+    }
 
     $orderU = \App\Order::where('user_id', Auth::user()->id);
     $log = new \App\userMember;
-    $tiers = new \App\Member;
-
-    
+    $tiers = new \App\Member;    
     
     $myMember = Auth::user()->member;
     $userMember = \App\userMember::where(['member_id'=>$myMember->id,'user_id'=>Auth::user()->id])->orderBy('created_at','desc')->first();
@@ -18,7 +16,6 @@
     $grand_total = $active_m_order->sum("grand_total");
 
     $u_log = $userMember;
-
 
     $n_tier = $tiers->where('min',">",$grand_total)->first();
     $next = '';
@@ -70,7 +67,7 @@
                     </div>
                     <div class="card-body mb-2">
                         <section class=" m-0">
-                            <div class="bg-membership-platinum p-3">
+                            <div class="bg-membership-{{ strtolower(Auth::user()->member->title) }} p-3">
                                 <div class="mt-4">
                                     <span class="head-tag-membership">Username</span>
                                     <div class="dr-membership">

@@ -43,10 +43,26 @@
                         <div class="col-12 col-lg-3 ">
                             <h5>Ikuti Kami</h5>
                             <ul class="list-unstyled d-flex">
-                                <li><a href="{{ \App\GeneralSetting::first()->youtube }}" target="_blank"><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/yt.png') }}" target="_blank" style="width: 40px; height: 40px;" alt=""></a></li>
-                                <li><a href="{{ \App\GeneralSetting::first()->twitter }} "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/tw.png') }}" target="_blank" style="width: 40px; height: 40px;"alt=""></a></li>
-                                <li><a href="{{ \App\GeneralSetting::first()->facebook }} "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/fb.png') }}" target="_blank" style="width: 40px; height: 40px;"alt=""></a></li>
-                                <li><a href="{{ \App\GeneralSetting::first()->instagram }} "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/ig.png') }}" target="_blank" style="width: 40px; height: 40px;"alt=""></a></li>
+                                <li>
+                                    <a href="{{ \App\GeneralSetting::first()->youtube }}" target="_blank">
+                                        <img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/yt.png') }}" style="width: 40px; height: 40px;" alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ \App\GeneralSetting::first()->twitter }}" target="_blank">
+                                        <img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/tw.png') }}" style="width: 40px; height: 40px;"alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ \App\GeneralSetting::first()->facebook }} " target="_blank" >
+                                        <img class="img-sosmed-footer mr-2"  src="{{ my_asset('img/header_dan_footer/icon/fb.png') }}" target="_blank" style="width: 40px; height: 40px;"alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ \App\GeneralSetting::first()->instagram }} " target="_blank" >
+                                        <img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/ig.png') }}" target="_blank" style="width: 40px; height: 40px;"alt="">
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                     </div>

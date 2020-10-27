@@ -2235,7 +2235,7 @@ a {
 }
 /* ------------------------------------------------------ */
 
-.bg-membership-ambasador{
+.bg-membership-ambassador{
     background-image: url('../img/membership/bg-membership-ambasador.png');
     width: 449px;
     height: 228px;
@@ -2245,7 +2245,7 @@ a {
     
 }
 
-.bg-membership-ambasador .name-membership {
+.bg-membership-ambassador .name-membership {
     font-family: Open Sans;
     font-style: normal;
     font-weight: bold;
@@ -2253,7 +2253,7 @@ a {
     color: #ffffff;
 }
 
-.bg-membership-ambasador .head-tag-membership {
+.bg-membership-ambassador .head-tag-membership {
     font-family: Open Sans;
     font-style: normal;
     font-weight: 600;

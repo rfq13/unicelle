@@ -153,13 +153,13 @@ class RegisterController extends Controller
             if ($referred_by_user != null) {
                 $user->referred_by = $referred_by_user->id;
                 $user->save();
-                $referred_by_user->poin += $percentage;
-                $referred_by_user->save();
-                $point = new \App\ClubPoint;
-                $point->user_id = $referred_by_user->id;
-                $point->points = $percentage;
-                $point->convert_status = 0;
-                $point->save();
+                // $referred_by_user->poin += $percentage;
+                // $referred_by_user->save();
+                // $point = new \App\ClubPoint;
+                // $point->user_id = $referred_by_user->id;
+                // $point->points = $percentage;
+                // $point->convert_status = 0;
+                // $point->save();
             }
         }
 
@@ -193,6 +193,10 @@ class RegisterController extends Controller
                     flash(translate('pasien regular tidak dapat memberikan kode referal'));
                     return back();
                 }
+                if ($userRc->user_type == $request->user_type) {
+                    flash(translate('kode referral hanya bisa digunakan pada member yang berbeda'));
+                    return back();
+                }
             }
         }
 
@@ -200,7 +204,6 @@ class RegisterController extends Controller
         $userid = $user->id;
 
         if ($request->user_type == "regular physician") {
-            // dd($request->user_type);
             $this->membership($userid);
         }
 
@@ -218,8 +221,7 @@ class RegisterController extends Controller
         }
 
 
-        return $this->registered($request, $user)
-            ?: redirect($this->redirectPath());
+        return $this->registered($request, $user)?: redirect($this->redirectPath());
     }
 
     protected function registered(Request $request, $user)

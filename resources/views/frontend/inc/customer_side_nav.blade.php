@@ -175,7 +175,7 @@
                                         <span class="role-user text-primary font-weight-bold" style="text-transform: capitalize">{{ Auth::user()->user_type }}</span>
                                     </div>
                 
-                                    <a href="" class="editprofil-pp__" style="text-decoration: none;"><i
+                                    <a href="{{ route('profile') }}" class="editprofil-pp__" style="text-decoration: none;"><i
                                         class="fas fa-pencil-alt"></i> Ubah Foto Profil</a>
                                 </div>
                                 <hr>
