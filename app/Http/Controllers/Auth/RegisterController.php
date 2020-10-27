@@ -181,7 +181,21 @@ class RegisterController extends Controller
 
 
         $this->validator($request->all())->validate();
-        // dd($request->fhoto);
+
+        if ($request->get('referral_code')) {
+            $userRc = User::where('referral_code',$request->referral_code)->first();
+            if($userRc != null){
+                if ($request->user_type == "partner physician") {
+                    flash(translate('Partner Physician tidak diperkenankan menggunakan kode referral'));
+                    return back();
+                }
+                if ($userRc->user_type == "pasien reg") {
+                    flash(translate('pasien regular tidak dapat memberikan kode referal'));
+                    return back();
+                }
+            }
+        }
+
         $user = $this->create($request->all());
         $userid = $user->id;
 

@@ -11,7 +11,7 @@ $point = Auth::user()->poin;
     <div class="container text-center">
         <a class="navbar-brand" href="{{ route('home') }}">
             <img class="navbar-brand" style="height: 57px;"
-                src="{{ my_asset('img/header_dan_footer/icon/logonav.png') }}">
+                src="{{ my_asset(\App\GeneralSetting::first()->logo) }}">
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

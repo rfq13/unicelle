@@ -452,9 +452,9 @@
                                 {{-- <li class="{{ areActiveRoutes(['links.index', 'links.create', 'links.edit'])}}">
                                     <a class="nav-link" href="{{route('links.index')}}">{{translate('Tautan')}}</a>
                                 </li> --}}
-                                {{-- <li class="{{ areActiveRoutes(['generalsettings.index'])}}">
+                                <li class="{{ areActiveRoutes(['generalsettings.index'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.index')}}">{{translate('Pengaturan Umum')}}</a>
-                                </li> --}}
+                                </li>
                                 <li class="{{ areActiveRoutes(['generalsettings.logo'])}}">
                                     <a class="nav-link" href="{{route('generalsettings.logo')}}">{{translate('Pengaturan Logo')}}</a>
                                 </li>

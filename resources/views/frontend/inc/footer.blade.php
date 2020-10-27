@@ -4,36 +4,49 @@
                 <div class="col-12 ">
                     <div class="row ">
                         <div class="col-12 col-lg-3">
-                            <img class="img-footer" src="{{ my_asset('img/header_dan_footer/icon/logo footer.png') }}" alt="">
+                            <img class="img-footer" src="{{ my_asset(\App\GeneralSetting::first()->footer_logo) }}" alt="">
                         </div>
 
                         <div class="col-12 col-lg-3 ">
                             <h5> Hubungi Kami</h5>
                             <ul class="list-unstyled">
-                                <li>Gedung BRI Jalan Pemuda B-34, 4th Floor, Kuningan, Surabaya 60252</li>
+                                <li>{{ \App\GeneralSetting::first()->address }}</li>
                                 <li class="my-2">Phone: <br>
-                                    <span class="font-weight-bold">+6285574677403</span></li>
+                                    <span class="font-weight-bold">{{ \App\GeneralSetting::first()->phone }}</span></li>
                                 <li>Email: <br>
-                                    <span class="font-weight-bold">call-us@unicelle.com</span></li>
+                                    <span class="font-weight-bold">{{ \App\GeneralSetting::first()->email }}</span></li>
                             </ul>
                         </div>
 
                         <div class="col-12 col-lg-3 ">
-                            <h5>Tentang Kami</h5>
-                            <ul class="list-unstyled">
-                                <li><a style="color:black" href="{{route('about')}}">Tentang Unicelle</a></li>
-                                <li><a style="color:black" href="{{route('blog.article')}}">Artikel / Blog</a></li>
-                                <li><a style="color:black" href="{{route('privacy.policy')}}">Syarat & Ketentuan</a></li>
-                            </ul>
+                            <div class="row">
+                                <div class="col">
+                                    <h5>Tentang Kami</h5>
+                                    <ul class="list-unstyled">
+                                        <li><a style="color:black" href="{{route('about')}}">Tentang Unicelle</a></li>
+                                        <li><a style="color:black" href="{{route('blog.article')}}">Artikel / Blog</a></li>
+                                        <li><a style="color:black" href="{{route('privacy.policy')}}">Syarat & Ketentuan</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row">
+                                        <div class="col">
+                                            <p style="color: black">
+                                                {{ \App\GeneralSetting::first()->description }}
+                                            </p>
+        
+                                        </div>
+                                
+                            </div>
                         </div>
 
                         <div class="col-12 col-lg-3 ">
                             <h5>Ikuti Kami</h5>
                             <ul class="list-unstyled d-flex">
-                                <li><a href="# "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/yt.png') }}" style="width: 40px; height: 40px;" alt=""></a></li>
-                                <li><a href="# "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/tw.png') }}" style="width: 40px; height: 40px;"alt=""></a></li>
-                                <li><a href="# "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/fb.png') }}" style="width: 40px; height: 40px;"alt=""></a></li>
-                                <li><a href="# "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/ig.png') }}" style="width: 40px; height: 40px;"alt=""></a></li>
+                                <li><a href="{{ \App\GeneralSetting::first()->youtube }}" target="_blank"><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/yt.png') }}" target="_blank" style="width: 40px; height: 40px;" alt=""></a></li>
+                                <li><a href="{{ \App\GeneralSetting::first()->twitter }} "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/tw.png') }}" target="_blank" style="width: 40px; height: 40px;"alt=""></a></li>
+                                <li><a href="{{ \App\GeneralSetting::first()->facebook }} "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/fb.png') }}" target="_blank" style="width: 40px; height: 40px;"alt=""></a></li>
+                                <li><a href="{{ \App\GeneralSetting::first()->instagram }} "><img class="img-sosmed-footer mr-2" src="{{ my_asset('img/header_dan_footer/icon/ig.png') }}" target="_blank" style="width: 40px; height: 40px;"alt=""></a></li>
                             </ul>
                         </div>
                     </div>

@@ -69,17 +69,19 @@
                         </div>
                     </div>
                     <div class="card-body mb-2">
-                        <section class="bg-rank-membership-now m-0 p-3">
-                            {{-- <div class="mt-4"> --}}
-                                <span class="head-tag-membership">Username</span>
-                                <div class="dr-membership">
-                                    <span class="name-membership" style="text-transform: capitalize">{{Auth::user()->name}}</span>
+                        <section class=" m-0">
+                            <div class="bg-membership-platinum p-3">
+                                <div class="mt-4">
+                                    <span class="head-tag-membership">Username</span>
+                                    <div class="dr-membership">
+                                        <span class="name-membership" style="text-transform: capitalize">{{Auth::user()->name}}</span>
+                                    </div>
                                 </div>
-                            {{-- </div> --}}
-                            <div class="mt-3">
-                                <span class="head-tag-membership">Berlaku Hingga</span>
-                                <div class="dr-membership">
-                                    <span class="name-membership">{{$u_log->ended_at}}</span>
+                                <div class="mt-3">
+                                    <span class="head-tag-membership">Berlaku Hingga</span>
+                                    <div class="dr-membership">
+                                        <span class="name-membership">{{$u_log->ended_at}}</span>
+                                    </div>
                                 </div>
                             </div>
                         </section>

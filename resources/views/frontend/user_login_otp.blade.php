@@ -6,11 +6,10 @@
 
 @section('content')
     <section class="bg-img-login">
-        <div class="container">
-            <div class="row">
+        <div class="container vh-100" style="display: flex; justify-content: center; align-content: center">
+            <div class="row align-items-center w-100 text-center">
 
-
-                <div class="col-lg-6 d-xl-block d-none" style="margin-top: 23%;">
+                <div class="col-lg-6 d-xl-block d-none">
                     <div class="justify-content-center text-center">
                         <img class="img-login" src="{{ my_asset('img/regis_dan_login/logo.png') }}" alt="">
                         <div class="text-center ">
@@ -25,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6" style="margin-top: 23%;">
+                <div class="col-lg-6">
 
                     <div class="card bg-form">
                         <form class="p-3">

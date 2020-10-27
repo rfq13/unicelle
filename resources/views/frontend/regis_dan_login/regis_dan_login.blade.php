@@ -53,6 +53,8 @@
      <!-- RTL -->
         <link type="text/css" href="{{ my_asset('frontend/css/active.rtl.css') }}" rel="stylesheet" media="all">
     @endif
+    <!-- sweetalert -->
+    <link type="text/css" href="{{ my_asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 
     
 </head>
@@ -100,13 +102,31 @@
 
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> -->
-    <!-- <script src="{{ my_asset('frontend/js/vendor/jquery.min.js') }}"></script>
+    <script src="{{ my_asset('frontend/js/vendor/jquery.min.js') }}"></script>
     <script src="{{ my_asset('frontend/js/vendor/popper.min.js') }}"></script>
-    <script src="{{ my_asset('frontend/js/vendor/bootstrap.min.js') }}"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script>
+    <script src="{{ my_asset('frontend/js/vendor/bootstrap.min.js') }}"></script>
+    <script src="{{ my_asset('frontend/js/sweetalert2.min.js') }}"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script> --}}
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script> --}}
 
+    @foreach (session('flash_notification', collect())->toArray() as $message)
+    <script>
+        showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
+        function showFrontendAlert(type, message){
+            if(type == 'danger'){
+                type = 'error';
+            }
+            swal({
+                position: 'top-end',
+                type: type,
+                title: message,
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+    </script>
+    @endforeach
 
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
@@ -115,6 +135,7 @@
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase.js"></script>
 <script>
+
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "AIzaSyD6bOoOoU3ijmc3rAwIaTc7m45LMY_v2bc",

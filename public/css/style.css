@@ -1,9 +1,4 @@
-h1,
-h2,
-h3,
-h4,
-h5,
-span {
+h1, h2, h3, h4, h5, span {
     color: #212121;
 }
 
@@ -24,8 +19,6 @@ a {
     background: linear-gradient(180deg, #FFFFFF 50%, #FAFAFA 100%);
     /* margin-top: -70px; */
 }
-
-
 
 .card {
     background: #FFFFFF;
@@ -64,10 +57,12 @@ a {
     text-align: center;
     color: #FFFFFF;
 }
-@font-face{
+
+@font-face {
     font-family: pt;
     src: url('../fonts/PTSans-Bold.ttf');
 }
+
 .img-login {
     width: 214px;
     height: 214px;
@@ -695,12 +690,7 @@ a {
     border-top: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-span {
+h1, h2, h3, h4, h5, span {
     color: #212121;
 }
 
@@ -739,7 +729,6 @@ a {
 
 .groove {
     border-style: groove;
-
 }
 
 .btn-daftar-regis {
@@ -787,7 +776,6 @@ a {
     background-color: #E0E0E0;
     margin-left: 5px;
     margin-right: 5px;
-
 }
 
 .btn-urutkan-active {
@@ -795,7 +783,6 @@ a {
     margin-right: 5px;
     background-color: #3BB6B1;
     color: #fff;
-
 }
 
 .btn-default {
@@ -813,6 +800,7 @@ a {
 }
 
 /* The container */
+
 .rb-bank {
     display: block;
     position: relative;
@@ -824,10 +812,10 @@ a {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
 
 /* Hide the browser's default radio button */
+
 .rb-bank input {
     position: absolute;
     opacity: 0;
@@ -835,6 +823,7 @@ a {
 }
 
 /* Create a custom radio button */
+
 .rb-checkmark {
     position: absolute;
     top: 0;
@@ -847,35 +836,36 @@ a {
     border-radius: 50%;
 }
 
-
 /* On mouse-over, add a grey background color */
+
 .rb-bank:hover input~.rb-checkmark {
     background-color: #ccc;
 }
 
 /* When the radio button is checked, add a blue background */
+
 .rb-bank input:checked~.rb-checkmark {
     background-color: #3B6CB6;
     border-style: none;
-
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
+
 .rb-checkmark:after {
     content: "";
     position: absolute;
     display: none;
-
 }
 
 /* Show the indicator (dot/circle) when checked */
+
 .rb-bank input:checked~.rb-checkmark:after {
     display: block;
     border-style: none;
-
 }
 
 /* Style the indicator (dot/circle) */
+
 .rb-bank .rb-checkmark:after {
     top: 8px;
     left: 8px;
@@ -889,6 +879,7 @@ a {
 /*p*/
 
 /* The container */
+
 .cb-pengiriman {
     display: block;
     position: relative;
@@ -900,10 +891,10 @@ a {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-
 }
 
 /* Hide the browser's default radio button */
+
 .cb-pengiriman input {
     position: absolute;
     opacity: 0;
@@ -911,6 +902,7 @@ a {
 }
 
 /* Create a custom radio button */
+
 .cb-checkmark {
     position: absolute;
     top: 0;
@@ -923,18 +915,20 @@ a {
     border-style: solid;
 }
 
-
 /* On mouse-over, add a grey background color */
+
 .cb-pengiriman:hover input~.cb-checkmark {
     background-color: #fff;
 }
 
 /* When the radio button is checked, add a blue background */
+
 .cb-pengiriman input:checked~.cb-checkmark {
     background-color: #fff;
 }
 
 /* Create the indicator (the dot/circle - hidden when not checked) */
+
 .cb-checkmark:after {
     content: "";
     position: absolute;
@@ -942,11 +936,13 @@ a {
 }
 
 /* Show the indicator (dot/circle) when checked */
+
 .cb-pengiriman input:checked~.cb-checkmark:after {
     display: block;
 }
 
 /* Style the indicator (dot/circle) */
+
 .cb-pengiriman .cb-checkmark:after {
     left: 5px;
     top: 1px;
@@ -960,6 +956,7 @@ a {
 }
 
 /*p*/
+
 .btn-add-address {
     text-align: center;
     margin-bottom: 5%;
@@ -995,9 +992,11 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
 }
-.breadcrumb li:not(:last-of-type):after{
+
+.breadcrumb li:not(:last-of-type):after {
     content: '';
 }
+
 .together {
     font-family: PT Sans;
     font-style: normal;
@@ -1113,8 +1112,7 @@ a {
     font-size: 14px;
 }
 
-.actived,
-.btn-pembayaran:hover {
+.actived, .btn-pembayaran:hover {
     background-color: #3B6CB6;
     border: none;
     color: white;
@@ -1140,7 +1138,6 @@ a {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
 
 .card.bg-form {
     font-family: 'Open Sans', sans-serif;
@@ -1539,7 +1536,7 @@ a {
     height: 193px;
 }
 
-.img-sosmed-footer { 
+.img-sosmed-footer {
     width: 40px;
     height: 40px;
     margin-right: 10px;
@@ -1552,10 +1549,9 @@ a {
 .copyright-color {
     color: #FFFFFF;
     font-style: normal;
-    font-weight: 600;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    font-weight: 600;
     font-size: 14px;
 }
-
 
 .section-syarat-ketentuan {
     margin-top: -20%;
@@ -1955,30 +1951,6 @@ a {
     color: #3B6CB6;
 }
 
-.bg-rank-membership-now {
-    background-image: url("../images/bg-membership-gold.jpg");
-    width: 449px;
-    height: 228px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
-.head-tag-membership {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 14px;
-    color: #0A1141;
-}
-
-.name-membership {
-    font-family: Open Sans;
-    font-style: normal;
-    font-weight: bold;
-    font-size: 20px;
-    color: #0A1141;
-}
 
 .text-comment-member {
     font-family: Open Sans;
@@ -2133,73 +2105,158 @@ a {
     height: 50px;
 }
 
-.text-head-detail-modal__{
+.text-head-detail-modal__ {
     font-weight: 600;
     color: #464646;
 }
 
-.text-content-detail-modal__{
+.text-content-detail-modal__ {
     color: #3B6CB6;
     font-weight: bold;
 }
 
-.text-head-detail-modal__total{
+.text-head-detail-modal__total {
     font-weight: bold;
     color: #212121;
 }
 
-.text-content-detail-modal__total{
+.text-content-detail-modal__total {
     color: #B71C1C;
     font-weight: bold;
 }
 
-.norek-detail-modal__{
+.norek-detail-modal__ {
     color: #B71C1C;
     font-weight: 600;
 }
 
 /* banner */
 
-.img-banner{
-	height:400px;
-	border-radius:25px 25px 25px 25px;
-}
-.slider-banner-left{
-    left: -85px;
-    color:#424242;
+.img-banner {
+    height: 400px;
+    border-radius: 25px 25px 25px 25px;
 }
 
-.slider-banner-right{
-    right: -85px;
-    color:#424242;
-	
+.slider-banner-left {
+    left: -85px;
+    color: #424242;
 }
-.radius-slider{
-	border-radius: 50%;
+
+.slider-banner-right {
+    right: -85px;
+    color: #424242;
+}
+
+.radius-slider {
+    border-radius: 50%;
     height: 20px;
     width: 20px;
 }
-.slider-button-left{
+
+.slider-button-left {
     left: -85px;
- 	width: 60px;
-	height:60px;
-    border: 3px solid #424242;
-    border-radius: 50%;
-	
-}.slider-button-right{
-    right: -85px;
-	width: 60px;
-	height:60px;
+    width: 60px;
+    height: 60px;
     border: 3px solid #424242;
     border-radius: 50%;
 }
-.carousel-indicators li.active{
-	width:100px !important;
-	height:20px !important;
-	border: 1px !important;
-	margin-top:10px !important;
-	border-radius: 10px 10px 10px 10px !important;
-	background-color:#3BB6B1;
+
+.slider-button-right {
+    right: -85px;
+    width: 60px;
+    height: 60px;
+    border: 3px solid #424242;
+    border-radius: 50%;
+}
+
+.carousel-indicators li.active {
+    width: 100px !important;
+    height: 20px !important;
+    border: 1px !important;
+    margin-top: 10px !important;
+    border-radius: 10px 10px 10px 10px !important;
+    background-color: #3BB6B1;
 }
 
 /* end banner */
+
+
+.bg-membership-gold{
+    background-image: url('../img/membership/bg-membership-gold.png');
+    width: 449px;
+    height: 228px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #0A1141;
+}
+
+.bg-membership-gold .name-membership {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: #0A1141;
+}
+
+.bg-membership-gold .head-tag-membership {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #0A1141;
+}
+/* ------------------------------------------------------ */
+
+.bg-membership-platinum{
+    background-image: url('../img/membership/bg-membership-platinum.png');
+    width: 449px;
+    height: 228px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #0A1141;
+}
+
+.bg-membership-platinum .name-membership {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: #0A1141;
+}
+
+.bg-membership-platinum .head-tag-membership {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #0A1141;
+}
+/* ------------------------------------------------------ */
+
+.bg-membership-ambasador{
+    background-image: url('../img/membership/bg-membership-ambasador.png');
+    width: 449px;
+    height: 228px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+
+.bg-membership-ambasador .name-membership {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    color: #ffffff;
+}
+
+.bg-membership-ambasador .head-tag-membership {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    color: #FFFFFF;
+}

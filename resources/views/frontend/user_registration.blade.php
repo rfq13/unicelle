@@ -8,10 +8,10 @@
 
 
     <section class="bg-img-login">
-        <div class="container">
-            <div class="row">
+        <div class="container vh-100" style="display: flex; justify-content: center; align-content: center;">
+            <div class="row align-items-center w-100 text-center">
                 @if ($physician == "physician")
-                <div class="col-lg my-5">
+                <div class="col-lg-12 my-auto">
                     <div class="card bg-form">
                         <div class="bg-reg-phy">
                             <form class="p-5 form-default" id="reg-form" role="form" action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
@@ -131,7 +131,13 @@
                                         </div> 
                                     </div>
                                 </div>
-                                <!--  -->
+                                @php
+                                    $rc = "";
+                                    if (Request::get('referral_code')) {
+                                        $rc = '<input type="hidden" name="referral_code" value="'. $_GET['referral_code'] .'">';
+                                    }
+                                @endphp
+                                {!! $rc !!}
                                 <div class="text-center">
                                     @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
                                             <div class="form-group">
@@ -156,7 +162,7 @@
 
                 @else
 
-                <div class="col-lg-6 d-xl-block d-none" style="margin-top: 25%;">
+                <div class="col-lg-6 d-xl-block d-none my-auto ">
                     <div class="justify-content-center text-center">
                         <img class="img-login" src="{{ my_asset('img/regis_dan_login/logo.png') }}" alt="">
                         <div class="text-center ">
@@ -172,7 +178,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-6" style="margin-top: 4%;">
+                <div class="col-lg-6">
                     <div class="card bg-form">
                         <div class="bg-register">
                             <form class="p-3 form-default" id="reg-form" role="form" action="{{ route('register') }}" method="POST">
@@ -246,7 +252,14 @@
                                 <hr>
                                 <a type="button" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration-otp') }}">
                                        Daftar Via Nomer Telepon</a>
-                                <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration','physician') }}">
+                                       
+                                       @php
+                                           $params = ['physician'=>'physician'];
+                                           if (Request::get('referral_code')) {
+                                               $params = array_merge($params,['referral_code'=>$_GET['referral_code']]);
+                                           }
+                                       @endphp
+                                <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration',$params) }}">
                                        Daftar Sebagai Physician
                                 </a>
                                     
@@ -433,18 +446,18 @@
         var isPhoneShown = true;
 
         var input = document.querySelector("#phone-code");
-        var iti = intlTelInput(input, {
-            separateDialCode: true,
-            preferredCountries: @php echo json_encode(\App\Country::where('status', 1)->pluck('code')->toArray()) @endphp
-        });
+        // var iti = intlTelInput(input, {
+        //     separateDialCode: true,
+        //     preferredCountries: @php echo json_encode(\App\Country::where('status', 1)->pluck('code')->toArray()) @endphp
+        // });
 
-        var country = iti.getSelectedCountryData();
-        $('input[name=country_code]').val(country.dialCode);
+        // var country = iti.getSelectedCountryData();
+        // $('input[name=country_code]').val(country.dialCode);
 
-        input.addEventListener("countrychange", function() {
-            var country = iti.getSelectedCountryData();
-            $('input[name=country_code]').val(country.dialCode);
-        });
+        // input.addEventListener("countrychange", function() {
+        //     var country = iti.getSelectedCountryData();
+        //     $('input[name=country_code]').val(country.dialCode);
+        // });
 
         function autoFillSeller(){
             $('#email').val('seller@example.com');

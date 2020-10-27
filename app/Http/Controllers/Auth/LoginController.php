@@ -170,7 +170,7 @@ class LoginController extends Controller
      */
     protected function sendFailedLoginResponse(Request $request)
     {
-        flash("translate('Invalid email or password')")->error();
+        flash(translate('Invalid email or password'))->error();
         return back();
     }
 
@@ -224,7 +224,7 @@ class LoginController extends Controller
                 auth()->login($user, true);
                 return redirect(route('home'));
             }
-            return redirect(route('user.login',['type'=>1,'msg'=>'password salah']));
+            return redirect(route('user.login',['type'=>1,'msg'=>'password salah','email'=>$request->email]));
         }
         return redirect(route('user.login',['type'=>2,'msg'=>"user dengan email $request->email tidak ditemukan",'email' => $request->email]));
     }
