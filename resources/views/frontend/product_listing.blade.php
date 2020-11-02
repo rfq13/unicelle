@@ -1,34 +1,31 @@
-@php
-    // dd($products);
-@endphp
 @extends('frontend.layouts.app')
-
 @if(isset($subsubcategory_id))
-    @php
+@php
         $meta_title = \App\SubSubCategory::find($subsubcategory_id)->meta_title;
         $meta_description = \App\SubSubCategory::find($subsubcategory_id)->meta_description;
-    @endphp
+        @endphp
 @elseif (isset($subcategory_id))
-    @php
+@php
         $meta_title = \App\SubCategory::find($subcategory_id)->meta_title;
         $meta_description = \App\SubCategory::find($subcategory_id)->meta_description;
-    @endphp
+        @endphp
 @elseif (isset($category_id))
-    @php
+@php
         $meta_title = \App\Category::find($category_id)->meta_title;
         $meta_description = \App\Category::find($category_id)->meta_description;
-    @endphp
+        @endphp
 @elseif (isset($brand_id))
-    @php
+@php
         $meta_title = \App\Brand::find($brand_id)->meta_title;
         $meta_description = \App\Brand::find($brand_id)->meta_description;
-    @endphp
+        @endphp
 @else
-    @php
+        @php
         $meta_title = env('APP_NAME');
         $meta_description = \App\SeoSetting::first()->description;
-    @endphp
+        @endphp
 @endif
+@section('title',"Produk")
 
 @section('meta_title'){{ $meta_title }}@stop
 @section('meta_description'){{ $meta_description }}@stop
