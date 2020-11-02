@@ -132,10 +132,11 @@
 					$shipping_address = json_decode($order->shipping_address);
 				@endphp
 				<tr><td class="strong small gry-color">{{ translate('Bill to') }}:</td></tr>
-				<tr><td class="strong">{{ $shipping_address->name }}</td></tr>
-				<tr><td class="gry-color small">{{ $shipping_address->address }}, {{ $shipping_address->city }}, {{ $shipping_address->country }}</td></tr>
-				<tr><td class="gry-color small">{{ translate('Email') }}: {{ $shipping_address->email }}</td></tr>
-				<tr><td class="gry-color small">{{ translate('Phone') }}: {{ $shipping_address->phone }}</td></tr>
+				<tr><td class="strong">{{ $order->addresse->name }}</td></tr>
+				<tr><td class="gry-color small">{{ $order->addresse->address }}, {{ $order->addresse->subdistrict }}, {{ $order->addresse->city }}</td></tr>
+				<tr><td class="gry-color small">{{ $order->addresse->province }},{{ $order->addresse->postal_code }}</td></tr>
+				@if ($order->user->email != null)<tr><td class="gry-color small">{{ translate('Email') }}: {{ $order->user->email }}</td></tr>@endif
+				<tr><td class="gry-color small">{{ translate('Phone') }}: {{ $order->addresse->phone }}</td></tr>
 			</table>
 		</div>
 

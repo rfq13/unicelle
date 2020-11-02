@@ -36,13 +36,13 @@
                                     <input type="text" class="form-control h-auto form-control-lg {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ translate('Email Or Phone')}}" name="email" id="email">
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('email') }}</strong>
+                                            <cite>{{ $errors->first('email') }}</cite>
                                         </span>
                                     @endif
                                 @else
                                     <input type="email" class="form-control h-auto form-control-lg {{ $errors->has('email') ? 'is-invalid' : $type == "2" ? 'is-invalid' : "" }}" value="{{ old('email') }} {{ $email != "0" ? $email : "" }}" placeholder="{{  translate('Email') }}" name="email">
                                     @if ($errors->has('email') || $type == "2")
-                                        <span class="invalid-feedback" role="alert">
+                                        <span class="invalid-feedback mb-1" style="text-align: left;font-size:72%" role="alert">
                                             <strong>{{ $errors->first('email') }}{{$msg}}</strong>
                                         </span>
                                     @endif
@@ -52,7 +52,7 @@
                             <div class="form-group">
                                 <input type="password" class="form-control h-auto form-control-lg {{ $errors->has('password') ? ' is-invalid' : $type == "1" ? 'is-invalid' : "" }} }}" placeholder="{{ translate('Password')}}" name="password" id="password">
                                 @if ($errors->has('password') || $type == "1")
-                                    <span class="invalid-feedback" role="alert">
+                                    <span class="invalid-feedback mb-1" style="text-align: left;font-size:72%" role="alert">
                                         <strong>{{ $errors->first('password') }}{{ $msg != "0" ? $msg : "" }}</strong>
                                     </span>
                                 @endif
