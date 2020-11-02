@@ -590,11 +590,6 @@ class OrderController extends Controller
                 $affiliateController->processAffiliatePoints($order);
             }
 
-            if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
-                $clubpointController = new ClubPointController;
-                $clubpointController->processClubPoints($order);
-            }
-
             $order->commission_calculated = 1;
             $order->save();
         }
@@ -666,9 +661,12 @@ class OrderController extends Controller
             $value->save();
         }
         $order->save();
-        $upoin = Session::has('poin_use') ? Session::get('poin_use') : Auth::user()->poin;
-        $upoin += $poin;
-        Session::put('poin_use',$upoin);
+        if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
+            $clubpointController = new ClubPointController;
+            $clubpointController->processClubPoints($order);
+        }
+        Auth::user()->poin += $poin;
+        Auth::user()->save();
         flash('berhasil melakukan konfimasi')->success();
         return redirect()->back();
     }

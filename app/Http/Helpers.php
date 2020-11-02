@@ -506,8 +506,10 @@ if (! function_exists('home_discounted_price')) {
         if ($product->variant_product && Auth::check()) {
             $usr = Auth::user()->user_type == "pasien reg" ? "pasien_regular_price" : str_replace(" ","_",Auth::user()->user_type."_price");
             $price = $product->stocks->pluck($usr);
-            $lowest_price = $price->min();
-            $highest_price = $price->max();
+            if ($price->max() > 0 && $price->min() > $price->max()) {
+                $lowest_price = $price->min();
+                $highest_price = $price->max();
+            }
         }
         
 
@@ -568,8 +570,21 @@ if (! function_exists('home_base_price')) {
         $product = Product::findOrFail($id);
         $price = $product->unit_price;
         if (Auth::check()) {
-            $u = Auth::user()->user_type;
-            $price = $u == "regular physician" ? $product->regular_physician_price : $u == "partner physician" ? $product->partner_physician_price : $u == "pasien reg" ? $product->pasien_regular_price : $product->unit_price;
+            $utype = Auth::user()->user_type;
+            switch ($utype) {
+                case 'regular physician':
+                    $price = $product->regular_physician_price;
+                break;
+                case 'partner physician':
+                    $price = $product->partner_physician_price;
+                break;
+                case 'pasien reg':
+                    $price = $product->pasien_regular_price;
+                break;
+                default:
+                    $price = $product->unit_price;
+                break;
+            }
         }
 
         if($product->tax_type == 'percent'){
@@ -589,8 +604,21 @@ if (! function_exists('home_discounted_base_price')) {
         $product = Product::findOrFail($id);
         $price = $product->unit_price;
         if (Auth::check()) {
-            $u = Auth::user()->user_type;
-            $price = $u == "regular physician" ? $product->regular_physician_price : $u == "partner physician" ? $product->partner_physician_price : $u == "pasien reg" ? $product->pasien_regular_price : $product->unit_price;
+            $utype = Auth::user()->user_type;
+            switch ($utype) {
+                case 'regular physician':
+                    $price = $product->regular_physician_price;
+                    break;
+                case 'partner physician':
+                    $price = $product->partner_physician_price;
+                    break;
+                case 'pasien reg':
+                    $price = $product->pasien_regular_price;
+                    break;
+                default:
+                    $price = $product->unit_price;
+                    break;
+            }
         }
 
         $flash_deals = \App\FlashDeal::where('status', 1)->get();

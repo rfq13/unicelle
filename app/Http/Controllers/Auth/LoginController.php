@@ -188,8 +188,8 @@ class LoginController extends Controller
             $redirect_route = 'home';
         }
 
-        $point = auth()->user()->poin;
         if ($request->session()->has('poin_use')) {
+            $point = auth()->user()->poin;
             $point -= $request->session()->get('poin_use');
             auth()->user()->poin = $point;
             auth()->user()->save();
