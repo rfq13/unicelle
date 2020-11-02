@@ -215,18 +215,22 @@
                         </div>
                     @endif
                 </div>
-                @if ($qty > 0)
-                    @if ($product->variant_product > 0)
-                        <a class="btn btn-default" onclick="showAddToCartModal({{ $product->id }})"
-                            style="width: 100%">Tambah</a>
+                @auth
+                    @if ($qty > 0)
+                        @if ($product->variant_product > 0)
+                            <a class="btn btn-default" onclick="showAddToCartModal({{ $product->id }})"
+                                style="width: 100%">Tambah</a>
+                        @else
+                            <a class="btn btn-default" onclick="addToCart({{ $product->id }})"
+                                style="width: 100%">Tambah</a>
+                        @endif
                     @else
-                        <a class="btn btn-default" onclick="addToCart({{ $product->id }})"
-                            style="width: 100%">Tambah</a>
+                        <a class="btn btn-default" onclick="showFrontendAlert('warning','Maaf produk {{ $product->name }} sedang kosong')"
+                        style="width: 100%">Tambah</a>
                     @endif
                 @else
-                        <a class="btn btn-default" onclick="showFrontendAlert('warning','Maaf produk {{ $product->name }} sedang kosong')"
-                            style="width: 100%">Tambah</a>
-                @endif
+                    <a class="btn btn-default" onclick="showFrontendAlert('warning','Maaf, silahkan login terlebih dahulu untuk menambahkan ke keranjang')" style="width: 100%">Tambah</a>
+                @endauth
             </div>
         </div>
 @endforeach
