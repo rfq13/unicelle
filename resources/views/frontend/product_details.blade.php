@@ -41,8 +41,8 @@
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ul class="breadcrumb mb-2">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Produk</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('products') }}">Produk</a></li>
                     <li class="breadcrumb-item active" style="color:#3BB6B1" aria-current="page">{{  __($detailedProduct->name) }}</li>
                 </ul>
             </nav>
@@ -300,7 +300,7 @@
                             <strong id="chosen_price"></strong>
                             <div class="d-flex align-items-center mt-3">
                                 <a class="btn btn-primary1 mr-4" href="#" onclick="addToCart()">Tambah Keranjang</a>
-                                <a class="add__wishlist" href="#" onclick="addToWishList({{ $detailedProduct->id }})">+Tambah Ke Wishlist</a>
+                                <a class="add__wishlist" id="add-wl" href="#" onclick="addToWishList({{ $detailedProduct->id }})">+Tambah Ke Wishlist</a>
                             </div>
                             
                             @else
@@ -1152,7 +1152,9 @@
                 }
             });
 
-
+            document.getElementById("add-wl").addEventListener('click',function (e) {
+                e.preventDefault()
+            })
 
     		$('#share').jsSocials({
     			showLabel: false,

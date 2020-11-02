@@ -5,6 +5,7 @@
     }
 @endphp
 @extends('frontend.layouts.app')
+@section('title','Kode Referal')
 @section('content')
     <section class="gry-bg py-4 profile">
         <div class="container">

@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-
+@section('title','Keranjang')
 @section('content')
 
    {{-- <!-- <section class="slice-xs sct-color-2 border-bottom">

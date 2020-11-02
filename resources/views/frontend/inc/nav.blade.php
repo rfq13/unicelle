@@ -42,13 +42,18 @@ $point = Auth::user()->poin;
                             <div class="d-flex">
                                 <i id="" type="button" aria-haspopup="true" aria-expanded="false"
                                     class=" fa fa-heart-o font-weight-bold" aria-hidden="true" style="font-size: 22px ">
-
                                 </i>
-                                {{-- <div
-                                    class="px-1 bg-danger align-items-center text-center justify-content-center absolute-bottom"
-                                    style="border-radius: 100px">
-                                    <span class="text-white p-0 my-auto top-0 line-height-1_2">6</span>
-                                </div> --}}
+                                @if (Auth::check())
+                                    <a style="margin-top:-5px!important;">
+                                        <span class="nav-box-number bg-red rounded-circle p-0 m-0 line-height-1_8 px-2"
+                                            id="wishlist_items_sidenav">{{ count(Auth::user()->wishlists) }}</span>
+                                    </a>
+                                    @else
+                                    <a style="margin-top:-5px!important;">
+                                        <span class="nav-box-number bg-red rounded-circle p-0 m-0 line-height-1_8 px-2"
+                                            id="wishlist_items_sidenav">0</span>
+                                    </a>
+                                @endif
                             </div>
                         </a>
                     </li>
@@ -65,8 +70,10 @@ $point = Auth::user()->poin;
                                         id="cart_items_sidenav">{{ count(Session::get('cart')) }}</span>
                                 </a>
                                 @else
-                                    {{-- <span id="cart_items_sidenav">0</span>
-                                    --}}
+                                <a style="margin-top:-5px!important;">
+                                    <span class="nav-box-number bg-red rounded-circle p-0 m-0 line-height-1_8 px-2"
+                                        id="cart_items_sidenav">0</span>
+                                </a>
                                 @endif
                             </div>
                         </a>

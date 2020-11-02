@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-
+@section('title','Point History')
 @section('content')
     @php
         $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first()->value;

@@ -817,7 +817,7 @@
     opacity: 100% !important;
 }
 
-body{padding-top:20px;}
+/* body{padding-top:20px;} */
 .carousel {
     margin-bottom: 0;
     padding: 0 40px 30px 40px;
@@ -1090,8 +1090,10 @@ background: #428bca;
             @if (Auth::user()->user_type != 'admin' && Auth::user()->user_type != 'seller')
                 $.post('{{ route('wishlists.store') }}', {_token:'{{ csrf_token() }}', id:id}, function(data){
                     if(data != 0){
-                        $('#wishlist').html(data);
-                        showFrontendAlert('success', 'Item has been added to wishlist');
+                        // $('#wishlist').html(data);
+                        // let wl = parseInt(document.getElementById("wishlist_items_sidenav").textContent)
+                        document.getElementById("wishlist_items_sidenav").textContent = data
+                        showFrontendAlert('success', `Item has been added to wishlist`);
                     }
                     else{
                         showFrontendAlert('warning', 'stok produk habis');

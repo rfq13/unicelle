@@ -44,7 +44,7 @@
 @endphp
 
 @extends('frontend.layouts.app')
-
+@section('title','Membership')
 @section('content')
 
 <section class="gry-bg py-4 profile">

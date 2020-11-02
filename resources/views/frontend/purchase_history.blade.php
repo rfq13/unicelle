@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title', 'Pembayaran')
+@section('title', 'Pesanan')
 @section('style')
     <style>
         .img-pesanan__ {

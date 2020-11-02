@@ -1,8 +1,4 @@
-@php
-   // dd($orders);
-@endphp
 @extends('frontend.layouts.app')
-
 @section('style')
 <style>
     .img-pesanan__ {

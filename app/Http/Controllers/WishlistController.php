@@ -39,14 +39,15 @@ class WishlistController extends Controller
     public function store(Request $request)
     {
         if(Auth::check()){
-            $wishlist = Wishlist::where('user_id', Auth::user()->id)->where('product_id', $request->id)->first();
-            if($wishlist == null){
+            $wishlist = Wishlist::where('user_id', Auth::user()->id);
+            if($wishlist->where('product_id', $request->id)->first() == null){
                 $wishlist = new Wishlist;
                 $wishlist->user_id = Auth::user()->id;
                 $wishlist->product_id = $request->id;
                 $wishlist->save();
             }
-            return view('frontend.partials.wishlist');
+            $wl = count(Auth::user()->wishlists);
+            return $wl;
         }
         return 0;
     }
