@@ -152,11 +152,9 @@ class LoginController extends Controller
             // CoreComponentRepository::instantiateShopRepository();
             return redirect()->route('admin.dashboard');
         } else {
-            if (session('link') != null) {
-                return redirect(session('link'));
-            } else {
-                return redirect()->route('home');
-            }
+            auth()->guard()->logout();
+            flash(translate('Invalid email or password'))->error();
+            return redirect()->route('login');
         }
     }
 
@@ -185,7 +183,7 @@ class LoginController extends Controller
         if (auth()->user() != null && (auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'staff')) {
             $redirect_route = 'login';
         } else {
-            $redirect_route = 'home';
+            $redirect_route = 'user.login';
         }
 
         if ($request->session()->has('poin_use')) {
@@ -219,7 +217,7 @@ class LoginController extends Controller
             if (Hash::check($request->password, $user->password)) {
                 if ($user->user_type == "admin") {
                     flash("gunakan link login admin yang benar")->error();
-                    return redirect(route('home'));
+                    return redirect(route('user.login'));
                 }
                 auth()->login($user, true);
                 return redirect(route('home'));

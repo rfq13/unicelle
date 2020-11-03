@@ -665,8 +665,13 @@ class OrderController extends Controller
             $clubpointController = new ClubPointController;
             $clubpointController->processClubPoints($order);
         }
-        Auth::user()->poin += $poin;
-        Auth::user()->save();
+
+        $au_id = Auth::user()->referred_by;
+        if ($au_id != null) {
+            $affiliate = new AffiliateController;
+            $affiliate->affiliateProccessPoint($au_id);         
+        }
+
         flash('berhasil melakukan konfimasi')->success();
         return redirect()->back();
     }

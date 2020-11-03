@@ -138,7 +138,7 @@
 
         // Your web app's Firebase configuration
         var firebaseConfig = {
-            apiKey: "AIzaSyD6bOoOoU3ijmc3rAwIaTc7m45LMY_v2bc",
+            apiKey: "{{ env('FIREBASE_API_KEY') }}",
             authDomain: "unicelle-96810.firebaseapp.com",
             databaseURL: "https://unicelle-96810.firebaseio.com",
             projectId: "unicelle-96810",

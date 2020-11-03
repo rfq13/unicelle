@@ -35,6 +35,8 @@
 
     <link href="{{ my_asset('css/custom.css') }}" rel="stylesheet">
 
+    <link type="text/css" href="{{ my_asset('frontend/css/sweetalert2.min.css') }}" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+
 </head>
 <body>
     @php
@@ -77,7 +79,8 @@
 
     <!--Alerts [ SAMPLE ]-->
     <script src="{{my_asset('js/demo/ui-alerts.js') }}"></script>
-
+    
+    <script src="{{ my_asset('frontend/js/sweetalert2.min.js') }}"></script>
     @yield('script')
 
 </body>

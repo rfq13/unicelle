@@ -27,7 +27,7 @@
                         <tr>
                             <td>{{ ($key+1) + ($refferal_users->currentPage() - 1)*$refferal_users->perPage() }}</td>
                             <td>{{$refferal_user->name}}</td>
-                            <td>{{$refferal_user->phone}}</td>
+                            <td><cite style="color:#909090">{{$refferal_user->phone != null ? $refferal_user->phone : "kosong"}}</cite></td>
                             <td>{{$refferal_user->email}}</td>
                             <td>
                                 @if (\App\User::find($refferal_user->referred_by) != null)

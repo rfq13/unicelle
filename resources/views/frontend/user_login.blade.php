@@ -27,7 +27,7 @@
                     
 
                     <div class="card bg-form">
-                        <form class="form-default p-3" id="reg-form" role="form" action="{{ route('login') }}" method="POST">
+                        <form class="form-default p-3" id="reg-form" role="form" action="{{ route('user.login.post') }}" method="POST">
                             @csrf
                             <h5 class="mb-4 mt-2">Login</h5>
 
@@ -43,7 +43,7 @@
                                     <input type="email" class="form-control h-auto form-control-lg {{ $errors->has('email') ? 'is-invalid' : $type == "2" ? 'is-invalid' : "" }}" value="{{ old('email') }} {{ $email != "0" ? $email : "" }}" placeholder="{{  translate('Email') }}" name="email">
                                     @if ($errors->has('email') || $type == "2")
                                         <span class="invalid-feedback mb-1" style="text-align: left;font-size:72%" role="alert">
-                                            <strong>{{ $errors->first('email') }}{{$msg}}</strong>
+                                            <strong>{{ $errors->first('email') }}{{$type == "2" && $errors->first('email') == null ? $msg : ""}}</strong>
                                         </span>
                                     @endif
                                 @endif
@@ -53,7 +53,7 @@
                                 <input type="password" class="form-control h-auto form-control-lg {{ $errors->has('password') ? ' is-invalid' : $type == "1" ? 'is-invalid' : "" }} }}" placeholder="{{ translate('Password')}}" name="password" id="password">
                                 @if ($errors->has('password') || $type == "1")
                                     <span class="invalid-feedback mb-1" style="text-align: left;font-size:72%" role="alert">
-                                        <strong>{{ $errors->first('password') }}{{ $msg != "0" ? $msg : "" }}</strong>
+                                        <strong>{{ $errors->first('password') }}{{ $type == "1" && $errors->first('password') == null? $msg : "" }}</strong>
                                     </span>
                                 @endif
                             </div>
@@ -76,8 +76,7 @@
                             <button type="submit" class="btn btn-secondary1" style="width: 100%;">Login</button>
 
                             <div class="text-center m-4">
-                                <a href="{{ route('password.request') }}" class="lupa-pass" data-toggle="modal" data-target="#registerOTP">Lupa Kata
-                                    Sandi ?</a>
+                                <a href="{{ route('password.request') }}" class="lupa-pass" data-toggle="modal" data-target="#registerOTP">Lupa Kata Sandi ?</a>
                             </div>
 
                             <hr>

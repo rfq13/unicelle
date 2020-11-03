@@ -14,6 +14,7 @@ use App\AffiliateEarningDetail;
 use App\User;
 use App\Customer;
 use App\Category;
+use App\ClubPoint;
 use Session;
 use Cookie;
 use Auth;
@@ -326,5 +327,20 @@ class AffiliateController extends Controller
     {
         $refferal_users = User::where('referred_by', '!=' , null)->paginate(10);
         return view('affiliate.refferal_users', compact('refferal_users'));
+    }
+
+    public function affiliateProccessPoint($uid)
+    {
+        $point = AffiliateOption::where("type","user_registration_first_purchase")->first()->percentage;
+
+        $poin = new ClubPoint;
+        $poin->user_id = $uid;
+        $poin->points = $point;
+        $poin->convert_status = 0;
+        $poin->save();
+
+        $user = \App\User::findOrFail($uid);
+        $user->poin += $point;
+        $user->save();
     }
 }
