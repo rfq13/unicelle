@@ -1,45 +1,69 @@
-@extends('layouts.blank')
-
+@extends('frontend.regis_dan_login.regis_dan_login')
+@section('title')
+    Lupa Password
+@endsection
 @section('content')
-    <div class="cls-content-sm panel">
-        <div class="panel-body">
-            <h1 class="h3">{{ translate('Reset Password') }}</h1>
-            <p class="pad-btm">{{translate('Enter new password and confirm password.')}} </p>
-            <form method="POST" action="{{ route('password.update') }}">
-                @csrf
-
-                <input type="hidden" name="token" value="{{ $token }}">
-
-                <div class="form-group">
-                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" placeholder="{{ translate('Email') }}" required autofocus>
-
-                    @if ($errors->has('email'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('email') }}</strong>
+<section class="bg-img-login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 d-xl-block d-none" style="margin-top: 10%;">
+                <div class="justify-content-center text-center">
+                    <img class="img-login" src="{{my_asset('\images\logo.png')}}" alt="">
+                    <div class="text-center ">
+                        <span class="together">
+                            Together
                         </span>
-                    @endif
+                        <div class="text-banner">
+                            <span class="text">
+                                We Strive for a better wound care
+                            </span>
+                        </div>
+                    </div>
                 </div>
+            </div>
+            <div class="col-lg-6" style="margin-top: 15%;">
 
-                <div class="form-group">
-                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ translate('New Password') }}" required>
+                <div class="card bg-form">
+                    <div class="p-3">
+                        <h5 class="mb-4 mt-2">Lupa Password</h5>
+                    <form method="POST" action="{{ route('password.update') }}">
+                        @csrf
 
-                    @if ($errors->has('password'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                    @endif
+                        <input type="hidden" name="token" value="{{ $token }}">
+
+                        <div class="form-group">
+                            <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" placeholder="{{ translate('Email') }}" required autofocus>
+
+                            @if ($errors->has('email'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('email') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ translate('New Password') }}" required>
+
+                            @if ($errors->has('password'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $errors->first('password') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+
+                        <div class="form-group">
+                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ translate('Confirm Password') }}" required>
+                        </div>
+
+                        <div class="form-group text-right">
+                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                {{ translate('Reset Password') }}
+                            </button>
+                        </div>
+                    </form>
                 </div>
-
-                <div class="form-group">
-                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="{{ translate('Confirm Password') }}" required>
-                </div>
-
-                <div class="form-group text-right">
-                    <button type="submit" class="btn btn-primary btn-lg btn-block">
-                        {{ translate('Reset Password') }}
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+</section>
 @endsection

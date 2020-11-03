@@ -8,7 +8,7 @@
 
 
     <section class="bg-img-login">
-        <div class="container vh-100" style="display: flex; justify-content: center; align-content: center;">
+        <div class="container vh-100" style="display: flex; justify-content: center; align-content: center;padding:2%">
             <div class="row align-items-center w-100 text-center">
                 @if ($physician == "physician")
                 <div class="col-lg-12 my-auto">
@@ -162,7 +162,7 @@
 
                 @else
 
-                <div class="col-lg-6 d-xl-block d-none my-auto ">
+                <div class="col-lg-6 d-xl-block d-none">
                     <div class="justify-content-center text-center">
                         <img class="img-login" src="{{ my_asset('img/regis_dan_login/logo.png') }}" alt="">
                         <div class="text-center ">

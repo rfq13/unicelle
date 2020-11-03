@@ -154,7 +154,7 @@ class LoginController extends Controller
         } else {
             auth()->guard()->logout();
             flash(translate('Invalid email or password'))->error();
-            return redirect()->route('login');
+            return redirect()->route('login.admin');
         }
     }
 

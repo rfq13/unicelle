@@ -76,7 +76,7 @@
                             <button type="submit" class="btn btn-secondary1" style="width: 100%;">Login</button>
 
                             <div class="text-center m-4">
-                                <a href="{{ route('password.request') }}" class="lupa-pass" data-toggle="modal" data-target="#registerOTP">Lupa Kata Sandi ?</a>
+                                <a href="{{ route('password.request') }}" class="lupa-pass">Lupa Kata Sandi ?</a>
                             </div>
 
                             <hr>

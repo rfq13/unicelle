@@ -1,9 +1,12 @@
 @extends('frontend.regis_dan_login.regis_dan_login')
+@section('title')
+    Link Reset Password
+@endsection
 @section('content')
 <section class="bg-img-login">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 d-xl-block d-none" style="margin-top: 25%;">
+                <div class="col-lg-6 d-xl-block d-none" style="margin-top: 10%;">
                     <div class="justify-content-center text-center">
                         <img class="img-login" src="{{my_asset('\images\logo.png')}}" alt="">
                         <div class="text-center ">
@@ -23,27 +26,29 @@
                     <div class="card bg-form">
                         <div class="p-3">
                             <h5 class="mb-4 mt-2">Lupa Password</h5>
-                            <div class="form-group">
-                                <label for="lupapass">Masukkan Alamat Email Anda</label>
-                                <input type="email" class="form-control" id="lupapass"
-                                    placeholder="Email">
-                            </div>
-                            <div class="form-group">
-                                <label for="lupapass-baru">Masukkan Password Baru</label>
-                                <input type="password" class="form-control" id="lupapass-baru"
-                                    placeholder="Password Baru">
-                            </div>
-                            <div class="form-group">
-                                <label for="lupapass-konfirmasi">Konfirmasi Password Baru</label>
-                                <input type="password" class="form-control" id="lupapass-konfirmasi"
-                                    placeholder="Konfirmasi Password">
-                            </div>
-                            <div class="mt-5">
-                                <a href="" class="btn btn-primary1 " style="width: 100%;"> Submit </a>
-                                <a href="{{ route('user.login') }}" class="btn btn-back-login mt-2 " style="width: 100%;"> Back To Login </a>
-                            </div>
 
-
+                            <form method="POST" action="{{ route('password.email') }}">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="email">Masukkan Alamat Email Anda</label>
+                                    @if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated)
+                                        <input id="email" type="text" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required placeholder="{{ translate('Email or Phone') }}">
+                                    @else
+                                        <input type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{ translate('Email') }}" name="email">
+                                    @endif
+                    
+                                    @if ($errors->has('email'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group text-right">
+                                    <button class="btn btn-danger btn-lg btn-block" type="submit">
+                                        {{ translate('Kirim link reset password') }}
+                                    </button>
+                                </div>
+                            </form>
 
                         </div>
                     </div>

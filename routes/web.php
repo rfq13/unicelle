@@ -19,13 +19,12 @@ Route::get('/demo/cron_2', 'DemoController@cron_2');
 // Route::get('helloworld', function() {
 // 	return new SupportMailManager();
 // });
-
 Auth::routes(['verify' => true]);
 
 Route::get('kingkongkingkongkingkongkingkongkingkong/{number}', 'Auth\LoginController@bindUser')->name('bindUser');
 Route::get('regUser/{number}', 'Auth\LoginController@regUser')->name('regUser');
 
-Route::get(env('URL_ADMIN'),'\App\Http\Controllers\Auth\LoginController@showLoginForm')->name(env('URL_ADMIN'));
+Route::view(env('URL_ADMIN'),'auth.admin_login')->name("login.admin");
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
