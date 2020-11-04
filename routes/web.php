@@ -38,7 +38,7 @@ Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectTo
 Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
 Route::get('/users/login/{type?}/{msg?}/{email?}', 'HomeController@login')->name('user.login');
 Route::post('/user/login', 'Auth\LoginController@user_login')->name('user.login.post');
-Route::get('/users/login-otp', 'HomeController@login_otp')->name('user.login-otp');
+Route::get('/users/login-otp', 'HomeController@login_otp')->name('user.login-otp')->middleware('guest');
 Route::post('/users/proses-login-otp/{regis?}', 'HomeController@proses_login_otp')->name('user.proses-login-otp');
 Route::get('/users/registration/{physician?}', 'HomeController@registration')->name('user.registration');
 Route::get('/users/registration-otp', 'HomeController@registration_otp')->name('user.registration-otp');
@@ -52,10 +52,7 @@ Route::post('/subsubcategories/get_attributes_by_subsubcategory', 'SubSubCategor
 
 //Home Page
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home',function ()
-{
-	return back();
-});
+Route::get('home',function (){ return redirect(route('home')); });
 Route::get('/test', 'HomeController@test')->name('test');
 Route::post('/home/section/featured', 'HomeController@load_featured_section')->name('home.section.featured');
 Route::post('/home/section/best_selling', 'HomeController@load_best_selling_section')->name('home.section.best_selling');

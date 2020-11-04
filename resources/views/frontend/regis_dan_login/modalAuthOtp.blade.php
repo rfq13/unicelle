@@ -44,3 +44,25 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <script>
+                                var containers = document.querySelectorAll(".inline_input_");
+                                containers.forEach(function (container) {
+                                    container.onkeyup = function(e) {
+                                        var target = e.srcElement;
+                                        var maxLength = parseInt(target.attributes["maxlength"].value);
+                                        var myLength = target.value.length;
+                                        if (myLength >= maxLength) {
+                                            var next = target;
+                                            while (next = next.nextElementSibling) {
+                                                if (next == null)
+                                                    break;
+                                                if (next.tagName.toLowerCase() == "input") {
+                                                    next.focus();
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                    }
+                                })
+                            </script>

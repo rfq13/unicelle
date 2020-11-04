@@ -362,7 +362,9 @@
                 coderesult.confirm(code).then(function (result){
                     let verifiedTelp = $("#verifikasi").find("#verifiedTelp").val()
                     let UrL = type == "regis" ? "{{route('regUser','register')}}".replace('register',verifiedTelp) : "{{route('bindUser','verified')}}".replace('verified',verifiedTelp);
+                    // alert(UrL);
                     $.get(UrL, function (data) {
+
                         if (data == "sukses") {
                             window.location.href = "{{route('home')}}"
                         }else{
