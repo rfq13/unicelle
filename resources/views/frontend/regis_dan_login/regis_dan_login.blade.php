@@ -112,9 +112,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" ></script> --}}
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/8.11.8/sweetalert2.all.min.js"></script> --}}
 
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+        https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase.js"></script>
+<script>
     @foreach (session('flash_notification', collect())->toArray() as $message)
-    <script>
         showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
+    @endforeach
         function showFrontendAlert(type, message){
             if(type == 'danger'){
                 type = 'error';
@@ -127,16 +134,6 @@
                 timer: 3000
             });
         }
-    </script>
-    @endforeach
-
-    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-auth.js"></script>
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase.js"></script>
-<script>
 
         // Your web app's Firebase configuration
         var firebaseConfig = {
@@ -205,31 +202,14 @@
                                     timer: 3000
                                 })
                                 .then (function() {
-                                    // window.location.href = "{{ route('user.login-otp') }}";
+                                    window.location.href = "{{ route('user.login-otp') }}";
                                 });
                             } else {
-                                firebase.auth().signInWithPhoneNumber("+62" + number, window.recaptchaVerifier).then(function(confirmationResult){
-                                    window.confirmationResult = confirmationResult;
-                                    coderesult = confirmationResult;
-                                    $("#verifikasi").prepend("<input type='hidden' id='verifiedTelp' value='"+regData+"'>")
-                                    $('#verifikasi').modal();
-
-                                }).catch(function (error){
-                                    alert(error.message);
-                                });
+                                sendOtp(number,"modal")
                             }
                         }else{
                             if (response.success) {
-                                firebase.auth().signInWithPhoneNumber("+62" + number, window.recaptchaVerifier).then(function(confirmationResult){
-                                    window.confirmationResult = confirmationResult;
-                                    coderesult = confirmationResult;
-                                    $("#verifikasi").prepend("<input type='hidden' id='verifiedTelp' value='0"+number+"'>")
-
-                                    $('#verifikasi').modal();
-
-                                }).catch(function (error){
-                                    alert(error.message);
-                                });
+                                sendOtp(number,"modal")
                             }else{
                                 Swal.fire({
                                     type: 'error',
@@ -245,11 +225,7 @@
                     },
 
                     error:function(response){
-                        Swal.fire({
-                            type: 'error',
-                            title: 'Opps!',
-                            text: 'server error!'
-                        });
+                        showFrontendAlert('danger','error')
                     }
 
                 });
@@ -364,7 +340,6 @@
                     let UrL = type == "regis" ? "{{route('regUser','register')}}".replace('register',verifiedTelp) : "{{route('bindUser','verified')}}".replace('verified',verifiedTelp);
                     // alert(UrL);
                     $.get(UrL, function (data) {
-
                         if (data == "sukses") {
                             window.location.href = "{{route('home')}}"
                         }else{
@@ -374,14 +349,63 @@
                     console.log("signed");
                 }).catch(function (error){
                     console.log(error);
-                    alert(error.message);
+                    showFrontendAlert('danger','kode otp yang anda masukkan tidak valid')
                 })
                 // alert(code);
             }
 
-                    function bindUser(params) {
-                        
+            function sendOtp(number,modal="no") {
+                var res = number.charAt(0)
+                if (res == "0") {
+                    number = number.substring(1,number.length);
+                }
+                firebase.auth().signInWithPhoneNumber("+62" + number, window.recaptchaVerifier).then(function(confirmationResult){
+                    window.confirmationResult = confirmationResult;
+                    coderesult = confirmationResult;
+                    if (modal == "modal") {
+                        $("#verifikasi").prepend("<input type='hidden' id='verifiedTelp' value='0"+number+"'>")
+                        $('#verifikasi').modal();
                     }
+                    countDown(3)
+                }).catch(function (error){
+                    showFrontendAlert("error",error.message);
+                });
+            }
+
+            function countDown(detik) {
+                document.getElementById("resend").style.color = "#c2edeb";
+                // Set the date we're counting down to
+                    var countDownDate = new Date();
+                        countDownDate.setSeconds(countDownDate.getSeconds() + detik);
+
+                // Update the count down every 1 second
+                var x = setInterval(function() {
+
+                    // Get today's date and time
+                        var now = new Date().getTime();
+                        
+                    // Find the distance between now and the count down date
+                        var distance = countDownDate - now;
+                        
+                    // Time calculations for days, hours, minutes and seconds
+                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                        
+                    // Output the result in an element with id="demo"
+                        document.getElementById("detik").innerHTML = seconds;
+                        
+                    // If the count down is over, write some text 
+                        if (distance < 1) {
+                            clearInterval(x);
+                            document.getElementById("resend").style.color = "#3BB5B0";
+                            document.getElementById("detik").innerHTML = "0";
+                            let resend = document.getElementById("resend")
+                                resend.addEventListener("click", function (e) {
+                                    var number = document.getElementById('verifiedTelp').value;
+                                    sendOtp(number)
+                                })
+                        }
+                }, 1000);
+            }
 
 </script> 
      

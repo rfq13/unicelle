@@ -36,9 +36,9 @@
                                                     <div id="btn">
                                                     </div>
                                                     <!-- </form> -->
-                                                    <span>Mohon tunggu <span>60 Detik</span> untuk mengirim ulang</span>
+                                                    <span>Mohon tunggu <span id="detik"></span> detik untuk mengirim ulang</span>
                                                 </div>
-                                                <a href="">Kirim Ulang</a>
+                                                <a href="#" id="resend" style="color: #c2edeb">Kirim Ulang</a>
                                             </div>
                                         </div>
                                     </div>
