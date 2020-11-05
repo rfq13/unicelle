@@ -800,8 +800,8 @@
     border-radius: 50%;
 }
 .carousel-indicators li.active{
-	width:100px !important;
-	height:20px !important;
+	width:88px !important;
+	height:17px !important;
 	border: 1px !important;
 	margin-top:10px !important;
 	border-radius: 10px 10px 10px 10px !important;

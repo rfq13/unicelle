@@ -1,3 +1,7 @@
+@php
+    
+    // dd($customers);
+@endphp
 @extends('layouts.app')
 
 @section('content')
@@ -33,6 +37,8 @@
                     <th>{{translate('Nama')}}</th>
                     <th>{{translate('Alamat Email')}}</th>
                     <th>{{translate('Nomor Telepon')}}</th>
+                    <th>{{translate('Tipe Pelanggan')}}</th>
+                    <th>{{translate('Membership')}}</th>
                     {{-- <th>{{translate('Paket')}}</th> --}}
                     {{-- <th>{{translate('Saldo wallet')}}</th> --}}
                     <th width="10%">{{translate('Opsi')}}</th>
@@ -43,19 +49,21 @@
                     $n = 1;
                 @endphp
                 @foreach($customers as $key => $customer)
-                    @if ($customer->user != null)
-                        <tr>
-                            <td>{{ ($n++) + ($customers->currentPage() - 1)*$customers->perPage() }}</td>
-                            <td>@if($customer->user->banned == 1) <i class="fa fa-ban text-danger" aria-hidden="true"></i> @endif {{$customer->user->name}}</td>
-                            <td>{{$customer->user->email}}</td>
-                            <td>{{$customer->user->phone}}</td>
-                            {{-- <td>
-                                @if ($customer->user->customer_package != null)
-                                    {{$customer->user->customer_package->name}}
-                                @endif
-                            </td> --}}
-                            {{-- <td>{{single_price($customer->user->balance)}}</td> --}}
-                            <td>
+                    <tr>
+                        <td>{{ ($n++) + ($customers->currentPage() - 1)*$customers->perPage() }}</td>
+                        <td>@if($customer->user->banned == 1) <i class="fa fa-ban text-danger" aria-hidden="true"></i> @endif {{$customer->user->name}}</td>
+                        <td>{{$customer->user->email}}</td>
+                        <td>{{$customer->user->phone}}</td>
+                        <td>{{$customer->user->user_type == "pasien reg" ? "pasien regular" : $customer->user->user_type}}</td>
+                        <td>{{$customer->user->member == null ? "" : $customer->user->member->title}}</td>
+                        {{-- <td>
+                            @if ($customer->user->customer_package != null)
+                                {{$customer->user->customer_package->name}}
+                            @endif
+                        </td> --}}
+                        {{-- <td>{{single_price($customer->user->balance)}}</td> --}}
+                        <td>
+                            @if ($customer->user->user_type != "admin")
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
                                         {{translate('Aksi')}} <i class="dropdown-caret"></i>
@@ -71,9 +79,9 @@
                                         <li><a onclick="confirm_modal('{{route('customers.destroy', $customer->id)}}');">{{translate('Hapus')}}</a></li>
                                     </ul>
                                 </div>
-                            </td>
-                        </tr>
-                    @endif
+                            @endif
+                        </td>
+                    </tr>
                 @endforeach
             </tbody>
         </table>

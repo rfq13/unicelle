@@ -17,7 +17,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $sort_search = null;
-        $customers = Customer::orderBy('created_at', 'desc');
+        $user = User::all()->pluck("id")->toArray();
+        $customers = Customer::whereIn('user_id',$user)->with('user.member')->orderBy('created_at', 'desc');
         if ($request->has('search')){
             $sort_search = $request->search;
             $user_ids = User::where('user_type',"!=", 'admin')->where(function($user) use ($sort_search){

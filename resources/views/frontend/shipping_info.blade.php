@@ -117,6 +117,11 @@ div.pac-container {
                                             <input type="text" name="nomor_tlp" class="form-control" placeholder="No.Telepon"  value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['nomor_tlp'] : '' }}"  required>
                                         </div>
                                     </div>
+                                    <div class="col-4">
+                                        <div class="form-group ">
+                                            <input type="text" name="kota_pengirim" class="form-control" placeholder="kota pengirim"  value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['kota_pengirim'] : '' }}"  required>
+                                        </div>
+                                    </div>
                                     <div class="mx-auto">
                                         <button class="ml-5 btn btn-default">Simpan</button>
                                         <li class="date-ekspedisi ml-4 mb-2 mt-2" style="list-style-type: none; color: #424242;">
@@ -495,11 +500,11 @@ function setsearchbox(map,marker)
     });
     function myFunction() {
   var checkBox = document.getElementById("myCheck");
-  var text = document.getElementById("form_dropshipper");
+  var text = $("#form_dropshipper");
   if (checkBox.checked == true){
-    text.style.display = "block";
+    text.slideDown();
   } else {
-     text.style.display = "none";
+    text.slideUp();
   }
 }
 </script>

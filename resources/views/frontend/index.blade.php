@@ -175,22 +175,24 @@
         </a>
     </div> --}}
 
-    <div class="container mt-3">
-        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators mx-auto" style=" bottom:30px; right:0px;">
-                <li data-target="#carouselExampleCaptions" data-slide-to="0"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner img-banner h-100">
                 @php
                 $banners = \App\Banner::where(["published"=>1,'position'=>1])->get();
                 @endphp
+    <div class="container mt-3">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators mx-auto" style=" bottom:10%; right:0%;">
+                @foreach ($banners as $key => $value)
+                    <li class="{{ $key == 0 ? 'active' : '' }}" data-target="#carouselExampleCaptions" data-slide-to="{{ $key }}"></li>
+                @endforeach
+            </ol>
+            <div class="carousel-inner img-banner h-100">
                 @foreach ($banners as $keybanner => $banner)
                     <div class="carousel-item {{ $keybanner == 0 ? 'active' : 'img-banner h-100' }}">
-                        <img src="{{ my_asset($banner->photo) }}" class=" d-block w-100 img-fluid" alt="..." width="1110" height="100%">
-                        <div class="carousel-caption d-none d-md-block">
-                        </div>
+                        <a href="{{ $banner->url }}">
+                            <img src="{{ my_asset($banner->photo) }}" class=" d-block w-100 img-fluid" alt="..." width="1110" height="100%" style="max-height: 385px;max-width:1030">
+                            <div class="carousel-caption d-none d-md-block">
+                            </div>
+                        </a>
                     </div>
                 @endforeach
                 {{--

@@ -191,6 +191,8 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function () {
 	Route::post('/customer/update-profile', 'HomeController@customer_update_profile')->name('customer.profile.update');
 	Route::post('/seller/update-profile', 'HomeController@seller_update_profile')->name('seller.profile.update');
 
+	Route::get('/dashboard',function () { return redirect(route('profile')); })->name('dashboard');
+
 	Route::get('/membership_dr', function () {
 		return view('doctor.membership_dr');
 	})->name('membership');

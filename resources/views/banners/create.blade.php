@@ -33,7 +33,7 @@
                     {{-- <div id="photo">
 
                     </div> --}}
-                    <input type="file" name="photo" id="photo" class="dropify" data-min-width="1109" data-max-width="1111" data-min-hight="439" data-max-width="441"   data-max-file-size="0,3M" data-allowed-file-extensions="jpg png jpeg" required>
+                    <input type="file" name="photo" id="photo" class="dropify" data-max-file-size="0,3M" data-allowed-file-extensions="jpg png jpeg" required>
                 </div>
             </div>
         </div>
