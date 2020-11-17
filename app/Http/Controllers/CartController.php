@@ -33,6 +33,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
+        // dd($request->all());
         $product = Product::find($request->id);
 
         $data = array();
@@ -173,7 +174,7 @@ class CartController extends Controller
             $cart = collect([$data]);
             $request->session()->put('cart', $cart);
         }
-
+        // dd($data);
         return view('frontend.partials.addedToCart', compact('product', 'data'));
     }
 

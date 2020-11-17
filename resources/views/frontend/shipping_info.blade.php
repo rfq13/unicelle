@@ -109,17 +109,17 @@ div.pac-container {
                                 <div class="row">
                                     <div class="col-4">
                                         <div class="form-group ">
-                                            <input type="text" name="nama" class="form-control" placeholder="Nama" value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['nama'] : '' }}" required>
+                                            <input type="text" name="nama" class="form-control" placeholder="Nama Pengirim" value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['nama'] : '' }}" required>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group ">
-                                            <input type="text" name="nomor_tlp" class="form-control" placeholder="No.Telepon"  value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['nomor_tlp'] : '' }}"  required>
+                                            <input type="text" name="nomor_tlp" class="form-control" placeholder="No.Telepon Pengirim"  value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['nomor_tlp'] : '' }}"  required>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group ">
-                                            <input type="text" name="kota_pengirim" class="form-control" placeholder="kota pengirim"  value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['kota_pengirim'] : '' }}"  required>
+                                            <input type="text" name="kota_pengirim" class="form-control" placeholder="kota asal Pengirim"  value="{{  \Session::has('data_dropshiper') ? \Session::get('data_dropshiper')['kota_pengirim'] : '' }}"  required>
                                         </div>
                                     </div>
                                     <div class="mx-auto">

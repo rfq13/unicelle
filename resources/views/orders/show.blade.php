@@ -39,8 +39,8 @@
                 <div class="col-lg-offset-3 col-lg-3">
                     <label for="update_payment_status">{{translate('Status Pembayaran')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_payment_status">
-                        <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Dibayar')}}</option>
-                        <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Tidak Dibayar')}}</option>
+                        <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Pembayaran Berhasil')}}</option>
+                        <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Pending Payment')}}</option>
                     </select>
                 </div>
                 <div class="col-lg-3">
@@ -49,7 +49,7 @@
 					</div>
 					<input type="hidden" id="status-order" value="{{ $delivery_status }}">
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
+                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Processing')}}</option>
                         {{-- <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option> --}}
 						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('Dikirim')}}</option>
                         @if ($delivery_status == 'delivered')<option value="delivered" selected>{{translate('Terkirim')}}</option>@endif
@@ -87,7 +87,7 @@
                     @if ($order->dropsiper && is_array(json_decode($order->dropsiper, true)))
                         <br><br>
                         <strong class="text-main">{{ translate('DROPSHIPPER') }}</strong><br>
-                        Name: {{ json_decode($order->dropsiper)->nama }}<br>Phone: {{ json_decode($order->dropsiper)->nomor_tlp }}
+                        Name: {{ json_decode($order->dropsiper)->nama }}<br>Phone: {{ json_decode($order->dropsiper)->nomor_tlp }} <br> Kota Pengirim: {{ json_decode($order->dropsiper)->kota_pengirim }}
                         <br>
         
                     @endif

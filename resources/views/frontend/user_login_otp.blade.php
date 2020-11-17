@@ -58,6 +58,35 @@
                 </div>
             </div>
         </div>
+        <style>
+            
+
+            .tombol-float{
+                position:fixed;
+                width:60px;
+                height:60px;
+                bottom:40px;
+                right:40px;
+                background-image: url('{{ my_asset("images/wa.png") }}');
+                background-color:white;
+                color:#FFF;
+                border-radius:60px;
+                text-align:center;
+                /* box-shadow: 2px 2px 3px #999; */
+                margin-bottom: 3%;
+            }
+
+            .my-float{
+                margin-top:22px;
+            }
+        </style>
+        @php
+            $phone = \App\GeneralSetting::first()->phone;
+            $phone =  $phone[0] == "+" ? substr($phone,1) : $phone[0] == '0' ?  "62"+substr($phone,1) : $phone;
+            $text = \App\GeneralSetting::first()->text_whatsapp;
+            $url = "https://api.whatsapp.com/send?phone=$phone&text=$text";
+        @endphp
+        <a href="{{ $url }}" target="_blank" class="tombol-float"><i class="my-float"></i></a>
     </section>
 
 

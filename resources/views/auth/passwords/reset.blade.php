@@ -26,7 +26,7 @@
                 <div class="card bg-form">
                     <div class="p-3">
                         <h5 class="mb-4 mt-2">Lupa Password</h5>
-                    <form method="POST" action="{{ route('password.update') }}">
+                    <form method="POST" action="{{ route('password.update') }}" id="pw-update-form">
                         @csrf
 
                         <input type="hidden" name="token" value="{{ $token }}">
@@ -45,9 +45,15 @@
                             <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="{{ translate('New Password') }}" required>
 
                             @if ($errors->has('password'))
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $errors->first('password') }}</strong>
-                                </span>
+                                @foreach ($errors->get("password") as $item)
+                                @php
+                                    $item = $item == "validation.confirmed" ? "konfirmasi password salah" : $item;
+                                    $item = $item == "validation.min.string" ? "password setidaknya 8 karakter" : $item;
+                                @endphp
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $item }}</strong>
+                                    </span>
+                                @endforeach
                             @endif
                         </div>
 
@@ -56,7 +62,7 @@
                         </div>
 
                         <div class="form-group text-right">
-                            <button type="submit" class="btn btn-primary btn-lg btn-block">
+                            <button type="submit" id="btn-submit-reset" class=" btn btn-primary btn-lg btn-block">
                                 {{ translate('Reset Password') }}
                             </button>
                         </div>
@@ -66,4 +72,8 @@
         </div>
     </div>
 </section>
+@endsection
+
+@section('script')
+    
 @endsection

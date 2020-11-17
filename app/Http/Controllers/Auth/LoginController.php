@@ -216,7 +216,7 @@ class LoginController extends Controller
         if ($user) {
             if (Hash::check($request->password, $user->password)) {
                 if ($user->user_type == "admin") {
-                    flash("gunakan link login admin yang benar")->error();
+                    flash("url login admin tidak sesuai")->error();
                     return redirect(route('user.login'));
                 }
                 auth()->login($user, true);

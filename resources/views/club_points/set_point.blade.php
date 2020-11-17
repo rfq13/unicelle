@@ -1,42 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-
+<a href="#" class="btn-success btn">sync</a>
     <div class="row">
-        <div class="col-lg-8">
+        <div class="col-lg-7">
             <div class="panel">
                 <div class="panel-body">
                     <table class="table table-striped res-table mar-no" cellspacing="0" width="100%">
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th width="20%">{{__('Nama')}}</th>
+                                <th width="40%">{{__('Tipe Pengguna')}}</th>
                                 {{-- <th>{{__('Pemilik Produk')}}</th> --}}
-                                <th>{{__('Jumlah Penjualan')}}</th>
+                                {{-- <th>{{__('Jumlah Penjualan')}}</th>
                                 <th>{{__('Harga Dasar')}}</th>
-                                <th>{{__('Peringkat')}}</th>
+                                <th>{{__('Peringkat')}}</th> --}}
                                 <th>{{__('Poin')}}</th>
-                                <th>{{__('Pilihan')}}</th>
+                                <th>{{__('aksi')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($products as $key => $product)
+                            @php
+                                $points = \App\setPoint::paginate(10);
+                                $num = 0
+                            @endphp
+                            @foreach($points as $key => $p)
                                 <tr>
-                                    <td>{{ ($key+1) + ($products->currentPage() - 1)*$products->perPage() }}</td>
-                                    <td>
+                                    <td>{{ $num++ }}</td>
+                                    {{-- <td>
                                         <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
                                             <div class="media-left">
                                                 <img loading="lazy"  class="img-md" src="{{ asset($product->thumbnail_img)}}" alt="Image">
                                             </div>
                                             <div class="media-body">{{ __($product->name) }}</div>
                                         </a>
-                                    </td>
+                                    </td> --}}
                                     {{-- <td>
                                     @if ($product->user != null)
                                         {{ $product->user->name }}
                                     @endif
                                     </td> --}}
-                                    <td>
+                                    {{-- <td>
                                         @php
                                             $qty = 0;
                                             if($product->variant_product){
@@ -49,17 +53,19 @@
                                             }
                                             echo $qty;
                                         @endphp
-                                    </td>
-                                    <td>{{ number_format($product->unit_price,2) }}</td>
-                                    <td>{{ $product->rating }}</td>
-                                    <td>{{ $product->earn_point }}</td>
+                                    </td> --}}
+                                    {{-- <td>{{ number_format($product->unit_price,2) }}</td> --}}
+                                    {{-- <td>{{ $product->rating }}</td>
+                                    <td>{{ $product->earn_point }}</td> --}}
+                                    <td>member</td>
+                                    <td>10%</td>
                                     <td>
                                         <div class="btn-group dropdown">
                                             <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
                                                 {{__('Aksi')}} <i class="dropdown-caret"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right">
-                                                <li><a href="{{route('product_club_point.edit', encrypt($product->id))}}">{{__('Ubah')}}</a></li>
+                                                <li><a href="{{route('product_club_point.edit', encrypt($p->id))}}">{{__('Ubah')}}</a></li>
                                             </ul>
                                         </div>
                                     </td>
@@ -69,55 +75,14 @@
                     </table>
                     <div class="clearfix">
                         <div class="pull-right">
-                            {{ $products->appends(request()->input())->links() }}
+                            {{ $points->appends(request()->input())->links() }}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col-lg-4">
-            <div class="panel">
-                <div class="panel-heading">
-                    <h3 class="panel-title text-center">{{__('Tetapkan Poin untuk Produk')}}</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <small>Tetapkan poin spesifik untuk produk tersebut yang berada di antara 'harga minimum' dan 'harga maksimum'. Harga minimum harus kurang dari harga Maks</small>
-                    </div>
-                    <form class="form-horizontal" action="{{ route('set_products_point.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group">
-                            <div class="col-lg-6">
-                                <label class="control-label">{{__('Set Point untuk beberapa produk')}}</label>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="number" min="0" step="0.01" class="form-control" name="point" placeholder="100" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-6">
-                                <label class="control-label">{{__('Harga Min')}}</label>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="number" min="0" step="0.01" class="form-control" name="min_price" value="{{ \App\Product::min('unit_price') }}" placeholder="50" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-6">
-                                <label class="control-label">{{__('Harga Maks')}}</label>
-                            </div>
-                            <div class="col-lg-6">
-                                <input type="number" min="0" step="0.01" class="form-control" name="max_price" value="{{ \App\Product::max('unit_price') }}" placeholder="110" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-lg-12 text-right">
-                                <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
+            @include('club_points.inc.form-set-point')
         </div>
     </div>
 

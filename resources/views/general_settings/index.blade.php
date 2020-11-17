@@ -27,9 +27,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="name">{{translate('Footer Text')}}</label>
+                        <label class="col-sm-3 control-label" for="description">{{translate('Footer Text')}}</label>
                         <div class="col-sm-9">
-                            <textarea class="form-control" rows="4" name="description" required>{{$generalsetting->description}}</textarea>
+                            <textarea class="form-control" id="description" rows="4" name="description" required>{{$generalsetting->description}}</textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="TextWhatsapp">{{translate('Teks Whatsapp')}}</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" id="TextWhatsapp" rows="4" name="text_whatsapp" required>{{$generalsetting->text_whatsapp}}</textarea>
                         </div>
                     </div>
                     <div class="form-group">

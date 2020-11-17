@@ -1186,6 +1186,7 @@ background: #428bca;
             $('#addToCart').modal();
             $('.c-preloader').show();
             let product = id != 0 ? {_token:"{{csrf_token()}}",id:id,quantity:1} : $('#option-choice-form').serializeArray()
+            // console.log(product) return;
             $.ajax({
                type:"POST",
                url: '{{ route('cart.addToCart') }}',

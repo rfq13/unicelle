@@ -342,3 +342,9 @@ Route::any('/payhere/seller_package_payment/cancel', 'PayhereController@seller_p
 Route::any('/payhere/customer_package_payment/notify', 'PayhereController@customer_package_notify')->name('payhere.customer_package_payment.notify');
 Route::any('/payhere/customer_package_payment/return', 'PayhereController@customer_package_return')->name('payhere.customer_package_payment.return');
 Route::any('/payhere/customer_package_payment/cancel', 'PayhereController@customer_package_cancel')->name('payhere.customer_package_payment.cancel');
+
+Route::group(['prefix'=>'/voucher'],function ()
+{
+	Route::view('own','voucher.myvoucher')->name('my.voucher');
+	Route::view('list','voucher.listvoucher')->name('list.voucher');
+});

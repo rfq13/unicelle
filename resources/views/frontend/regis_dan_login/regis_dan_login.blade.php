@@ -61,7 +61,6 @@
     
 </head>
 <body>
-
     <style>
     .bg-form-lupapass{
         background-image: url('{{my_asset('/images/img/bg-form.png')}}');
@@ -118,23 +117,13 @@
         https://firebase.google.com/docs/web/setup#available-libraries -->
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.15.5/firebase.js"></script>
+
+    <script src="{{ my_asset('vendor/fontawesome-free-5.14.0-web/fontawesome-free-5.14.0-web/js/fontawesome.min.js') }}"></script>
+    <script src="{{ my_asset('vendor/fontawesome-free-5.14.0-web/fontawesome-free-5.14.0-web/js/all.min.js') }}"></script>
 <script>
     @foreach (session('flash_notification', collect())->toArray() as $message)
         showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
     @endforeach
-        function showFrontendAlert(type, message){
-            if(type == 'danger'){
-                type = 'error';
-            }
-            swal({
-                position: 'top-end',
-                type: type,
-                title: message,
-                showConfirmButton: false,
-                timer: 3000
-            });
-        }
-
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "{{ env('FIREBASE_API_KEY') }}",
@@ -163,6 +152,14 @@
 
         /* ========== Autentikasi OTP ========== */
         function phoneAuth(type = 0){
+
+            var response = grecaptcha.getResponse();
+                    if(response.length == 0)
+                    {
+                    //reCaptcha not verified
+                        alert("Mohon Lengkapi Captcha.");
+                        return false;
+                    }
 
             var number = document.getElementById('number').value;
             var token = $("meta[name='csrf-token']").attr("content");
@@ -218,7 +215,7 @@
                                     timer: 3000
                                 })
                                 .then (function() {
-                                    window.location.href = "{{ route('user.registration-otp') }}";
+                                    // window.location.href = "{{ route('user.registration-otp') }}";
                                 });
                             }
                         }
@@ -268,61 +265,12 @@
 
             });
 
-            var isPhoneShown = true;
-
-            var input = document.querySelector("#phone-code");
-            var iti = intlTelInput(input, {
-                separateDialCode: true,
-                preferredCountries: @php echo json_encode(\App\Country::where('status', 1)->pluck('code')->toArray()) @endphp
-            });
-
-            var country = iti.getSelectedCountryData();
-            $('input[name=country_code]').val(country.dialCode);
-
-            input.addEventListener("countrychange", function() {
-                var country = iti.getSelectedCountryData();
-                $('input[name=country_code]').val(country.dialCode);
-            });
-
-            function autoFillSeller(){
-                $('#email').val('seller@example.com');
-                $('#password').val('123456');
-            }
-            function autoFillCustomer(){
-                $('#email').val('customer@example.com');
-                $('#password').val('123456');
-            }
-
-            function toggleEmailPhone(el){
-                if(isPhoneShown){
-                    $('.phone-form-group').addClass('d-none');
-                    $('.email-form-group').removeClass('d-none');
-                    isPhoneShown = false;
-                    $(el).html('Use Phone Instead');
-                }
-                else{
-                    $('.phone-form-group').removeClass('d-none');
-                    $('.email-form-group').addClass('d-none');
-                    isPhoneShown = true;
-                    $(el).html('Use Email Instead');
-                }
-            }
-
             function hanyaAngka(evt){
                 var charCode = (evt.which) ? evt.which : event.keyCode
                 if(charCode > 31 && (charCode < 48 || charCode > 57))
 
                     return false;
                 return true;
-            }
-
-            function autoFillSeller(){
-                $('#email').val('seller@example.com');
-                $('#password').val('123456');
-            }
-            function autoFillCustomer(){
-                $('#email').val('customer@example.com');
-                $('#password').val('123456');
             }
 
             function codeverify(type = 'login'){
@@ -366,7 +314,7 @@
                         $("#verifikasi").prepend("<input type='hidden' id='verifiedTelp' value='0"+number+"'>")
                         $('#verifikasi').modal();
                     }
-                    countDown(3)
+                    countDown(30)
                 }).catch(function (error){
                     showFrontendAlert("error",error.message);
                 });
@@ -407,13 +355,22 @@
                 }, 1000);
             }
 
-</script> 
-     
-    <!-- <script src="{{ my_asset('vendor\bootstrap-4.5.2-dist\bootstrap-4.5.2-dist\js\bootstrap.min.js') }}"></script> -->
-    <script src="{{ my_asset('vendor/fontawesome-free-5.14.0-web/fontawesome-free-5.14.0-web/js/fontawesome.min.js') }}"></script>
-    <script src="{{ my_asset('vendor/fontawesome-free-5.14.0-web/fontawesome-free-5.14.0-web/js/all.min.js') }}"></script>
+</script>   
 
     @yield('script')
-
+<script>
+    function showFrontendAlert(type, message){
+            if(type == 'danger'){
+                type = 'error';
+            }
+            swal({
+                position: 'top-end',
+                type: type,
+                title: message,
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
+</script>
 </body>
 </html>

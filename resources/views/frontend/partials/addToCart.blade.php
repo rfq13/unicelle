@@ -101,15 +101,7 @@
                 <hr>
 
                 @php
-                    $qty = 0;
-                    if($product->variant_product){
-                        foreach ($product->stocks as $key => $stock) {
-                            $qty += $stock->qty;
-                        }
-                    }
-                    else{
-                        $qty = $product->current_stock;
-                    }
+                    $qty = $product->variant_product == 1 ? array_sum($product->stocks->pluck("qty")->toArray()) : $product->current_stock;
                 @endphp
 
                 <form id="option-choice-form">
@@ -168,7 +160,7 @@
 
                             <hr>
                         @endif
-
+                        
                         <div class="row no-gutters">
                             <div class="col-2">
                                 <div class="product-description-label mt-2">{{ translate('Quantity')}}:</div>
@@ -183,7 +175,7 @@
                                             </button>
                                         </span>
                                         <input type="text" name="quantity" class="form-control input-number h-auto text-center"
-                                               placeholder="1" value="1" min="1" max="10">
+                                               placeholder="1" value="1" min="1" max="{{ $qty }}">
                                         <span class="input-group-btn">
                                             <button class="btn btn-number" type="button" data-type="plus"
                                                     data-field="quantity">

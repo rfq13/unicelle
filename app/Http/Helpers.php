@@ -503,15 +503,15 @@ if (! function_exists('home_discounted_price')) {
             }
         }
         
-        if ($product->variant_product && Auth::check()) {
+        if ($product->variant_product == 1 && Auth::check()) {
             $usr = Auth::user()->user_type == "pasien reg" ? "pasien_regular_price" : str_replace(" ","_",Auth::user()->user_type."_price");
             $price = $product->stocks->pluck($usr);
-            if ($price->max() > 0 && $price->min() > $price->max()) {
+            // if ($price->max() > 0 && $price->min() > $price->max()) {
                 $lowest_price = $price->min();
                 $highest_price = $price->max();
-            }
+            // }
         }
-        
+        // dd([$product->id,$product->name,$lowest_price,$highest_price]);
 
         $flash_deals = \App\FlashDeal::where('status', 1)->get();
         $inFlashDeal = false;
@@ -1238,6 +1238,15 @@ if(! function_exists('get_swift'))
            $_respose = json_decode($response);
            return $_respose;
         }
+    }
+}
+
+if (! function_exists('get_point')) {
+    function get_point($uid,$oid)
+    {
+        $user = \App\User::findOrFail($uid);
+        $order = \App\Order::findOrFail($oid);
+        $earn = \App\setPoint::where("user_type",$user->user_type);
     }
 }
 

@@ -20,7 +20,7 @@
                                     <div class="p-2"><img class="img-reg-phy" src="{{my_asset('images\logo.png')}}" alt=""></div>
                                     <div class="p-2">
                                         <span class="head-reg-phy">
-                                            Pendaftaran Physician</span>
+                                            Pendaftaran Tenaga Medis</span>
                                     </div>
                                 </div>
                                 <div class="row mb-4">
@@ -29,7 +29,8 @@
                                             <input class="form-check-input" type="radio" name="user_type"
                                                 id="exampleRadios1" value="regular physician" checked>
                                             <label class="form-check-label font-weight-bold" for="exampleRadios1">
-                                                Regular Physician
+                                                {{-- Regular Physician --}}
+                                                Tenaga Kesehatan (Reguler)
                                             </label>
                                         </div>
                                     </div>
@@ -38,7 +39,8 @@
                                             <input class="form-check-input" type="radio" name="user_type"
                                                 id="exampleRadios2" value="partner physician">
                                             <label class="form-check-label font-weight-bold" for="exampleRadios2">
-                                                Partner Physician
+                                                {{-- Partner Physician --}}
+                                                Tenaga Kesehatan (Partner)
                                             </label>
                                         </div>
                                     </div>
@@ -92,7 +94,16 @@
                                         @endif
                                     </div>
                                     <div class="col">
-                                        <label for="exampleFormControlFile1" class="font-weight-light">Surat Izin Praktek Dokter</label>
+                                        <label for="exampleFormControlFile1" class="font-weight-light">
+                                            <div class="row">
+                                                <div class="col" style="text-align: center">
+                                                    Surat Izin Praktek Dokter<span style="color: red">*</span>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <span style="font-size: 12px;color:#555758">*Dokumen legalitas (SIP/ Ijazah tenaga medis / Surat Izin / Klinik / Surat Izin Apotek)</span>
+                                            </div>
+                                        </label>
                                         <input type="file" class="form-control-file" name="fhoto" id="exampleFormControlFile1" required>
                                     </div>
                                 </div>
