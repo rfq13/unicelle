@@ -9,6 +9,8 @@ if ($bank_setting == null) {
     return;
 }
 $config =  json_decode( $bank_setting->value);
+// dd($va);
+$logo = strtolower($va['bank_code']);
 @endphp
 <div class="container my-lg-5 my-3">
         <div class="row">
@@ -23,30 +25,30 @@ $config =  json_decode( $bank_setting->value);
                                 <table>
                                     <tr>
                                         <td class="w-100" style="font-size: 18px;">Total Pembayaran</td>
-                                        <th  style="color: #B71C1C; font-size: 18px;">{{ single_price($order->grand_total) }}</th>
+                                        <th  style="color: #B71C1C; font-size: 18px;">{{ single_price($va['expected_amount']) }}</th>
                                     </tr>
                                 </table>
                             </div>
 
                             <div class="d-flex mt-1 mt-lg-3">
                                 <div class="img-konfimasi__ mx-2">
-                                    <img src="{{ my_asset($config->LOGO) }}" alt="" style="width: 50px; height: 50px;">
+                                    <img src="{{my_asset("/images/icon/Bank/$logo-02.png")}}" alt="" style="width: 50px; height: 50px;">
                                 </div>
                                 <div class="name-bank-konfirmasi__ mx-2 p-0">
-                                    <span class="font-weight-bold" style="font-size: 16px;">{{ $config->BANK_NAME }}</span><br>
-                                    <span style="font-size: 12px; color: #424242;">Hanya menerima dari transfer {{ $config->BANK_NAME }}</span>
+                                    <span class="font-weight-bold" style="font-size: 16px;">{{ $va['bank_code'] }}</span><br>
+                                    <span style="font-size: 12px; color: #424242;">Hanya menerima transfer dari {{ $va['bank_code'] }}</span>
                                 </div>
                             </div>
 
                             <div class="info-lanjut-konfirmasi__">
                                 <div class="mt-3">
-                                    <span style="font-size: 16px; color: #424242;">No. Rekening</span><br>
-                                    <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ $config->BANK_NO_REK }}</span>
+                                    <span style="font-size: 16px; color: #424242;">No. Virtual Account</span><br>
+                                    <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ $va['account_number'] }}</span>
                                 </div>
-                                <div class="mt-3">
+                                {{-- <div class="mt-3">
                                     <span style="font-size: 16px; color: #424242;">Nama Pemilik Rekening</span><br>
                                     <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ $config->BANK_ATAS_NAMA }}</span>
-                                </div>
+                                </div> --}}
                                 <div class="mt-2">
                                     <span style="font-size: 16px; color: #424242;">Jumlah yang Dibayar</span><br>
                                     <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ single_price($order->grand_total) }}</span>
@@ -56,6 +58,7 @@ $config =  json_decode( $bank_setting->value);
                                         untuk menghindari pembatalan otomatis dan silahkan lakukan konfirmasi pembayaran
                                         jika kamu sudah melakukan pembayaran jika kamu sudah melakukan pembayaran di
                                         halaman akun profil.</span>
+                                    <span>pembayaran akan hangus pada {{ \Carbon\Carbon::parse($va['expiration_date']) }}</span>
                                 </div>
                             </div>
 

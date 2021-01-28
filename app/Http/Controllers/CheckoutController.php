@@ -22,6 +22,8 @@ use App\Address;
 use Session;
 use App\Utility\PayhereUtility;
 
+use Carbon\Carbon;
+
 class CheckoutController extends Controller
 {
 
@@ -41,8 +43,33 @@ class CheckoutController extends Controller
 
             $request->session()->put('payment_type', 'cart_payment');
             $request->session()->put('shipping_info',$request->shipping_info);
-
             if($request->session()->get('order_id') != null){
+
+                $params = [
+                    "external_id" => "VA-".\uniqid(),
+                    "bank_code" => $request->payment_option,
+                    "name" => Auth::user()->name,
+                    "expected_amount" => $request->total,
+                    "is_close" => false,
+                    "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
+                    "is_single_use"=> true
+                ];
+                $VA = xenditRequest('invoice',$params);
+                
+                $request->session()->put('cart', collect([]));
+                $request->session()->forget('delivery_info');
+                $request->session()->forget('data_dropshiper');
+                $request->session()->forget('poin_use');
+                $request->session()->forget('delivery_info');
+                $request->session()->forget('coupon_id');
+                $request->session()->forget('coupon_discount');
+
+                flash(translate("Your order has been placed successfully"))->success();
+                return $this->order_confirmed($VA);
+
+                // buyarr
+
+
                 if($request->payment_option == 'paypal'){
                     $paypal = new PaypalController;
                     return $paypal->getCheckout();
@@ -325,9 +352,9 @@ class CheckoutController extends Controller
                     $total -= Session::get('coupon_discount');
             }
 
-            //dd($total);
+            $shipping_info = $request->shipping_info;
 
-            return view('frontend.payment_select', compact('total'));
+            return view('frontend.payment_select', compact('total','shipping_info'));
         }
         else {
             flash(translate('Your Cart was empty'))->warning();
@@ -432,9 +459,9 @@ class CheckoutController extends Controller
         return back();
     }
 
-    public function order_confirmed(){
+    public function order_confirmed($va){
         $order = Order::findOrFail(Session::get('order_id'));
-        return view('frontend.order_confirmed', compact('order'));
+        return view('frontend.order_confirmed', compact('order','va'));
     }
 
     public function set_ongkir(Request $request)

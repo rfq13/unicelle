@@ -118,7 +118,7 @@ class Paystack
                 "amount" => intval(request()->amount),
                 "reference" => request()->reference,
                 "email" => request()->email,
-                "plan" => request()->plan,
+                //"plan" => request()->plan,
                 "first_name" => request()->first_name,
                 "last_name" => request()->last_name,
                 "callback_url" => request()->callback_url,

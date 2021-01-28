@@ -82,6 +82,7 @@ class HomeController extends Controller
 
     public function registration_otp()
     {
+        // dd("aw");
         return view('frontend.user_registration_otp');
     }
 
