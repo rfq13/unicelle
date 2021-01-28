@@ -66,7 +66,7 @@ final class Versions
   'nexmo/client-core' => '2.1.0@ef7e8a0715c93c5ddc7915e8a29f29331798bb52',
   'nexmo/laravel' => '2.3.0@f79bd96afa0e8347c2643bd5dfbc3df6a801cc6d',
   'nikic/php-parser' => 'v4.10.0@1c13d05035deff45f1230ca68bd7d74d621762d9',
-  'ocramius/package-versions' => '1.9.0@94c9d42a466c57f91390cdd49c81313264f49d85',
+  'ocramius/package-versions' => '1.5.1@1d32342b8c1eb27353c8887c366147b4c2da673c',
   'opis/closure' => '3.5.7@4531e53afe2fc660403e76fb7644e95998bff7bf',
   'paragonie/random_compat' => 'v9.99.99@84b4dfb120c6f9b4ff7b3685f9b8f1aa365a0c95',
   'paypal/rest-api-sdk-php' => 'dev-master@1a2ed767bb09374a8a222069930e94fccf99009e',
@@ -123,6 +123,7 @@ final class Versions
   'tijsverkoyen/css-to-inline-styles' => '2.2.3@b43b05cf43c1b6d849478965062b6ef73e223bb5',
   'twilio/sdk' => '6.10.3@52968e24d505041e5e1c66691761050b2d79788b',
   'vlucas/phpdotenv' => 'v3.6.7@2065beda6cbe75e2603686907b2e45f6f3a5ad82',
+  'xendit/xendit-php' => '2.6.0@4a5b3c9acaae727de96bf0868d22a6ec612f2e00',
   'zendframework/zend-diactoros' => '2.2.1@de5847b068362a88684a55b0dbb40d85986cfa52',
   'beyondcode/laravel-dump-server' => '1.3.0@fcc88fa66895f8c1ff83f6145a5eff5fa2a0739a',
   'doctrine/instantiator' => '1.3.1@f350df0268e904597e3bd9c4685c53e0e333feea',
@@ -157,7 +158,7 @@ final class Versions
   'sebastian/version' => '2.0.1@99732be0ddb3361e16ad77b68ba41efc8e979019',
   'theseer/tokenizer' => '1.2.0@75a63c33a8577608444246075ea0af0d052e452a',
   'webmozart/assert' => '1.9.1@bafc69caeb4d49c39fd0779086c03a3738cbb389',
-  'laravel/laravel' => 'No version set (parsed as 1.0.0)@',
+  'laravel/laravel' => 'dev-rfq@83e2f29d1d136331ccb8c8bfda1b010a4b81119c',
 );
 
     private function __construct()

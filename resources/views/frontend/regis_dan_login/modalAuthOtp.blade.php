@@ -20,7 +20,7 @@
                                                     <!-- <form> -->
                                                     <label class="mb-3"> <span class="code_sms"> Kode Verifikasi telah
                                                             di kirim melalui sms ke</span> <br><span
-                                                            class="number_sms">(+62) <script>document.getElementById('number').value;</script></span></label>
+                                                            class="number_sms" style="display: flex;justify-content: center;">(+62) <p id="p2"></p></span></label>
                                                     <div class="confirmation_code split_input large_bottom_margin"
                                                         data-multi-input-code="true">
                                                         <div class="confirmation_code_group ">

@@ -78,6 +78,6 @@
     'normal' => $fontDir . '/DejaVuSerif',
   ),
   'roboto' => array(
-    'normal' => $fontDir . '/roboto-normal_a49d12d289b38be333677dbb2bb25251',
+    'normal' => $fontDir . '/roboto-normal_6add26fd653c4a731f8711b039e62dd8',
   ),
 ) ?>

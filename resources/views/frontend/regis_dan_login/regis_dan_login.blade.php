@@ -163,6 +163,7 @@
 
             var number = document.getElementById('number').value;
             var token = $("meta[name='csrf-token']").attr("content");
+            document.getElementById("p2").innerHTML = document.getElementById('number').value;
 
             // console.log(number);
 
