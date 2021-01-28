@@ -127,12 +127,12 @@
         // Your web app's Firebase configuration
         var firebaseConfig = {
             apiKey: "{{ env('FIREBASE_API_KEY') }}",
-            authDomain: "unicelle-96810.firebaseapp.com",
+            authDomain: "gifted-airport-291804.firebaseapp.com",
             databaseURL: "https://unicelle-96810.firebaseio.com",
-            projectId: "unicelle-96810",
-            storageBucket: "unicelle-96810.appspot.com",
-            messagingSenderId: "502908767642",
-            appId: "1:502908767642:web:a6dbb6931fd23ed5767e23"
+            projectId: "gifted-airport-291804",
+            storageBucket: "gifted-airport-291804.appspot.com",
+            messagingSenderId: "157501410450",
+            appId: "1:157501410450:web:889b4a0eb9737e69142a4b"
         };
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
@@ -163,6 +163,7 @@
 
             var number = document.getElementById('number').value;
             var token = $("meta[name='csrf-token']").attr("content");
+            document.getElementById("p2").innerHTML = document.getElementById('number').value;
 
             // console.log(number);
 
@@ -183,7 +184,7 @@
                     dataType: "JSON",
                     cache: false,
                     data: {
-                        "nomor": "0" + number,
+                        "nomor": number,
                         "_token": '{{csrf_token()}}'
                     },
 
@@ -229,7 +230,7 @@
             }
 
         }
-
+       
             $(document).ready(function(){
                 // alert('helloman');
                 $("#reg-form").on("submit", function(evt)
@@ -295,7 +296,16 @@
                         }
                     })
                     console.log("signed");
-                }).catch(function (error){
+                    var user = result.user;
+                    var uid = user.uid;
+                    var phoneNumber = user.phoneNumber;
+
+                    console.log(uid);
+                    $("input[name='uid']").val(uid);
+                    $("input[name='nomor_hp']").val(phoneNumber);
+                    $('form#form_lanjutan').submit();
+
+                    }).catch(function (error){
                     console.log(error);
                     showFrontendAlert('danger','kode otp yang anda masukkan tidak valid')
                 })
