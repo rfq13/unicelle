@@ -67,7 +67,29 @@ class HomeController extends Controller
             ], 200);
         }
     }
+    public function registrationOtp(Request $request)
+    {
+        $nohp = $request->nomor_hp;
+        // dd($nohp);
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+        $existingUser = User::where('provider_id', $request->uid)->first();
+        if ($existingUser == null) {
+            $existingUser = User::where('phone', $nohp)->first();
+        }
 
+        if ($existingUser) {
+            if ($existingUser->provider_id == null) {
+                $existingUser->update(['provider_id'=>$request->uid]);
+            }
+            auth()->login($existingUser, true);
+            return redirect()->route('dashboard');
+        } else {
+           
+            return view('frontend.confirm_registration_otp', ['nomor_hp' => $nohp, 'uid' => $request->uid]);
+        }
+    }
     public function registration(Request $request, $physician = null)
     {
         // dd($request->all());

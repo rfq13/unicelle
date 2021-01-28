@@ -165,7 +165,61 @@ class RegisterController extends Controller
 
         return $user;
     }
+    public function handleProviderCallbackOtp(Request $request)
+    {
+        // check if they're an existing user
+        $existingUser = User::where('provider_id', $request->uid)->first();
 
+        if($existingUser){
+            // log them in
+            auth()->login($existingUser, true);
+        } else {
+            // create a new user
+            $tlp = (int)str_replace("+62","0",$request->no_telepon);
+
+            $datetime = new \DateTime();
+            $nama_lengkap = $request->nama_depan.' '.$request->nama_belakang;
+            $newUser                  = new User;
+            $newUser->name            = $nama_lengkap;
+            $newUser->gender          = $request->gender;
+            $newUser->birth       = $request->birth;
+            $newUser->user_type       = 'pasien reg';
+            $newUser->phone           = $tlp;
+            $newUser->email_verified_at = date('Y-m-d H:m:s');
+            $newUser->provider_id     = $request->uid;
+            if($request->email)
+            {
+                $checkUser = User::where("email",$request->email)->first();
+                if ($checkUser != null) {
+                    auth()->login($checkUser, true);
+                    if(session('link') != null){
+                        return redirect(session('link'));
+                    }
+                    else{
+                        return redirect()->route('home');
+                    }
+                }
+
+                $newUser->email = $request->email;
+            }
+            
+            $newUser->save();
+
+            $customer = new Customer;
+            $customer->user_id = $newUser->id;
+            $customer->save();
+
+        
+            auth()->login($newUser, true);
+        }
+
+        if(session('link') != null){
+            // dd(session('link'));
+            return redirect(session('link'));
+        }
+
+        return redirect()->route('home');
+    }
     public function register(Request $request)
     {
 

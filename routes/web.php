@@ -33,6 +33,7 @@ Route::get('/mail_callback', 'HomeController@mail_callback')->name('mail_callbac
 
 Route::post('/language', 'LanguageController@changeLanguage')->name('language.change');
 Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.change');
+Route::post('/user/registration/Otp', 'Auth\RegisterController@handleProviderCallbackOtp')->name('otp.register.otp');
 
 Route::get('/social-login/redirect/{provider}', 'Auth\LoginController@redirectToProvider')->name('social.login');
 Route::get('/social-login/{provider}/callback', 'Auth\LoginController@handleProviderCallback')->name('social.callback');
@@ -41,6 +42,7 @@ Route::post('/user/login', 'Auth\LoginController@user_login')->name('user.login.
 Route::get('/users/login-otp', 'HomeController@login_otp')->name('user.login-otp')->middleware('guest');
 Route::post('/users/proses-login-otp/{regis?}', 'HomeController@proses_login_otp')->name('user.proses-login-otp');
 Route::get('/users/registration/{physician?}', 'HomeController@registration')->name('user.registration');
+Route::get('/users/registrationOtp', 'HomeController@registrationOtp')->name('user.registration.otp');
 Route::get('/users/registration-otp', 'HomeController@registration_otp')->name('user.registration-otp');
 //Route::post('/users/login', 'HomeController@user_login')->name('user.login.submit');
 Route::post('/users/login/cart', 'HomeController@cart_login')->name('cart.login.submit');

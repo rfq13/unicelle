@@ -62,6 +62,7 @@
             </div>
         </div>
         @include('frontend.regis_dan_login.modalAuthOtp')
+
     </section>
 
     {{-- <section class="gry-bg py-4">
@@ -167,6 +168,7 @@
                                             <button type="submit" class="btn btn-styled btn-base-1 w-100 btn-md">{{  translate('Create Account') }}</button>
                                         </div>
                                     </form>
+
                                     @if(\App\BusinessSetting::where('type', 'google_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'facebook_login')->first()->value == 1 || \App\BusinessSetting::where('type', 'twitter_login')->first()->value == 1)
                                         <div class="or or--1 mt-3 text-center">
                                             <span>or</span>

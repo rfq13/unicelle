@@ -110,7 +110,7 @@
                                 <!--  -->
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ old('no_telepon') }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
+                                        <input type="text" id="telp" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ old('no_telepon') }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
                                     @if ($errors->has('no_telepon'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('no_telepon') }}</strong>
@@ -225,7 +225,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="text" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ old('no_telepon') }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
+                                    <input type="text" id="telp" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ old('no_telepon') }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
                                     @if ($errors->has('no_telepon'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('no_telepon') }}</strong>

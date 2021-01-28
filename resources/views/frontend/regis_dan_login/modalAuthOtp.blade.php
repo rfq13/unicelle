@@ -44,7 +44,10 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <form id="form_lanjutan" action="{{ url('users/registrationOtp') }}" method="GET">
+                            <input type="hidden" name="uid">
+                            <input type="hidden" name="nomor_hp">
+                        </form>
                             <script>
                                 var containers = document.querySelectorAll(".inline_input_");
                                 containers.forEach(function (container) {
