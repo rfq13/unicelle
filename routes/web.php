@@ -354,3 +354,7 @@ Route::group(['prefix'=>'/voucher'],function ()
 
 Route::get('xendit/get-banks','Payment\XenditController@getVA');
 Route::get('xendit/invoice','Payment\XenditController@createVA');
+
+
+
+// ngehe
