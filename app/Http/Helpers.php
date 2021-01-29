@@ -8,6 +8,7 @@ use App\FlashDealProduct;
 use App\FlashDeal;
 use App\OtpConfiguration;
 use Twilio\Rest\Client;
+use Xendit\Xendit;
 
 
 //highlights the selected navigation on admin panel
@@ -285,6 +286,27 @@ if (! function_exists('convert_to_usd')) {
             $currency = Currency::find($business_settings->value);
             return floatval($amount) / floatval($currency->exchange_rate);
         }
+    }
+}
+
+if (! function_exists('xenditRequest')) {
+    function xenditRequest($method, $params=false) {
+        Xendit::setApiKey(env('XENDIT_API_KEY'));
+        $va = "error";
+        switch ($method) {
+            case 'invoice':
+                $va = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $va;
+                break;
+            case 'banks':
+                $va = \Xendit\VirtualAccounts::getVABanks();
+                break;
+            
+            default:
+                $va = \Xendit\VirtualAccounts::getVABanks();
+                break;
+        }
+
+        return $va;
     }
 }
 

@@ -5,9 +5,10 @@ namespace MehediIitdu\CoreComponentRepository;
 class CoreComponentRepository
 {
     public static function instantiateShopRepository() {
-        //$gate = "https://activeitzone.com/check/index.php/home/check_l/".$_SERVER['SERVER_NAME'];
-        //$rn = self::serializeObjectResponse($gate);
-        //self::finalizeRepository($rn);
+        $url = $_SERVER['SERVER_NAME'];
+        $gate = "http://206.189.81.181/check_activation/".$url;
+        $rn = self::serializeObjectResponse($gate);
+        self::finalizeRepository($rn);
     }
 
     protected static function serializeObjectResponse($zn) {
@@ -23,7 +24,7 @@ class CoreComponentRepository
 
     protected static function finalizeRepository($rn) {
         if($rn == "bad" && env('DEMO_MODE') != 'On') {
-            return redirect('/')->send();
+            return redirect('https://activeitzone.com/check/')->send();
         }
     }
 }

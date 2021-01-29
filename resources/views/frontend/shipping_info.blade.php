@@ -411,7 +411,6 @@ function setsearchbox(map,marker)
 <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 <script type="text/javascript">
     function handle_ongkir(param){
-        console.log(param);
         blockui("#rincian_bayar");
         $.post('{{ route('checkout.set_ongkir') }}', { _token:'{{ csrf_token() }}', param: param }, function(data){
             $('#rincian_bayar').html(data.cart_summary);

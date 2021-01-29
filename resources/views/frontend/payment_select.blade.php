@@ -1,279 +1,294 @@
+@php
+    // dd(decrypt($shipping_info));
+@endphp
 @extends('frontend.layouts.app')
 
 @section('content')
 <section class="section-sub-head"></section>
     <section class="section-detail-produk">
-    <div class="container">
-        <div class="container mb-5">
-             <nav aria-label="breadcrumb">
-                <ul class="breadcrumb mb-5">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item"><a href="#">Keranjang Belanda</a></li>
-                    <li class="breadcrumb-item"><a href="#">Checkout</a></li>
-                    <li class="breadcrumb-item active" style="color:#3BB6B1" aria-current="page">Pembayaran</li>
-                </ul>
-            </nav>
-            <div class="row">
-                <div class="card col-lg-7">
-                    <p class="mt-4" style="font-size: 20px;">Pembayaran</p>
-                    <hr>
-                    <div class="card mb-4" style="padding-left: 2%; padding-right: 4%;">
-                        <div class="container ml-2" style="border-bottom:1px solid #C4C4C4">
-                            <p class="mt-3 text-checkout">Metode Pembayaran</p>
+        <form action="{{ route('payment.checkout') }}" id="form-checkout" method="POST">
+            @csrf
+            <div class="container">
+                <div class="container mb-5">
+                    <nav aria-label="breadcrumb">
+                        <ul class="breadcrumb mb-5">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="#">Keranjang Belanda</a></li>
+                            <li class="breadcrumb-item"><a href="#">Checkout</a></li>
+                            <li class="breadcrumb-item active" style="color:#3BB6B1" aria-current="page">Pembayaran</li>
+                        </ul>
+                    </nav>
+                    <div class="row">
+                        <div class="card col-lg-7">
+                            <p class="mt-4" style="font-size: 20px;">Pembayaran</p>
+                            <hr>
+                            <div class="card mb-4" style="padding-left: 2%; padding-right: 4%;">
+                                <div class="container ml-2" style="border-bottom:1px solid #C4C4C4">
+                                    <p class="mt-3 text-checkout">Metode Pembayaran</p>
+                                </div>
+                                
+                                <div class="container ml-2"id="myDIV">
+                                    <div class="tab mt-3 mb-3" >
+                                        <div class="row">
+                                            <button class="col-3 btn btn-pembayaran tablinks actived" onclick="openCity(event, 'Transfer')">Transfer Bank</button>
+                                            <button class="col-3 btn btn-pembayaran tablinks" onclick="openCity(event, 'Indomart')">Indomart / i.Saku</button>
+                                            <button class="col-3 btn btn-pembayaran tablinks" onclick="openCity(event, 'Alfamart')">Alfamart</button>
+                                            <button class="col-3 btn btn-pembayaran tablinks" onclick="openCity(event, 'Kartukredit')">Kartu Kredit</button>
+                                        </div>
+                                        
+                                    </div>
+                                        
+                                    <div id="Transfer" class="tabcontent" style="display:block;">
+                                        @php
+                                            $VA = xenditRequest('banks');
+                                        @endphp
+                                        @foreach ($VA as $bank)
+                                            @php
+                                                $bank = (object)$bank;
+                                                $logo = strtolower($bank->code);
+                                            @endphp
+                                            <div class="col-12 mb-3">
+                                                <div class="row">
+                                                    <div class="mt-4">
+                                                        <label class="rb-bank">
+                                                            <input type="radio" name="payment_option" value="{{ $bank->code }}">
+                                                            <span class="rb-checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-2">
+                                                        <img class="logo-bank" src="{{my_asset("/images/icon/Bank/$logo-02.png")}}" alt="">
+                                                    </div>
+                                                    <div class="col-8 mt-3">
+                                                        <p class="text-ekspedisi" style="margin-bottom: 0%;">{{ $bank->name }}</p>
+                                                        <p class="date-ekspedisi"> Hanya Menerima transfer dari {{ $bank->name }}</p>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        @endforeach
+                                        
+                                        {{-- <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Bank/bri-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank BRI</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Transfer BRI</p>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Bank/bca-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank BCA</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Transfer BCA</p>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Bank/mandiri-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank Mandiri</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Transfer Mandiri</p>
+                                                </div>
+                                            </div> 
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Bank/permata-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank Permata</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Transfer Permata</p>
+                                                </div>
+                                            </div> 
+                                        </div> --}}
+                                    </div>
+                                    <!--Batas Bank-->
+
+                                    <div id="Indomart" class="tabcontent">
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Indomart/indomaret-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Indomart</p>
+                                                    <p class="date-ekspedisi"> Hanya bayar pada teller Indomart</p>
+                                                </div>
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                    <!--Batas Indomart-->
+
+                                    <div id="Alfamart" class="tabcontent">
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Alfmart/indomaret-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Alfamart</p>
+                                                    <p class="date-ekspedisi"> Hanya bayar pada teller Alfamart</p>
+                                                </div>
+                                            </div> 
+                                        </div>   
+                                    </div>
+                                    <!--Batas Alfamart-->
+
+                                    <div id="Kartukredit" class="tabcontent">
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/visa-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Visa</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
+                                                </div>
+                                            </div> 
+                                        </div>   
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/paninbank-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Panin Bank</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
+                                                </div>
+                                            </div> 
+                                        </div>   
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/mastercard-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Master Card</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
+                                                </div>
+                                            </div> 
+                                        </div>   
+                                        <div class="col-12 mb-3">
+                                            <div class="row">
+                                                <div class="mt-4">
+                                                    <label class="rb-bank">
+                                                        <input type="radio" name="radio">
+                                                        <span class="rb-checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="col-2">
+                                                    <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/digibank-02.png')}}" alt="">
+                                                </div>
+                                                <div class="col-8 mt-3">
+                                                    <p class="text-ekspedisi" style="margin-bottom: 0%;">Digi Bank</p>
+                                                    <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
+                                                </div>
+                                            </div> 
+                                        </div>   
+                                    </div>
+                                    <!--Batas Kartu Kredit-->
+                                </div>
+                            </div>
                         </div>
-                        
-                        <div class="container ml-2"id="myDIV">
-                            <div class="tab mt-3 mb-3" >
+
+                        <div class="col-sm-5" style="padding-bottom: 50%;">
+                            <div class="container card">
+                                <div class="row mt-3">
+                                    <input type="hidden" name="shipping_info" value="{{ $shipping_info }}">
+                                    <div class="col-6">
+                                        <p class="text-rincian-bayar" style="color: #B71C1C;">Total Pembayaran</p>
+                                    </div>
+                                    <div class="col-6">
+                                        <p class="text-rincian-bayar" style="color: #B71C1C; text-align: right;">{{ single_price($total) }}</p>
+                                        <input type="hidden" name="total" value="{{ $total }}">
+                                    </div>
+                                </div>
+                                <div class="container" style="border-bottom:1px solid #C4C4C4">
+                                    
+                                </div>
                                 <div class="row">
-                                    <button class="col-3 btn btn-pembayaran tablinks actived" onclick="openCity(event, 'Transfer')">Transfer Bank</button>
-                                    <button class="col-3 btn btn-pembayaran tablinks" onclick="openCity(event, 'Indomart')">Indomart / i.Saku</button>
-                                    <button class="col-3 btn btn-pembayaran tablinks" onclick="openCity(event, 'Alfamart')">Alfamart</button>
-                                    <button class="col-3 btn btn-pembayaran tablinks" onclick="openCity(event, 'Kartukredit')">Kartu Kredit</button>
+                                    <div class="col-7">
+                                        <p class="text-ekspedisi">Point yang akan di dapat</p>
+                                    </div>
+                                    <div class="col-5">
+                                        <p class="price__produk" style="text-align: right;">+18</p>
+                                    </div>
                                 </div>
-                                
+                                <button class="mb-4 mt-2 btn btn-default">Lanjutkan Pembayaran</button>
                             </div>
-                                
-                            <div id="Transfer" class="tabcontent" style="display:block;">
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Bank/bni-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank BNI</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Transfer BNI</p>
-                                        </div>
-                                    </div> 
-                                </div>
-                                
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Bank/bri-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank BRI</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Transfer BRI</p>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Bank/bca-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank BCA</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Transfer BCA</p>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Bank/mandiri-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank Mandiri</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Transfer Mandiri</p>
-                                        </div>
-                                    </div> 
-                                </div>
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Bank/permata-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Bank Permata</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Transfer Permata</p>
-                                        </div>
-                                    </div> 
-                                </div>
-                            </div>
-                            <!--Batas Bank-->
-
-                            <div id="Indomart" class="tabcontent">
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Indomart/indomaret-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Indomart</p>
-                                            <p class="date-ekspedisi"> Hanya bayar pada teller Indomart</p>
-                                        </div>
-                                    </div> 
-                                </div> 
-                            </div>
-                            <!--Batas Indomart-->
-
-                            <div id="Alfamart" class="tabcontent">
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Alfmart/indomaret-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Alfamart</p>
-                                            <p class="date-ekspedisi"> Hanya bayar pada teller Alfamart</p>
-                                        </div>
-                                    </div> 
-                                </div>   
-                            </div>
-                            <!--Batas Alfamart-->
-
-                            <div id="Kartukredit" class="tabcontent">
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/visa-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Visa</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
-                                        </div>
-                                    </div> 
-                                </div>   
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/paninbank-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Panin Bank</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
-                                        </div>
-                                    </div> 
-                                </div>   
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/mastercard-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Master Card</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
-                                        </div>
-                                    </div> 
-                                </div>   
-                                <div class="col-12 mb-3">
-                                    <div class="row">
-                                        <div class="mt-4">
-                                            <label class="rb-bank">
-                                                <input type="radio" name="radio">
-                                                <span class="rb-checkmark"></span>
-                                            </label>
-                                        </div>
-                                        <div class="col-2">
-                                            <img class="logo-bank" src="{{my_asset('/images/icon/Kartukredit/digibank-02.png')}}" alt="">
-                                        </div>
-                                        <div class="col-8 mt-3">
-                                            <p class="text-ekspedisi" style="margin-bottom: 0%;">Digi Bank</p>
-                                            <p class="date-ekspedisi"> Hanya Menerima dari Kredit / Debit</p>
-                                        </div>
-                                    </div> 
-                                </div>   
-                            </div>
-                            <!--Batas Kartu Kredit-->
                         </div>
                     </div>
                 </div>
-
-                <div class="col-sm-5" style="padding-bottom: 50%;">
-                    <div class="container card">
-                        <div class="row mt-3">
-                            
-                            <div class="col-6">
-                                <p class="text-rincian-bayar" style="color: #B71C1C;">Total Pembayaran</p>
-                            </div>
-                            <div class="col-6">
-                                <p class="text-rincian-bayar" style="color: #B71C1C; text-align: right;">Rp. 13.000</p>
-                            </div>
-                        </div>
-                        <div class="container" style="border-bottom:1px solid #C4C4C4">
-                            
-                        </div>
-                        <div class="row">
-                            <div class="col-7">
-                                <p class="text-ekspedisi">Point yang akan di dapat</p>
-                            </div>
-                            <div class="col-5">
-                                <p class="price__produk" style="text-align: right;">+18</p>
-                            </div>
-                        </div>
-                        <button class="mb-4 mt-2 btn btn-default">Lanjutkan Pembayaran</button>
-                    </div>
-                </div>
+                
             </div>
-        </div>
-        
-    </div>
-    
+        </form>
     </section>
 
     <!--X END X-->
-    <!-- <div id="page-content">
+    {{-- <div id="page-content">
         <section class="slice-xs sct-color-2 border-bottom">
             <div class="container container-sm">
                 <div class="row cols-delimited justify-content-center">
@@ -544,7 +559,7 @@
                 </div>
             </div>
         </section>
-    </div> -->
+    </div> --}}
 @endsection
 
 @section('script')
@@ -580,6 +595,8 @@
         }
 
         function openCity(evt, TabName) {
+            evt.preventDefault();
+            
           var i, tabcontent, tablinks;
           tabcontent = document.getElementsByClassName("tabcontent");
           for (i = 0; i < tabcontent.length; i++) {

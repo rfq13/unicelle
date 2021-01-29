@@ -350,3 +350,7 @@ Route::group(['prefix'=>'/voucher'],function ()
 	Route::view('own','voucher.myvoucher')->name('my.voucher');
 	Route::view('list','voucher.listvoucher')->name('list.voucher');
 });
+
+
+Route::get('xendit/get-banks','Payment\XenditController@getVA');
+Route::get('xendit/invoice','Payment\XenditController@createVA');

@@ -180,7 +180,7 @@
                 </div>
             @endif
         @endif
-        <form action="{{ route('payment.checkout') }}" id="form-checkout" method="POST">
+        <form action="{{ route('checkout.store_delivery_info') }}" id="form-checkout" method="POST">
         @csrf
         <input type="hidden" name="shipping_info" id="shipping_info" @if(isset($ongkir)) value="{{ encrypt($ongkir) }}" @endif>
         <input type="hidden" name="payment_option" value="manual_transfer">

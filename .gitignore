@@ -23,3 +23,5 @@ composer.lock
 .env
 storage/logs
 resources/lang
+vendor
+resources/lang/en.json
