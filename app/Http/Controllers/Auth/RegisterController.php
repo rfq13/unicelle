@@ -64,7 +64,7 @@ class RegisterController extends Controller
             'nama_depan' => 'required|string|max:255',
             'nama_belakang' => 'required|string|max:255',
             'email' => 'required|email',
-            'no_telepon' => 'required|numeric',
+            'phone' => 'required|numeric',
             'password' => 'required|string|min:6|confirmed',
         ];
 
@@ -98,7 +98,12 @@ class RegisterController extends Controller
                 'name' => $data['nama_depan'] . " " . $data['nama_belakang'],
                 'password' => Hash::make($data['password']),
                 'user_type' => array_key_exists("user_type", $data) ? $data['user_type'] : "pasien reg",
-                'email' => $data['email']
+                'email' => $data['email'],
+                'phone' => $data['phone']
+
+
+
+
             ];
             // dd(substr($referral_code,strlen($referral_code)-6));
 
@@ -181,8 +186,6 @@ class RegisterController extends Controller
             $nama_lengkap = $request->nama_depan.' '.$request->nama_belakang;
             $newUser                  = new User;
             $newUser->name            = $nama_lengkap;
-            $newUser->gender          = $request->gender;
-            $newUser->birth       = $request->birth;
             $newUser->user_type       = 'pasien reg';
             $newUser->phone           = $tlp;
             $newUser->email_verified_at = date('Y-m-d H:m:s');
