@@ -226,7 +226,7 @@ class UpdateSyncMapItemOptions extends Options {
     }
 
     /**
-     * A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16KB in length.
+     * A JSON string that represents an arbitrary, schema-less object that the Map Item stores. Can be up to 16 KiB in length.
      *
      * @param array $data A JSON string that represents an arbitrary, schema-less
      *                    object that the Map Item stores
