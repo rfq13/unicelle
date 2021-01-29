@@ -21,7 +21,12 @@ updates/
 composer.lock
 *.lock
 .env
-storage/logs
-resources/lang
-vendor
-resources/lang/en.json
+firebase-messaging-sw.js
+public/frontend/images/placeholder.jpg
+public/frontend/images/placeholder.jpg
+public/uploads/
+public/blog/
+public/shop/
+public/skinlopedia/
+public/sliders/
+
