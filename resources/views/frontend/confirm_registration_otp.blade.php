@@ -38,7 +38,7 @@
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan">
                                         @if ($errors->has('nama_depan'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_depan') }}</strong>
                                             </span>
                                         @endif
@@ -47,7 +47,7 @@
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang">
                                         @if ($errors->has('nama_belakang'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_belakang') }}</strong>
                                             </span>
                                         @endif
@@ -58,7 +58,7 @@
                                 <div class="form-group">
                                     <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
                                     @if ($errors->has('email'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
@@ -67,26 +67,28 @@
                                 <div class="form-group">
                                     <input type="text" id="telp" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ $nomor_hp }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
                                     @if ($errors->has('no_telepon'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('no_telepon') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-                                <div class="form-group" style="text-align: left;">
-                                <p>Please select your gender:</p>
-
-                                <div class="row" style="margin-left: 20px;">
-                                <label for="male" style="padding-right:20px">
-                                <input type="radio" id="male" name="gender" value="L">
-                                Laki-Laki</label><br>
-                                <label for="female">
-                                <input type="radio" id="female" name="gender" value="P">
-                                Perempuan</label><br>
-                                </div>
-                                </div>
+                                <!-- <div class="form-group" style="text-align:left">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label pr-4">Jenis
+                                            Kelamin</label>
+                                            <div class="col-md-12">
+                                        <div class="form-check form-check-inline col-sm-3">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1" required>
+                                            <label class="form-check-label" for="inlineRadio1">Laki-Laki</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-sm-4">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2" required>
+                                            <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                        </div>
+                                        </div>
+                                    </div>
                                 <div class="form-group" style="text-align: left;">
                                 <input type="text" class="form-control datepicker" name="birth" id="datepicker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Lahir">
-                                </div>
+                                </div> -->
 
                                 @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
                                     <div class="form-group">
@@ -146,7 +148,7 @@
     $( "#datepicker" ).datepicker({
         changeMonth: true,
       changeYear: true,
-      minYear:'1990',
+      yearRange: "-100:+0",
 dateFormat: "yy-mm-dd",
 });
         //making the CAPTCHA  a required field for form submission

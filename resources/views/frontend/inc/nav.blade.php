@@ -86,10 +86,15 @@ $point = Auth::user()->poin;
                             </i>
                             <div class="dropdown-menu dropdown-menu-right mt-3">
                                 @auth
+                                
                                     <div class="dropdown-item d-flex align-items-center">
-                                        <img class="profile-icon"
-                                            src="{{ Auth::user()->avatar_original != null ? my_asset(Auth::user()->avatar_original) : my_asset('img/header_dan_footer/icon/fb.png') }}"
-                                            alt="">
+                                    <div class="img-akun__ widget-profile-box mr-3">
+                                        @if (Auth::user()->avatar_original != null)
+                                            <div class="image" style="background-image:url('{{ my_asset(Auth::user()->avatar_original) }}')"></div>
+                                        @else
+                                            <img src="{{ my_asset('frontend/images/user.png') }}" class="image rounded-circle">
+                                        @endif
+                                    </div>
                                         <div class="ml-3">
                                             <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">
                                                 {{ Auth::user()->name }}

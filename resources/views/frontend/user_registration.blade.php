@@ -8,7 +8,7 @@
 
 
     <section class="bg-img-login">
-        <div class="container vh-100" style="display: flex; justify-content: center; align-content: center;padding:2%">
+        <div style="display: flex; justify-content: center; align-content: center;padding:2%">
             <div class="row align-items-center w-100 text-center">
                 @if ($physician == "physician")
                 <div class="col-lg-12 my-auto">
@@ -50,7 +50,7 @@
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan">
                                         @if ($errors->has('nama_depan'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_depan') }}</strong>
                                             </span>
                                         @endif
@@ -58,7 +58,7 @@
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang">
                                         @if ($errors->has('nama_belakang'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_belakang') }}</strong>
                                             </span>
                                         @endif
@@ -69,7 +69,7 @@
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('nama_instansi') ? ' is-invalid' : '' }}" value="{{ old('nama_instansi') }}" placeholder="{{  translate('Nama Klinik / Rumah Sakit / Intitusi') }}" name="nama_instansi">
                                         @if ($errors->has('nama_instansi'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_instansi') }}</strong>
                                             </span>
                                         @endif
@@ -77,7 +77,7 @@
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('alamat_instansi') ? ' is-invalid' : '' }}" value="{{ old('alamat_instansi') }}" placeholder="{{  translate('Alamat Klinik / Praktek Dokter') }}" name="alamat_instansi">
                                         @if ($errors->has('alamat_instansi'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('alamat_instansi') }}</strong>
                                             </span>
                                         @endif
@@ -88,7 +88,7 @@
                                     <div class="col">
                                         <input type="number" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomer Klinik/Surat Izin Praktek Dokter') }}" name="izin">
                                         @if ($errors->has('izin'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('izin') }}</strong>
                                             </span>
                                         @endif
@@ -110,17 +110,17 @@
                                 <!--  -->
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <input type="text" id="telp" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ old('no_telepon') }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
-                                    @if ($errors->has('no_telepon'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('no_telepon') }}</strong>
+                                        <input type="text" id="telp" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{  translate('Nomor Telepon') }}" name="phone" onkeypress="return hanyaAngka(event)"  maxlength="14">
+                                    @if ($errors->has('phone'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('phone') }}</strong>
                                         </span>
                                     @endif
                                     </div>
                                     <div class="col">
                                         <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
                                     @if ($errors->has('email'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
@@ -131,7 +131,7 @@
                                     <div class="col">
                                         <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Kata Sandi') }}" name="password">
                                     @if ($errors->has('password'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
                                     @endif
@@ -199,16 +199,15 @@
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan">
                                         @if ($errors->has('nama_depan'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_depan') }}</strong>
                                             </span>
                                         @endif
                                     </div>
-
                                     <div class="col">
                                         <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang">
                                         @if ($errors->has('nama_belakang'))
-                                            <span class="invalid-feedback" role="alert">
+                                            <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_belakang') }}</strong>
                                             </span>
                                         @endif
@@ -218,17 +217,33 @@
                                 <div class="form-group">
                                     <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
                                     @if ($errors->has('email'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-
+                                <!-- <div class="form-group" style="text-align:left">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label pr-4">Jenis
+                                            Kelamin</label>
+                                            <div class="col-md-12">
+                                        <div class="form-check form-check-inline col-sm-3">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1" required>
+                                            <label class="form-check-label" for="inlineRadio1">Laki-Laki</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-sm-4">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2" required>
+                                            <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                        </div>
+                                        </div>
+                                    </div>
+                                <div class="form-group" style="text-align: left;">
+                                <input type="text" class="form-control datepicker" name="birth" id="datepicker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Lahir">
+                                </div> -->
                                 <div class="form-group">
-                                    <input type="text" id="telp" class="form-control {{ $errors->has('no_telepon') ? ' is-invalid' : '' }}" value="{{ old('no_telepon') }}" placeholder="{{  translate('Nomor Telepon') }}" name="no_telepon" onkeypress="return hanyaAngka(event)"  maxlength="14">
-                                    @if ($errors->has('no_telepon'))
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('no_telepon') }}</strong>
+                                    <input type="text" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{  translate('Nomor Telepon') }}" name="phone" onkeypress="return hanyaAngka(event)"  maxlength="14">
+                                    @if ($errors->has('phone'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('phone') }}</strong>
                                         </span>
                                     @endif
                                 </div>
@@ -236,7 +251,7 @@
                                 <div class="form-group mt-1">
                                     <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Kata Sandi') }}" name="password">
                                     @if ($errors->has('password'))
-                                        <span class="invalid-feedback" role="alert">
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
                                         </span>
                                     @endif
@@ -433,8 +448,17 @@
 
 @section('script')
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script type="text/javascript">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script type="text/javascript">
+    $( "#datepicker" ).datepicker({
+        changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+0",
+dateFormat: "yy-mm-dd",
+});
         //making the CAPTCHA  a required field for form submission
         $(document).ready(function(){
             // alert('helloman');
