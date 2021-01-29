@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4173f608c2fcca58c487072685519c7d
+class ComposerStaticInit4827de097a32e22ef56036ac4cd34693
 {
     public static $files = array (
         'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
@@ -885,6 +885,7 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'App\\Http\\Controllers\\PageController' => __DIR__ . '/../..' . '/app/Http/Controllers/PageController.php',
         'App\\Http\\Controllers\\PayhereController' => __DIR__ . '/../..' . '/app/Http/Controllers/PayhereController.php',
         'App\\Http\\Controllers\\PaymentController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaymentController.php',
+        'App\\Http\\Controllers\\Payment\\XenditController' => __DIR__ . '/../..' . '/app/Http/Controllers/Payment/XenditController.php',
         'App\\Http\\Controllers\\PaypalController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaypalController.php',
         'App\\Http\\Controllers\\PaystackController' => __DIR__ . '/../..' . '/app/Http/Controllers/PaystackController.php',
         'App\\Http\\Controllers\\PickupPointController' => __DIR__ . '/../..' . '/app/Http/Controllers/PickupPointController.php',
@@ -1073,8 +1074,7 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'App\\privacypolicy' => __DIR__ . '/../..' . '/app/privacypolicy.php',
         'App\\setPoint' => __DIR__ . '/../..' . '/app/setPoint.php',
         'App\\userMember' => __DIR__ . '/../..' . '/app/userMember.php',
-        'ArithmeticError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/ArithmeticError.php',
-        'AssertionError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/AssertionError.php',
+        'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Barryvdh\\DomPDF\\Facade' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/Facade.php',
         'Barryvdh\\DomPDF\\PDF' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/PDF.php',
         'Barryvdh\\DomPDF\\ServiceProvider' => __DIR__ . '/..' . '/barryvdh/laravel-dompdf/src/ServiceProvider.php',
@@ -2156,8 +2156,6 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'HTMLPurifier_Injector_RemoveEmpty' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/Injector/RemoveEmpty.php',
         'HTMLPurifier_Injector_RemoveSpansWithoutAttributes' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/Injector/RemoveSpansWithoutAttributes.php',
         'HTMLPurifier_Injector_SafeObject' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/Injector/SafeObject.php',
-        'HTMLPurifier_Language' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/Language.php',
-        'HTMLPurifier_LanguageFactory' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/LanguageFactory.php',
         'HTMLPurifier_Length' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/Length.php',
         'HTMLPurifier_Lexer' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/Lexer.php',
         'HTMLPurifier_Lexer_DOMLex' => __DIR__ . '/..' . '/ezyang/htmlpurifier/library/HTMLPurifier/Lexer/DOMLex.php',
@@ -3612,7 +3610,6 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'League\\OAuth1\\Client\\Server\\User' => __DIR__ . '/..' . '/league/oauth1-client/src/Server/User.php',
         'League\\OAuth1\\Client\\Server\\Uservoice' => __DIR__ . '/..' . '/league/oauth1-client/src/Server/Uservoice.php',
         'League\\OAuth1\\Client\\Server\\Xing' => __DIR__ . '/..' . '/league/oauth1-client/src/Server/Xing.php',
-        'League\\OAuth1\\Client\\Signature\\EncodesQuery' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/EncodesQuery.php',
         'League\\OAuth1\\Client\\Signature\\EncodesUrl' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/EncodesUrl.php',
         'League\\OAuth1\\Client\\Signature\\HmacSha1Signature' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/HmacSha1Signature.php',
         'League\\OAuth1\\Client\\Signature\\PlainTextSignature' => __DIR__ . '/..' . '/league/oauth1-client/src/Signature/PlainTextSignature.php',
@@ -5068,7 +5065,6 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'PhpParser\\Lexer\\TokenEmulator\\NumericLiteralSeparatorEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/NumericLiteralSeparatorEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\ReverseEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/ReverseEmulator.php',
         'PhpParser\\Lexer\\TokenEmulator\\TokenEmulator' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/TokenEmulator.php',
-        'PhpParser\\Lexer\\TokenEmulator\\TokenEmulatorInterface' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Lexer/TokenEmulator/TokenEmulatorInterface.php',
         'PhpParser\\NameContext' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/NameContext.php',
         'PhpParser\\Node' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/Node.php',
         'PhpParser\\NodeAbstract' => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser/NodeAbstract.php',
@@ -5904,7 +5900,6 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'Stripe\\Subscription' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Subscription.php',
         'Stripe\\SubscriptionItem' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SubscriptionItem.php',
         'Stripe\\SubscriptionSchedule' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SubscriptionSchedule.php',
-        'Stripe\\SubscriptionScheduleRevision' => __DIR__ . '/..' . '/stripe/stripe-php/lib/SubscriptionScheduleRevision.php',
         'Stripe\\TaxId' => __DIR__ . '/..' . '/stripe/stripe-php/lib/TaxId.php',
         'Stripe\\TaxRate' => __DIR__ . '/..' . '/stripe/stripe-php/lib/TaxRate.php',
         'Stripe\\Terminal\\ConnectionToken' => __DIR__ . '/..' . '/stripe/stripe-php/lib/Terminal/ConnectionToken.php',
@@ -7586,17 +7581,11 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'Twilio\\Rest\\Conversations\\V1\\UpdateConversationOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/ConversationOptions.php',
         'Twilio\\Rest\\Conversations\\V1\\UpdateCredentialOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/CredentialOptions.php',
         'Twilio\\Rest\\Conversations\\V1\\UpdateUserOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/UserOptions.php',
-        'Twilio\\Rest\\Conversations\\V1\\UpdateWebhookOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/WebhookOptions.php',
         'Twilio\\Rest\\Conversations\\V1\\UserContext' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/UserContext.php',
         'Twilio\\Rest\\Conversations\\V1\\UserInstance' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/UserInstance.php',
         'Twilio\\Rest\\Conversations\\V1\\UserList' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/UserList.php',
         'Twilio\\Rest\\Conversations\\V1\\UserOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/UserOptions.php',
         'Twilio\\Rest\\Conversations\\V1\\UserPage' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/UserPage.php',
-        'Twilio\\Rest\\Conversations\\V1\\WebhookContext' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/WebhookContext.php',
-        'Twilio\\Rest\\Conversations\\V1\\WebhookInstance' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/WebhookInstance.php',
-        'Twilio\\Rest\\Conversations\\V1\\WebhookList' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/WebhookList.php',
-        'Twilio\\Rest\\Conversations\\V1\\WebhookOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/WebhookOptions.php',
-        'Twilio\\Rest\\Conversations\\V1\\WebhookPage' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Conversations/V1/WebhookPage.php',
         'Twilio\\Rest\\Events' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events.php',
         'Twilio\\Rest\\Events\\V1' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1.php',
         'Twilio\\Rest\\Events\\V1\\EventTypeContext' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/EventTypeContext.php',
@@ -7627,11 +7616,8 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'Twilio\\Rest\\Events\\V1\\SubscriptionList' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/SubscriptionList.php',
         'Twilio\\Rest\\Events\\V1\\SubscriptionOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/SubscriptionOptions.php',
         'Twilio\\Rest\\Events\\V1\\SubscriptionPage' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/SubscriptionPage.php',
-        'Twilio\\Rest\\Events\\V1\\Subscription\\CreateSubscribedEventOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/Subscription/SubscribedEventOptions.php',
-        'Twilio\\Rest\\Events\\V1\\Subscription\\SubscribedEventContext' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/Subscription/SubscribedEventContext.php',
         'Twilio\\Rest\\Events\\V1\\Subscription\\SubscribedEventInstance' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/Subscription/SubscribedEventInstance.php',
         'Twilio\\Rest\\Events\\V1\\Subscription\\SubscribedEventList' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/Subscription/SubscribedEventList.php',
-        'Twilio\\Rest\\Events\\V1\\Subscription\\SubscribedEventOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/Subscription/SubscribedEventOptions.php',
         'Twilio\\Rest\\Events\\V1\\Subscription\\SubscribedEventPage' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/Subscription/SubscribedEventPage.php',
         'Twilio\\Rest\\Events\\V1\\UpdateSubscriptionOptions' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Events/V1/SubscriptionOptions.php',
         'Twilio\\Rest\\Fax' => __DIR__ . '/..' . '/twilio/sdk/src/Twilio/Rest/Fax.php',
@@ -9451,7 +9437,6 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'phpDocumentor\\Reflection\\Types\\Context' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Context.php',
         'phpDocumentor\\Reflection\\Types\\ContextFactory' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/ContextFactory.php',
         'phpDocumentor\\Reflection\\Types\\Expression' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Expression.php',
-        'phpDocumentor\\Reflection\\Types\\False_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/False_.php',
         'phpDocumentor\\Reflection\\Types\\Float_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Float_.php',
         'phpDocumentor\\Reflection\\Types\\Integer' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Integer.php',
         'phpDocumentor\\Reflection\\Types\\Intersection' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Intersection.php',
@@ -9467,7 +9452,6 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
         'phpDocumentor\\Reflection\\Types\\Static_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Static_.php',
         'phpDocumentor\\Reflection\\Types\\String_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/String_.php',
         'phpDocumentor\\Reflection\\Types\\This' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/This.php',
-        'phpDocumentor\\Reflection\\Types\\True_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/True_.php',
         'phpDocumentor\\Reflection\\Types\\Void_' => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src/Types/Void_.php',
         'phpDocumentor\\Reflection\\Utils' => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src/Utils.php',
         'phpseclib\\Crypt\\AES' => __DIR__ . '/..' . '/phpseclib/phpseclib/phpseclib/Crypt/AES.php',
@@ -9499,10 +9483,10 @@ class ComposerStaticInit4173f608c2fcca58c487072685519c7d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4173f608c2fcca58c487072685519c7d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4173f608c2fcca58c487072685519c7d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit4173f608c2fcca58c487072685519c7d::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit4173f608c2fcca58c487072685519c7d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit4827de097a32e22ef56036ac4cd34693::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit4827de097a32e22ef56036ac4cd34693::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInit4827de097a32e22ef56036ac4cd34693::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit4827de097a32e22ef56036ac4cd34693::$classMap;
 
         }, null, ClassLoader::class);
     }
