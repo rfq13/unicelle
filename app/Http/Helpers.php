@@ -292,21 +292,25 @@ if (! function_exists('convert_to_usd')) {
 if (! function_exists('xenditRequest')) {
     function xenditRequest($method, $params=false) {
         Xendit::setApiKey(env('XENDIT_API_KEY'));
-        $va = "error";
+        
+        $data = "error";
         switch ($method) {
             case 'invoice':
-                $va = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $va;
+                $data = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $data;
                 break;
             case 'banks':
-                $va = \Xendit\VirtualAccounts::getVABanks();
+                $data = \Xendit\VirtualAccounts::getVABanks();
+                break;
+            case 'retail':
+                $data = \Xendit\Retail::create($params);
                 break;
             
             default:
-                $va = \Xendit\VirtualAccounts::getVABanks();
+                $data = \Xendit\VirtualAccounts::getVABanks();
                 break;
         }
 
-        return $va;
+        return $data;
     }
 }
 

@@ -388,6 +388,29 @@ class OrderController extends Controller
             unlink($array['file']);
 
             $request->session()->put('order_id', $order->id);
+
+            
+
+            $params = [
+                "external_id" => "VA-".\uniqid(),
+                "bank_code" => $request->payment_option,
+                "name" => Auth::user()->name,
+                "expected_amount" => $request->total,
+                "is_close" => false,
+                "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
+                "is_single_use"=> true
+            ];
+            $xmethod = 'invoice';
+            
+            if ($request->has('retail')) {
+                unset($params['bank_code']);
+                
+                $params['retail_outlet_name'] = $request->payment_option;
+            }
+            
+            $xendit = xenditRequest($xmethod,$params);
+
+            return $xendit;
         }
     }
 
