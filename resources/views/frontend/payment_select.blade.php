@@ -261,6 +261,12 @@
                                     <div class="col-6">
                                         <p class="text-rincian-bayar" style="color: #B71C1C;">Total Pembayaran</p>
                                     </div>
+
+                                    @php
+                                        $spi = decrypt($shipping_info);
+                                        $total += $spi->cost;
+                                    @endphp
+
                                     <div class="col-6">
                                         <p class="text-rincian-bayar" style="color: #B71C1C; text-align: right;">{{ single_price($total) }}</p>
                                         <input type="hidden" name="total" value="{{ $total }}">

@@ -17,11 +17,21 @@ yarn-error.log
 .idea/
 .env
 
+.htaccess
+
 updates/
 composer.lock
 *.lock
 .env
-storage/logs
-resources/lang
+firebase-messaging-sw.js
+public/frontend/images/placeholder.jpg
+public/frontend/images/placeholder.jpg
+public/uploads/
+public/blog/
+public/shop/
+public/skinlopedia/
+public/sliders/
+
+.htaccess
 vendor
-resources/lang/en.json
+storage/logs
