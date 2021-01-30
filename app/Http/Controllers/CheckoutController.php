@@ -243,7 +243,7 @@ class CheckoutController extends Controller
 
     public function get_shipping_info(Request $request)
     {
-        
+        dd(count(Session::get('cart')));
         if(Session::has('cart') && count(Session::get('cart')) > 0){
             $categories = Category::all();
             return view('frontend.shipping_info', compact('categories'));
