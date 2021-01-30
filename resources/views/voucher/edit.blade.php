@@ -8,7 +8,7 @@
                 <h3 class="panel-title">{{translate('Informasi Kupon Voucher')}}</h3>
             </div>
 
-            <form class="form-horizontal" action="{{ route('voucher.store')}}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('voucher.update', $coupon_voucher->id) }}" method="post" class="form-horizontal" enctype="multipart/form-data">
             	@csrf
                 <div class="panel-body">
                 <div class="panel-heading">
@@ -16,37 +16,38 @@
 <div class="form-group">
     <label class="col-lg-3 control-label" for="coupon_code">{{translate('Nama Merchant')}}</label>
     <div class="col-lg-9">
-        <input type="text"  id="coupon_code" name="merchant" class="form-control" required>
+        <input type="text"  id="coupon_code" name="merchant" value={{$coupon_voucher->merchant}} class="form-control" required>
     </div>
 </div>
 <div class="form-group">
    <label class="col-lg-3 control-label">{{translate('Nama Voucher')}}</label>
    <div class="col-lg-9">
-      <input type="text" name="judul" class="form-control" required>
+      <input type="text" name="judul" value={{$coupon_voucher->judul}} class="form-control" required>
    </div>
 </div>
 <div class="form-group">
    <label class="col-lg-3 control-label">{{translate('Total Point')}}</label>
    <div class="col-lg-9">
-      <input type="number"  name="point" class="form-control" required>
+      <input type="number"  name="point" value={{$coupon_voucher->point}} class="form-control" required>
    </div>
 </div>
 <div class="form-group">
 <label class="col-lg-3 control-label">{{translate('Thumbnail')}}</label>
 <div class="col-lg-9">
-                        <input type="file" name="thumbnail" class="form-control">
+<img src="{{ my_asset($coupon_voucher->thumbnail) }}"  id="template-preview" width="100px">
+                        <input type="file" id="files" name="thumbnail" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
                       <label class="col-lg-3 control-label">{{translate('Syarat dan Ketentuan')}}</label>
                       <div class="col-lg-9">
-                      <textarea name="syarat" id="konten-sk" cols="30" rows="10"></textarea>
+                      <textarea name="syarat" id="konten-sk" cols="30" rows="10">{{$coupon_voucher->syarat}}</textarea>
                       </div>
                     </div>
                     <div class="form-group">
                       <label class="col-lg-3 control-label">{{translate('Cara Pemakaian Voucher')}}</label>
                       <div class="col-lg-9">
-                      <textarea name="cara" id="konten-cp" cols="30" rows="10"></textarea>
+                      <textarea name="cara" id="konten-cp" cols="30" rows="10">{{$coupon_voucher->cara}}</textarea>
                       </div>
                     </div>
 <div class="form-group">
@@ -54,9 +55,9 @@
     <div class="col-lg-9">
         <div id="demo-dp-range">
             <div class="input-daterange input-group" id="datepicker">
-                <input type="text" class="form-control" name="start_date">
+                <input type="text" class="form-control" value="{{ date('m/d/Y', $coupon_voucher->start_date) }}" name="start_date">
                 <span class="input-group-addon">{{translate('to')}}</span>
-                <input type="text" class="form-control" name="end_date">
+                <input type="text" class="form-control" value="{{ date('m/d/Y', $coupon_voucher->end_date) }}" name="end_date">
             </div>
         </div>
     </div>
@@ -76,6 +77,22 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script type="text/javascript">
+    function readURLimage(input,targetimage) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        
+        reader.onload = function(e) {
+          targetimage.attr('src', e.target.result);
+        }
+        
+        reader.readAsDataURL(input.files[0]); // convert to base64 string
+      }
+    }
+    $(document).ready(function() {
+      $('input[name=file]').change(function () {
+          readURLimage(this,$('#template-preview'));
+    });  
+    });
  $('#demo-dp-range .input-daterange').datepicker({
                 startDate: '-0d',
                 todayBtn: "linked",

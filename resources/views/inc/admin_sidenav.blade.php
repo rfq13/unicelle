@@ -478,7 +478,7 @@
                                 <li class="{{ areActiveRoutes(['attributes.index','attributes.create','attributes.edit'])}}">
                                     <a class="nav-link" href="{{route('attributes.index')}}">{{translate('Atribut')}}</a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['voucher.index','voucher.create'])}}">
+                                <li class="{{ areActiveRoutes(['voucher.index','voucher.create','voucher.edit'])}}">
                                     <a class="nav-link" href="{{route('voucher.index')}}">{{translate('Voucher')}}</a>
                                 </li>
                                 {{-- <li>
