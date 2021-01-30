@@ -20,7 +20,6 @@
                         </thead>
                         <tbody>
                             @php
-                                $points = \App\setPoint::paginate(10);
                                 $num = 0
                                 
                             @endphp
@@ -78,7 +77,7 @@
                     </table>
                     <div class="clearfix">
                         <div class="pull-right">
-                            {{ $points->appends(request()->input())->links() }}
+                            {{ $products->appends(request()->input())->links() }}
                         </div>
                     </div>
                 </div>
