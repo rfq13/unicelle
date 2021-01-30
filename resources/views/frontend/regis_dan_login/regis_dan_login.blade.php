@@ -300,7 +300,6 @@
                     var uid = user.uid;
                     var phoneNumber = user.phoneNumber;
 
-                    console.log(uid);
                     $("input[name='uid']").val(uid);
                     $("input[name='nomor_hp']").val(phoneNumber);
                     $('form#form_lanjutan').submit();
@@ -324,7 +323,7 @@
                         $("#verifikasi").prepend("<input type='hidden' id='verifiedTelp' value='0"+number+"'>")
                         $('#verifikasi').modal();
                     }
-                    countDown(30)
+                    countDown(20)
                 }).catch(function (error){
                     showFrontendAlert("error",error.message);
                 });
@@ -359,6 +358,7 @@
                             let resend = document.getElementById("resend")
                                 resend.addEventListener("click", function (e) {
                                     var number = document.getElementById('verifiedTelp').value;
+                                    console.log(number);
                                     sendOtp(number)
                                 })
                         }

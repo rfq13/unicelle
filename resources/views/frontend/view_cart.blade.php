@@ -211,7 +211,7 @@
 
                             </div>
                             <div class="btn-add-address" style="border-bottom:1px solid #C4C4C4; border-top: 1px solid#c4c4c4;">
-                                <a href="">
+                                <a href="{{ route('home') }}">
                                     <li class="mb-2 mt-2" style="padding-left: 5%; padding-right: 5%; list-style-type: none; color: #006064;">+ Tambah</li>
                                 </a>    
                             </div>
@@ -391,7 +391,7 @@
                             <div class="row text-center" style="border-bottom:1px solid #C4C4C4; border-top: 1px solid#c4c4c4;">
                                 @if(Auth::check())
                                     {{--<a href="{{ route('checkout.shipping_info') }}" class="btn btn-styled btn-base-1">{{ translate('Continue to Shipping')}}</a>--}}
-                                        <a href="#" class="py-2" style="margin:auto; color: #006064;font-weight: bold;font-size:16px">
+                                        <a href="{{ route('home') }}" class="py-2" style="margin:auto; color: #006064;font-weight: bold;font-size:16px">
                                             + Tambah
                                         </a>
                                 @else
