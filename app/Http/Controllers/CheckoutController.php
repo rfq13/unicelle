@@ -244,9 +244,11 @@ class CheckoutController extends Controller
     public function get_shipping_info(Request $request)
     {
         // dd(count(Session::get('cart')));
-        if(Session::has('cart') && count(Session::get('cart')) > 0){
+        $carts = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $carts; 
+
+        if($carts && $carts->count() > 0){
             $categories = Category::all();
-            return view('frontend.shipping_info', compact('categories'));
+            return view('frontend.shipping_info', compact('categories','carts'));
         }
         flash(translate('Your cart is empty'))->success();
         return back();
@@ -286,7 +288,9 @@ class CheckoutController extends Controller
         $subtotal = 0;
         $tax = 0;
         $shipping = 0;
-        foreach (Session::get('cart') as $key => $cartItem){
+        $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
+
+        foreach ($cart as $key => $cartItem){
             $subtotal += $cartItem['price']*$cartItem['quantity'];
             $tax += $cartItem['tax']*$cartItem['quantity'];
             $shipping += $cartItem['shipping']*$cartItem['quantity'];
@@ -305,8 +309,9 @@ class CheckoutController extends Controller
     public function store_delivery_info(Request $request)
     {
         // dd(decrypt($request->shipping_info));
-        if(Session::has('cart') && count(Session::get('cart')) > 0){
-            $cart = $request->session()->get('cart', collect([]));
+        $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
+
+        if($cart && $cart->count() > 0){
             $cart = $cart->map(function ($object, $key) use ($request) {
                 if(\App\Product::find($object['id'])->added_by == 'admin'){
                     if($request['shipping_type_admin'] == 'home_delivery'){
@@ -341,7 +346,9 @@ class CheckoutController extends Controller
             $subtotal = 0;
             $tax = 0;
             $shipping = 0;
-            foreach (Session::get('cart') as $key => $cartItem){
+            $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
+
+            foreach ($cart as $key => $cartItem){
                 $subtotal += $cartItem['price']*$cartItem['quantity'];
                 $tax += $cartItem['tax']*$cartItem['quantity'];
                 $shipping += $cartItem['shipping']*$cartItem['quantity'];
@@ -368,7 +375,10 @@ class CheckoutController extends Controller
         $subtotal = 0;
         $tax = 0;
         $shipping = 0;
-        foreach (Session::get('cart') as $key => $cartItem){
+        $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
+
+       
+        foreach ($cart as $key => $cartItem){
             $subtotal += $cartItem['price']*$cartItem['quantity'];
             $tax += $cartItem['tax']*$cartItem['quantity'];
             $shipping += $cartItem['shipping']*$cartItem['quantity'];
@@ -397,7 +407,9 @@ class CheckoutController extends Controller
                         $subtotal = 0;
                         $tax = 0;
                         $shipping = 0;
-                        foreach (Session::get('cart') as $key => $cartItem)
+                        $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
+
+                        foreach ($cart as $key => $cartItem)
                         {
                             $subtotal += $cartItem['price']*$cartItem['quantity'];
                             $tax += $cartItem['tax']*$cartItem['quantity'];
@@ -423,7 +435,9 @@ class CheckoutController extends Controller
                     elseif ($coupon->type == 'product_base')
                     {
                         $coupon_discount = 0;
-                        foreach (Session::get('cart') as $key => $cartItem){
+                        $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
+
+                        foreach ($cart as $key => $cartItem){
                             foreach ($coupon_details as $key => $coupon_detail) {
                                 if($coupon_detail->product_id == $cartItem['id']){
                                     if ($coupon->discount_type == 'percent') {

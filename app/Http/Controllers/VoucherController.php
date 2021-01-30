@@ -33,10 +33,16 @@ class VoucherController extends Controller
         $coupons_voucher->judul = $request->judul;
         $coupons_voucher->point = $request->point;
         $coupons_voucher->slug = str_replace(" ","-",$request->title);
-        $coupons_voucher->syarat = $request->content;
-        $blog->thumbnail = $this->upload_image($request);
-        $blog->save();
-        flash("berhasil menambah blog")->success();
-        return redirect(route('blog.index'));
+        $coupons_voucher->syarat = $request->syarat;
+        $coupons_voucher->cara = $request->cara;
+        $coupons_voucher->thumbnail = $this->upload_image($request);
+        $coupons_voucher->start_date = $request->start_date;
+        $coupons_voucher->end_date = $request->end_date;
+        $coupons_voucher->is_active = '1';
+        $coupons_voucher->is_delete= '0';
+
+        $coupons_voucher->save();
+        flash("berhasil menambah Voucher")->success();
+        return redirect(route('voucher.index'));
     }
 }

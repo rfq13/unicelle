@@ -76,7 +76,12 @@
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
 <script type="text/javascript">
-
+ $('#demo-dp-range .input-daterange').datepicker({
+                startDate: '-0d',
+                todayBtn: "linked",
+                autoclose: true,
+                todayHighlight: true
+        	});
     $(document).ready(function(){
         $('.demo-select2').select2();
         $('#konten-sk').summernote({
