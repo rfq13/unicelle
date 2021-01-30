@@ -1,7 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-<a href="#" class="btn-success btn">sync</a>
     <div class="row">
         <div class="col-lg-7">
             <div class="panel">
@@ -10,11 +9,11 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th width="40%">{{__('Tipe Pengguna')}}</th>
+                                <th width="40%">{{__('Nama')}}</th>
                                 {{-- <th>{{__('Pemilik Produk')}}</th> --}}
                                 {{-- <th>{{__('Jumlah Penjualan')}}</th>
-                                <th>{{__('Harga Dasar')}}</th>
-                                <th>{{__('Peringkat')}}</th> --}}
+                                <th>{{__('Harga Dasar')}}</th>--}}
+                                <th>{{__('Harga')}}</th> 
                                 <th>{{__('Poin')}}</th>
                                 <th>{{__('aksi')}}</th>
                             </tr>
@@ -23,18 +22,22 @@
                             @php
                                 $points = \App\setPoint::paginate(10);
                                 $num = 0
+                                
                             @endphp
-                            @foreach($points as $key => $p)
+                            @foreach($products as $key => $p)
+                            @php
+                            $photo = $p->thumbnail_img != null ? $p->thumbnail_img : json_decode($p->photos)[0];
+                        @endphp
                                 <tr>
                                     <td>{{ $num++ }}</td>
-                                    {{-- <td>
-                                        <a href="{{ route('product', $product->slug) }}" target="_blank" class="media-block">
+                                    <td>
+                                        <a href="{{ route('product', $p->slug) }}" target="_blank" class="media-block">
                                             <div class="media-left">
-                                                <img loading="lazy"  class="img-md" src="{{ asset($product->thumbnail_img)}}" alt="Image">
+                                            <img loading="lazy"  class="img-md" src="{{ my_asset($photo)}}" alt="Image">
                                             </div>
-                                            <div class="media-body">{{ __($product->name) }}</div>
+                                            <div class="media-body">{{ __($p->name) }}</div>
                                         </a>
-                                    </td> --}}
+                                    </td> 
                                     {{-- <td>
                                     @if ($product->user != null)
                                         {{ $product->user->name }}
@@ -57,8 +60,8 @@
                                     {{-- <td>{{ number_format($product->unit_price,2) }}</td> --}}
                                     {{-- <td>{{ $product->rating }}</td>
                                     <td>{{ $product->earn_point }}</td> --}}
-                                    <td>member</td>
-                                    <td>10%</td>
+                                    <td>Rp. {{ number_format($p->unit_price) }}</td>
+                                    <td>{{ $p->earn_point }}</td>
                                     <td>
                                         <div class="btn-group dropdown">
                                             <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

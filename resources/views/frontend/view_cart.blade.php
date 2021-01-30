@@ -1,4 +1,8 @@
 @extends('frontend.layouts.app')
+@php
+    $carts = Session::has('cart') && count(Session::get('cart')) > 0 ? Session::get('cart') : false ;
+    $carts = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $carts; 
+@endphp
 @section('title','Keranjang')
 @section('content')
 
@@ -63,219 +67,10 @@
         </div>
     </section> -->--}}
     <!-- <section class="section-sub-head"></section> -->
-    {{--
-        <section class="section-detail-produk">
-            <div class="container mb-5">
-                <nav aria-label="breadcrumb">
-                    <ul class="breadcrumb mb-5">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" style="color:#3BB6B1" aria-current="page">Keranjang Belanda</li>
-                    </ul>
-                </nav>
-                <div class="row">
-                    <div class="col-lg-7" >
-                        <div class="card">
-                            <div class="card-header bg-white">
-                                <span class="cart-head-left p-2">Keranjang Belanja</span>
-                            </div>
-                            <div class="card-body" >
-                                <div class="d-flex bd-highlight pb-2">
-                                    <div class="nav-keranjang p-2 col-5">Nama</div>
-                                    <div class="nav-keranjang p-2 mx-2 col-3 text-center">Jumlah</div>
-                                    <div class="nav-keranjang p-2 mx-2 col-3 text-center">Harga</div>
-                                </div>
-                                    @php
-                                    $total = 0;
-                                    @endphp
-                                    @if(Session::has('cart'))
-                                    @foreach (Session::get('cart') as $key => $cartItem)
-                                        @php
-                                            $product = \App\Product::find($cartItem['id']);
-                                            $total = $total + $cartItem['price']*$cartItem['quantity'];
-                                            $product_name_with_choice = $product->name;
-                                            if ($cartItem['variant'] != null) {
-                                                $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
-                                            }
-                                            // if(isset($cartItem['color'])){
-                                            //     $product_name_with_choice .= ' - '.\App\Color::where('code', $cartItem['color'])->first()->name;
-                                            // }
-                                            // foreach (json_decode($product->choice_options) as $choice){
-                                            //     $str = $choice->name; // example $str =  choice_0
-                                            //     $product_name_with_choice .= ' - '.$cartItem[$str];
-                                            // }
-                                        @endphp
-                                        <div class="produk-card__ border-top border-bottom py-2 align-items-center">
-                                            <div class="d-flex bd-highlight">
-                                                <div class="p-2 col-5">
-                                                    <table>
-                                                        <tr>
-                                                            <td>
-                                                                <img class="img-cart-produk__" src="{{my_asset('/images/fb.png')}}"
-                                                                    alt="">
-                                                            </td>
-                                                            <td class="pl-3">
-                                                                <span class="name-produk-cart__">Amosssxicillin 500 Mg 10 Kaplet</span>
-                                                                <div class="tipe-produk__ mt-1">
-                                                                    <span>Per Strip</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                                <div class="p-2 mx-3 col-3 text-center">
-                                                    <div class="qty__cart">
-                                                        <div id="field1" class="d-flex align-items-center ">
-                                                            <button type="button" id="sub"
-                                                                class="sub justify-content-center align-items-center"><i
-                                                                    class="fa fa-minus"></i></button>
-                                                            <input class="qty__number text-center mx-1" type="text" id="1" value="1"
-                                                                min="1" max="12" readonly />
-                                                            <button type="button" id="add"
-                                                                class="add  justify-content-center align-items-center"><i
-                                                                    class="fa fa-plus"></i></button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="p-2 mx-3 col-3 text-center">
-                                                    <table>
-                                                        <tr>
-                                                            <td><span class="harga-cart">Rp 9.000</span></td>
-                                                            <th class="pl-4"><a href=""><i class="fa fa-trash-o"
-                                                            aria-hidden="true" style="font-size: 18px;  color: #424242 ;"></i>
-                                                            </a></th>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>
-                                                                <div class="dicount-cart__">
-                                                                    <span>Rp 12.000</span>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    </table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                    @endif
-                                <div class="produk-card__ border-top border-bottom py-2 align-items-center">
-                                    <div class="d-flex bd-highlight">
-                                        <div class="p-2 col-5">
-                                            <table>
-                                                <tr>
-                                                    <td>
-                                                        <img class="img-cart-produk__" src="{{my_asset('/images/fb.png')}}"
-                                                            alt="">
-                                                    </td>
-                                                    <td class="pl-3">
-                                                        <span class="name-produk-cart__">Amoxicillin 500 Mg 10 Kaplet</span>
-                                                        <div class="tipe-produk__ mt-1">
-                                                            <span>Per Strip</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                        <div class="p-2 mx-3 col-3 text-center">
-                                            <div class="qty__cart">
-                                                <div id="field1" class="d-flex align-items-center ">
-                                                    <button type="button" id="sub"
-                                                        class="sub justify-content-center align-items-center"><i
-                                                            class="fa fa-minus"></i></button>
-                                                    <input class="qty__number text-center mx-1" type="text" id="1" value="1"
-                                                        min="1" max="12" readonly />
-                                                    <button type="button" id="add"
-                                                        class="add  justify-content-center align-items-center"><i
-                                                            class="fa fa-plus"></i></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="p-2 mx-3 col-3 text-center">
-                                            <table>
-                                                <tr>
-                                                    <td><span class="harga-cart">Rp 9.000</span></td>
-                                                    <th class="pl-4"><a href=""><i class="fa fa-trash-o"
-                                                    aria-hidden="true" style="font-size: 18px;  color: #424242 ;"></i>
-                                                    </a></th>
-                                                <tr>
-                                                    <td>
-                                                        <div class="dicount-cart__">
-                                                            <span>Rp 12.000</span>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                            <div class="btn-add-address" style="border-bottom:1px solid #C4C4C4; border-top: 1px solid#c4c4c4;">
-                                <a href="{{ route('home') }}">
-                                    <li class="mb-2 mt-2" style="padding-left: 5%; padding-right: 5%; list-style-type: none; color: #006064;">+ Tambah</li>
-                                </a>    
-                            </div>
-                        </div>
-                        <!-- end -->
-                    </div>
-
-                    <div class="col-lg-5">
-                        <div class="card">
-                            <div class="card-header bg-white pt-4">
-                                <span class="text-info-keranjang">Tukar Poin</span>
-                                <div class="point-cart__">
-                                    <span>Poin Anda : 25.000</span>
-                                </div>
-                                <form>
-                                    <div class="form-row align-items-center">
-                                        <div class="col-8">
-                                            <input type="text" class="form-control" id="inlineFormInputName2"
-                                                placeholder="Masukkan Poin Anda">
-                                        </div>
-                                        <div class="col-4 my-3">
-                                            <button type="submit" class="btn btn-primary1 px-4">Pakai</button>
-                                        </div>
-                                </form>
-                            </div>
-                            <div class="card-body">
-                                <span class="rincian-cart__">Rincian Pembayaran</span>
-                                <div class="detail-total-cart__ mt-2">
-                                    <table style="width: 100%;">
-                                        <tr>
-                                            <td class="text-info-keranjang">Subtotal</td>
-                                            <td class="detail-table__">Rp 14.000</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-info-keranjang">Tukar Poin</td>
-                                            <td class="detail-table__">Rp -500</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="total-cart__">Total</td>
-                                            <td class="detail-table__ total-cart__">Rp 13.500</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
-                            <div class="card-footer bg-white">
-                                <table style="width: 100%;">
-                                    <tr>
-                                        <td class="text-info-keranjang">Poin yang akan didapat</td>
-                                        <td class="detail-table__ cart-point-plus__">+28</td>
-                                    </tr>
-                                </table>
-                                <div class="text-right my-3">
-                                    <button class="btn btn-primary1">Lanjutkan Checkout</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    --}}
+   
     <section class="py-4 bg-white" id="cart-summary" style="min-height: 60vh">
         <div class=" container">
-            @if(Session::has('cart'))
+        @if($carts && $carts->count() > 0)
                 <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="card col-xl-8 mb-3">
                     
@@ -297,10 +92,9 @@
                                         @php
                                         $total = 0;
                                         @endphp
-                                        @if(Session::has('cart'))
-                                        @foreach (Session::get('cart') as $keyi => $cartItem)
+                                        @foreach ($carts as $keyi => $cartItem)
                                             @php
-                                                $product = \App\Product::find($cartItem['id']);
+                                            $product = \App\Product::where('id',$cartItem['product_id'])->first();
                                                 $total = $total + $cartItem['price']*$cartItem['quantity'];
                                                 $product_name_with_choice = $product->name;
                                                 if ($cartItem['variant'] != null) {
@@ -375,13 +169,12 @@
                                                     <span>{{ single_price(($cartItem['price']+$cartItem['tax'])*$cartItem['quantity']) }}</span>
                                                 </td>
                                                 <td class="product-remove">
-                                                    <a href="#" onclick="removeFromCartView(event, {{ $keyi }})" class="text-right pl-4">
+                                                    <a href="#" onclick="removeFromCartView(event, {{ $cartItem['id'] }})" class="text-right pl-4">
                                                         <i class="la la-trash"></i>
                                                     </a>
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        @endif
                                     </tbody>
                                 </table>
                             </div>
@@ -413,6 +206,7 @@
                 <div class="col-xl-4 ml-lg-auto">
                     @include('frontend.partials.cart_summary')
                 </div>
+              
             </div>
             @else
                 {{-- <div class="dc-header bg-light p-3 px-5 ">

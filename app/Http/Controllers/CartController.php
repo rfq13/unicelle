@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Product;
 use App\SubSubCategory;
 use App\Category;
+use App\Cart;
 use Session;
 use App\Color;
 use Cookie;
@@ -150,30 +151,22 @@ class CartController extends Controller
         if(Cookie::has('referred_product_id') && Cookie::get('referred_product_id') == $product->id) {
             $data['product_referral_code'] = Cookie::get('product_referral_code');
         }
-
-        if($request->session()->has('cart')){
-            $foundInCart = false;
-            $cart = collect();
-
-            foreach ($request->session()->get('cart') as $key => $cartItem){
-                if($cartItem['id'] == $request->id){
-                    if($cartItem['variant'] == $str){
-                        $foundInCart = true;
-                        $cartItem['quantity'] += $request['quantity'];
-                    }
-                }
-                $cart->push($cartItem);
-            }
-
-            if (!$foundInCart) {
-                $cart->push($data);
-            }
-            $request->session()->put('cart', $cart);
+        $carts = Cart::where("user_id",Auth::check() ? Auth::user()->id : 0);
+        $save_cart = new Cart;
+        $cart = $carts->where("product_id",$product->id)->first();
+        if ($cart != null && $cart->variation == $data["variant"]) {
+            $save_cart = Cart::where(["user_id"=>Auth::user()->id,"product_id"=>$product->id])->first();
+            $save_cart->quantity += $data["quantity"] < 1 ? 1 : $data["quantity"];
+        }else {
+            $save_cart->user_id = Auth::check() ? Auth::user()->id : 0;
+            $save_cart->quantity = $data["quantity"] < 1 ? 1 : $data["quantity"];
+            $save_cart->product_id = $request->id;
+            $save_cart->variation = $data["variant"];
+            $save_cart->price = $data["price"];
+            $save_cart->tax = $data["tax"];
+            $save_cart->shipping_cost = $data["shipping"];
         }
-        else{
-            $cart = collect([$data]);
-            $request->session()->put('cart', $cart);
-        }
+        $save_cart->save();
         // dd($data);
         return view('frontend.partials.addedToCart', compact('product', 'data'));
     }
@@ -182,13 +175,12 @@ class CartController extends Controller
     public function removeFromCart(Request $request)
     {
         // dd($request->all());
-        if($request->session()->has('cart')){
-            $cart = $request->session()->get('cart', collect([]));
-            $cart->forget($request->key);
-            $request->session()->put('cart', $cart);
+        if (Auth::check()) {
+            $cart = Cart::findOrFail($request->key);
+            $cart->delete();
         }
+        return redirect()->route('cart');
 
-        return view('frontend.partials.cart_details');
     }
 
     //updated the quantity for a cart item

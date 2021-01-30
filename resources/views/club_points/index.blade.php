@@ -23,6 +23,8 @@
                                     <td>{{ ($key+1) + ($club_points->currentPage() - 1)*$club_points->perPage() }}</td>
                                     @if ($club_point->user != null)
                                         <td>{{ $club_point->user->name }}</td>
+                                    @else
+                                    <td>-</td>
                                     @endif
                                     <td>{{ $club_point->points }}</td>
                                     <td>

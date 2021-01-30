@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="col-6 text-right">
-                    <span class="badge badge-md badge-success">{{ count(Session::get('cart')) }} {{translate('Items')}}</span>
+                    <span class="badge badge-md badge-success">{{ count($carts) }} {{translate('Items')}}</span>
                 </div>
             </div>
         </div>
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="col-6 text-right">
-                    <span class="badge badge-md badge-success">{{ count(Session::get('cart')) }} {{translate('Items')}}</span>
+                    <span class="badge badge-md badge-success">{{ count($carts) }} {{translate('Items')}}</span>
                 </div>
             </div>
             <form  action="{{ route('use_poin') }}" method="POST">
@@ -71,9 +71,9 @@
                         $shipping = $ongkir->cost;
                     }
                 @endphp
-                @foreach (Session::get('cart') as $key => $cartItem)
+                @foreach ($carts as $key => $cartItem)
                     @php
-                        $product = \App\Product::find($cartItem['id']);
+                    $product = \App\Product::where('id',$cartItem['product_id'])->first();
                         $subtotal += $cartItem['price']*$cartItem['quantity'];
                         $tax += $cartItem['tax']*$cartItem['quantity'];
                         $shipping += $cartItem['shipping'];

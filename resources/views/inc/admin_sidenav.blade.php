@@ -478,9 +478,9 @@
                                 <li class="{{ areActiveRoutes(['attributes.index','attributes.create','attributes.edit'])}}">
                                     <a class="nav-link" href="{{route('attributes.index')}}">{{translate('Atribut')}}</a>
                                 </li>
-                                {{-- <li class="{{ areActiveRoutes(['coupon.index','coupon.create','coupon.edit'])}}">
-                                    <a class="nav-link" href="{{route('coupon.index')}}">{{translate('Kupon')}}</a>
-                                </li> --}}
+                                <li class="{{ areActiveRoutes(['voucher.index','voucher.create'])}}">
+                                    <a class="nav-link" href="{{route('voucher.index')}}">{{translate('Voucher')}}</a>
+                                </li>
                                 {{-- <li>
                                     <li class="{{ areActiveRoutes(['pick_up_points.index','pick_up_points.create','pick_up_points.edit'])}}">
                                         <a class="nav-link" href="{{route('pick_up_points.index')}}">{{translate('Point PickUp')}}</a>
@@ -503,7 +503,7 @@
                                 </li>
                                 <li>
                                     <li class="{{ areActiveRoutes(['toko_setup'])}}">
-                                        <a class="nav-link" href="{{route('toko_setup')}}">{{translate('Pengaturan Toko')}}</a>
+                                        <a class="nav-link" href="{{route('toko_setup')}}">{{translate('Pengaturan Lokasi Pengiriman')}}</a>
                                     </li>
                                 </li>
                             </ul>

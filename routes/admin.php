@@ -189,6 +189,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::post('/coupon/get_form', 'CouponController@get_coupon_form')->name('coupon.get_coupon_form');
 	Route::post('/coupon/get_form_edit', 'CouponController@get_coupon_form_edit')->name('coupon.get_coupon_form_edit');
 	Route::get('/coupon/destroy/{id}', 'CouponController@destroy')->name('coupon.destroy');
+	
+	//voucher_tukar
+	Route::get('/voucher/list', 'VoucherController@index')->name('voucher.index');
+	Route::get('/voucher/create', 'VoucherController@create')->name('voucher.create');
+
 
 	//Reviews
 	Route::get('/reviews', 'ReviewController@index')->name('reviews.index');

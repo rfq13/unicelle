@@ -4,7 +4,10 @@ $point = Auth::user()->poin;
     if (Session::has('poin_use')) {
         $point -= Session::get('poin_use');
     }
+    $carts = Session::has('cart') && count(Session::get('cart')) > 0 ? Session::get('cart') : false ;
+    $carts = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $carts; 
 }
+
 @endphp
 
 <nav class="navbar navbar-expand-lg navbar-light bg-white">
@@ -64,10 +67,10 @@ $point = Auth::user()->poin;
                                     <img class="mx-2" width="20" height="25"
                                         src="{{ my_asset('img/header_dan_footer/icon/bag.png') }}">
                                 </i>
-                                @if (Session::has('cart'))
+                                @if($carts && $carts->count() > 0)
                                 <a style="margin-top:-5px!important;">
                                     <span class="nav-box-number bg-red rounded-circle p-0 m-0 line-height-1_8 px-2"
-                                        id="cart_items_sidenav">{{ count(Session::get('cart')) }}</span>
+                                        id="cart_items_sidenav">{{ count($carts) }}</span>
                                 </a>
                                 @else
                                 <a style="margin-top:-5px!important;">
