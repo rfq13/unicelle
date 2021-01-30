@@ -304,6 +304,7 @@ class CheckoutController extends Controller
 
     public function store_delivery_info(Request $request)
     {
+        // dd(decrypt($request->shipping_info));
         if(Session::has('cart') && count(Session::get('cart')) > 0){
             $cart = $request->session()->get('cart', collect([]));
             $cart = $cart->map(function ($object, $key) use ($request) {

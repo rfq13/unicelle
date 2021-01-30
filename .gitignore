@@ -34,3 +34,4 @@ public/sliders/
 
 .htaccess
 vendor
+storage/logs
