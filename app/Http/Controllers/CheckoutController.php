@@ -462,6 +462,10 @@ class CheckoutController extends Controller
 
     public function order_confirmed($va){
         $order = Order::findOrFail(Session::get('order_id'));
+        if ($order->payment_details == null) {
+            $order->payment_details = json_encode($va);
+            $order->save();
+        }
         return view('frontend.order_confirmed', compact('order','va'));
     }
 

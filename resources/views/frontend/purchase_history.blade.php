@@ -219,8 +219,10 @@
                                                     </p>
                                                     <div class="d-flex mt-3">
                                                         @php
-                                                        $detailOrder = $order->orderDetails[0];
-                                                        $photos = $detailOrder->product == null ? "" :
+                                                        foreach ($order->orderDetails as $key => $value) {
+                                                            $detailOrder = $value;
+                                                        }
+                                                        $photos = !isset($detailOrder->product) ? "" :
                                                         $detailOrder->product->thumbnail_img;
                                                         @endphp
                                                         <div class=" text-center mr-3 p-1">
@@ -260,6 +262,25 @@
                                                     <p class="mb-0 text-left">
                                                         <span class="title-id-pesanan__">Pembayaran</span>
                                                     </p>
+                                                    <div class="mb-2">
+                                                        <span class="status-pesanan__">
+                                                            <span class="badge badge--2 mr-4">
+                                                                @if ($order->payment_status == 'paid')
+                                                                    <i class="bg-green"
+                                                                        style="text-transform: capitalize"></i>
+                                                                    {{ translate('Terbayar') }}
+                                                                @else
+                                                                    <i class="bg-red"
+                                                                        style="text-transform: capitalize"></i>
+                                                                    {{ translate('perlu dibayar') }}
+                                                                @endif
+                                                                @if ($order->payment_status_viewed == 0)
+                                                                    <span class="ml-2"
+                                                                        style="color:green"><strong>*</strong></span>
+                                                                @endif
+                                                            </span>
+                                                        </span>
+                                                    </div>
                                                     @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
                                                         <div class="jumlah-produk-pesanan mt-3 mb-2">
                                                             @isset($order->resi)
@@ -306,32 +327,10 @@
                                                 class="card col-md-4 mb-0  borer-bottom-unset border-top-unset border-left-unset border-right-unset">
                                                 <div class="card-body p-2">
                                                     <p class="mb-0 text-left">
-                                                        <span class="title-id-pesanan__">Status</span>
+                                                        {{-- <span class="title-id-pesanan__">Status</span> --}}
                                                     </p>
                                                     <div class="jumlah-produk-pesanan mt-3">
-                                                        <div class="mb-2">
-                                                            <span class="status-pesanan__">
-                                                                <span class="badge badge--2 mr-4">
-                                                                    @if ($order->payment_status == 'paid')
-                                                                        <i class="bg-green"
-                                                                            style="text-transform: capitalize"></i>
-                                                                        {{ translate('Terbayar') }}
-                                                                    @else
-                                                                        <i class="bg-red"
-                                                                            style="text-transform: capitalize"></i>
-                                                                        {{ translate('perlu dibayar') }}
-                                                                    @endif
-                                                                    @if ($order->payment_status_viewed == 0)
-                                                                        <span class="ml-2"
-                                                                            style="color:green"><strong>*</strong></span>
-                                                                    @endif
-                                                                </span>
-                                                            </span>
-                                                        </div>
-
-                                                        <a href="#{{ $order->code }}"
-                                                            onclick="show_purchase_history_details({{ $order->id }})"
-                                                            class="btn btn-primary1 mb-2 w-75">Lihat Detail </a>
+                                                        <a href="#{{ $order->code }}" onclick="show_purchase_history_details({{ $order->id }})" class="btn btn-primary1 mb-2 w-75">Lihat Detail </a>
                                                     </div>
                                                 </div>
                                             </div>
