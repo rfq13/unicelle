@@ -38,13 +38,24 @@ class CheckoutController extends Controller
         // dd($request->all());
         if ($request->payment_option != null && $request->shipping_info != null) {
 
-            
+            $orderController = new OrderController;
+            $orderController->store($request);
+
             $request->session()->put('payment_type', 'cart_payment');
             $request->session()->put('shipping_info',$request->shipping_info);
             if($request->session()->get('order_id') != null){
-                $orderController = new OrderController;
-                $order = $orderController->store($request);
 
+                $params = [
+                    "external_id" => "VA-".\uniqid(),
+                    "bank_code" => $request->payment_option,
+                    "name" => Auth::user()->name,
+                    "expected_amount" => $request->total,
+                    "is_close" => false,
+                    "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
+                    "is_single_use"=> true
+                ];
+                $VA = xenditRequest('invoice',$params);
+                
                 $request->session()->put('cart', collect([]));
                 $request->session()->forget('delivery_info');
                 $request->session()->forget('data_dropshiper');
@@ -54,7 +65,7 @@ class CheckoutController extends Controller
                 $request->session()->forget('coupon_discount');
 
                 flash(translate("Your order has been placed successfully"))->success();
-                return $this->order_confirmed($order);
+                return $this->order_confirmed($VA);
 
                 // buyarr
 
