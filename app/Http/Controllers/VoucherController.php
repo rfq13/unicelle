@@ -7,7 +7,12 @@ use App\Category;
 use App\SubCategory;
 use App\SubSubCategory;
 use App\CouponVoucher;
+use App\User;
+use App\VoucherUsage;
 use Schema;
+use PDF;
+use Auth;
+
 use ImageOptimizer;
 
 
@@ -27,13 +32,17 @@ class VoucherController extends Controller
     {
         return view('voucher.create');
     }
-
+    public function print_pdf()
+    {
+        return view('voucher.list_user');
+    }
     public function store(Request $request)
     {
         $coupons_voucher = new CouponVoucher;
         $coupons_voucher->merchant = $request->merchant;
         $coupons_voucher->judul = $request->judul;
         $coupons_voucher->point = $request->point;
+        $coupons_voucher->potongan = $request->potongan;
         $coupons_voucher->slug = str_replace(" ","-",$request->judul);
         $coupons_voucher->syarat = $request->syarat;
         $coupons_voucher->cara = $request->cara;
@@ -61,6 +70,7 @@ class VoucherController extends Controller
         $coupons_voucher->merchant = $request->merchant;
         $coupons_voucher->judul = $request->judul;
         $coupons_voucher->point = $request->point;
+        $coupons_voucher->potongan = $request->potongan;
         $coupons_voucher->slug = str_replace(" ","-",$request->judul);
         $coupons_voucher->syarat = $request->syarat;
         $coupons_voucher->cara = $request->cara;
@@ -92,5 +102,77 @@ class VoucherController extends Controller
         }
         return redirect()->back();
 
+    }
+    public function generate_string($input, $strength = 16) {
+        $input_length = strlen($input);
+        $random_string = '';
+        for($i = 0; $i < $strength; $i++) {
+            $random_character = $input[mt_rand(0, $input_length - 1)];
+            $random_string .= $random_character;
+        }
+     
+        return $random_string;
+    }
+    public function tukarpoint(Request $request){
+        $coupons_voucher = CouponVoucher::findOrFail($request->id);
+        if ($coupons_voucher->first() != null) {
+
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $random = substr(str_shuffle(str_repeat($pool, 5)), 0, 10);
+        $user = User::where('id',Auth::user()->id)->get();
+        $user_point = Auth::user()->poin;
+        $voucher_point = $coupons_voucher->point;
+        if($user_point >= $voucher_point){
+        $usage = new VoucherUsage;
+        $usage->user_id = Auth::user()->id;
+        $usage->voucher_id = $coupons_voucher->id;
+        $usage->code = $random;
+        $usage->is_active ='1';
+        $usage->save();
+        $user = User::findOrFail(Auth::user()->id);
+        $update_poin = Auth::user()->poin - $coupons_voucher->point;
+        $user->poin = $update_poin;
+        $user->save();
+        return response()->json(['stts'=>false]);
+
+        }
+        else{
+            return response()->json(['stts'=>true]);
+
+
+        }
+    }
+    else{
+        return response()->json(['stts'=>true]);
+
+    }
+    }
+    public function code_voucher($id)
+    {
+        $voucher = VoucherUsage::findOrFail($id);
+        $detail= VoucherUsage::where('id',$id)->with('voucher')->first();
+        $pdf = PDF::setOptions([
+                        'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+                        'logOutputFile' => storage_path('logs/log.htm'),
+                        'tempDir' => storage_path('logs/')
+                    ])->loadView('voucher.pdf', compact('detail'));
+        return $pdf->download('detail-voucher-'.$detail->code.'.pdf');
+    }
+    public function showVoucherModal(Request $request)
+    {
+        $voucher = CouponVoucher::where('id', $request->id)->first();
+       
+        return view('voucher.modal', compact('voucher'));
+    }
+    public function voucher_usage($id)
+    {
+        $coupon= CouponVoucher::where('id',$id)->first();
+        $detail= VoucherUsage::where('voucher_id',$id)->with('user')->get();
+        $pdf = PDF::setOptions([
+                        'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+                        'logOutputFile' => storage_path('logs/log.htm'),
+                        'tempDir' => storage_path('logs/')
+                    ])->loadView('voucher.list_user', compact('detail','coupon'));
+        return $pdf->download('voucher-usage-'.$coupon->slug.'.pdf');
     }
 }

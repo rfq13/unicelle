@@ -243,22 +243,22 @@
                                         <span class="submenu-icon ml-auto"></span>
                                     </div>
                                 </a>
-                                <a href="#submenu2" data-toggle="collapse" aria-expanded="false"
-                                class=" list-group-item list-group-item-action flex-column align-items-start {{ areActiveRoutesHome(['addresses.index','profile'])}}">
+                                <a href="{{route('list.voucher')}}"
+                                class="{{ areActiveRoutesHome(['list.voucher'])}} list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-start align-items-center">
                                     <img class="img-sidebar-akun__ mr-3" src="{{my_asset('images/icon/ic_voucher.png')}}" alt="">
                                     <span class="menu-collapsed">Voucher</span>
-                                    <span class="submenu-icon ml-auto"><i class="fa fa-chevron-down"></i> </span>
+                                    <span class="submenu-icon ml-auto"></span>
                                 </div>
                             </a>
-                            <div id='submenu2' class="collapse sidebar-submenu">
+                        {{--    <div id='submenu2' class="collapse sidebar-submenu">
                                 <a href="{{ route('list.voucher') }}" class="{{ areActiveRoutesHome(['profile'])}} list-group-item list-group-item-action  text-white">
                                     <span class="menu-collapsed ml-3">List Voucher</span>
                                 </a>
                                 <a href="{{route('my.voucher')}}" class="list-group-item list-group-item-action  text-white {{ areActiveRoutesHome(['addresses.index'])}}">
                                     <span class="menu-collapsed ml-3">Voucher Saya</span>
                                 </a>
-                            </div>
+                            </div> --}}
                                 @if(Auth::user()->user_type == "regular physician")
                                     <a href="{{route('membership')}}" class="{{ areActiveRoutesHome(['membership'])}} list-group-item list-group-item-action flex-column align-items-start mb-3">
                                         <div class="d-flex w-100 justify-content-start align-items-center">

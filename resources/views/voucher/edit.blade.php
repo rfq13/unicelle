@@ -32,6 +32,12 @@
    </div>
 </div>
 <div class="form-group">
+   <label class="col-lg-3 control-label">{{translate('Potongan Harga')}}</label>
+   <div class="col-lg-9">
+      <input type="number"  name="potongan" value={{$coupon_voucher->potongan}} class="form-control" required>
+   </div>
+</div>
+<div class="form-group">
 <label class="col-lg-3 control-label">{{translate('Thumbnail')}}</label>
 <div class="col-lg-9">
 <img src="{{ my_asset($coupon_voucher->thumbnail) }}"  id="template-preview" width="100px">

@@ -197,6 +197,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::get('/voucher/edit/{id}', 'VoucherController@edit')->name('voucher.edit');
 	Route::post('/voucher/update/{id}', 'VoucherController@update_voucher')->name('voucher.update');
 	Route::get("/voucher/{id}/delete","VoucherController@delete_voucher")->name("voucher.delete");
+	Route::get('invoice/voucher_usage/{id}', 'VoucherController@voucher_usage')->name('admin.voucher.usage');
 
 
 	//Reviews

@@ -32,6 +32,12 @@
    </div>
 </div>
 <div class="form-group">
+   <label class="col-lg-3 control-label">{{translate('Potongan Harga')}}</label>
+   <div class="col-lg-9">
+      <input type="number"  name="potongan" class="form-control" required>
+   </div>
+</div>
+<div class="form-group">
 <label class="col-lg-3 control-label">{{translate('Thumbnail')}}</label>
 <div class="col-lg-9">
                         <input type="file" name="thumbnail" class="form-control">
