@@ -20,6 +20,7 @@
             @php
                 $total_point = Auth::check() ? Auth::user()->poin : 0;
                 $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
+                $carts = Auth::user()->carts;
             @endphp
             @if (Session::has('poin_use'))
                 @php

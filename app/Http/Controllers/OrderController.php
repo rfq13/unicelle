@@ -21,6 +21,7 @@ use PDF;
 use Mail;
 use App\Mail\InvoiceEmailManager;
 use CoreComponentRepository;
+use \Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -222,6 +223,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $order = new Order;
+        
         if(Auth::check()){
             $order->user_id = Auth::user()->id;
         }
@@ -237,6 +239,8 @@ class OrderController extends Controller
         $order->code = date('Ymd-His').rand(10,99);
         $order->date = strtotime('now');
 
+        $xendit = false;
+
         if($order->save()){
             $subtotal = 0;
             $tax = 0;
@@ -247,8 +251,8 @@ class OrderController extends Controller
             $seller_products = array();
 
             //Order Details Storing
-            foreach (Session::get('cart') as $key => $cartItem){
-                $product = Product::find($cartItem['id']);
+            foreach (Auth::user()->carts as $key => $cartItem){
+                $product = Product::find($cartItem['product_id']);
 
                 if($product->added_by == 'admin'){
                     array_push($admin_products, $cartItem['id']);
@@ -324,22 +328,33 @@ class OrderController extends Controller
                 $order->use_poin = Session::get('poin_use');
                 Auth::user()->poin -= Session::get('poin_use');
                 Auth::user()->save();
-                $order->save();
             }
 
             if(Session::has('data_dropshiper')){
               
                 $dropshiper = Session::get('data_dropshiper');
                 $order->dropsiper = json_encode($dropshiper);
-                $order->save();
             }
 
             if(isset($shipping_info))
             {
                 $order->grand_total += $shipping_info->cost;
                 $order->shipping_cost = $shipping_info->cost;
-                $order->save();
+                
             }
+
+            $params = [
+                "external_id" => "VA-".\uniqid(),
+                "bank_code" => $request->payment_option,
+                "name" => Auth::user()->name,
+                "expected_amount" => $request->total,
+                "is_close" => false,
+                "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
+                "is_single_use"=> true
+            ];
+            $xendit = xenditRequest('invoice',$params);
+
+            $order->payment_details = json_encode($xendit);
 
             $order->save();
 
@@ -388,7 +403,11 @@ class OrderController extends Controller
             unlink($array['file']);
 
             $request->session()->put('order_id', $order->id);
+
+
+            \App\Cart::where("user_id",Auth::id())->delete();
         }
+        return $xendit;
     }
 
     /**

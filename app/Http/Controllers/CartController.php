@@ -138,7 +138,7 @@ class CartController extends Controller
         }
 
         $data['quantity'] = $request['quantity'];
-        $data['price'] = $price;
+        $data['price'] = (int)$price;
         $data['tax'] = $tax;
         $data['shipping'] = 0;
         $data['product_referral_code'] = null;
@@ -167,7 +167,7 @@ class CartController extends Controller
             $save_cart->shipping_cost = $data["shipping"];
         }
         $save_cart->save();
-        // dd($data);
+        // dd([$data,$save_cart]);
         return view('frontend.partials.addedToCart', compact('product', 'data'));
     }
 
@@ -186,27 +186,30 @@ class CartController extends Controller
     //updated the quantity for a cart item
     public function updateQuantity(Request $request)
     {
-        $cart = $request->session()->get('cart', collect([]));
-        $cart = $cart->map(function ($object, $key) use ($request) {
-            if($key == $request->key){
-                $product = \App\Product::find($object['id']);
-                if($object['variant'] != null && $product->variant_product){
-                    $product_stock = $product->stocks->where('variant', $object['variant'])->first();
-                    $quantity = $product_stock->qty;
-                    if($quantity >= $request->quantity){
-                        if($request->quantity >= $product->min_qty){
-                            $object['quantity'] = $request->quantity;
+        if ($request->quantity > 0) {
+            
+            $cart = \App\Cart::find($request->cartId);
+            
+            if($cart){
+                if ($product = \App\Product::find($cart->product_id)) {
+                    $quantity = $product->current_stock;
+                    if(strlen($cart->variation) > 0 && $product->variant_product == 1){
+                        $product_stock = $product->stocks->where('variant', $cart['variation'])->first();
+                        if ($product_stock) {
+                            $quantity = $product_stock->qty;
                         }
                     }
+                    
+                    
+                    if ($quantity >= $request->quantity) {
+                        $cart->quantity = $request->quantity;
+                        $cart->save();
+                    }
                 }
-                elseif($request->quantity >= $product->min_qty){
-                    $object['quantity'] = $request->quantity;
-                }
-            }
-            return $object;
-        });
-        $request->session()->put('cart', $cart);
-        
+                
+            }   
+                 
+        }
         return view('frontend.partials.cart_details');
     }
 

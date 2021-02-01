@@ -35,26 +35,14 @@ class CheckoutController extends Controller
     //check the selected payment gateway and redirect to that controller accordingly
     public function checkout(Request $request)
     {
-        // dd($request->all());
         if ($request->payment_option != null && $request->shipping_info != null) {
 
             $orderController = new OrderController;
-            $orderController->store($request);
+            $VA = $orderController->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
             $request->session()->put('shipping_info',$request->shipping_info);
             if($request->session()->get('order_id') != null){
-
-                $params = [
-                    "external_id" => "VA-".\uniqid(),
-                    "bank_code" => $request->payment_option,
-                    "name" => Auth::user()->name,
-                    "expected_amount" => $request->total,
-                    "is_close" => false,
-                    "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
-                    "is_single_use"=> true
-                ];
-                $VA = xenditRequest('invoice',$params);
                 
                 $request->session()->put('cart', collect([]));
                 $request->session()->forget('delivery_info');
@@ -64,104 +52,8 @@ class CheckoutController extends Controller
                 $request->session()->forget('coupon_id');
                 $request->session()->forget('coupon_discount');
 
-                flash(translate("Your order has been placed successfully"))->success();
+                // flash(translate("Your order has been placed successfully"))->success();
                 return $this->order_confirmed($VA);
-
-                // buyarr
-
-
-                if($request->payment_option == 'paypal'){
-                    $paypal = new PaypalController;
-                    return $paypal->getCheckout();
-                }
-                elseif ($request->payment_option == 'stripe') {
-                    $stripe = new StripePaymentController;
-                    return $stripe->stripe();
-                }
-                elseif ($request->payment_option == 'sslcommerz') {
-                    $sslcommerz = new PublicSslCommerzPaymentController;
-                    return $sslcommerz->index($request);
-                }
-                elseif ($request->payment_option == 'instamojo') {
-                    $instamojo = new InstamojoController;
-                    return $instamojo->pay($request);
-                }
-                elseif ($request->payment_option == 'razorpay') {
-                    $razorpay = new RazorpayController;
-                    return $razorpay->payWithRazorpay($request);
-                }
-                elseif ($request->payment_option == 'paystack') {
-                    $paystack = new PaystackController;
-                    return $paystack->redirectToGateway($request);
-                }
-                elseif ($request->payment_option == 'voguepay') {
-                    $voguePay = new VoguePayController;
-                    return $voguePay->customer_showForm();
-                }
-                elseif ($request->payment_option == 'twocheckout') {
-                    $twocheckout = new TwoCheckoutController;
-                    return $twocheckout->index($request);
-                }
-                elseif ($request->payment_option == 'payhere') {
-                    $order = Order::findOrFail($request->session()->get('order_id'));
-
-                    $order_id = $order->id;
-                    $amount = $order->grand_total;
-                    $first_name = json_decode($order->shipping_address)->name;
-                    $last_name = 'X';
-                    $phone = json_decode($order->shipping_address)->phone;
-                    $email = json_decode($order->shipping_address)->email;
-                    $address = json_decode($order->shipping_address)->address;
-                    $city = json_decode($order->shipping_address)->city;
-
-                    return PayhereUtility::create_checkout_form($order_id, $amount, $first_name, $last_name, $phone, $email, $address, $city);
-                }
-                elseif ($request->payment_option == 'paytm') {
-                    $paytm = new PaytmController;
-                    return $paytm->index();
-                }
-                elseif ($request->payment_option == 'cash_on_delivery') {
-                    $request->session()->put('cart', collect([]));
-                    // $request->session()->forget('order_id');
-                    $request->session()->forget('delivery_info');
-                    $request->session()->forget('coupon_id');
-                    $request->session()->forget('coupon_discount');
-
-                    flash(translate("Your order has been placed successfully"))->success();
-                	return redirect()->route('order_confirmed');
-                }
-                elseif ($request->payment_option == 'manual_transfer') {
-                    $request->session()->put('cart', collect([]));
-                    $request->session()->forget('delivery_info');
-                    $request->session()->forget('data_dropshiper');
-                    $request->session()->forget('poin_use');
-                    $request->session()->forget('delivery_info');
-                    $request->session()->forget('coupon_id');
-                    $request->session()->forget('coupon_discount');
-
-                    flash(translate("Your order has been placed successfully"))->success();
-                    return redirect()->route('order_confirmed');
-                }
-                elseif ($request->payment_option == 'wallet') {
-                    $user = Auth::user();
-                    $user->balance -= Order::findOrFail($request->session()->get('order_id'))->grand_total;
-                    $user->save();
-                    return $this->checkout_done($request->session()->get('order_id'), null);
-                }
-                else{
-                    $order = Order::findOrFail($request->session()->get('order_id'));
-                    $order->manual_payment = 1;
-                    $order->save();
-
-                    $request->session()->put('cart', collect([]));
-                    // $request->session()->forget('order_id');
-                    $request->session()->forget('delivery_info');
-                    $request->session()->forget('coupon_id');
-                    $request->session()->forget('coupon_discount');
-
-                    flash(translate('Your order has been placed successfully. Please submit payment information from purchase history'))->success();
-                	return redirect()->route('order_confirmed');
-                }
             }
         }else {
             flash(translate('Mohon pilih metode pengiriman terlebih dahulu.'))->warning();
@@ -308,46 +200,15 @@ class CheckoutController extends Controller
 
     public function store_delivery_info(Request $request)
     {
-        // dd(decrypt($request->shipping_info));
         $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
-
+        
         if($cart && $cart->count() > 0){
-            $cart = $cart->map(function ($object, $key) use ($request) {
-                if(\App\Product::find($object['id'])->added_by == 'admin'){
-                    if($request['shipping_type_admin'] == 'home_delivery'){
-                        $object['shipping_type'] = 'home_delivery';
-                    }
-                    else{
-                        $object['shipping_type'] = 'pickup_point';
-                        $object['pickup_point'] = $request->pickup_point_id_admin;
-                    }
-                }
-                else{
-                    if($request['shipping_type_'.\App\Product::find($object['id'])->user_id] == 'home_delivery'){
-                        $object['shipping_type'] = 'home_delivery';
-                    }
-                    else{
-                        $object['shipping_type'] = 'pickup_point';
-                        $object['pickup_point'] = $request['pickup_point_id_'.\App\Product::find($object['id'])->user_id];
-                    }
-                }
-                return $object;
-            });
-
-            $request->session()->put('cart', $cart);
-
-            $cart = $cart->map(function ($object, $key) use ($request) {
-                $object['shipping'] = getShippingCost($key);
-                return $object;
-            });
-
-            $request->session()->put('cart', $cart);
 
             $subtotal = 0;
             $tax = 0;
             $shipping = 0;
             $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
-
+            // dd($cart);
             foreach ($cart as $key => $cartItem){
                 $subtotal += $cartItem['price']*$cartItem['quantity'];
                 $tax += $cartItem['tax']*$cartItem['quantity'];
@@ -360,6 +221,7 @@ class CheckoutController extends Controller
                     $total -= Session::get('coupon_discount');
             }
 
+            $total = (int)$total;
             $shipping_info = $request->shipping_info;
 
             return view('frontend.payment_select', compact('total','shipping_info'));
@@ -372,11 +234,12 @@ class CheckoutController extends Controller
 
     public function get_payment_info(Request $request)
     {
+        
         $subtotal = 0;
         $tax = 0;
         $shipping = 0;
         $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
-
+        // dd($cart);
        
         foreach ($cart as $key => $cartItem){
             $subtotal += $cartItem['price']*$cartItem['quantity'];
