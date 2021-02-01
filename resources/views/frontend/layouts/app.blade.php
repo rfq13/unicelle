@@ -1107,11 +1107,12 @@ background: #428bca;
         @endif
     }
 
-    function updateQuantity(key, element){
-        $.post('{{ route('cart.updateQuantity') }}', { _token:'{{ csrf_token() }}', key:key, quantity: element.value}, function(data){
-            updateNavCart();
-            $('#cart-summary').html(data);
-        });
+    function updateQuantity(cartId, element){
+        
+            $.post('{{ route('cart.updateQuantity') }}', { _token:'{{ csrf_token() }}', cartId:cartId, quantity: element.value}, function(data){
+                updateNavCart();
+                $('#cart-summary').html(data);
+            });
     }
 
     function showAddToCartModal(id){

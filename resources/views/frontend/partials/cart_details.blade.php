@@ -20,11 +20,12 @@
                                 @php
                                 $total = 0;
                                 @endphp
-                                @foreach (Session::get('cart') as $keyi => $cartItem)
+                                @foreach (Auth::user()->carts as $key => $cartItem)
                                     @php
-                                    $product = \App\Product::find($cartItem['id']);
-                                    $total = $total + $cartItem['price']*$cartItem['quantity'];
+                                    $product = \App\Product::find($cartItem['product_id']);
+                                    $total += $cartItem['price']*$cartItem['quantity'];
                                     $product_name_with_choice = $product->name;
+                                    $keyi = $cartItem->id;
                                     if ($cartItem['variant'] != null) {
                                         $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
                                     }

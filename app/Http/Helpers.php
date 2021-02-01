@@ -292,21 +292,25 @@ if (! function_exists('convert_to_usd')) {
 if (! function_exists('xenditRequest')) {
     function xenditRequest($method, $params=false) {
         Xendit::setApiKey(env('XENDIT_API_KEY'));
-        $va = "error";
+        // dd($params);
+        $data = "error";
         switch ($method) {
             case 'invoice':
-                $va = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $va;
+                $data = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $data;
                 break;
             case 'banks':
-                $va = \Xendit\VirtualAccounts::getVABanks();
+                $data = \Xendit\VirtualAccounts::getVABanks();
+                break;
+            case 'retail':
+                $data = \Xendit\Retail::create($params);
                 break;
             
             default:
-                $va = \Xendit\VirtualAccounts::getVABanks();
+                $data = \Xendit\VirtualAccounts::getVABanks();
                 break;
         }
 
-        return $va;
+        return $data;
     }
 }
 
@@ -980,63 +984,6 @@ function remove_invalid_charcaters($str)
     return str_ireplace(array('"'), '\"', $str);
 }
 
-function getShippingCost($index){
-    $admin_products = array();
-    $seller_products = array();
-    $calculate_shipping = 0;
-
-    //Calculate Shipping Cost
-    if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
-        $calculate_shipping = \App\BusinessSetting::where('type', 'flat_rate_shipping_cost')->first()->value;
-    }
-    elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
-        foreach (Session::get('cart') as $key => $cartItem) {
-            $product = \App\Product::find($cartItem['id']);
-            if($product->added_by == 'admin'){
-                array_push($admin_products, $cartItem['id']);
-            }
-            else{
-                $product_ids = array();
-                if(array_key_exists($product->user_id, $seller_products)){
-                    $product_ids = $seller_products[$product->user_id];
-                }
-                array_push($product_ids, $cartItem['id']);
-                $seller_products[$product->user_id] = $product_ids;
-            }
-        }
-        if(!empty($admin_products)){
-            $calculate_shipping = \App\BusinessSetting::where('type', 'shipping_cost_admin')->first()->value;
-        }
-        if(!empty($seller_products)){
-            foreach ($seller_products as $key => $seller_product) {
-                $calculate_shipping += \App\Shop::where('user_id', $key)->first()->shipping_cost;
-            }
-        }
-    }
-
-    $cartItem = Session::get('cart')[$index];
-
-
-    if ($cartItem['shipping_type'] == 'home_delivery') {
-        if (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'flat_rate') {
-            return $calculate_shipping/count(Session::get('cart'));
-        }
-        elseif (\App\BusinessSetting::where('type', 'shipping_type')->first()->value == 'seller_wise_shipping') {
-            if($product->added_by == 'admin'){
-                return \App\BusinessSetting::where('type', 'shipping_cost_admin')->first()->value/count($admin_products);
-            }
-            else {
-                return \App\Shop::where('user_id', $product->user_id)->first()->shipping_cost/count($seller_products[$product->user_id]);
-            }
-        }
-        else{
-            return \App\Product::find($cartItem['id'])->shipping_cost;
-        }
-    }
-    else{
-        return 0;
-    }
-}
 
 function timezones(){
     $timezones = Array(

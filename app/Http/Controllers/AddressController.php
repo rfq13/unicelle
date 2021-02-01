@@ -240,9 +240,9 @@ class AddressController extends Controller
 
             $items =[];
 
-            foreach (\Session::get('cart') as $key => $cartItem) {
+            foreach (Auth::user()->carts as $key => $cartItem) {
                 # code...
-                $product = \App\Product::find($cartItem['id']);
+                $product = \App\Product::find($cartItem['product_id']);
                 array_push($items,[
                     "name" => $product->name,
                     "description" =>"",
