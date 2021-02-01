@@ -271,19 +271,19 @@
 					</div>
 					<div class="form-group">
 						<label class="col-lg-2 control-label">{{translate('Discount')}}</label>
-						<div class="col-lg-7">
+						<div class="col-lg-6">
 							<input type="number" min="0" value="0" step="0.01" placeholder="{{ translate('Discount') }}" name="discount" class="form-control" required>
 						</div>
-						<div class="col-lg-1">
+						<div class="col-lg-2">
 							<select class="demo-select2" name="discount_type">
-								<option value="amount">{{translate('Flat')}}</option>
-								<option value="percent">{{translate('Percent')}}</option>
+								<option value="amount">{{translate('Rp')}}</option>
+								<option value="percent">{{translate('%')}}</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group" id="quantity">
 						<label class="col-lg-2 control-label">{{translate('Quantity')}}</label>
-						<div class="col-lg-7">
+						<div class="col-lg-6">
 							<input type="number" min="0" value="0" step="1" placeholder="{{ translate('Quantity') }}" name="current_stock" class="form-control" required>
 						</div>
 					</div>

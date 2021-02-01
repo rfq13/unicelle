@@ -193,6 +193,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	//voucher_tukar
 	Route::get('/voucher/list', 'VoucherController@index')->name('voucher.index');
 	Route::get('/voucher/create', 'VoucherController@create')->name('voucher.create');
+	Route::post('/voucher/store', 'VoucherController@store')->name('voucher.store');
+	Route::get('/voucher/edit/{id}', 'VoucherController@edit')->name('voucher.edit');
+	Route::post('/voucher/update/{id}', 'VoucherController@update_voucher')->name('voucher.update');
+	Route::get("/voucher/{id}/delete","VoucherController@delete_voucher")->name("voucher.delete");
 
 
 	//Reviews

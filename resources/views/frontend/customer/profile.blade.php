@@ -65,7 +65,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label text-right pr-4">Tanggal Lahir</label>
                                         <div class="col-sm-9">
-                                            <input type="hidden" class="dropdate" name="birth" id="birth" value="{{Auth::user()->birth}}">
+                                        <input type="text" value={{Auth::user()->birth}} class="form-control datepicker" name="birth" id="datepicker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Lahir">
                                             <!-- 
                                                         <select class="custom-select my-1"  id="date">
                                                         <option selected="">Hari</option>
@@ -219,7 +219,17 @@
 
 @section('script')
 <script src="{{my_asset('js/jdd.min.js')}}"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
+    $( "#datepicker" ).datepicker({
+        changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+0",
+dateFormat: "yy-mm-dd",
+});
     $(function () {
         $("#birth").dropdownDatepicker({
             dayLabel:'Hari',
