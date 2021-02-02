@@ -123,6 +123,7 @@
 <div class="col-md-12" style="text-align: center;margin-left:10px;margin-right:10px">
 <table style="width:100%">
   <tr>
+  <th>No</th>
   <th>Nama Pengguna</th>
     <th>Kode Voucher</th>
     <th>Waktu Penukaran</th>
@@ -131,6 +132,7 @@
   @foreach($detail as $key => $d)
 
   <tr>
+  <td>{{$key+1}}</td>
   <td>{{$d->user->name}}</td>
     <td style="font-weight: bold;">{{$d->code}}</td>
     <td>{{$d->created_at}}</td>

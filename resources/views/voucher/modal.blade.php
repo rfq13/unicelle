@@ -65,10 +65,10 @@
         $.post('{{ route('tukar.voucher') }}', {_token:'{{ csrf_token() }}',id:key}, function(data){
             if (data.stts === false) {
             showFrontendAlert('success', 'Voucher berhasil ditukar');
-           rekom();
+            location.reload();
             }else{
                 showFrontendAlert('warning', 'Poin tidak mencukupi');
-           rekom(); 
+                location.reload();
             }
         });
                 
