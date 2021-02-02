@@ -1206,6 +1206,49 @@ background: #428bca;
             showFrontendAlert('warning', 'Please choose all the options');
         }
     }
+    function rekom() {
+            $.get("{{route('list.voucher')}}", function (data) {
+            })
+        }
+        function showDetailVoucher(e,id) {
+        e.preventDefault();
+        if (!$('#modal-size').hasClass('modal-lg')) {
+            $('#modal-size').addClass('modal-lg');
+        }
+        $('#exampleModal-body').html(null);
+        $('#exampleModal').modal();
+        $('.c-preloader').show();
+        
+        let data = {
+            _token:'{{csrf_token()}}',
+            id: id
+        }
+       
+        $.post('{{ route("voucher.showVoucherModal") }}', data,
+            function(d) {
+                $('.c-preloader').hide();
+                $('#exampleModal-body').html(d);
+                $('.xzoom, .xzoom-gallery').xzoom({
+                    Xoffset: 20,
+                    bg: true,
+                    tint: '#000',
+                    defaultScale: -1
+                });
+            });
+        }
+    function addvoucher(e,key){
+        e.preventDefault()
+        $.post('{{ route('tukar.voucher') }}', {_token:'{{ csrf_token() }}',id:key}, function(data){
+            if (data.stts === false) {
+            showFrontendAlert('success', 'Voucher berhasil ditukar');
+           rekom();
+            }else{
+                showFrontendAlert('warning', 'Poin tidak mencukupi');
+           rekom(); 
+            }
+        });
+                
+    }
 
     function buyNow(){
         if(checkAddToCartValidity()) {

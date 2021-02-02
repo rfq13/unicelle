@@ -324,6 +324,12 @@ Route::post('twocheckout/payment/callback', 'TwoCheckoutController@twocheckoutPo
 
 Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.show_custom_page');
 
+//tukarvoucher
+Route::get('/voucher/pdf', 'VoucherController@print_pdf')->name('voucher.pdf');
+Route::get('invoice/Voucher/{id}', 'VoucherController@code_voucher')->name('myvoucher.code');
+Route::post('/voucher/show', 'VoucherController@showVoucherModal')->name('voucher.showVoucherModal');
+
+
 //payhere below
 Route::get('/payhere/checkout/testing', 'PayhereController@checkout_testing')->name('payhere.checkout.testing');
 Route::get('/payhere/wallet/testing', 'PayhereController@wallet_testing')->name('payhere.checkout.testing');
@@ -350,6 +356,7 @@ Route::group(['prefix'=>'/voucher'],function ()
 	Route::view('own','voucher.myvoucher')->name('my.voucher');
 	Route::view('list','voucher.listvoucher')->name('list.voucher');
 });
+Route::post('/voucher/add', 'VoucherController@tukarpoint')->name('tukar.voucher');
 
 
 Route::get('xendit/get-banks','Payment\XenditController@getVA');
