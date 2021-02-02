@@ -359,5 +359,5 @@ Route::post('/voucher/add', 'VoucherController@tukarpoint')->name('tukar.voucher
 Route::get('/voucher/list', 'VoucherController@list_voucher')->name('list.voucher');
 
 
-Route::get('xendit/get-banks','Payment\XenditController@getVA');
+Route::get('xendit/test','Payment\XenditController@test');
 Route::get('xendit/invoice','Payment\XenditController@createVA');

@@ -334,14 +334,14 @@ class OrderController extends Controller
 
             $params = [
                 "external_id" => $order->code,
-                "bank_code" => $request->payment_option,
                 "name" => Auth::user()->name,
                 "expected_amount" => $request->total,
                 "is_close" => false,
                 "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
                 "is_single_use"=> true
-            ];
-            $xendit = xenditRequest('invoice',$params);
+            ];            
+
+            $xendit = xenditRequest($params,$request->payment_option);
 
             $order->payment_details = json_encode($xendit);
 
