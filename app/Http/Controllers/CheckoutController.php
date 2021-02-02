@@ -223,7 +223,7 @@ class CheckoutController extends Controller
 
             $total = (int)$total;
             $shipping_info = $request->shipping_info;
-
+            // dd("ownge");
             return view('frontend.payment_select', compact('total','shipping_info'));
         }
         else {

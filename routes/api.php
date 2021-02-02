@@ -95,6 +95,11 @@ Route::prefix('v1')->group(function () {
     Route::post('order/store', 'Api\OrderController@store')->middleware('auth:api');
 });
 
+Route::prefix('xendit')->group(function ()
+{
+    Route::post('handle','OrderController@xenditHandle');
+});
+
 Route::fallback(function() {
     return response()->json([
         'data' => [],

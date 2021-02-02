@@ -22,6 +22,7 @@ use Mail;
 use App\Mail\InvoiceEmailManager;
 use CoreComponentRepository;
 use \Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class OrderController extends Controller
 {
@@ -288,19 +289,7 @@ class OrderController extends Controller
                 $order_detail->variation = $product_variation;
                 $order_detail->price = $cartItem['price'] * $cartItem['quantity'];
                 $order_detail->tax = $cartItem['tax'] * $cartItem['quantity'];
-                // $order_detail->shipping_type = $cartItem['shipping_type'];
                 $order_detail->product_referral_code = $cartItem['product_referral_code'];
-
-                //Dividing Shipping Costs
-                // if ($cartItem['shipping_type'] == 'home_delivery') {
-                //     $order_detail->shipping_cost = getShippingCost($key);
-                //     $shipping += $order_detail->shipping_cost;
-                // }
-                // else{
-                //     $order_detail->shipping_cost = 0;
-                //     $order_detail->pickup_point_id = $cartItem['pickup_point'];
-                // }
-                //End of storing shipping cost
 
                 $order_detail->quantity = $cartItem['quantity'];
                 $order_detail->save();
@@ -344,7 +333,7 @@ class OrderController extends Controller
             }
 
             $params = [
-                "external_id" => "VA-".\uniqid(),
+                "external_id" => $order->code,
                 "bank_code" => $request->payment_option,
                 "name" => Auth::user()->name,
                 "expected_amount" => $request->total,
@@ -359,55 +348,68 @@ class OrderController extends Controller
             $order->save();
 
             //stores the pdf for invoice
-            $pdf = PDF::setOptions([
-                            'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
-                            'logOutputFile' => storage_path('logs/log.htm'),
-                            'tempDir' => storage_path('logs/')
-                        ])->loadView('invoices.customer_invoice', compact('order'));
-            $output = $pdf->output();
-    		file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
+            // $pdf = PDF::setOptions([
+            //                 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+            //                 'logOutputFile' => storage_path('logs/log.htm'),
+            //                 'tempDir' => storage_path('logs/')
+            //             ])->loadView('invoices.customer_invoice', compact('order'));
+            // $output = $pdf->output();
+    		// file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
 
-            $array['view'] = 'emails.invoice';
-            $array['subject'] = 'Order Placed - '.$order->code;
-            $array['from'] = env('MAIL_USERNAME');
-            $array['content'] = translate('Hi. A new order has been placed. Please check the attached invoice.');
-            $array['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
-            $array['file_name'] = 'Order#'.$order->code.'.pdf';
+            // if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value){
+            //     try {
+            //         $otpController = new OTPVerificationController;
+            //         $otpController->send_order_code($order);
+            //     } catch (\Exception $e) {
 
-            foreach($seller_products as $key => $seller_product){
-                try {
-                    Mail::to(\App\User::find($key)->email)->queue(new InvoiceEmailManager($array));
-                } catch (\Exception $e) {
+            //     }
+            // }
 
-                }
-            }
+            // //sends email to customer with the invoice pdf attached
+            // if(env('MAIL_USERNAME') != null){
+            //     try {
+            //         Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
+            //         Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
+            //     } catch (\Exception $e) {
 
-            if (\App\Addon::where('unique_identifier', 'otp_system')->first() != null && \App\Addon::where('unique_identifier', 'otp_system')->first()->activated && \App\OtpConfiguration::where('type', 'otp_for_order')->first()->value){
-                try {
-                    $otpController = new OTPVerificationController;
-                    $otpController->send_order_code($order);
-                } catch (\Exception $e) {
+            //     }
+            // }
+            // unlink($array['file']);
 
-                }
-            }
-
-            //sends email to customer with the invoice pdf attached
-            if(env('MAIL_USERNAME') != null){
-                try {
-                    Mail::to($request->session()->get('shipping_info')['email'])->queue(new InvoiceEmailManager($array));
-                    Mail::to(User::where('user_type', 'admin')->first()->email)->queue(new InvoiceEmailManager($array));
-                } catch (\Exception $e) {
-
-                }
-            }
-            unlink($array['file']);
-
-            $request->session()->put('order_id', $order->id);
+            // $request->session()->put('order_id', $order->id);
 
 
             \App\Cart::where("user_id",Auth::id())->delete();
         }
         return $xendit;
+    }
+
+    public function xenditHandle(Request $request)
+    {
+        if ($request->has('external_id')) {
+            $order = Order::where("code",$request->external_id);
+
+            if ($order) {
+                $user = $order->user;
+                if ($user && $user->email) {
+                    $array['view'] = 'emails.invoice';
+                    $array['subject'] = 'Order Placed - '.$order->code;
+                    $array['from'] = env('MAIL_USERNAME');
+                    $array['content'] = translate('Hi. A new order has been placed. Please check the attached invoice.');
+            
+                    
+                    try {
+                        Mail::to(\App\User::find($key)->email)->queue(new InvoiceEmailManager($array));
+                    } catch (\Exception $e) {
+                        Log::info($e);
+                    }
+                }
+            }
+        }
+
+        return response()->json([
+            "message" => "success"
+        ],200);
     }
 
     /**

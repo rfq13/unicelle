@@ -142,7 +142,7 @@
                                             <div class="row">
                                                 <div class="mt-4">
                                                     <label class="rb-bank">
-                                                        <input type="radio" name="radio">
+                                                        <input type="radio" name="payment_option">
                                                         <span class="rb-checkmark"></span>
                                                     </label>
                                                 </div>
