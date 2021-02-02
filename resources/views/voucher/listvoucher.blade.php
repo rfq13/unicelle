@@ -55,7 +55,7 @@
                     <div class="card">
                         <div class="card-header  bg-transparent mb-0">
                             <div class="row align-items-center">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-6 p-3 bg-profil-poin" >
+                            <div class="col-md-6 bg-profil-poin" style="padding:30px" >
                                     <div class="row">
                                     <div class="col-lg-4">
                                     <div class="widget-profile-box text-center">

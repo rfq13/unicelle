@@ -64,6 +64,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
+                                    @if (isset($point_exchange))
+                                <?php foreach ($point_exchange as $key => $value): ?>
+                                    <tr>
+                                    <td>{{ $key+1 }}</td>
+                                                    <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
+                                                    <td>{{ $value->point }} {{ __(' pts') }}</td>
+                                                    <td><span class="ml-2" style="color:green"><strong>-</strong></span>
+                                                    </td>
+                                                    <td>{{ $value->keterangan }}</td>
+                                    </tr>
+                                <?php endforeach ?>
+                            @endif
                                         @if(count($club_points) > 0)
                                             @foreach ($club_points as $key => $club_point)
                                                 <tr>

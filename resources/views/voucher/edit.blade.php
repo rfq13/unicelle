@@ -16,25 +16,26 @@
 <div class="form-group">
     <label class="col-lg-3 control-label" for="coupon_code">{{translate('Nama Merchant')}}</label>
     <div class="col-lg-9">
-        <input type="text"  id="coupon_code" name="merchant" value={{$coupon_voucher->merchant}} class="form-control" required>
+        <input type="text"  id="coupon_code" name="merchant" value="{{$coupon_voucher->merchant}}" class="form-control" required>
     </div>
 </div>
+
 <div class="form-group">
    <label class="col-lg-3 control-label">{{translate('Nama Voucher')}}</label>
    <div class="col-lg-9">
-      <input type="text" name="judul" value={{$coupon_voucher->judul}} class="form-control" required>
+      <input type="text" name="judul" class="form-control" value="{{$coupon_voucher->judul}}">
    </div>
 </div>
 <div class="form-group">
    <label class="col-lg-3 control-label">{{translate('Total Point')}}</label>
    <div class="col-lg-9">
-      <input type="number"  name="point" value={{$coupon_voucher->point}} class="form-control" required>
+      <input type="number"  name="point" value="{{$coupon_voucher->point}}" class="form-control" required>
    </div>
 </div>
 <div class="form-group">
    <label class="col-lg-3 control-label">{{translate('Potongan Harga')}}</label>
    <div class="col-lg-9">
-      <input type="number"  name="potongan" value={{$coupon_voucher->potongan}} class="form-control" required>
+      <input type="number"  name="potongan" value="{{$coupon_voucher->potongan}}" class="form-control" required>
    </div>
 </div>
 <div class="form-group">
@@ -58,15 +59,12 @@
                     </div>
 <div class="form-group">
     <label class="col-lg-3 control-label" for="start_date">{{translate('Date')}}</label>
-    <div class="col-lg-9">
-        <div id="demo-dp-range">
-            <div class="input-daterange input-group" id="datepicker">
-                <input type="text" class="form-control" value="{{ date('m/d/Y', $coupon_voucher->start_date) }}" name="start_date">
+    <div class="col-lg-9" style="display:flex">
+                <input type="text" class="form-control datepicker" value="{{ date('m/d/Y', $coupon_voucher->start_date) }}" id="datepicker" name="start_date">
                 <span class="input-group-addon">{{translate('to')}}</span>
-                <input type="text" class="form-control" value="{{ date('m/d/Y', $coupon_voucher->end_date) }}" name="end_date">
-            </div>
-        </div>
+                <input type="text" class="form-control datepicker" value="{{ date('m/d/Y', $coupon_voucher->end_date) }}" id="datepicker2" name="end_date">
     </div>
+
 </div>
 
 
@@ -82,6 +80,8 @@
 @section('script')
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
     function readURLimage(input,targetimage) {
       if (input.files && input.files[0]) {
@@ -99,12 +99,18 @@
           readURLimage(this,$('#template-preview'));
     });  
     });
- $('#demo-dp-range .input-daterange').datepicker({
-                startDate: '-0d',
-                todayBtn: "linked",
-                autoclose: true,
-                todayHighlight: true
-        	});
+    $( "#datepicker" ).datepicker({
+        changeMonth: true,
+      changeYear: true,
+      minYear:'1990',
+dateFormat: "yy-mm-dd",
+});
+$( "#datepicker2" ).datepicker({
+        changeMonth: true,
+      changeYear: true,
+      minYear:'1990',
+dateFormat: "yy-mm-dd",
+});
     $(document).ready(function(){
         $('.demo-select2').select2();
         $('#konten-sk').summernote({
