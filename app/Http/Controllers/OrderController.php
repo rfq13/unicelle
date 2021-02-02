@@ -387,7 +387,6 @@ class OrderController extends Controller
     public function xenditHandle(Request $request)
     {
         $msg = "order not found";
-        $stts = 404;
         if ($request->has('external_id')) {
             $order = Order::where("code",$request->external_id)->with('user')->first();
 
@@ -426,7 +425,7 @@ class OrderController extends Controller
 
         return response()->json([
             "message" => $msg
-        ],$stts);
+        ],200);
     }
 
     /**
