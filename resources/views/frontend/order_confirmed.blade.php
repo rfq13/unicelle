@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="name-bank-konfirmasi__ mx-2 p-0">
                                     <span class="font-weight-bold" style="font-size: 16px;">{{ $payment }}</span><br>
-                                    <span style="font-size: 12px; color: #424242;">Hanya menerima transfer dari {{ $payment }}</span>
+                                    <span style="font-size: 12px; color: #424242;">Hanya menerima pembayaran dari {{ $payment }}</span>
                                 </div>
                             </div>
 
@@ -71,7 +71,9 @@
                             </div>
 
                             <div class="text-center mt-5">
-                                <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 mx-lg-5 mx-3">Konfirmasi Pembayaran</a>
+                                @if ($va == null)
+                                    <a href="{{ route('payment.create',$order->id) }}" class="btn btn-primary1 mx-lg-5 mx-3">Konfirmasi Pembayaran</a>
+                                @endif
                                 <a href="{{ url('purchase_history') }}" class="btn btn-secondary1 mx-lg-5 mx-3">Cek Pesanan</a>
                             </div>
 

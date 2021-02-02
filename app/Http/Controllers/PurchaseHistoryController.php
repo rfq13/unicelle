@@ -19,7 +19,11 @@ class PurchaseHistoryController extends Controller
     {
         $orders = Order::where('user_id', Auth::user()->id)
         ->whereNull("dropsiper")            
-        ->with(['orderDetails','orderDetails.product'])->orderBy('code', 'desc')->paginate(5);
+        ->with(['orderDetails','orderDetails.product'])
+        ->has('orderDetails')
+        ->orderBy('code', 'desc')
+        ->paginate(5);
+
         return view('frontend.purchase_history', compact('orders'));
     }
 
@@ -45,6 +49,7 @@ class PurchaseHistoryController extends Controller
         $order->save();
         $status = $order->orderDetails->first()->delivery_status;
         $ship = 0;
+        $ship_info = 0;
         if ($status == "on_delivery" || $status == "delivered") {
             $ship_info = json_decode($order->shipping_info);
             $ship = app('\App\Http\Controllers\OrderController')->statusPengiriman($order->resi,$ship_info->code);

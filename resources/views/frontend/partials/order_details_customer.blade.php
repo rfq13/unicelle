@@ -35,7 +35,8 @@ if($ship != null || $ship != 0){
         }
     }
     
-    
+    $payment = json_decode($order->payment_details);
+    // dd($payment);
 @endphp
 
 
@@ -104,14 +105,35 @@ if($ship != null || $ship != 0){
                             <td class="w-50 strong-600">{{ translate('Jumlah Total Pesanan')}}:</td>
                             <td>{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}</td>
                         </tr>
+                        
                         {{-- <tr>
                             <td class="w-50 strong-600">{{ translate('Metode Pengiriman')}}:</td>
                             <td>{{ translate('Flat shipping rate')}}</td>
                         </tr> --}}
-                        {{-- <tr>
-                            <td class="w-50 strong-600">{{ translate('Metode Pembayaran')}}:</td>
-                            <td>{{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}</td>
-                        </tr> --}}
+
+                        @if ($order->payment_details !=null)
+                        @php
+                            if (property_exists($payment,'bank_code')){
+                                $pay_opt = "$payment->bank_code Virtual Account";
+                                $pay_num = $payment->account_number;
+                                $title = "VA";
+                            }
+                            elseif (property_exists($payment,'retail_outlet_name')) {
+                                $pay_opt = $payment->retail_outlet_name;
+                                $pay_num = $payment->payment_code;
+                                $title = 'kode Pembayaran';
+                            }
+                        @endphp
+                        <tr>
+                            <td class="w-50 strong-600">{{ 'Metode Pembayaran' }}:</td>
+                            <td>{{ $pay_opt }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-50 strong-600">{{ $title }}:</td>
+                            <td>{{ $pay_num }}</td>
+                        </tr>
+                            
+                        @endif
                     </table>
                 </div>
             </div>

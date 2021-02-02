@@ -91,109 +91,6 @@
                 </div>
 
                 <div class="col-lg-8">
-                    {{--<div class="main-content">
-                        <!-- Page title -->
-                        <div class="page-title">
-                            <div class="row align-items-center">
-                                <div class="col-md-6 col-12">
-                                    <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{ translate('Purchase History') }}
-                                    </h2>
-                                </div>
-                                <div class="col-md-6 col-12">
-                                    <div class="float-md-right">
-                                        <ul class="breadcrumb">
-                                            <li><a href="{{ route('home') }}">{{ translate('Home') }}</a></li>
-                                            <li><a href="{{ route('dashboard') }}">{{ translate('Dashboard') }}</a></li>
-                                            <li class="active"><a
-                                                    href="{{ route('purchase_history.index') }}">{{ translate('Purchase History') }}</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        @if (count($orders) > 0)
-                            <!-- Order history table -->
-                            <div class="card no-border mt-4">
-                                <div>
-                                    <table class="table table-sm table-hover table-responsive-md">
-                                        <thead>
-                                            <tr>
-                                                <th>{{ translate('Code') }}</th>
-                                                <th>{{ translate('Date') }}</th>
-                                                <th>{{ translate('Amount') }}</th>
-                                                <th>{{ translate('Delivery Status') }}</th>
-                                                <th>{{ translate('Payment Status') }}</th>
-                                                <th>{{ translate('Options') }}</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($orders as $key => $order)
-                                                @if (count($order->orderDetails) > 0)
-                                                    <tr>
-                                                        <td>
-                                                            <a href="#{{ $order->code }}"
-                                                                onclick="show_purchase_history_details({{ $order->id }})">{{ $order->code }}</a>
-                                                        </td>
-                                                        <td>{{ date('d-m-Y', $order->date) }}</td>
-                                                        <td>
-                                                            {{ single_price($order->grand_total) }}
-                                                        </td>
-                                                        <td>
-                                                            {{ ucfirst(str_replace('_', ' ', $order->orderDetails->first()->delivery_status)) }}
-                                                            @if ($order->delivery_viewed == 0)
-                                                                <span class="ml-2"
-                                                                    style="color:green"><strong>*</strong></span>
-                                                            @endif
-                                                        </td>
-                                                        <td>
-                                                            <span class="badge badge--2 mr-4">
-                                                                @if ($order->payment_status == 'paid')
-                                                                    <i class="bg-green"></i> {{ translate('Paid') }}
-                                                                    @else
-                                                                    <i class="bg-red"></i> {{ translate('Unpaid') }}
-                                                                @endif
-                                                                @if ($order->payment_status_viewed == 0)
-                                                                    <span class="ml-2"
-                                                                        style="color:green"><strong>*</strong></span>
-                                                                @endif
-                                                            </span>
-                                                        </td>
-                                                        <td>
-                                                            <div class="dropdown">
-                                                                <button class="btn" type="button" id=""
-                                                                    data-toggle="dropdown" aria-haspopup="true"
-                                                                    aria-expanded="false">
-                                                                    <i class="fa fa-ellipsis-v"></i>
-                                                                </button>
-
-                                                                <div class="dropdown-menu dropdown-menu-right"
-                                                                    aria-labelledby="">
-                                                                    <button
-                                                                        onclick="show_purchase_history_details({{ $order->id }})"
-                                                                        class="dropdown-item">{{ translate('Order Details') }}</button>
-                                                                    <a href="{{ route('customer.invoice.download', $order->id) }}"
-                                                                        class="dropdown-item">{{ translate('Download Invoice') }}</a>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                @endif
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        @endif
-
-                        <div class="pagination-wrapper py-4">
-                            <ul class="pagination justify-content-end">
-                                {{ $orders->links() }}
-                            </ul>
-                        </div>
-                    </div>--}}
 
                     <div class="card">
                         <div class="card-header  bg-transparent mb-0">
@@ -226,7 +123,10 @@
                                                         $detailOrder->product->thumbnail_img;
                                                         @endphp
                                                         <div class=" text-center mr-3 p-1">
-                                                            <img class=" img-fluid" src="{{ my_asset($photos) }}" alt=""
+                                                            <img class=" img-fluid" src="{{ my_asset($photos) }}" alt="{{ json_encode([
+                                                                "did"=>$detailOrder->id,
+                                                                "oid"=>$order->id
+                                                                ]) }}"
                                                                 width="80">
                                                         </div>
                                                         <div class="deskripsi-pesanan__">
