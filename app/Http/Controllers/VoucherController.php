@@ -23,9 +23,17 @@ class VoucherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $sort_search = null;
+
         $coupons_voucher = CouponVoucher::where('is_delete','0')->orderBy('id','desc')->get();
+        if ($request->has('search')){
+            $sort_search = $request->search;
+            
+            $coupons_voucher = CouponVoucher::where('is_delete','0')->where('judul','like',"%$sort_search%")->orderBy('id','desc')->get();
+
+        }
         return view('voucher.index', compact('coupons_voucher'));
     }
     public function create()

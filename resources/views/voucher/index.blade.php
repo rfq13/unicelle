@@ -12,7 +12,7 @@
             <h3 class="panel-title">{{translate('Informasi Kupon')}}</h3>
         </div>
         <div class="panel-body">
-            <table class="table table-striped table-bordered demo-dt-basic" cellspacing="0" width="100%">
+            <table class="table table-striped table-bordered" cellspacing="0" width="100%">
                 <thead>
                     <tr>
                         <th>#</th>
