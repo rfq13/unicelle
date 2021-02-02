@@ -123,6 +123,8 @@ if($ship != null || $ship != 0){
                                 $pay_num = $payment->payment_code;
                                 $title = 'kode Pembayaran';
                             }
+
+                            \Carbon\Carbon::setLocale('id');
                         @endphp
                         <tr>
                             <td class="w-50 strong-600">{{ 'Metode Pembayaran' }}:</td>
@@ -131,6 +133,10 @@ if($ship != null || $ship != 0){
                         <tr>
                             <td class="w-50 strong-600">{{ $title }}:</td>
                             <td>{{ $pay_num }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-50 strong-600">{{ "Kadaluarsa" }}:</td>
+                            <td>{{ \Carbon\Carbon::parse($payment->expiration_date)->translatedFormat('l, d F Y H:i') }}</td>
                         </tr>
                             
                         @endif
