@@ -346,7 +346,10 @@ class OrderController extends Controller
             $order->payment_details = json_encode($xendit);
 
             $order->save();
-
+            $user = User::findOrFail(Auth::user()->id);
+            $update_poin = Auth::user()->poin + $request->totalpoin;
+            $user->poin = $update_poin;
+            $user->save();
             //stores the pdf for invoice
             // $pdf = PDF::setOptions([
             //                 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,

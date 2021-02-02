@@ -223,12 +223,16 @@
                                 <div class="container" style="border-bottom:1px solid #C4C4C4">
                                     
                                 </div>
+                                @php
+
+                                @endphp
                                 <div class="row">
                                     <div class="col-7">
                                         <p class="text-ekspedisi">Point yang akan di dapat</p>
                                     </div>
+                                    <input type="hidden" value={{$totalpoin}} name="totalpoin">
                                     <div class="col-5">
-                                        <p class="price__produk" style="text-align: right;">+18</p>
+                                        <p class="price__produk" style="text-align: right;">{{$totalpoin}}</p>
                                     </div>
                                 </div>
                                 <button class="mb-4 mt-2 btn btn-default">Lanjutkan Pembayaran</button>

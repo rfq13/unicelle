@@ -14,6 +14,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\PaytmController;
 use App\Order;
+use App\Product;
 use App\BusinessSetting;
 use App\Coupon;
 use App\CouponUsage;
@@ -51,6 +52,7 @@ class CheckoutController extends Controller
                 $request->session()->forget('delivery_info');
                 $request->session()->forget('coupon_id');
                 $request->session()->forget('coupon_discount');
+
 
                 // flash(translate("Your order has been placed successfully"))->success();
                 return $this->order_confirmed($VA);
@@ -214,17 +216,18 @@ class CheckoutController extends Controller
                 $tax += $cartItem['tax']*$cartItem['quantity'];
                 $shipping += $cartItem['shipping']*$cartItem['quantity'];
             }
-
+            $idproduct = $cart->pluck('product_id')->toArray();
             $total = $subtotal + $tax + $shipping;
-
             if(Session::has('coupon_discount')){
                     $total -= Session::get('coupon_discount');
             }
 
             $total = (int)$total;
             $shipping_info = $request->shipping_info;
+            
+            $totalpoin = Product::whereIn('id',$idproduct)->sum('earn_point');
             // dd("ownge");
-            return view('frontend.payment_select', compact('total','shipping_info'));
+            return view('frontend.payment_select', compact('total','shipping_info','totalpoin'));
         }
         else {
             flash(translate('Your Cart was empty'))->warning();
