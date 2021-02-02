@@ -97,15 +97,17 @@
                         </div>
                     
                         <div class="card-body mt-2 px-0 pt-0 mb-2">
-                       
+                        <form class="" id="sort_voucher" action="" method="GET">
+
                         <div class="col-md-6 col-sm-12">
                             <div style="position: relative;
                             display: -ms-flexbox;
                             display: flex;
                             align-items: stretch;
                             width: 100%;">
+
                                 <input type="text" class="form-control d-inline-block" placeholder="Cari Voucher"
-                                    name="srch-term" id="srch-term"
+                                    name="search" id="srch-term" onchange="sort_voucher()"
                                     style="max-width: 100%; width: 100%;border-radius: 3px 0px 0px 3px;">
                                 <div class="input-group-btn d-inline-block">
                                     <button class="btn btn-light px-3" type="submit"
@@ -113,13 +115,20 @@
                                 </div>
                             </div>
                         </div>
+                        </form>
 
+                        <div class="col-md-12" style="height:20px">
+                    </div>
                         <div class="col-md-6 col-sm-12" >
                         <h5>Voucher Saya</h5>
                     </div>
+                    <div class="col-md-12" >
+
                     <div class="row">
                     @php
-                            $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->get();
+                            $dt = \Carbon\Carbon::now();
+                            $tes=$dt->toDateString();
+
                             @endphp
                             @foreach($list as $key => $l)
                         <div class="col-md-3 col-sm-6 my-2">
@@ -127,13 +136,13 @@
                                 <div class="p-1">
                                     <div class="d-flex flex-row bd-highlight mb-3">
                                         <div class="p-2 bd-highlight">
-                                            <img src="{{my_asset($l->voucher->thumbnail)}}" alt="" style="width: 70px;
-                                            height: 70px;
+                                            <img src="{{my_asset($l->voucher->thumbnail)}}" alt="" style="width: 50px;
+                                            height: 50px;
                                             border: 1px solid #C4C4C4;
                                             box-sizing: border-box; border-radius: 100px;">
                                         </div>
                                         <div class="p-2 bd-highlight">
-                                            <span class="d-block pb-2">{{$l->voucher->judul}}</span>
+                                            <span class="d-block pb-2">{!!\Illuminate\Support\Str::limit($l->voucher->judul,10)!!}</span>
                                             <span style="
                                             font-family: Open Sans;
                                             font-style: normal;
@@ -149,10 +158,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                @php
+                                $tgl_berakhir = \Carbon\Carbon::parse(date('Y-m-d', $l->voucher->end_date));
+                                @endphp
+                                @if($tgl_berakhir < $tes)
+                                <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;background-color: #A9A9A9;" disabled>Pakai
+                                    Voucher</button>
+                                @else
                                 <a href="{{ route('myvoucher.code', $l->id) }}">
                                 <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;">Pakai
                                     Voucher</button>
                                     </a>
+                                @endif
                             </div>
 
                         </div>
@@ -160,17 +177,19 @@
                         @endforeach
                         
                     </div>
-                    <div class="text-center mt-md-3 mb-md-5 mb-3 mt-1">
-                        <button class="btn btn-primary1 px-5">Lihat Lainnya</button>
                     </div>
-                    <div class="mb-2 mt-md-5 mt-3">
+                   {{-- <div class="text-center mt-md-3 mb-md-5 mb-3 mt-1">
+                        <button class="btn btn-primary1 px-5">Lihat Lainnya</button>
+                    </div> --}}
+                    <div class="col-md-12" style="height:20px">
+                    </div>
+                    <div class="col-md-6 col-sm-12" >
                         <h5>Voucher Terbaru</h5>
                     </div>
+                    <div class="col-md-12" >
+
                     <div class="row ">
 
-                            @php
-                            $voucher =\App\CouponVoucher::where('is_delete','0')->get();
-                            @endphp
                             @foreach($voucher as $key => $v)
                         <div class="col-md-4 col-12 my-2">
                         <a onclick="showDetailVoucher(event,{{ $v->id }})">                            
@@ -178,13 +197,13 @@
                                 <div class="p-1">
                                     <div class="d-flex flex-row bd-highlight mb-3">
                                         <div class="p-2 bd-highlight">
-                                            <img src="{{my_asset($v->thumbnail)}}" alt="" style="width: 70px;
-                                            height: 70px;
+                                            <img src="{{my_asset($v->thumbnail)}}" alt="" style="width: 50px;
+                                            height: 50px;
                                             border: 1px solid #C4C4C4;
                                             box-sizing: border-box; border-radius: 100px;">
                                         </div>
                                         <div class="p-2 bd-highlight">
-                                            <h5>{{$v->judul}}</h5>
+                                            <h5>{!!\Illuminate\Support\Str::limit($v->judul,12)!!}</h5>
                                             <span style="
                                             font-family: Open Sans;
                                             font-style: normal;
@@ -209,6 +228,7 @@
                         </div> 
                            
                             @endforeach
+                            </div>
                             </div>
    <!-- modal -->
    <div class="modal fade" id="exampleModal" tabindex="-1"
@@ -263,3 +283,10 @@
         showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
     </script>
 @endforeach
+@section('script')
+<script type="text/javascript">
+        function sort_voucher(el){
+            $('#sort_voucher').submit();
+        }
+</script>
+@endsection

@@ -23,8 +23,8 @@
                                                                     </tr>
                                                                     @php
                                                                     \Carbon\Carbon::setLocale('id');
-                                                                    $tgl = \Carbon\Carbon::parse($voucher->start_date);
-                                                                    $tgl_akhir = \Carbon\Carbon::parse($voucher->end_date);
+                                                                    $tgl = \Carbon\Carbon::parse(date('d-m-Y', $voucher->start_date));
+                                                                    $tgl_akhir = \Carbon\Carbon::parse(date('d-m-Y', $voucher->end_date));
 
                                                                     @endphp
        

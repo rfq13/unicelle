@@ -354,9 +354,9 @@ Route::any('/payhere/customer_package_payment/cancel', 'PayhereController@custom
 Route::group(['prefix'=>'/voucher'],function ()
 {
 	Route::view('own','voucher.myvoucher')->name('my.voucher');
-	Route::view('list','voucher.listvoucher')->name('list.voucher');
 });
 Route::post('/voucher/add', 'VoucherController@tukarpoint')->name('tukar.voucher');
+Route::get('/voucher/list', 'VoucherController@list_voucher')->name('list.voucher');
 
 
 Route::get('xendit/test','Payment\XenditController@test');

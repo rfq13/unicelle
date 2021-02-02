@@ -173,7 +173,8 @@
     font-size: 18px;">Berlaku Sampai :</p>
             @php
         \Carbon\Carbon::setLocale('id');
-        $tgl = \Carbon\Carbon::parse($detail->voucher->end_date);
+        $tgl = \Carbon\Carbon::parse(date('d-m-Y', $detail->voucher->end_date));
+       
         @endphp
 			<p style="    margin-top: 0;
     font-weight: bold;

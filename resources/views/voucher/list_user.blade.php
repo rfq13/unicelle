@@ -116,8 +116,8 @@
 <h4>Potongan Harga Rp. {{$coupon->potongan}}</h4>
 @php
         \Carbon\Carbon::setLocale('id');
-        $tgl_start = \Carbon\Carbon::parse($coupon->start_date);
-        $tgl = \Carbon\Carbon::parse($coupon->end_date);
+        $tgl_start = \Carbon\Carbon::parse(date('d-m-Y', $coupon->start_date));
+        $tgl = \Carbon\Carbon::parse(date('d-m-Y', $coupon->end_date));
         @endphp
 <h4>Masa Berlaku Voucher {{ $tgl_start->isoFormat('D MMMM Y') }} -  {{ $tgl->isoFormat('D MMMM Y') }}</h4>
 <div class="col-md-12" style="text-align: center;margin-left:10px;margin-right:10px">
