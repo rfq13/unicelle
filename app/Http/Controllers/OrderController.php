@@ -386,20 +386,37 @@ class OrderController extends Controller
 
     public function xenditHandle(Request $request)
     {
+        $msg = "order not found";
+        $stts = 404;
         if ($request->has('external_id')) {
-            $order = Order::where("code",$request->external_id);
+            $order = Order::where("code",$request->external_id)->with('user')->first();
 
             if ($order) {
+                $msg = "order finded, but user not found";
+                $stts = 200;
                 $user = $order->user;
                 if ($user && $user->email) {
+                    $msg = "user ditemukan";
+
+                    $pdf = PDF::setOptions([
+                        'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
+                        'logOutputFile' => storage_path('logs/log.htm'),
+                        'tempDir' => storage_path('logs/')
+                    ])->loadView('invoices.customer_invoice', compact('order'));
+                    $output = $pdf->output();
+                    file_put_contents('public/invoices/'.'Order#'.$order->code.'.pdf', $output);
+
                     $array['view'] = 'emails.invoice';
                     $array['subject'] = 'Order Placed - '.$order->code;
                     $array['from'] = env('MAIL_USERNAME');
                     $array['content'] = translate('Hi. A new order has been placed. Please check the attached invoice.');
+                    $array['file'] = 'public/invoices/Order#'.$order->code.'.pdf';
+                    $array['file_name'] = 'Order#'.$order->code.'.pdf';
             
                     
                     try {
-                        Mail::to(\App\User::find($key)->email)->queue(new InvoiceEmailManager($array));
+                        Mail::to($user->email)->queue(new InvoiceEmailManager($array));
+                        $msg = "email has sended";
                     } catch (\Exception $e) {
                         Log::info($e);
                     }
@@ -408,8 +425,8 @@ class OrderController extends Controller
         }
 
         return response()->json([
-            "message" => "success"
-        ],200);
+            "message" => $msg
+        ],$stts);
     }
 
     /**
