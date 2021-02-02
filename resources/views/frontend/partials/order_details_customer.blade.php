@@ -35,7 +35,8 @@ if($ship != null || $ship != 0){
         }
     }
     
-    
+    $payment = json_decode($order->payment_details);
+    // dd($payment);
 @endphp
 
 
@@ -104,14 +105,35 @@ if($ship != null || $ship != 0){
                             <td class="w-50 strong-600">{{ translate('Jumlah Total Pesanan')}}:</td>
                             <td>{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}</td>
                         </tr>
+                        
                         {{-- <tr>
                             <td class="w-50 strong-600">{{ translate('Metode Pengiriman')}}:</td>
                             <td>{{ translate('Flat shipping rate')}}</td>
                         </tr> --}}
-                        {{-- <tr>
-                            <td class="w-50 strong-600">{{ translate('Metode Pembayaran')}}:</td>
-                            <td>{{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}</td>
-                        </tr> --}}
+
+                        @if ($order->payment_details !=null)
+                        @php
+                        // {"is_single_use":true,"status":"ACTIVE","owner_id":"60189bffdf7ce6407ad6cc44","external_id":"20210202-09581420","retail_outlet_name":"ALFAMART","prefix":"TEST","name":"yustinus pae","payment_code":"TEST918277","type":"USER","expected_amount":819000,"expiration_date":"2021-02-03T02:58:14.593Z","id":"6018bfc70132c547a7b1665b"}
+                            // dd($payment);
+                            if (property_exists($payment,'bank_code')){
+                                $pay_opt = $payment->bank_code;
+                                $pay_num = $payment->account_number;
+                            }
+                            elseif (property_exists($payment,'retail_outlet_name')) {
+                                $pay_opt = $payment->retail_outlet_name;
+                                $pay_num = $payment->payment_code;
+                            }
+                        @endphp
+                        <tr>
+                            <td class="w-50 strong-600">{{ 'Metode Pembayaran' }}:</td>
+                            <td>{{ $pay_opt }}</td>
+                        </tr>
+                        <tr>
+                            <td class="w-50 strong-600">{{ 'kode Pembayaran' }}:</td>
+                            <td>{{ $pay_num }}</td>
+                        </tr>
+                            
+                        @endif
                     </table>
                 </div>
             </div>

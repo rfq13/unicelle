@@ -43,8 +43,9 @@ class PurchaseHistoryController extends Controller
         $order->delivery_viewed = 1;
         $order->payment_status_viewed = 1;
         $order->save();
-        $status = $order->orderDetails->first()->delivery_status;
+        $status = $order->orderDetails->first()->delivery_status ? $order->orderDetails->first()->delivery_status : "";
         $ship = 0;
+        $ship_info = 0;
         if ($status == "on_delivery" || $status == "delivered") {
             $ship_info = json_decode($order->shipping_info);
             $ship = app('\App\Http\Controllers\OrderController')->statusPengiriman($order->resi,$ship_info->code);
