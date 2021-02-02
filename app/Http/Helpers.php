@@ -290,25 +290,34 @@ if (! function_exists('convert_to_usd')) {
 }
 
 if (! function_exists('xenditRequest')) {
-    function xenditRequest($method, $params=false) {
+    function xenditRequest($params=false, $payment=false) {
         Xendit::setApiKey(env('XENDIT_API_KEY'));
-        // dd($params);
+        $payment = $payment ? json_decode($payment) : false;
+
         $data = "error";
-        switch ($method) {
-            case 'invoice':
-                $data = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $data;
-                break;
-            case 'banks':
-                $data = \Xendit\VirtualAccounts::getVABanks();
-                break;
-            case 'retail':
-                $data = \Xendit\Retail::create($params);
-                break;
-            
-            default:
-                $data = \Xendit\VirtualAccounts::getVABanks();
-                break;
+
+        if ($payment) {
+
+            switch ($payment->type) {
+                case 'va':
+                    $params["bank_code"] = $payment->option;
+                    $data = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $data;
+                    break;
+                case 'retail':
+                    $params["retail_outlet_name"] = $payment->option;
+                    $data = \Xendit\Retail::create($params);
+                    break;
+                
+                default:
+                    $data = \Xendit\VirtualAccounts::getVABanks();
+                    break;
+            }
+        }else {
+            $data = \Xendit\VirtualAccounts::getVABanks();
         }
+
+        // dd([$payment,$params]);
+
 
         return $data;
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Payment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Xendit\Xendit;
+use Xendit\Cards;
 use Carbon\Carbon;
 
 class XenditController extends Controller
@@ -14,24 +15,19 @@ class XenditController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function getVA()
-    {
-        $VA = xenditRequest('banks');
-        return response()->json(['data'=>$VA],200);
-    }
-    public function createVA()
-    {
+    public function test(){
+        Xendit::setApiKey(env('XENDIT_API_KEY'));
         $params = [
-            "external_id" => "VA_fixed-".\uniqid(),
-            "bank_code" => "BRI",
-            "name" => "Ronal Rohmat Zaenal",
-            "expected_amount" => 12000,
-            "is_close" => false,
-            "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
-            "is_single_use"=> true
+            'token_id' => '5e2e8231d97c174c58bcf644',
+            'external_id' => 'card_' . time(),
+            'authentication_id' => '5e2e8658bae82e4d54d764c0',
+            'amount' => 100000,
+            'card_cvn' => '123',
+            'capture' => false
         ];
-        $VA = xenditRequest('invoice',$params);
-        return response()->json(['data'=>$VA],200);
+        
+        $createCharge = Cards::create($params);
+        var_dump($createCharge);
     }
 
     /**

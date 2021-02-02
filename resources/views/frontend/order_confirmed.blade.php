@@ -2,15 +2,23 @@
 
 @section('content')
 @php
-$bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
-if ($bank_setting == null) {
-    flash("mohon maaf mengganggu kenyamanan anda, pengaturan bank belum dilakukan oleh admin");
-    echo "<script>window.location ='".route("home")."' </script>";
-    return;
-}
-$config =  json_decode( $bank_setting->value);
-// dd($va);
-$logo = strtolower($va['bank_code']);
+    $bank_setting = \App\BusinessSetting::where('type', 'bank_setting')->first();
+    if ($bank_setting == null) {
+        flash("mohon maaf mengganggu kenyamanan anda, pengaturan bank belum dilakukan oleh admin");
+        echo "<script>window.location ='".route("home")."' </script>";
+        return;
+    }
+    $config =  json_decode( $bank_setting->value);
+
+    if (array_key_exists('bank_code', $va)) {
+        $payment = $va["bank_code"];
+        $pay_number = $va["account_number"];
+    }elseif(array_key_exists('retail_outlet_name', $va)) {
+        $payment = $va["retail_outlet_name"];
+        $pay_number = $va["payment_code"];
+    }
+
+    $logo = strtolower($payment);
 @endphp
 <div class="container my-lg-5 my-3">
         <div class="row">
@@ -32,18 +40,18 @@ $logo = strtolower($va['bank_code']);
 
                             <div class="d-flex mt-1 mt-lg-3">
                                 <div class="img-konfimasi__ mx-2">
-                                    <img src="{{my_asset("/images/icon/Bank/$logo-02.png")}}" alt="" style="width: 50px; height: 50px;">
+                                    <img src="{{my_asset("/images/icon/payment/$logo-02.png")}}" alt="" style="width: 50px; height: 50px;">
                                 </div>
                                 <div class="name-bank-konfirmasi__ mx-2 p-0">
-                                    <span class="font-weight-bold" style="font-size: 16px;">{{ $va['bank_code'] }}</span><br>
-                                    <span style="font-size: 12px; color: #424242;">Hanya menerima transfer dari {{ $va['bank_code'] }}</span>
+                                    <span class="font-weight-bold" style="font-size: 16px;">{{ $payment }}</span><br>
+                                    <span style="font-size: 12px; color: #424242;">Hanya menerima transfer dari {{ $payment }}</span>
                                 </div>
                             </div>
 
                             <div class="info-lanjut-konfirmasi__">
                                 <div class="mt-3">
-                                    <span style="font-size: 16px; color: #424242;">No. Virtual Account</span><br>
-                                    <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ $va['account_number'] }}</span>
+                                    <span style="font-size: 16px; color: #424242;">No. Pembayaran</span><br>
+                                    <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ $pay_number }}</span>
                                 </div>
                                 {{-- <div class="mt-3">
                                     <span style="font-size: 16px; color: #424242;">Nama Pemilik Rekening</span><br>
