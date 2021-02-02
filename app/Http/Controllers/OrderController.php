@@ -235,7 +235,7 @@ class OrderController extends Controller
         $shipping_info = decrypt($request->shipping_info);
         $order->shipping_address = Auth::user()->addresseDefault->id;
         $order->shipping_info = json_encode($shipping_info);
-        $order->payment_type = $request->payment_option;
+        $order->payment_type = json_decode($request->payment_option)->option;
         $order->delivery_viewed = '0';
         $order->payment_status_viewed = '0';
         $order->code = date('Ymd-His').rand(10,99);
@@ -300,7 +300,7 @@ class OrderController extends Controller
             }
 
             $order->grand_total = $subtotal + $tax + $shipping;
-
+            
             if(Session::has('coupon_discount')){
                 $order->grand_total -= Session::get('coupon_discount');
                 $order->coupon_discount = Session::get('coupon_discount');
@@ -310,6 +310,7 @@ class OrderController extends Controller
                 $coupon_usage->coupon_id = Session::get('coupon_id');
                 $coupon_usage->save();
             }
+            
             if(Session::has('poin_use')){
                 $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
                 $total = Session::get('poin_use')*$club_point_convert_rate->value;
@@ -319,7 +320,7 @@ class OrderController extends Controller
                 Auth::user()->poin -= Session::get('poin_use');
                 Auth::user()->save();
             }
-
+            
             if(Session::has('data_dropshiper')){
               
                 $dropshiper = Session::get('data_dropshiper');
@@ -332,7 +333,7 @@ class OrderController extends Controller
                 $order->shipping_cost = $shipping_info->cost;
                 
             }
-
+            // dd($order->grand_total);
             $params = [
                 "external_id" => $order->code,
                 "name" => Auth::user()->name,
@@ -390,7 +391,7 @@ class OrderController extends Controller
 
             \App\Cart::where("user_id",Auth::id())->delete();
         }
-        return $xendit;
+        return ['va' => $xendit,'id'=>$order->id];
     }
 
     public function xenditHandle(Request $request)
