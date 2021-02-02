@@ -348,15 +348,15 @@ class OrderController extends Controller
             $order->payment_details = json_encode($xendit);
 
             $order->save();
-            $point_club = new ClubPoint;
-            $point_club->user_id = Auth::user()->id;
-            $point_club->points = $request->totalpoin;
-            $point_club->convert_status = '0';
-            $point_club->save();
-            $user = User::findOrFail(Auth::user()->id);
-            $update_poin = Auth::user()->poin + $request->totalpoin;
-            $user->poin = $update_poin;
-            $user->save();
+            // $point_club = new ClubPoint;
+            // $point_club->user_id = Auth::user()->id;
+            // $point_club->points = $request->totalpoin;
+            // $point_club->convert_status = '0';
+            // $point_club->save();
+            // $user = User::findOrFail(Auth::user()->id);
+            // $update_poin = Auth::user()->poin + $request->totalpoin;
+            // $user->poin = $update_poin;
+            // $user->save();
             //stores the pdf for invoice
             // $pdf = PDF::setOptions([
             //                 'isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true,
