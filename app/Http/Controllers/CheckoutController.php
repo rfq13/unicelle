@@ -38,7 +38,7 @@ class CheckoutController extends Controller
         if ($request->payment_option != null && $request->shipping_info != null) {
 
             $orderController = new OrderController;
-            $VA = $orderController->store($request);
+            $order = $orderController->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
             $request->session()->put('shipping_info',$request->shipping_info);
@@ -53,7 +53,7 @@ class CheckoutController extends Controller
                 $request->session()->forget('coupon_discount');
 
                 // flash(translate("Your order has been placed successfully"))->success();
-                return $this->order_confirmed($VA);
+                return $this->order_confirmed($order);
             }
         }else {
             flash(translate('Mohon pilih metode pengiriman terlebih dahulu.'))->warning();
@@ -337,13 +337,12 @@ class CheckoutController extends Controller
         return back();
     }
 
-    public function order_confirmed($va){
-        $order = Order::findOrFail(Session::get('order_id'));
-        if ($order->payment_details == null) {
-            $order->payment_details = json_encode($va);
-            $order->save();
-        }
-        return view('frontend.order_confirmed', compact('order','va'));
+    public function order_confirmed($store){
+        $va = $store['va'];
+        $order = Order::findOrFail($store['id']);
+        $mustPay = $order->grand_total;
+
+        return view('frontend.order_confirmed', compact('order','va','mustPay'));
     }
 
     public function set_ongkir(Request $request)

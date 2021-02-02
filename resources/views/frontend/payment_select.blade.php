@@ -1,5 +1,7 @@
 @php
-    // dd(decrypt($shipping_info));
+    $spi = decrypt($shipping_info);
+    // dd([$spi,$total]);
+    $total += $spi->cost;
 @endphp
 @extends('frontend.layouts.app')
 
@@ -110,7 +112,9 @@
                                                                 "type" => "retail",
                                                                 "option" => "ALFAMART"
                                                             ]) 
-                                                        }}">
+                                                        }}" @if ($total > 2500000)
+                                                            disabled
+                                                        @endif>
                                                         <span class="rb-checkmark"></span>
                                                     </label>
                                                 </div>
@@ -120,7 +124,11 @@
                                                 </div>
                                                 <div class="col-8 mt-3">
                                                     <p class="text-ekspedisi" style="margin-bottom: 0%;">Alfamart</p>
+                                                    @if ($total > 2500000)
+                                                    <p class="date-ekspedisi" style="color: red">tidak dapat menggunakan alfamart, maksimal {{ single_price(2500000) }}</p>
+                                                    @else
                                                     <p class="date-ekspedisi"> Hanya bayar pada teller Alfamart</p>
+                                                    @endif
                                                 </div>
                                             </div> 
                                         </div>   
@@ -209,11 +217,6 @@
                                     <div class="col-6">
                                         <p class="text-rincian-bayar" style="color: #B71C1C;">Total Pembayaran</p>
                                     </div>
-                                    @php
-                                        $spi = decrypt($shipping_info);
-                                        // dd([$spi,$total]);
-                                        $total += $spi->cost;
-                                    @endphp
 
                                     <div class="col-6">
                                         <p class="text-rincian-bayar" style="color: #B71C1C; text-align: right;">{{ single_price((int)$total) }}</p>

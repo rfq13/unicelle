@@ -59,7 +59,7 @@
                                 </div> --}}
                                 <div class="mt-2">
                                     <span style="font-size: 16px; color: #424242;">Jumlah yang Dibayar</span><br>
-                                    <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ single_price($order->grand_total) }}</span>
+                                    <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ single_price($mustPay) }}</span>
                                 </div>
                                 <div class="mt-4">
                                     <span class="text-muted" style="font-size: 16px;">Pastikan kamu melakukan pembayaran dalam waktu 24 jam setelah pesanan dibuat
