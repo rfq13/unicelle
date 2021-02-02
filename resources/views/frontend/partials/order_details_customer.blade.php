@@ -113,12 +113,10 @@ if($ship != null || $ship != 0){
 
                         @if ($order->payment_details !=null)
                         @php
-                        // {"is_single_use":true,"status":"ACTIVE","owner_id":"60189bffdf7ce6407ad6cc44","external_id":"20210202-09581420","retail_outlet_name":"ALFAMART","prefix":"TEST","name":"yustinus pae","payment_code":"TEST918277","type":"USER","expected_amount":819000,"expiration_date":"2021-02-03T02:58:14.593Z","id":"6018bfc70132c547a7b1665b"}
-                            // dd($payment);
                             if (property_exists($payment,'bank_code')){
                                 $pay_opt = "$payment->bank_code Virtual Account";
                                 $pay_num = $payment->account_number;
-                                $title = "VA"
+                                $title = "VA";
                             }
                             elseif (property_exists($payment,'retail_outlet_name')) {
                                 $pay_opt = $payment->retail_outlet_name;
