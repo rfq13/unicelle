@@ -546,10 +546,32 @@ class HomeController extends Controller
                     $products->orderBy('created_at', 'asc');
                     break;
                 case '3':
-                    $products->orderBy('unit_price', 'asc');
-                    break;
+                    if(Auth::user()->user_type == "pasien reg"){
+                        $products->orderBy('pasien_regular_price', 'asc');
+                        }
+                        else if(Auth::user()->user_type == "partner physician"){
+                            $products->orderBy('partner_physician_price', 'asc');
+                        }
+                        else if(Auth::user()->user_type == "regular physician"){
+                            $products->orderBy('regular_physician_price', 'asc');
+                        }
+                        else{
+                            $products->orderBy('unit_price', 'asc');
+                        }                    
+                        break;
                 case '4':
-                    $products->orderBy('unit_price', 'desc');
+                    if(Auth::user()->user_type == "pasien reg"){
+                    $products->orderBy('pasien_regular_price', 'desc');
+                    }
+                    else if(Auth::user()->user_type == "partner physician"){
+                        $products->orderBy('partner_physician_price', 'desc');
+                    }
+                    else if(Auth::user()->user_type == "regular physician"){
+                        $products->orderBy('regular_physician_price', 'desc');
+                    }
+                    else{
+                        $products->orderBy('unit_price', 'desc');
+                    }
                     break;
                 case '5':
                     $products->orderBy('num_of_sale','desc');
