@@ -54,9 +54,9 @@ class CheckoutController extends Controller
                 $request->session()->forget('coupon_discount');
 
 
-                // flash(translate("Your order has been placed successfully"))->success();
-                return $this->order_confirmed($order);
+                flash(translate("Your order has been placed successfully"))->success();
             }
+            return $this->order_confirmed($order);
         }else {
             flash(translate('Mohon pilih metode pengiriman terlebih dahulu.'))->warning();
             return back();
