@@ -211,7 +211,7 @@
                                             box-sizing: border-box; border-radius: 100px;">
                                         </div>
                                         <div class="p-2 bd-highlight">
-                                            <h5>{!!\Illuminate\Support\Str::limit($v->judul,10)!!}</h5>
+                                            <h5 style="font-size:15px">{!!\Illuminate\Support\Str::limit($v->judul,12)!!}</h5>
                                             <span style="
                                             font-family: Open Sans;
                                             font-style: normal;

@@ -179,7 +179,6 @@ class CartController extends Controller
             $cart = Cart::findOrFail($request->key);
             $cart->delete();
         }
-        return redirect()->route('cart');
 
     }
 

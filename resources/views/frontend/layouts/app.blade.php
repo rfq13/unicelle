@@ -1074,6 +1074,7 @@ background: #428bca;
             $('#cart-summary').html(data);
             showFrontendAlert('success', 'Item has been removed from cart');
             $('#cart_items_sidenav').html(parseInt($('#cart_items_sidenav').html())-1);
+            location.reload();
         });
     }
 
