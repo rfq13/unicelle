@@ -48,8 +48,14 @@ class VoucherController extends Controller
     public function list_voucher(Request $request)
     {
         $sort_search = null;
-
-        $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->get();
+        $load_id = null;
+        $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->limit(4)->get();
+        if($request->has('load')){
+            $load_id= $request->load;
+            if($load_id == '1'){
+            $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->get();
+            }
+        }
         $voucher =\App\CouponVoucher::where('is_delete','0')->get();
         if ($request->has('search')){
             $sort_search=$request->search;
@@ -60,7 +66,7 @@ class VoucherController extends Controller
 
         }
 
-        return view('voucher.listvoucher',compact('list','voucher'));
+        return view('voucher.listvoucher',compact('list','voucher','load_id'));
     }
     public function store(Request $request)
     {
