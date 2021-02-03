@@ -84,18 +84,21 @@
                                                     <td>{{ $club_point->points }} {{ __(' pts') }}</td>
                                                     <td>
                                                         @if ($club_point->convert_status == 1)
-                                                            <span class="ml-2" style="color:green"><strong>{{ __('Yes') }}</strong></span>
+                                                            <span class="ml-2" style="color:green"><strong>-</strong></span>
                                                         @else
-                                                            <span class="ml-2" style="color:indigo"><strong>{{ __('No') }}</strong></span>
+                                                            <span class="ml-2" style="color:indigo"><strong>-</strong></span>
                                                         @endif
                                                     </td>
                                                     <td>
+                                                    Pembelian
+                                                    </td>
+                                                  {{--  <td>
                                                         @if ($club_point->convert_status == 0)
                                                             <button onclick="convert_point({{ $club_point->id }})" class="btn btn-sm btn-styled btn-base-1">{{__('Convert Now')}}</button>
                                                         @else
                                                             <span class="ml-2" style="color:green"><strong>{{ __('Done') }}</strong></span>
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @endforeach
                                         @else
