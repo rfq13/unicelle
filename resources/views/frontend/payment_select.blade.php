@@ -238,7 +238,7 @@
                                         <p class="price__produk" style="text-align: right;">{{$totalpoin}}</p>
                                     </div>
                                 </div>
-                                <button class="mb-4 mt-2 btn btn-default">Lanjutkan Pembayaran</button>
+                                <button type="submit" class="mb-4 mt-2 btn btn-default">Lanjutkan Pembayaran</button>
                             </div>
                         </div>
                     </div>
