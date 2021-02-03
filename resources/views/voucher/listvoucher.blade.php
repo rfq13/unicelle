@@ -178,9 +178,17 @@
                         
                     </div>
                     </div>
-                   {{-- <div class="text-center mt-md-3 mb-md-5 mb-3 mt-1">
-                        <button class="btn btn-primary1 px-5">Lihat Lainnya</button>
-                    </div> --}}
+                    @if(isset($load_id))
+                    <p>&nbsp</p>
+                    @else
+                    <form class="" id="sort_usage" action="" method="GET">
+                   <div class="text-center mt-md-3 mb-md-5 mb-3 mt-1">
+                   <input type="hidden" class="form-control d-inline-block" placeholder="Cari Voucher"
+                                    name="load" value="1">
+                        <a id="btn-load" onclick="sort_usage()"><button class="btn btn-primary1 px-5">Lihat Lainnya</button></a>
+                    </div> 
+                    </form>
+                    @endif
                     <div class="col-md-12" style="height:20px">
                     </div>
                     <div class="col-md-6 col-sm-12" >
@@ -287,6 +295,14 @@
 <script type="text/javascript">
         function sort_voucher(el){
             $('#sort_voucher').submit();
+        }
+        function sort_usage(el){
+            $('#sort_usage').submit();
+        }
+        function select(id) {
+            $.get('{{route('list.voucher')}}', {_token:'{{ csrf_token() }}',id:id}, function (data) {
+
+            })
         }
 </script>
 @endsection
