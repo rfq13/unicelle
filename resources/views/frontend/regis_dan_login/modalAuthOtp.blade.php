@@ -38,6 +38,7 @@
                                                     <!-- </form> -->
                                                     <span>Mohon tunggu <span id="detik"></span> detik untuk mengirim ulang</span>
                                                 </div>
+                                                <div id="recaptcha-container-resend"></div>
                                                 <a href="#" id="resend" style="color: #c2edeb">Kirim Ulang</a>
                                             </div>
                                         </div>

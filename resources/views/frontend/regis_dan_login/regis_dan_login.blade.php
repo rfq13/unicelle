@@ -148,6 +148,11 @@
             recaptchaVerifier.render();
         }
 
+        function render_resend() {
+            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container-resend');
+            recaptchaVerifier.render();
+        }
+
         
 
         /* ========== Autentikasi OTP ========== */
@@ -311,16 +316,19 @@
                 // alert(code);
             }
 
-            function sendOtp(number,modal="no") {
+            function sendOtp(number,modal="no",kirimUlang) {
                 var res = number.charAt(0)
+                
                 if (res == "0") {
                     number = number.substring(1,number.length);
                 }
+
+                // console.log(number);
                 firebase.auth().signInWithPhoneNumber("+62" + number, window.recaptchaVerifier).then(function(confirmationResult){
                     window.confirmationResult = confirmationResult;
                     coderesult = confirmationResult;
                     if (modal == "modal") {
-                        $("#verifikasi").prepend("<input type='hidden' id='verifiedTelp' value='0"+number+"'>")
+                        $("#verifikasi").prepend("<input type='hidden' id='verifiedTelp' value='0"+number+"'>");
                         $('#verifikasi').modal();
                     }
                     countDown(20)
@@ -352,14 +360,15 @@
                         
                     // If the count down is over, write some text 
                         if (distance < 1) {
+                            render_resend();
+
                             clearInterval(x);
                             document.getElementById("resend").style.color = "#3BB5B0";
                             document.getElementById("detik").innerHTML = "0";
                             let resend = document.getElementById("resend")
                                 resend.addEventListener("click", function (e) {
                                     var number = document.getElementById('verifiedTelp').value;
-                                    console.log(number);
-                                    sendOtp(number)
+                                    sendOtp(number,'no',true)
                                 })
                         }
                 }, 1000);
