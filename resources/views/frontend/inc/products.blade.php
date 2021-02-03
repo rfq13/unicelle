@@ -20,10 +20,10 @@
                 <div class="position-relative overflow-hidden  py-1">
                     <a href="{{ route('product', $product->slug) }}"
                         class="d-block product-image h-100 text-center p-2" tabindex="0">
-                        <img class="img-fluid lazyload"
+                        <img class="img-fluid lazyload gambar"
                             src="{{ my_asset('frontend/images/placeholder.jpg') }}"
                             data-src="{{ my_asset($product->thumbnail_img) }}"
-                            alt="{{ __($product->name) }}" style="max-height: 200px; max-width: 160px; min-height: 200px; min-width: 160px;">
+                            alt="{{ __($product->name) }}">
                     </a>
                     <div class="product-btns clearfix">
                         <button class="btn add-wishlist" title="Add to Wishlist"
@@ -131,15 +131,15 @@
         @if ($qty < 1)
             @continue
         @endif
-        <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6">
+        <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6" style="margin-bottom: 20px;">
             <div class="card bg-white my-md-3">
                 <div class="position-relative overflow-hidden">
                     <a href="{{ route('product', $product->slug) }}"
                         class="d-block product-image text-center p-2" tabindex="0">
-                        <img class="img-fluid lazyload "
+                        <img class="img-fluid lazyload gambar"
                             src="{{ my_asset('frontend/images/placeholder.jpg') }}"
                             data-src="{{ my_asset($product->thumbnail_img) }}"
-                            alt="{{ __($product->name) }}" style="max-height: 200px; max-width: 160px; min-height: 200px; min-width: 160px;">
+                            alt="{{ __($product->name) }}">
                     </a>
                     {{-- <div class="product-btns clearfix">
                         <button class="btn add-wishlist" title="Add to Wishlist"

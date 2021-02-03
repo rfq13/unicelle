@@ -294,18 +294,18 @@
             <a data-slide="next" href="#carouselExampleControlla" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
         </div> --}}
 
-        <div class="row" style="height:250px; margin-bottom: 100px;">
+        <div class="row-slider" style="height:250px; margin-bottom: 100px;">
             <div class="col-1 my-auto px-0">
                 <a data-slide="prev" href="#Carousel" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
             </div>
             <div class="col">
-                <div class="row">
+                <div class="row-slider">
                     <div class="col-lg-12">
                         <div id="Carousel" class="carousel slide p-0 mx-auto my-auto">
                             <div class="carousel-inner">
                                 @foreach ($categories as $k=> $category)
                                     <div class="item {{ $k == 0 ? "active" : "" }} carousel-item">
-                                        <div class="row">
+                                        <div class="row-slider">
                                             @foreach ($category as $key => $value)
                                                 <div class="col-md-2">
                                                     <div class="my-2">

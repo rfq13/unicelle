@@ -637,11 +637,85 @@
         font-size: 16px;
         color: #3B6CB6;
     }
+    @media (max-width: 767px){
+.sm-no-gutters > .col, .sm-no-gutters > [class*="col-"] {
+    padding-right: 5px;
+    padding-left: 5px;
+}
+    }
+    @media screen and (min-width: 976px) {
+
+    .nav-item{
+        margin-bottom: auto!important;
+    }
+    }
+    
+    @media screen and (max-width: 976px) {
+        .nav-item{
+        margin-bottom: 10px;
+    }
+    .navbar-nav {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    flex-direction: column;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+    }
+    .gambar{
+        max-height: 200px; 
+        max-width: 140px; 
+        min-height: 200px; 
+        min-width: 140px;
+    }
+    @media screen and (max-width: 431px) {
+            .gambar{
+                max-height: 160px;
+    max-width: 120px;
+    min-height: 160px;
+    min-width: 120px;
+            }
+            .w-25 {
+    width: 55%!important;
+}
+    }
+    .row-card {
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    margin-left: -15px;
+}
     .img-dropshipper{
         width: 80%;
         height: 70%;
         border: 1px solid #ECE8E5;
         border-radius: 5px;
+    }
+    .row-slider{
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    }
+    @media screen and (max-width: 730px) {
+  .row-slider{
+    display: flex;
+    flex-wrap: nowrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    }
+    }
+    @media screen and (max-width: 494px) {
+        .col-3 {
+    flex: 0 0 25%;
+    max-width: 100%;
+}
+.ml-3, .mx-3 {
+    margin-left: 0px;
+}
     }
     .code-dropshipper{
         font-family: "Open Sans";

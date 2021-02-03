@@ -45,15 +45,16 @@
                                 </div>
                                 <div class="mt-3">
                                     <div class="form-group row">
-                                        <label for="inputnama__" class="col-sm-3 col-form-label text-right pr-4">Nama</label>
+                                        <label for="inputnama__" class="col-sm-3 col-form-label pr-4">Nama</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" placeholder="{{ translate('Your Name') }}" name="name" value="{{ Auth::user()->name }}" id="inputnama__">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputPassword3" class="col-sm-3 col-form-label text-right pr-4">Jenis
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label pr-4">Jenis
                                             Kelamin</label>
-                                        <div class="form-check form-check-inline col-sm-3 pl-3">
+                                            <div style="display:flex">
+                                        <div class="form-check form-check-inline col-sm-6 pl-3">
                                             <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1" {{Auth::user()->gender == 1 ? "checked":''}}  required>
                                             <label class="form-check-label" for="inlineRadio1">Laki-Laki</label>
                                         </div>
@@ -61,9 +62,10 @@
                                             <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2" {{Auth::user()->gender == 2 ? "checked":''}} required>
                                             <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                         </div>
+                                        </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label class="col-sm-3 col-form-label text-right pr-4">Tanggal Lahir</label>
+                                        <label class="col-sm-3 col-form-label pr-4">Tanggal Lahir</label>
                                         <div class="col-sm-9">
                                         <input type="text" value={{Auth::user()->birth}} class="form-control datepicker" name="birth" id="datepicker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Lahir">
                                             <!-- 
@@ -97,7 +99,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputemail__" class="col-sm-3 col-form-label text-right pr-4">Email</label>
+                                        <label for="inputemail__" class="col-sm-3 col-form-label pr-4">Email</label>
                                         <div class="col-sm-9 mt-2">
                                             @if (Auth::user()->email == null)
                                             <input type="email" name="email" class="form-control" id="inputemail__" value="{{Auth::user()->email}}" autocomplete="off">
@@ -107,13 +109,13 @@
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputpassword__" class="col-sm-3 col-form-label text-right pr-4">Password</label>
+                                        <label for="inputpassword__" class="col-sm-3 col-form-label pr-4">Password</label>
                                         <div class="col-sm-9">
                                             <input type="password" name="password" class="form-control" id="inputpassword__">
                                         </div>
                                     </div>
                                     <div class="form-group row">
-                                        <label for="inputnama__" class="col-sm-3 col-form-label text-right pr-4">Telepon</label>
+                                        <label for="inputnama__" class="col-sm-3 col-form-label pr-4">Telepon</label>
                                         <div class="col-sm-9">
                                             <input type="text" class="form-control" placeholder="{{ translate('No Telepon') }}" name="phone" value="{{ Auth::user()->phone }}" id="inputnomor__">
                                         </div>

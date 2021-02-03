@@ -129,7 +129,7 @@
 
     <div class="breadcrumb-area" style="background-color: white;border:none; min-height: 10vh">
         <div class="container ">
-            <div class="row">
+            <div class="row-card">
                 <div class="col">
                     <ul class="breadcrumb">
                         <li><a href="{{ route('home') }}">{{ translate('Home')}}</a></li>
@@ -148,7 +148,7 @@
                         @endif
                     </ul>
                     <div class="container ml-3">
-                        <div class="row">
+                        <div class="row-card">
                             <p class="text-hasilpencarian mt-3">{{ isset($query) && $query != "" ? "Hasil Pencarian : ''$query''" : ""}}</p>
                             <ul>
                                 @if(isset($category_id))
@@ -165,10 +165,14 @@
                                 @endif
                             </ul>
                             <div class="row col ridge ml-5 mt-3">
+                            <div>
                                 <p class="text-urutkan mt-4 ml-3">Urutkan</p>
-                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '5' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 ml-3 mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(5)">Terlaris</a>
+                            </div>
+                            <div style="width:90%">
+                                <a class="col-3 btn {{ isset($sort_by) && $sort_by == '5' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(5)">Terlaris</a>
                                 <a class="col-3 btn {{ isset($sort_by) && $sort_by == '4' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3 mt-3 mb-3 "id="btn-urutkan" href="#" onclick="select(4)">Harga Tertinggi</a>
                                 <a class="col-3 btn {{ isset($sort_by) && $sort_by == '3' ? 'btn-urutkan-active' : 'btn-urutkan' }} mt-3 mb-3" id="btn-urutkan" href="#" onclick="select(3)">Harga Terendah</a>
+                            
                             </div>
                         </div>
                         <p>{{ isset($query) && $query != "" ? $products->total()." Search Result for ''$query''" : ""}}</p>
