@@ -234,6 +234,7 @@
                                         <p class="text-ekspedisi">Point yang akan di dapat</p>
                                     </div>
                                     <input type="hidden" value={{$totalpoin}} name="totalpoin">
+
                                     <div class="col-5">
                                         <p class="price__produk" style="text-align: right;">{{$totalpoin}}</p>
                                     </div>
