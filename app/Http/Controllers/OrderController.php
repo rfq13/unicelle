@@ -224,6 +224,12 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $ccdetails=false;
+        if ($request->session()->has('ccdetails')) {
+            $ccdetails = $request->session()->get('ccdetails');
+            $request->session()->forget('ccdetails');
+        }
+
         $order = new Order;
         
         if(Auth::check()){
@@ -232,6 +238,7 @@ class OrderController extends Controller
         else{
             $order->guest_id = mt_rand(100000, 999999);
         }
+
         $shipping_info = decrypt($request->shipping_info);
         $order->shipping_address = Auth::user()->addresseDefault->id;
         $order->shipping_info = json_encode($shipping_info);
@@ -343,7 +350,7 @@ class OrderController extends Controller
                 "is_single_use"=> true
             ];            
 
-            $xendit = xenditRequest($params,$request->payment_option);
+            $xendit = $ccdetails ? $ccdetails : xenditRequest($params,$request->payment_option);
 
             $order->payment_details = json_encode($xendit);
 
@@ -391,7 +398,7 @@ class OrderController extends Controller
 
             \App\Cart::where("user_id",Auth::id())->delete();
         }
-        return ['va' => $xendit,'id'=>$order->id];
+        return ['xendit' => $xendit,'id'=>$order->id,'creditcard'=>$ccdetails ? true : false];
     }
 
     public function xenditHandle(Request $request)

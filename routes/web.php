@@ -361,3 +361,5 @@ Route::get('/voucher/list', 'VoucherController@list_voucher')->name('list.vouche
 
 Route::get('xendit/test','Payment\XenditController@test');
 Route::get('xendit/invoice','Payment\XenditController@createVA');
+Route::view('xendit/credit-card-form','payment.creditcardform')->name('xendit.ccform');
+Route::post('xendit/credit-card-charge','Payment\XenditController@charge')->name('xendit.charge');
