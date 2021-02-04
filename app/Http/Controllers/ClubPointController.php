@@ -138,8 +138,13 @@ class ClubPointController extends Controller
         {
             if($request->jml <= Auth::user()->poin)
             {
+                if($request->jml == null){
+                    flash(__('Masukkan jumlah poin'))->error();
+                }
+                else{
                 flash(__('sukses'))->success();
                 $request->session()->put('poin_use',$request->jml);
+                }
             }else{
                 flash("Poin yang anda masukan melebih poin yang anda.")->error();
             }

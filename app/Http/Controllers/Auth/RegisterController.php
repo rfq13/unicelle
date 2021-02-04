@@ -59,7 +59,13 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-
+        $messages = [
+            'required' => 'Harus diisi',
+            'string'    => 'attribute harus berformat teks',
+            'file'    => 'attribute harus berformat file',
+            'mimes' => 'format :attribute harus :mimes',
+            'max'      => 'ukuran maksimal :attribute => :max',
+        ];
         $validate = [
             'nama_depan' => 'required|string|max:255',
             'nama_belakang' => 'required|string|max:255',
@@ -79,7 +85,7 @@ class RegisterController extends Controller
 
 
 
-        return Validator::make($data, $validate);
+        return Validator::make($data, $validate, $messages);
     }
 
     /**

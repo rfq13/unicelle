@@ -3,6 +3,13 @@
 @section('content')
 
     <section class="gry-bg py-4 profile">
+    <div class="container">
+    @if(Auth::user()->user_type == 'seller')
+    @include('frontend.inc.seller_mobile_nav')
+    @else
+    @include('frontend.inc.customer_mobile_nav')
+    @endif
+    </div>
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="col-lg-3 d-none d-lg-block">
@@ -134,7 +141,9 @@
                                 @endif
                             </div>
                         </div>
-
+                        @if(Auth::user()->user_type == 'seller')
+                        @include('frontend.seller.seller_sold')
+                        @endif
                         <div class="pagination-wrapper py-4">
                             <ul class="pagination justify-content-end">
                                 {{ $orders->links() }}
@@ -155,8 +164,11 @@
                 <div id="order-details-modal-body">
 
                 </div>
+                
             </div>
+            
         </div>
+        
     </div>
 
 @endsection

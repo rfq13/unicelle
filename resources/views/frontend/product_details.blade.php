@@ -248,10 +248,10 @@
                                         </div>
                                     <!-- </div> -->
                                         <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
-                                            <div class="col-2">
+                                            <div class="col-3">
                                                 <div class="product-description-label font-size-1">{{ translate('Jumlah')}} :</div>
                                             </div>
-                                            <div class="col-10">
+                                            <div class="col-9">
                                                 <div class="product-price font-size-1 font-weight-bold">
                                                     <strong id="chosen_pricek">
 
@@ -275,10 +275,10 @@
                                         @if ($detailedProduct->choice_options != null)
                                             @foreach (json_decode($detailedProduct->choice_options) as $key => $choice)
                                                 <div class="row align-items-center">
-                                                    <div class="col-2 ">
+                                                    <div class="col-3 ">
                                                         <p class="font-size-1 font-weight-bold">{{ \App\Attribute::find($choice->attribute_id)->name }} :</p>
                                                     </div>
-                                                    <div class="col-10 pl-0">
+                                                    <div class="col-9 pl-0">
                                                         <ul class="list-inline checkbox-alphanumeric checkbox-alphanumeric--style-1 mb-2">
                                                             @foreach ($choice->values as $key => $value)
                                                                 <li>

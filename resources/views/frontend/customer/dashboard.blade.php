@@ -6,6 +6,13 @@
 @section('content')
 
     <section class="gry-bg py-4 profile">
+    <div class="container">
+    @if(Auth::user()->user_type == 'seller')
+    @include('frontend.inc.seller_mobile_nav')
+    @else
+    @include('frontend.inc.customer_mobile_nav')
+    @endif
+    </div>
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="col-lg-4 d-none d-lg-block">

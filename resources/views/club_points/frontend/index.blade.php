@@ -5,6 +5,13 @@
         $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first()->value;
     @endphp
     <section class="gry-bg py-4 profile">
+    <div class="container">
+    @if(Auth::user()->user_type == 'seller')
+    @include('frontend.inc.seller_mobile_nav')
+    @else
+    @include('frontend.inc.customer_mobile_nav')
+    @endif
+    </div>
         <div class="container">
             <div class="row cols-xs-space cols-sm-space cols-md-space">
                 <div class="col-lg-4 d-none d-lg-block">
@@ -59,7 +66,7 @@
                                             <th>#</th>
                                             <th>{{ __('Tanggal') }}</th>
                                             <th>{{__('Point')}}</th>
-                                            <th>{{__('Dikonversi')}}</th>
+                                           {{-- <th>{{__('Dikonversi')}}</th> --}}
                                             <th>{{__('Aksi')}}</th>
                                         </tr>
                                     </thead>
@@ -70,8 +77,8 @@
                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                                     <td>{{ $value->point }} {{ __(' pts') }}</td>
-                                                    <td><span class="ml-2" style="color:green"><strong>-</strong></span>
-                                                    </td>
+                                                    {{-- <td><span class="ml-2" style="color:green"><strong>-</strong></span>
+                                                    </td> --}}
                                                     <td>{{ $value->keterangan }}</td>
                                     </tr>
                                 <?php endforeach ?>
@@ -82,13 +89,13 @@
                                                     <td>{{ $key+1 }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($club_point->created_at)) }}</td>
                                                     <td>{{ $club_point->points }} {{ __(' pts') }}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         @if ($club_point->convert_status == 1)
                                                             <span class="ml-2" style="color:green"><strong>-</strong></span>
                                                         @else
                                                             <span class="ml-2" style="color:indigo"><strong>-</strong></span>
                                                         @endif
-                                                    </td>
+                                                    </td> --}}
                                                     <td>
                                                     Pembelian
                                                     </td>
@@ -113,6 +120,9 @@
                                 </table>
                             </div>
                         </div>
+                        @if(Auth::user()->user_type == 'seller')
+                        @include('frontend.seller.seller_sold')
+                        @endif
                         <div class="pagination-wrapper py-4">
                             <ul class="pagination justify-content-end">
                                 {{ $club_points->links() }}

@@ -40,7 +40,7 @@ $point = Auth::user()->poin;
                         <i id="" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             class="fa fa-bell-o font-weight-bold" aria-hidden="true" style="font-size: 22px "></i>
                     </li> --}}
-                    <li class="nav-item my-auto mr-lg-3 mr-0">
+                    <li class="nav-item mr-lg-3 mr-0">
                         <a href="{{ route('wishlists.index') }}" style="color:black">
                             <div class="d-flex">
                                 <i id="" type="button" aria-haspopup="true" aria-expanded="false"
@@ -60,7 +60,7 @@ $point = Auth::user()->poin;
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item my-auto mr-lg-3 mr-0">
+                    <li class="nav-item mr-lg-3 mr-0">
                         <a href="{{ route('cart') }}">
                             <div class="d-flex align-items-start">
                                 <i class="" id="" type="button" aria-haspopup="true" aria-expanded="false" style="margin-right:-12px!important;">
@@ -81,7 +81,7 @@ $point = Auth::user()->poin;
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item my-auto mr-lg-3 mr-0">
+                    <li class="nav-item mr-lg-3 mr-0">
 
                         <div class="btn-group">
                             <i type="button" class="fa fa-user-o font-weight-bold" data-toggle="dropdown"
@@ -102,7 +102,7 @@ $point = Auth::user()->poin;
                                             <p class="dd-profile pb-0 pl-0 mt-2 mb-2 mr-2" style="text-transform:capitalize">
                                                 {{ Auth::user()->name }}
                                             </p>
-                                            <span class="text-dd-profile">{{ $point }}</span><span class="ml-2">Poin</span>
+                                            <span class="text-dd-profile">{{ Auth::user()->poin }}</span><span class="ml-2">Poin</span>
                                         </div>
                                     </div>
                                     <a class="dropdown-item" href="{{ route('profile') }}">Akun Saya</a>
@@ -133,7 +133,7 @@ $point = Auth::user()->poin;
 
             @else
                 <ul class="navbar-nav ml-lg-auto">
-                    <li class="nav-item my-auto mr-lg-3 mr-0">
+                    <li class="nav-item mr-lg-3 mr-0">
                         <a href="{{ route('user.login') }}" class=" btn btn-primary  w-100 mt-lg-0 mt-2">Login</a>
                     </li>
                     <li class="nav-item my-auto mt-lg-0">
