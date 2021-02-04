@@ -341,11 +341,17 @@ class CheckoutController extends Controller
     }
 
     public function order_confirmed($store){
-        $va = $store['va'];
+        $va = $store['xendit'];
         $order = Order::findOrFail($store['id']);
         $mustPay = $order->grand_total;
+        $creditCard = $store['creditcard'];
 
-        return view('frontend.order_confirmed', compact('order','va','mustPay'));
+        if ($creditCard) {
+            $order->payment_status = "paid";
+            $order->save();
+        }
+
+        return view('frontend.order_confirmed', compact('order','va','mustPay','creditCard'));
     }
 
     public function set_ongkir(Request $request)

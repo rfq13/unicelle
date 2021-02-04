@@ -9,6 +9,7 @@
 <section class="section-sub-head"></section>
     <section class="section-detail-produk">
         <form action="{{ route('payment.checkout') }}" id="form-checkout" method="POST">
+            
             @csrf
             <div class="container">
                 <div class="container mb-5">
@@ -59,7 +60,7 @@
                                                 <div class="row">
                                                     <div class="mt-4">
                                                         <label class="rb-bank">
-                                                            <input type="radio" name="payment_option" value="{{ $payment }}">
+                                                            <input type="radio" name="payment_option" value="{{ $payment }}" required>
                                                             <span class="rb-checkmark"></span>
                                                         </label>
                                                     </div>
@@ -140,7 +141,7 @@
                                             <div class="row">
                                                 <div class="mt-4">
                                                     <label class="rb-bank">
-                                                        <input type="radio" name="radio">
+                                                        <input type="radio" name="payment_option" onchange="creditCard(event,'cc',this)">
                                                         <span class="rb-checkmark"></span>
                                                     </label>
                                                 </div>
@@ -157,7 +158,7 @@
                                             <div class="row">
                                                 <div class="mt-4">
                                                     <label class="rb-bank">
-                                                        <input type="radio" name="radio">
+                                                        <input type="radio" name="payment_option" onchange="creditCard(event,'cc',this)">
                                                         <span class="rb-checkmark"></span>
                                                     </label>
                                                 </div>
@@ -174,7 +175,7 @@
                                             <div class="row">
                                                 <div class="mt-4">
                                                     <label class="rb-bank">
-                                                        <input type="radio" name="radio">
+                                                        <input type="radio" name="payment_option" onchange="creditCard(event,'cc',this)">
                                                         <span class="rb-checkmark"></span>
                                                     </label>
                                                 </div>
@@ -191,7 +192,7 @@
                                             <div class="row">
                                                 <div class="mt-4">
                                                     <label class="rb-bank">
-                                                        <input type="radio" name="radio">
+                                                        <input type="radio" name="payment_option" onchange="creditCard(event,'cc',this)">
                                                         <span class="rb-checkmark"></span>
                                                     </label>
                                                 </div>
@@ -220,7 +221,7 @@
 
                                     <div class="col-6">
                                         <p class="text-rincian-bayar" style="color: #B71C1C; text-align: right;">{{ single_price((int)$total) }}</p>
-                                        <input type="hidden" name="total" value="{{ (int)$total }}">
+                                        <input type="hidden" id="total" name="total" value="{{ (int)$total }}">
                                     </div>
                                 </div>
                                 <div class="container" style="border-bottom:1px solid #C4C4C4">
@@ -248,64 +249,160 @@
             </div>
         </form>
     </section>
+
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" data-backdrop="false" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container-fluid" id="modal-body"></div>
+            </div>
+          </div>
+        </div>
+      </div>
 @endsection
 
 @section('script')
-    <script type="text/javascript">
+<script type="text/javascript" src="https://js.xendit.co/v1/xendit.min.js"></script>      
+<script type="text/javascript">      
+    // Xendit.setPublishableKey('xnd_public_development_PWCqySYjlZTScsztBK61UseKJi3qtQNE7jynoIDdLy2wZRtY2x8daw3QV3eLZdL'); //unicelle dev
+    Xendit.setPublishableKey('xnd_public_development_XcABnMBJ5QBPSIpBndtQZ8pJbeX0iZDCdTX9uJ1nVyWDDExwEo7mGPbCL0leRo'); //dummy rfh
+    let submitStatus = 0;
+    function tokenizeXendit() {
+        Xendit.card.createToken({        
+            amount: document.getElementById('total').value,
+            card_number: document.getElementById('AccountNumber').value,
+            card_exp_month: document.getElementById('expmonth').value,
+            card_exp_year: document.getElementById('expyear').value,
+            card_cvn: document.getElementById('cradcvn').value,
+            is_multiple_use: false
+        }, xenditResponseHandler);        
+        
+		// Prevent the form from being submitted:        
+		return false;
+    }
 
-        $(document).ready(function(){
-          $(".online_payment").click(function(){
-            $('#manual_payment_description').parent().addClass('d-none');
-          });
+    function xenditResponseHandler (err, creditCardCharge) {        
+        const submitbtn = document.getElementsByClassName('submit')
+        if (err) {        
+            // Show the errors on the form        
+            console.error(err);       
+            showFrontendAlert('danger',err.message)
+            $(submitbtn).prop('disabled', false);
+            $(submitbtn).text('Confirm');
+            return;        
+        }
+
+
+        if (creditCardCharge.status === 'IN_REVIEW' && submitStatus == 0) {
+            submitStatus = 1;
+            window.open(creditCardCharge.payer_authentication_url, 'sample-inline-frame');
+            $(submitbtn).prop('disabled', false);
+            $(submitbtn).text('Next');
+        }else if (creditCardCharge.status !== 'FAILED') {
+            var token = creditCardCharge.id;
+            var authid = creditCardCharge.authentication_id;
+
+            var total = $("#total").val();
+            const ccform = $('#ccform')
+
+            $("#modal-body #xenditToken").val(token);
+            $("#modal-body #authid").val(authid);
+            $("#modal-body #totalamount").val(total)
+            $.post("{{ route('xendit.charge') }}",ccform.serialize(),function (data) {
+                if (data.status === "AUTHORIZED") {
+                    // console.log(JSON.stringify([data]));return;
+                    $("#form-checkout").prepend(`
+                    <input type="hidden" name="ccdetails" value="${JSON.stringify([data])}">
+                    `).submit()
+                }else{
+                    $("#modal-body").html("<h1>maaf ada kesalahan</h1>")
+                }
+            })
+        }else{
+            $('#error pre').text(creditCardCharge.failure_reason);
+            console.warn('failed',creditCardCharge);
+            $(submitbtn).prop('disabled', false);
+            $(submitbtn).text('Confirm');
+        }     
+    }    
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $(".online_payment").click(function(){
+        $('#manual_payment_description').parent().addClass('d-none');
         });
+    });
 
-        function use_wallet(){
-            $('input[name=payment_option]').val('wallet');
-            if($('#agree_checkbox').is(":checked")){
-                $('#checkout-form').submit();
-            }else{
-                showFrontendAlert('error','{{ translate('You need to agree with our policies') }}');
-            }
+    function use_wallet(){
+        $('input[name=payment_option]').val('wallet');
+        if($('#agree_checkbox').is(":checked")){
+            $('#checkout-form').submit();
+        }else{
+            showFrontendAlert('error','{{ translate('You need to agree with our policies') }}');
         }
-        function submitOrder(el){
-            $(el).prop('disabled', true);
-            if($('#agree_checkbox').is(":checked")){
-                $('#checkout-form').submit();
-            }else{
-                showFrontendAlert('error','{{ translate('You need to agree with our policies') }}');
-                $(el).prop('disabled', false);
-            }
+    }
+    function submitOrder(el){
+        $(el).prop('disabled', true);
+        if($('#agree_checkbox').is(":checked")){
+            $('#checkout-form').submit();
+        }else{
+            showFrontendAlert('error','{{ translate('You need to agree with our policies') }}');
+            $(el).prop('disabled', false);
         }
+    }
 
-        function toggleManualPaymentData(id){
-            $('#manual_payment_description').parent().removeClass('d-none');
-            $('#manual_payment_description').html($('#manual_payment_info_'+id).html());
-        }
+    function toggleManualPaymentData(id){
+        $('#manual_payment_description').parent().removeClass('d-none');
+        $('#manual_payment_description').html($('#manual_payment_info_'+id).html());
+    }
 
-        function openCity(evt, TabName) {
-            evt.preventDefault();
-            
-          var i, tabcontent, tablinks;
-          tabcontent = document.getElementsByClassName("tabcontent");
-          for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-          }
-          tablinks = document.getElementsByClassName("tablinks");
-          for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" actived", "");
-          }
-          document.getElementById(TabName).style.display = "block";
-          evt.currentTarget.className += " actived";
+    function openCity(evt, TabName) {
+        evt.preventDefault();
+        
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
         }
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" actived", "");
+        }
+        document.getElementById(TabName).style.display = "block";
+        evt.currentTarget.className += " actived";
+    }
 
-        var header = document.getElementById("myDIV");
-        var btns = header.getElementsByClassName("btn-pembayaran");
-        for (var i = 0; i < btns.length; i++) {
-            btns[i].addEventListener("click", function() {
-                var current = document.getElementsByClassName("actived");
-                current[0].className = current[0].className.replace(" actived", "");
-                this.className += " actived";
-            });
+    var header = document.getElementById("myDIV");
+    var btns = header.getElementsByClassName("btn-pembayaran");
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("actived");
+            current[0].className = current[0].className.replace(" actived", "");
+            this.className += " actived";
+        });
+    }
+
+    function creditCard(e,method,ini) {
+        e.preventDefault()
+        let paymentOption = JSON.stringify({option:"cc"})
+        $(ini).val(paymentOption)
+        if (method == "cc") {
+            $.get("{{ route('xendit.ccform') }}",function (data) {
+                $("#modal-body").html(data)
+                $("#exampleModalCenter").modal({backdrop: 'static', keyboard: false})
+            })
+
         }
-    </script>
+    }
+
+    
+
+    
+</script>
 @endsection
