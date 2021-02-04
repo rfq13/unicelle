@@ -174,6 +174,35 @@
         font-size:14px;
         color:#000;
     }
+    @media only screen and (max-width: 768px){
+#account-mobile-menu .category-name-mobile-container a {
+    color: black;
+    display: block;
+    padding-left: 1.5rem !important;
+    padding-right: 1.5rem !important;
+    padding-top: 0.5rem !important;
+    padding-bottom: 0.5rem !important;
+}
+#account-mobile-menu .category-name-mobile-container a.active {
+    color: white !important;
+    background-color: #3BB6B1;
+    border-radius:5px;
+}
+    }
+    #account-mobile-menu{
+        display: none;
+    }
+    .sold-mobile{
+        display: none;
+    }
+    @media only screen and (max-width: 972px){
+        #account-mobile-menu{
+        display: block;
+    }
+    .sold-mobile{
+        display: block;
+    }
+    }
     .profile-icon{
         height: 74px;
         width: 74px;
@@ -1098,7 +1127,15 @@ background: #428bca;
     })
 
 
-
+    $("#account-mobile-menu").slick({
+        dots: false,
+        infinite: false,
+        speed: 300,
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        arrows: false,
+        variableWidth: true
+    });
 
     $('#search').on('keyup', function(){
         search();
@@ -1380,7 +1417,7 @@ background: #428bca;
     }
 
     function cartQuantityInitialize(){
-        $('#btnAdd').click(function(e) {
+        $('.btn-number').click(function(e) {
             e.preventDefault();
 
             fieldName = $(this).attr('data-field');

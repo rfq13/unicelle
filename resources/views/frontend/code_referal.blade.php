@@ -8,6 +8,10 @@
 @section('title','Kode Referal')
 @section('content')
     <section class="gry-bg py-4 profile">
+    <div class="container">
+    @include('frontend.inc.customer_mobile_nav')
+
+    </div>
         <div class="container">
             <div class="row">
                 <div class="col-lg-4 d-none d-lg-block">

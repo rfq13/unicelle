@@ -170,7 +170,7 @@
                                     <div class="input-group input-group--style-2 pr-3" style="width: 160px;">
                                         <span class="input-group-btn">
                                             <button class="btn btn-number" type="button" data-type="minus"
-                                                    data-field="quantity" disabled="disabled">
+                                                    data-field="quantity" min="1">
                                                 <i class="la la-minus"></i>
                                             </button>
                                         </span>
