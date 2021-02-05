@@ -11,7 +11,9 @@ use App\Product;
 use App\Color;
 use App\OrderDetail;
 use App\ClubPoint;
+use App\UsePoin;
 use App\CouponUsage;
+use App\ClubPointExchange;
 use App\OtpConfiguration;
 use App\User;
 use App\BusinessSetting;
@@ -317,15 +319,24 @@ class OrderController extends Controller
                 $coupon_usage->coupon_id = Session::get('coupon_id');
                 $coupon_usage->save();
             }
-            
-            if(Session::has('poin_use')){
+            $poin_use = UsePoin::where('user_id',Auth::user()->id)->first();
+
+            if(isset($poin_use)){
                 $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
-                $total = Session::get('poin_use')*$club_point_convert_rate->value;
+                $total = $poin_use->poin*$club_point_convert_rate->value;
                 $order->grand_total -= $total;
                 $order->poin_convert = $total;
-                $order->use_poin = Session::get('poin_use');
-                Auth::user()->poin -= Session::get('poin_use');
+                $order->use_poin =$poin_use->poin;
+                Auth::user()->poin -= $poin_use->poin;
                 Auth::user()->save();
+                $history = new ClubPointExchange;
+                $history->user_id = Auth::user()->id;
+                $history->voucher_id = '0';
+                $history->point = '-'.$poin_use->poin;
+                $history->keterangan = "Tukar Poin";
+                $history->save();
+                UsePoin::destroy($poin_use->id);
+
             }
             
             if(Session::has('data_dropshiper')){

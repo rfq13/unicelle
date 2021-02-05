@@ -21,10 +21,12 @@
                 $total_point = Auth::check() ? Auth::user()->poin : 0;
                 $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
                 $carts = Auth::user()->carts;
+                $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
+
             @endphp
-            @if (Session::has('poin_use'))
+            @if (isset($poin_use))
                 @php
-                    $total_point -= Session::get('poin_use');
+                    $total_point -= $poin_use->poin;
                 @endphp
             @endif
             <span style="text-transform:capitalize;font-size:16px">tukar poin</span>
@@ -39,12 +41,13 @@
                     <span class="badge badge-md badge-success">{{ count($carts) }} {{translate('Items')}}</span>
                 </div>
             </div>
+          
             <form  action="{{ route('use_poin') }}" method="POST">
             @csrf
             <div class="row" style="margin-top: 8px;margin-bottom: 16px;">
                
                <div class="col-8">
-                    <input type="number" min="1" name="jml" class="form-control" value="{{ Session::has('poin_use') ? Session::get('poin_use') : '' }}" id="inlineFormInputName2" placeholder="Masukkan Poin Anda">
+                    <input type="number" min="1" name="jml" class="form-control" @if(isset($poin_use)) value="{{$poin_use->poin}}" @endif id="inlineFormInputName2" placeholder="Masukkan Poin Anda">
                 </div>
                 <div class="col-4" style="text-align: end;">
                     <button type="submit" class="btn btn-primary1 px-4">Pakai</button>
@@ -130,11 +133,11 @@
                     </tr>
                 @endif
 
-                 @if (Session::has('poin_use'))
+                 @if (isset($poin_use))
                     <tr class="cart-shipping">
                         <th>{{translate('Diskon Poin')}}</th>
                         <td class="text-right">
-                            <span class="text-italic">{{ single_price(Session::get('poin_use')*$club_point_convert_rate->value) }}</span>
+                            <span class="text-italic">{{ single_price($poin_use->poin*$club_point_convert_rate->value) }}</span>
                         </td>
                     </tr>
                 @endif
@@ -144,8 +147,8 @@
                     if(Session::has('coupon_discount')){
                         $total -= Session::get('coupon_discount');
                     }
-                    if(Session::has('poin_use')){
-                        $total -= Session::get('poin_use')*$club_point_convert_rate->value;
+                    if(isset($poin_use)){
+                        $total -= $poin_use->poin*$club_point_convert_rate->value;
                     }
                 @endphp
 

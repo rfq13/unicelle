@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\BusinessSetting;
 use App\ClubPointDetail;
 use App\ClubPoint;
+use App\UsePoin;
 use App\Product;
 use App\Wallet;
 use App\Order;
@@ -143,8 +144,19 @@ class ClubPointController extends Controller
                 }
                 else{
                 flash(__('sukses'))->success();
-                $request->session()->put('poin_use',$request->jml);
+                $search= UsePoin::where('user_id',Auth::user()->id)->first();
+                if(isset($search)){
+                    $update = UsePoin::findOrFail($search->id);
+                    $update->poin=$request->jml;
+                    $update->save();
                 }
+                else{
+                $history = new UsePoin;
+                $history->user_id = Auth::user()->id;
+                $history->poin = $request->jml;
+                $history->save();
+                }                
+            }
             }else{
                 flash("Poin yang anda masukan melebih poin yang anda.")->error();
             }
