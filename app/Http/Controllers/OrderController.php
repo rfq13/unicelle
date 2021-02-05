@@ -344,7 +344,7 @@ class OrderController extends Controller
             $params = [
                 "external_id" => $order->code,
                 "name" => Auth::user()->name,
-                "expected_amount" => $request->total,
+                "expected_amount" => $order->grand_total,
                 "is_close" => false,
                 "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
                 "is_single_use"=> true
