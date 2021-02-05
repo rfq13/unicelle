@@ -86,7 +86,7 @@
                                 <!--  -->
                                 <div class="row mb-4 align-items-center">
                                     <div class="col">
-                                        <input type="number" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomer Klinik/Surat Izin Praktek Dokter') }}" name="izin">
+                                        <input type="text" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomer Klinik/Surat Izin Praktek Dokter') }}" name="izin">
                                         @if ($errors->has('izin'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('izin') }}</strong>
@@ -162,6 +162,9 @@
                                     <button type="submit" class="btn btn-secondary1 my-2" style="width: 50%;"><a
                                             href="#"></a>Daftar</button>
                                     <a href="{{route('user.registration')}}" class="btn btn-secondary1 my-2" style="width: 50%;">Daftar Sebagai Pasien</a>
+                                    <a type="submit" class="btn btn-primary1 my-2" style="width: 50%;background-color: #ec4646;"  href="{{ route('home') }}">
+                                       Kembali Ke Halaman Utama
+                                </a>
                                 </div>
                             </form>
                             <div class="card-footer text-center mt-2 mb-0">
@@ -287,6 +290,9 @@
                                        @endphp
                                 <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration',$params) }}">
                                        Daftar Sebagai Physician
+                                </a>
+                                <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;background-color: #ec4646;"  href="{{ route('home') }}">
+                                       Kembali Ke Halaman Utama
                                 </a>
                                     
                                 

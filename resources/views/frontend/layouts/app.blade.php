@@ -729,6 +729,17 @@
     margin-right: -15px;
     margin-left: -15px;
     }
+    .col-slider {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 100%;
+}
+.product-cart{
+    max-width:20%;
+    margin-left:10%;
+    margin-right:5%;
+    margin-bottom:5%;
+}
     @media screen and (max-width: 730px) {
   .row-slider{
     display: flex;
@@ -736,6 +747,17 @@
     margin-right: -15px;
     margin-left: -15px;
     }
+    .col-slider {
+    flex-basis: 0;
+    flex-grow: 1;
+    max-width: 80%;
+}
+
+.contain{
+    max-width: 90%;    
+    margin-left: 30px;
+    margin-top: 20px;
+}
     }
     @media screen and (max-width: 494px) {
         .col-3 {
