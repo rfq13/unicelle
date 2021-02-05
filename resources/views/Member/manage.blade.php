@@ -19,7 +19,7 @@
                     <form class="" id="sort_flash_deals" action="" method="GET">
                         <div class="box-inline pad-rgt pull-left">
                             <div class="" style="min-width: 200px;">
-                                <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Ketik Nama Dokter') }}">
+                                {{-- <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Ketik Nama Dokter') }}"> --}}
                             </div>
                         </div>
                     </form>

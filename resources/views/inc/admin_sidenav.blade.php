@@ -83,6 +83,20 @@
                         <!-- Product Menu -->
                         @if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
                             <li>
+                            <a href="#">
+                                <i class="fa fa-users"></i>
+                                <span class="menu-title">{{translate('Membership')}}</span>
+                                <i class="arrow"></i>
+
+                            </a>
+                            <ul class="collapse">
+                            <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
+                                        <a class="nav-link" href="{{route('regular-physician-member.index')}}">{{translate('Membership Reguler Physician')}}</a>
+                                    </li>
+                            </ul>
+
+                            </li>
+                            <li>
                                 <a href="#">
                                     <i class="fa fa-shopping-cart"></i>
                                     <span class="menu-title">{{translate('Produk')}}</span>

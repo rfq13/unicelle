@@ -11,10 +11,25 @@
                             <h5> Hubungi Kami</h5>
                             <ul class="list-unstyled">
                                 <li>{{ \App\GeneralSetting::first()->address }}</li>
-                                <li class="my-2">Phone: <br>
-                                    <span class="font-weight-bold">{{ \App\GeneralSetting::first()->phone }}</span></li>
-                                <li>Email: <br>
-                                    <span class="font-weight-bold">{{ \App\GeneralSetting::first()->email }}</span></li>
+                                <div style="height:10px">
+                                </div>
+                                <ul class="list-unstyled d-flex">
+                                <li>
+                                    <a href="mailto:{{ \App\GeneralSetting::first()->email }}" target="_blank">
+                                        <img class="img-sosmed-footer mr-2" src="{{ my_asset('images/psan.png') }}" style="width: 40px; height: 40px;" alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="tel:{{ \App\GeneralSetting::first()->phone }}" target="_blank">
+                                        <img class="img-sosmed-footer mr-2" src="{{ my_asset('images/telp.png') }}" style="width: 40px; height: 40px;" alt="">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://api.whatsapp.com/send?phone={{ \App\GeneralSetting::first()->phone }}" target="_blank">
+                                        <img class="img-sosmed-footer mr-2" src="{{ my_asset('images/whatsapp.png') }}" style="width: 40px; height: 40px;" alt="">
+                                    </a>
+                                </li>
+                                </ul>
                             </ul>
                         </div>
 
