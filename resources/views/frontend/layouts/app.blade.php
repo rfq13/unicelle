@@ -759,6 +759,51 @@
     margin-top: 20px;
 }
     }
+     @media screen and (min-width: 380px) and (max-width: 540px)
+     {
+        .contain{
+    max-width: 92%;    
+    margin-left: 30px;
+    margin-top: 20px;
+}
+
+     }
+     @media screen and (min-width: 375px) and (max-width: 414px)
+     {
+        .contain{
+    max-width: 85%;    
+    margin-left: 40px;
+    margin-top: 20px;
+}
+     }
+     @media screen and (min-width: 320px) and (max-width: 320px)
+     {
+        .contain{
+    max-width: 100%;    
+    margin-left: 7px;
+    margin-top: 20px;
+}
+.gambar {
+    max-height: 140px;
+    max-width: 100px;
+    min-height: 140px;
+    min-width: 100px;
+}
+     }
+     @media (max-width: 300px)
+     {
+        .contain{
+            max-width: 60%;
+    margin-left: 30%;
+    margin-top: 20px;
+}
+.gambar {
+    max-height: 100px;
+    max-width: 80px;
+    min-height: 100px;
+    min-width: 80px;
+}
+     }
     @media screen and (max-width: 494px) {
         .col-3 {
     flex: 0 0 25%;

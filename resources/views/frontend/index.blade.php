@@ -296,7 +296,7 @@
             <a data-slide="next" href="#carouselExampleControlla" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
         </div> --}}
 
-        <div class="row-slider" style="height:250px; margin-bottom: 100px;">
+        <div class="row-slider" style="height:250px; margin-bottom: 10px;">
             <div class="col-1 my-auto px-0">
                 <a data-slide="prev" href="#Carousel" class="p-3 bt-slide"><i class="fa fa-angle-left"></i></a>
             </div>
