@@ -34,9 +34,12 @@
                                         <span class="menu-collapsed">Dropshipper</span>
                                 </a>   
                                 </div>
+                                @if(Auth::user()->user_type == 'pasien reg')
+
                                 <div class="category-name-mobile-container">
 <a href="{{route('list.voucher')}}" class="{{ areActiveRoutesHome(['list.voucher'])}}">
                                         <span class="menu-collapsed">Voucher</span>
                                 </a>   
                                 </div>
+                                @endif
 </div>
