@@ -67,7 +67,9 @@
                 </ul>
                 <div class="container ml-3">
                     <div class="row">
+                    <div>
                         <p class="text-hasilpencarian mt-3">Hasil Pencarian :</p>
+
                         <ul>
                             @if(isset($category_id))
                                 <p class="text-hasil mt-3 active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></p>
@@ -149,7 +151,10 @@
                     </ul>
                     <div class="container ml-3">
                         <div class="row-card">
+                        <div>
                             <p class="text-hasilpencarian mt-3">{{ isset($query) && $query != "" ? "Hasil Pencarian : ''$query''" : ""}}</p>
+                            <p>{{ isset($query) && $query != "" ? $products->total()." Search Result for ''$query''" : ""}}</p>
+                            </div>
                             <ul>
                                 @if(isset($category_id))
                                     <p class="text-hasil mt-3 active"><a href="{{ route('products.category', \App\Category::find($category_id)->slug) }}">{{ \App\Category::find($category_id)->name }}</a></p>
@@ -175,7 +180,6 @@
                             
                             </div>
                         </div>
-                        <p>{{ isset($query) && $query != "" ? $products->total()." Search Result for ''$query''" : ""}}</p>
                         <hr style="width:100%;text-align:left;margin-left:0">
                     </div>
                 </div>

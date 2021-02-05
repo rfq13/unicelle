@@ -243,6 +243,7 @@
                                         <span class="submenu-icon ml-auto"></span>
                                     </div>
                                 </a>
+                                @if(Auth::user()->user_type == 'pasien reg')
                                 <a href="{{route('list.voucher')}}"
                                 class="{{ areActiveRoutesHome(['list.voucher'])}} list-group-item list-group-item-action flex-column align-items-start">
                                 <div class="d-flex w-100 justify-content-start align-items-center">
@@ -251,6 +252,7 @@
                                     <span class="submenu-icon ml-auto"></span>
                                 </div>
                             </a>
+                            @endif
                         {{--    <div id='submenu2' class="collapse sidebar-submenu">
                                 <a href="{{ route('list.voucher') }}" class="{{ areActiveRoutesHome(['profile'])}} list-group-item list-group-item-action  text-white">
                                     <span class="menu-collapsed ml-3">List Voucher</span>

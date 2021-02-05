@@ -49,6 +49,9 @@
 
                             <button type="button" class="btn btn-primary1" style="width: 100%;" onclick="phoneAuth();"
                                 >Berikutnya</button>
+                                <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;background-color: #ec4646;"  href="{{ route('home') }}">
+                                       Kembali Ke Halaman Utama
+                                </a>
                         </form>
                         <div class="card-footer text-center mt-3 mb-0">
                             <span class="bpa">Belum Punya Akun? <a href="{{route('user.registration')}}" class="ba">Buat Akun</a></span>

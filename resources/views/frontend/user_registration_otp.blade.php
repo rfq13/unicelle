@@ -51,7 +51,11 @@
 
                                 <button type="button" class="btn btn-primary1 mb-3" style="width: 100%;" onclick="phoneAuth(1)">
                                     Daftar</button>
+                                    <a type="submit" class="btn btn-primary1 mb-3" style="width: 100%;background-color: #ec4646;"  href="{{ route('home') }}">
+                                       Kembali Ke Halaman Utama
+                                </a>
                             </form>
+                            
                             <div class="card-footer text-center mt-2 mb-0">
                                 <span class="bpa">Sudah Punya Akun? <a href="{{ route('user.login') }}" class="ba">Login
                                     </a></span>

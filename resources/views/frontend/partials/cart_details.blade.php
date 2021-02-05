@@ -4,14 +4,14 @@
             <!-- <form class="form-default bg-white p-4" data-toggle="validator" role="form"> -->
             <div class="form-default bg-white p-4">
                 <div class="">
-                    <div class="">
+                    <div class="" style="overflow-x:auto;">
                         <table class="table-cart border-bottom">
                             <thead>
                                 <tr>
                                     <th class="product-image text-center"></th>
                                     <th class="product-name text-center" style="font-size: 14px;text-transform:capitalize">{{ translate('Nama')}}</th>
-                                    <th class="product-price d-none d-lg-table-cell text-center" style="font-size: 14px;text-transform:lowercase">{{ translate('@pcs')}}</th>
-                                    <th class="product-quanity d-none d-md-table-cell text-center" style="font-size: 14px;text-transform:capitalize">{{ translate('Jumlah')}}</th>
+                                    <th class="product-price d-lg-table-cell text-center" style="font-size: 14px;text-transform:lowercase">{{ translate('@pcs')}}</th>
+                                    <th class="product-quanity d-md-table-cell text-center" style="font-size: 14px;text-transform:capitalize">{{ translate('Jumlah')}}</th>
                                     <th class="product-total text-center" style="font-size: 14px;text-transform:capitalize">{{ translate('Total Harga')}}</th>
                                     <th class="product-remove text-center"></th>
                                 </tr>
@@ -50,11 +50,11 @@
                                             <span class="pr-4 d-block">{{ $product_name_with_choice }}</span>
                                         </td>
 
-                                        <td class="product-price d-none d-lg-table-cell">
+                                        <td class="product-price d-lg-table-cell">
                                             <span class="pr-3 d-block">{{ single_price($cartItem['price']) }}</span>
                                         </td>
 
-                                        <td class="product-quantity d-none d-md-table-cell">
+                                        <td class="product-quantity d-md-table-cell">
                                             @if($cartItem['digital'] != 1)
                                                 {{--
                                                     <div class="input-group input-group--style-2 pr-4" style="width: 130px;">

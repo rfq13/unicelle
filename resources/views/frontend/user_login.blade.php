@@ -83,6 +83,9 @@
 
                             <a href="{{ route('user.login-otp') }}" class="btn btn-primary1" style="width: 100%;"> Login Via Nomer
                                 Telepon</a>
+                                <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;background-color: #ec4646;"  href="{{ route('home') }}">
+                                       Kembali Ke Halaman Utama
+                                </a>
                         </form>
 
                         <div class="card-footer text-center mt-3 mb-0">
