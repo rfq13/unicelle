@@ -393,7 +393,7 @@
 
     function creditCard(e,method,ini) {
         e.preventDefault()
-        let paymentOption = JSON.stringify({option:"cc"})
+        let paymentOption = JSON.stringify({option:"CC"})
         $(ini).val(paymentOption)
         if (method == "cc") {
             $.get("{{ route('xendit.ccform') }}",function (data) {
