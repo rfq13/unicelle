@@ -740,6 +740,19 @@
     margin-right:5%;
     margin-bottom:5%;
 }
+.row_poin{
+    position: relative;
+    width: 66%;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+@media screen and (max-width: 730px) {
+    .summary{
+    padding-top: 10%;
+
+    }
+}
+
     @media screen and (max-width: 730px) {
   .row-slider{
     display: flex;

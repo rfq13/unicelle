@@ -30,14 +30,6 @@
                             <form class="p-3">
                                 @csrf
                                 <h5 class="mb-4 mt-2">Register OTP</h5>
-                                <div class="row mb-3">
-                                    <div class="col">
-                                        <input type="text" id="first_name" class="form-control" placeholder="Nama Depan">
-                                    </div>
-                                    <div class="col">
-                                        <input type="text" id="last_name" class="form-control" placeholder="Nama Belakang">
-                                    </div>
-                                </div>
                                 <div class="input-group mb-3">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">+62</span>

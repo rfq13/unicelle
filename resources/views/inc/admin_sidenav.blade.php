@@ -82,20 +82,7 @@
 
                         <!-- Product Menu -->
                         @if(Auth::user()->user_type == 'admin' || in_array('1', json_decode(Auth::user()->staff->role->permissions)))
-                            <li>
-                            <a href="#">
-                                <i class="fa fa-users"></i>
-                                <span class="menu-title">{{translate('Membership')}}</span>
-                                <i class="arrow"></i>
-
-                            </a>
-                            <ul class="collapse">
-                            <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
-                                        <a class="nav-link" href="{{route('regular-physician-member.index')}}">{{translate('Membership Reguler Physician')}}</a>
-                                    </li>
-                            </ul>
-
-                            </li>
+                            
                             <li>
                                 <a href="#">
                                     <i class="fa fa-shopping-cart"></i>
@@ -181,12 +168,7 @@
                                         <span class="menu-title">{{translate('Verifikasi Dokter')}}</span>
                                     </a>
                                 </li>
-                                <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
-                                    <a class="nav-link" href="{{ route('regular-physician-member.index') }}">
-                                        <i class="fa fa-users"></i>
-                                        <span class="menu-title">{{translate('Jenis Reguler Physician')}}</span>
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </li>
                         @endif
@@ -610,12 +592,17 @@
                                     {{-- <li class="{{ areActiveRoutes(['club_points.configs'])}}">
                                         <a class="nav-link" href="{{route('club_points.configs')}}">{{translate('Konfigurasi Poin')}}</a>
                                     </li> --}}
-                                    <li class="{{ areActiveRoutes(['set_product_points', 'product_club_point.edit'])}}">
+                                     <li class="{{ areActiveRoutes(['set_product_points', 'product_club_point.edit'])}}">
                                         <a class="nav-link" href="{{route('set_product_points')}}">{{translate('Tetapkan Poin Produk')}}</a>
-                                    </li>
+                                    </li> 
                                     <li class="{{ areActiveRoutes(['club_points.index', 'club_point.details'])}}">
                                         <a class="nav-link" href="{{route('club_points.index')}}">{{translate('Member Poin')}}</a>
                                     </li>
+                                    <li class="{{ areActiveRoutes(['regular-physician-member.index'])}}">
+                                    <a class="nav-link" href="{{ route('regular-physician-member.index') }}">
+                                        <span class="menu-title">{{translate('Jenis Reguler Physician')}}</span>
+                                    </a>
+                                </li>
                                 </ul>
                             </li>
                         @endif
