@@ -9,18 +9,18 @@
         <div class="form-row">
             <div class="form-group col-md-6">
             <label for="expmonth">exp month</label>
-            <input type="number" class="form-control" id="expmonth" max="12" placeholder="Account Number" required>
+            <input type="number" class="form-control" id="expmonth" max="12" placeholder="expired mont" required>
             </div>
             <div class="form-group col-md-6">
             <label for="expyear">exp year</label>
-            <input type="number" class="form-control" id="expyear" placeholder="number" required>
+            <input type="number" class="form-control" id="expyear" placeholder="expired year" required>
             </div>
         </div>
         <div class="form-group">
             <label for="cradcvn">CVN</label>
             <input type="text" name="cvn" class="form-control" id="cradcvn" placeholder="Apartment, studio, or floor" required>
         </div>
-        <div class="form-group">
+        <div class="form-group d-none">
             <label for="amount">Amount</label>
             <input type="text" class="form-control" name="amount" id="totalamount" placeholder="Total Harga">
         </div>

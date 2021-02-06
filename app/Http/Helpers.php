@@ -297,7 +297,7 @@ if (! function_exists('xenditRequest')) {
         $data = "error";
 
         if ($payment) {
-
+            if (strtolower($payment->option) == "cc") return "ok";
             switch ($payment->type) {
                 case 'va':
                     $params["bank_code"] = $payment->option;

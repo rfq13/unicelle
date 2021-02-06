@@ -113,6 +113,8 @@ if($ship != null || $ship != 0){
 
                         @if ($order->payment_details !=null)
                         @php
+                            // {"status":"AUTHORIZED","authorized_amount":819000,"capture_amount":0,"currency":"IDR","credit_card_token_id":"601bac90b9f6ef0019d24875","business_id":"60189bffdf7ce6407ad6cc44","merchant_id":"xendit_ctv_agg","merchant_reference_code":"601bac90aee4610541c25370","external_id":"card_1612426386","eci":"07","charge_type":"SINGLE_USE_TOKEN","masked_card_number":"411111XXXXXX1111","card_brand":"VISA","card_type":"CREDIT","descriptor":"XENDIT*UNICELLE","authorization_id":"601bac988aa36b001b7ba0a6","bank_reconciliation_id":"6124263927646982803007","cvn_code":"M","approval_code":"831000","created":"2021-02-04T08:13:13.418Z","id":"601bac998aa36b001b7ba0a7"}
+
                             if (property_exists($payment,'bank_code')){
                                 $pay_opt = "$payment->bank_code Virtual Account";
                                 $pay_num = $payment->account_number;
@@ -122,6 +124,10 @@ if($ship != null || $ship != 0){
                                 $pay_opt = $payment->retail_outlet_name;
                                 $pay_num = $payment->payment_code;
                                 $title = 'kode Pembayaran';
+                            }elseif (property_exists($payment,'card_brand')) {
+                                $pay_opt = $payment->card_brand." (kartu kredit)";
+                                $pay_num = $payment->masked_card_number;
+                                $title = 'kode Kartu';
                             }
 
                             \Carbon\Carbon::setLocale('id');
@@ -135,8 +141,10 @@ if($ship != null || $ship != 0){
                             <td>{{ $pay_num }}</td>
                         </tr>
                         <tr>
-                            <td class="w-50 strong-600">{{ "Kadaluarsa" }}:</td>
-                            <td>{{ \Carbon\Carbon::parse($payment->expiration_date)->translatedFormat('l, d F Y H:i') }}</td>
+                            @if ($order->payment_status == "unpaid")
+                                <td class="w-50 strong-600">{{ "Kadaluarsa" }}:</td>
+                                <td>{{ \Carbon\Carbon::parse($payment->expiration_date)->translatedFormat('l, d F Y H:i') }}</td>
+                            @endif
                         </tr>
                             
                         @endif

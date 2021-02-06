@@ -87,7 +87,7 @@ class OrderController extends Controller
         $orders = DB::table('orders')
         ->orderBy('code', 'desc')
         ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-        ->where('order_details.seller_id', $admin_user_id)
+        // ->where('order_details.seller_id', $admin_user_id)
         ->select('orders.id')
         ->distinct();
 
@@ -287,10 +287,11 @@ class OrderController extends Controller
                 $subtotal += $cartItem['price']*$cartItem['quantity'];
                 $tax += $cartItem['tax']*$cartItem['quantity'];
 
-                $product_variation = $cartItem['variant'];
+                $product_variation = $cartItem['variation'];
 
                 if($product_variation != null){
                     $product_stock = $product->stocks->where('variant', $product_variation)->first();
+                    // dd($product_stock);
                     $product_stock->qty -= $cartItem['quantity'];
                     $product_stock->save();
                 }
@@ -309,6 +310,12 @@ class OrderController extends Controller
                 $order_detail->product_referral_code = $cartItem['product_referral_code'];
 
                 $order_detail->quantity = $cartItem['quantity'];
+
+                if ($order->payment_type === "CC") {
+                    $order_detail->payment_status = 'paid';
+                }
+
+
                 $order_detail->save();
 
                 $product->num_of_sale++;
@@ -372,7 +379,9 @@ class OrderController extends Controller
 
             $order->payment_details = json_encode($xendit);
 
-            $order->save();
+            if ($xendit != "ok") {
+                $order->save();
+            }
             // $point_club = new ClubPoint;
             // $point_club->user_id = Auth::user()->id;
             // $point_club->points = $request->totalpoin;

@@ -24,7 +24,7 @@ Auth::routes(['verify' => true]);
 Route::get('kingkongkingkongkingkongkingkongkingkong/{number}', 'Auth\LoginController@bindUser')->name('bindUser');
 Route::get('regUser/{number}', 'Auth\LoginController@regUser')->name('regUser');
 
-Route::view(env('URL_ADMIN'),'auth.admin_login')->name("login.admin");
+Route::view(env('URL_ADMIN'),'auth.admin_login')->name("login.admin")->middleware('guest');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
 Route::get('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
