@@ -2,6 +2,11 @@
     $spi = decrypt($shipping_info);
     // dd([$spi,$total]);
     $total += $spi->cost;
+    $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
+    $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
+    if ($poin_use) {
+        $total -= $poin_use->poin*$club_point_convert_rate->value;
+    }
 @endphp
 @extends('frontend.layouts.app')
 
@@ -390,7 +395,7 @@
 
     function creditCard(e,method,ini) {
         e.preventDefault()
-        let paymentOption = JSON.stringify({option:"cc"})
+        let paymentOption = JSON.stringify({option:"CC"})
         $(ini).val(paymentOption)
         if (method == "cc") {
             $.get("{{ route('xendit.ccform') }}",function (data) {

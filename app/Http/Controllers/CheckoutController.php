@@ -137,14 +137,26 @@ class CheckoutController extends Controller
 
     public function get_shipping_info(Request $request)
     {
-        // dd(count(Session::get('cart')));
-        $carts = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $carts; 
+        $carts = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : []; 
 
         if($carts && $carts->count() > 0){
             $categories = Category::all();
+
+            foreach ($carts as $key => $cart) {
+                $product = Product::find($cart['product_id']);
+                if ($product) {
+                    $qty = $product->current_stock;
+                    if ($product->variant_product) {
+                        $qty = $product->stocks->sum('qty');
+                    }
+
+                    // if($qty <= 0) flash("$product->name kosong")->warning(); return back();
+                }
+            }
+
             return view('frontend.shipping_info', compact('categories','carts'));
         }
-        flash(translate('Your cart is empty'))->success();
+        flash(translate('Your cart is empty'));
         return back();
     }
 
@@ -341,6 +353,7 @@ class CheckoutController extends Controller
     }
 
     public function order_confirmed($store){
+        // dd($store);
         $va = $store['xendit'];
         $order = Order::findOrFail($store['id']);
         $mustPay = $order->grand_total;

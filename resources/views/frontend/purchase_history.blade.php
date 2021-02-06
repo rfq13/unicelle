@@ -213,7 +213,7 @@
                                                                     class="btn btn-primary1 w-80">Ubah</a>
                                                             @endif
                                                         </div>
-                                                    @elseif ($order->payment_status=="unpaid")
+                                                    @elseif ($order->payment_status=="unpaid" && $order->payment_type == "manual_transfer")
                                                         <div class="jumlah-produk-pesanan mt-3 mb-2">
                                                             <a href="{{ route('payment.create', $order->id) }}"
                                                                 class="btn btn-primary1 w-80">Konfirmasi Pembayaran</a>

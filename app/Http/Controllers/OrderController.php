@@ -241,8 +241,15 @@ class OrderController extends Controller
             $order->guest_id = mt_rand(100000, 999999);
         }
 
+        $defaultAddr = Auth::user()->addresseDefault;
+
+        if (!$defaultAddr){
+            flash("pilih alamat pengiriman terlebih dahulu");
+            return redirect(route('checkout.shipping_info'));
+        }
+
         $shipping_info = decrypt($request->shipping_info);
-        $order->shipping_address = Auth::user()->addresseDefault->id;
+        $order->shipping_address = $defaultAddr->id;
         $order->shipping_info = json_encode($shipping_info);
         $order->payment_type = json_decode($request->payment_option)->option;
         $order->delivery_viewed = '0';
@@ -355,7 +362,7 @@ class OrderController extends Controller
             $params = [
                 "external_id" => $order->code,
                 "name" => Auth::user()->name,
-                "expected_amount" => $request->total,
+                "expected_amount" => $order->grand_total,
                 "is_close" => false,
                 "expiration_date"=> Carbon::now()->addDays(1)->toISOString(),
                 "is_single_use"=> true
