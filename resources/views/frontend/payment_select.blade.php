@@ -275,8 +275,8 @@
 @section('script')
 <script type="text/javascript" src="https://js.xendit.co/v1/xendit.min.js"></script>      
 <script type="text/javascript">      
-    // Xendit.setPublishableKey('xnd_public_development_PWCqySYjlZTScsztBK61UseKJi3qtQNE7jynoIDdLy2wZRtY2x8daw3QV3eLZdL'); //unicelle dev
-    Xendit.setPublishableKey('xnd_public_development_XcABnMBJ5QBPSIpBndtQZ8pJbeX0iZDCdTX9uJ1nVyWDDExwEo7mGPbCL0leRo'); //dummy rfh
+    Xendit.setPublishableKey('xnd_public_development_PWCqySYjlZTScsztBK61UseKJi3qtQNE7jynoIDdLy2wZRtY2x8daw3QV3eLZdL'); //unicelle dev
+    // Xendit.setPublishableKey('xnd_public_development_XcABnMBJ5QBPSIpBndtQZ8pJbeX0iZDCdTX9uJ1nVyWDDExwEo7mGPbCL0leRo'); //dummy rfh
     let submitStatus = 0;
     function tokenizeXendit() {
         Xendit.card.createToken({        
