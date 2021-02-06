@@ -4,7 +4,9 @@
     $total += $spi->cost;
     $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
     $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
-    $total -= $poin_use->poin*$club_point_convert_rate->value;
+    if ($poin_use) {
+        $total -= $poin_use->poin*$club_point_convert_rate->value;
+    }
 @endphp
 @extends('frontend.layouts.app')
 
