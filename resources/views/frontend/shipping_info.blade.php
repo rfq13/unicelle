@@ -62,7 +62,7 @@ div.pac-container {
                                             </div>
                                             <div class="col-4 p-3">
                                                 <div class="address text-center"> 
-                                                    <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn w-100 {{$address->set_default ? 'btn-default' : 'btn-secondary'}} " data-lat="{{ $address->lat }}" data-lng="{{ $address->lng }}">Default</a>
+                                                    <a id="setDefault" href="{{ route('addresses.set_default', $address->id) }}" data-key="{{$key}}" class="btn w-100 {{$address->set_default ? 'btn-default' : 'btn-secondary'}} " data-lat="{{ $address->lat }}" data-lng="{{ $address->lng }}">Pilih</a>
                                                 </div>
                                                 <div class="address text-center mt-3">
                                                     <a href="{{route('addresses.destroy', $address->id)}}"><i class="fa fa-trash mr-4" style="font-size: 24px;"></i></a>
