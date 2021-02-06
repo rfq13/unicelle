@@ -87,7 +87,7 @@ class HomeController extends Controller
             return redirect()->route('dashboard');
         } else {
            
-            return view('frontend.confirm_registration_otp', ['nomor_hp' => $nohp, 'uid' => $request->uid]);
+            return view('frontend.regis_dan_login.modalConfirmAuth', ['nomor_hp' => $nohp, 'uid' => $request->uid]);
         }
     }
     public function registration(Request $request, $physician = null)

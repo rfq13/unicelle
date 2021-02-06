@@ -38,7 +38,7 @@ div.pac-container {
                                     @foreach (Auth::user()->addresses as $key => $address)
                                     <input type="radio" style="display:none" name="address_id" value="{{ $address->id }}" {{$address->set_default == 1 ? 'checked' : ''}} required>
                                         <div class="d-flex align-items-center {{$key == 0 ? 'mt-2':''}}" style="padding-left: 0%; border-bottom:1px solid #C4C4C4">
-                                            <div class="col-8 py-2">
+                                            <div class="col-8 py-2" style="overflow-x:auto;">
                                                 <table style="width: 100%;font-size: medium;">
                                                     <tbody>
                                                         <tr>
@@ -99,7 +99,7 @@ div.pac-container {
                                 </div>
                                 <label class="mt-3 cb-pengiriman">
                                     <input type="checkbox" id="myCheck" onclick="myFunction()" @if(\Session::has('data_dropshiper')) checked @endif>
-                                    <span class="cb-checkmark"></span>
+                                    <span style="margin-left:30px" class="cb-checkmark"></span>
                                 </label>
                             </div>
                             <hr>
@@ -133,7 +133,7 @@ div.pac-container {
                         </div>
                     </div>
                 
-                    <div class="col-sm-5 ml-4" id="rincian_bayar" style="padding-bottom: 50%;">
+                    <div class="col-sm-5 summary" id="rincian_bayar" style="padding-bottom: 50%;">
                         @include('frontend.partials.cart_summary')
                     </div>
             </div>

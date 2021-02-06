@@ -46,7 +46,7 @@
             @csrf
             <div class="row" style="margin-top: 8px;margin-bottom: 16px;">
                
-               <div class="col-8">
+               <div class="row_poin">
                     <input type="number" min="1" name="jml" class="form-control" @if(isset($poin_use)) value="{{$poin_use->poin}}" @endif id="inlineFormInputName2" placeholder="Masukkan Poin Anda">
                 </div>
                 <div class="col-4" style="text-align: end;">

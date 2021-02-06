@@ -195,8 +195,7 @@
 
                     success:function(response){
                         if (type == 1) {
-                            let Username = document.getElementById("first_name").value+" "+document.getElementById("last_name").value
-                            let regData = JSON.stringify({phone:"0"+number, name:Username})
+                            let regData = JSON.stringify({phone:"0"+number})
                             if (response.success) {
                                 Swal.fire({
                                     type: 'error',
