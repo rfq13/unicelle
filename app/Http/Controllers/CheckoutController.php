@@ -353,7 +353,7 @@ class CheckoutController extends Controller
     }
 
     public function order_confirmed($store){
-        dd($store);
+        // dd($store);
         $va = $store['xendit'];
         $order = Order::findOrFail($store['id']);
         $mustPay = $order->grand_total;
