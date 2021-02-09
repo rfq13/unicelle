@@ -250,7 +250,7 @@
         {{--
         <div class="six_ slider mt-3">
             @php
-            $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
+            $categories = \App\Category::where('featured',1)->orderBy('created_at', 'desc')->get()->chunk(6);
             @endphp
             @foreach ($categories as $category)
                 <div class="mx-1 align-content-center justify-content-center text-center">
@@ -266,7 +266,7 @@
             @endforeach
         </div> --}}
         @php
-        $categories = \App\Category::orderBy('created_at', 'desc')->get()->chunk(6);
+        $categories = \App\Category::where('featured','!=',0)->orderBy('created_at', 'desc')->get()->chunk(6);
         @endphp
         
         
