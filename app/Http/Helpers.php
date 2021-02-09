@@ -291,7 +291,9 @@ if (! function_exists('convert_to_usd')) {
 
 if (! function_exists('xenditRequest')) {
     function xenditRequest($params=false, $payment=false) {
+        //dd([$params,$payment]);
         Xendit::setApiKey(env('XENDIT_API_KEY'));
+        //dd(env('XENDIT_API_KEY'));
         $payment = $payment ? json_decode($payment) : false;
 
         $data = "error";
@@ -301,6 +303,7 @@ if (! function_exists('xenditRequest')) {
             switch ($payment->type) {
                 case 'va':
                     $params["bank_code"] = $payment->option;
+                    // dd($params);
                     $data = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $data;
                     break;
                 case 'retail':

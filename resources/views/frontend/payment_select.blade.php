@@ -1,12 +1,76 @@
 @php
+    
     $spi = decrypt($shipping_info);
-    // dd([$spi,$total]);
-    $total += $spi->cost;
+    //dd([$spi,$total]);
+    $total_beli =$total + $spi->cost;
     $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
     $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
-    if ($poin_use) {
-        $total -= $poin_use->poin*$club_point_convert_rate->value;
+    if(Auth::user()->user_type == 'regular physician'){
+            $member= \App\UserMember::where('user_id',Auth::user()->id)->first();
+            $detail_member = \App\Member::where('id',$member->member_id)->first();
+            $jenis_diskon=$detail_member->discount_type;
+            $diskon=$detail_member->discount_order;
+            if($detail_member->min_order_discount <= $total){
+                if($detail_member->discount_type == 'amount'){
+                    $total2 =$total-$diskon;
+                    $total_beli =$total2+$spi->cost;
+                        if(isset($poin_use)) {
+                            $total2 =$total-$diskon-$poin_use->poin*$club_point_convert_rate->value;
+                            $total_beli =$total2+$spi->cost;
+                        }
+                }
+                else{
+                    $total_diskon = $diskon/100*$total;
+                    $total_beli = $total-$total_diskon+$spi->cost;
+                        if(isset($poin_use)){
+                        $total2 =$total-$total_diskon-$poin_use->poin*$club_point_convert_rate->value;
+                        $total_beli =$total2+$spi->cost;
+                        }
+                }        
+            }
+            else{
+                if(isset($poin_use)) {
+                    $total_beli -= $poin_use->poin*$club_point_convert_rate->value;
+                }
+            }
+            
+            if($detail_member->min_order_poin <= $total){
+                $total_poin=$detail_member->poin_order/100*$total;
+            }
     }
+    else{
+        $detail_user = \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
+            if($detail_user->min_order_discount <= $total){
+                $jenis_diskon=$detail_user->type_discount;
+                $diskon=$detail_user->discount;
+                    if($detail_user->type_discount == 'amount'){
+                        $total2 =$total-$diskon;
+                        $total_beli =$total2+$spi->cost;
+                            if(isset($poin_use)){
+                                $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                            }
+                    }
+                    else{
+                        $total_diskon = $diskon/100*$total;
+                        $total_beli = $total-$total_diskon+$spi->cost;
+                            if(isset($poin_use)){
+                                $total_beli = $total-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                            }
+                    }
+            }
+            else{
+                if(Auth::user()->user_type == 'partner physician'){
+                    if(isset($poin_use)){
+                        $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$spi->cost;
+                    }
+                }
+            }
+            if($detail_user->min_order_poin <= $total){
+                $total_poin=$detail_user->poin/100*$total;
+            }
+    }
+
+
 @endphp
 @extends('frontend.layouts.app')
 
@@ -215,7 +279,6 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-sm-5" style="padding-bottom: 50%;">
                             <div class="container card">
                                 <div class="row mt-3">
@@ -225,8 +288,8 @@
                                     </div>
 
                                     <div class="col-6">
-                                        <p class="text-rincian-bayar" style="color: #B71C1C; text-align: right;">{{ single_price((int)$total) }}</p>
-                                        <input type="hidden" id="total" name="total" value="{{ (int)$total }}">
+                                        <p class="text-rincian-bayar" style="color: #B71C1C; text-align: right;">{{ single_price((int)$total_beli) }}</p>
+                                        <input type="hidden" id="total" name="total" value="{{ (int)$total_beli }}">
                                     </div>
                                 </div>
                                 <div class="container" style="border-bottom:1px solid #C4C4C4">
@@ -239,12 +302,25 @@
                                     <div class="col-7">
                                         <p class="text-ekspedisi">Point yang akan di dapat</p>
                                     </div>
-                                    <input type="hidden" value={{$totalpoin}} name="totalpoin">
+                                    @if(isset($total_poin))
+                                    <input type="hidden" value="{{$total_poin}}" name="get_poin">
 
                                     <div class="col-5">
-                                        <p class="price__produk" style="text-align: right;">{{$totalpoin}}</p>
+                                        <p class="price__produk" style="text-align: right;">{{$total_poin}}</p>
                                     </div>
+                                    @else
+                                    <input type="hidden" value="0" name="get_poin">
+                                    <div class="col-5">
+                                    <p class="price__produk" style="text-align: right;">0</p>
+                                    </div>
+                                    @endif
                                 </div>
+                                @if(isset($jenis_diskon))
+                                <input type="hidden" value="{{$jenis_diskon}}" name="type_discount">
+                                @endif
+                                @if(isset($diskon))
+                                <input type="hidden" value="{{$diskon}}" name="discount">
+                                @endif
                                 <button type="submit" class="mb-4 mt-2 btn btn-default">Lanjutkan Pembayaran</button>
                             </div>
                         </div>
@@ -275,8 +351,8 @@
 @section('script')
 <script type="text/javascript" src="https://js.xendit.co/v1/xendit.min.js"></script>      
 <script type="text/javascript">      
-    // Xendit.setPublishableKey('xnd_public_development_PWCqySYjlZTScsztBK61UseKJi3qtQNE7jynoIDdLy2wZRtY2x8daw3QV3eLZdL'); //unicelle dev
-    Xendit.setPublishableKey('xnd_public_development_XcABnMBJ5QBPSIpBndtQZ8pJbeX0iZDCdTX9uJ1nVyWDDExwEo7mGPbCL0leRo'); //dummy rfh
+    Xendit.setPublishableKey('xnd_public_development_PWCqySYjlZTScsztBK61UseKJi3qtQNE7jynoIDdLy2wZRtY2x8daw3QV3eLZdL'); //unicelle dev
+    // Xendit.setPublishableKey('xnd_public_development_XcABnMBJ5QBPSIpBndtQZ8pJbeX0iZDCdTX9uJ1nVyWDDExwEo7mGPbCL0leRo'); //dummy rfh
     let submitStatus = 0;
     function tokenizeXendit() {
         Xendit.card.createToken({        

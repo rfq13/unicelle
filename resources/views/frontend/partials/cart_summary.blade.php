@@ -41,7 +41,9 @@
                     <span class="badge badge-md badge-success">{{ count($carts) }} {{translate('Items')}}</span>
                 </div>
             </div>
-          
+          @if(Auth::user()->user_type == 'pasien reg')
+            <p>&nbsp</p>
+            @else
             <form  action="{{ route('use_poin') }}" method="POST">
             @csrf
             <div class="row" style="margin-top: 8px;margin-bottom: 16px;">
@@ -57,6 +59,7 @@
                 
             </div>
             </form>
+            @endif
         @endif
         <table class="table-cart table-cart-review">
             <thead>
@@ -86,6 +89,20 @@
                         if ($cartItem['variant'] != null) {
                             $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
                         }
+                        $total_sementara = $subtotal+$tax;
+
+                        if(Auth::user()->user_type == 'regular physician'){
+                            $member= \App\UserMember::where('user_id',Auth::user()->id)->first();
+                            $detail_member = \App\Member::where('id',$member->member_id)->first();
+                            $total_poin = $detail_member->poin_order/100*$total_sementara;
+
+                            
+                        }
+                        else{
+                            $detail_user = \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
+                            $total_poin = $detail_user->poin/100*$total_sementara;
+                        }
+                        
                     @endphp
                     <tr class="cart_item">
                         <td class="product-name">
@@ -116,14 +133,51 @@
                         <span class="text-italic">{{ single_price($tax) }}</span>
                     </td>
                 </tr> --}}
+                @if(Auth::user()->user_type == 'regular physician')
+                    @if($detail_member->min_order_discount <= $total_sementara)
 
+                <tr class="cart-shipping">
+                    <th>{{translate('Discount')}}</th>
+                    <td class="text-right">
+                        <span class="text-italic">@if($detail_member->discount_type == 'amount')<span>Rp</span>@endif{{ $detail_member->discount_order }}@if($detail_member->discount_type == 'percent')<span> %</span>@endif</span>
+                    </td>
+                </tr>
+                @endif
+                @if($detail_member->min_order_poin <= $total_sementara)
+                <tr class="cart-shipping">
+                    <th>{{translate('Poin yang didapatkan')}}</th>
+                    <td class="text-right">
+                        <span class="text-italic">{{ $total_poin }}</span>
+                    </td>
+                </tr>
+                @endif
+                @else
+                @if($total_sementara >= $detail_user->min_order_discount)
+
+                <tr class="cart-shipping">
+                    <th>{{translate('Discount')}}</th>
+                    <td class="text-right">
+                        <span class="text-italic">@if($detail_user->type_discount == 'amount')<span>Rp</span>@endif{{ $detail_user->discount }}@if($detail_user->type_discount == 'percent')<span> %</span>@endif</span>
+                    </td>
+                </tr>
+                @endif
+                @if($detail_user->min_order_poin <= $total_sementara)
+                <tr class="cart-shipping">
+                    <th>{{translate('Poin yang didapatkan')}}</th>
+                    <td class="text-right">
+                        <span class="text-italic">{{ $total_poin }}</span>
+                    </td>
+                </tr>
+                @endif
+                @endif
                 <tr class="cart-shipping">
                     <th>{{translate('Total Shipping')}}</th>
                     <td class="text-right">
                         <span class="text-italic">{{ single_price($shipping) }}</span>
                     </td>
                 </tr>
-
+              
+                
                 @if (Session::has('coupon_discount'))
                     <tr class="cart-shipping">
                         <th>{{translate('Coupon Discount')}}</th>
@@ -132,6 +186,7 @@
                         </td>
                     </tr>
                 @endif
+                
 
                  @if (isset($poin_use))
                     <tr class="cart-shipping">
@@ -141,15 +196,59 @@
                         </td>
                     </tr>
                 @endif
-
                 @php
+
                     $total = $subtotal+$tax+$shipping;
+                    if(Auth::user()->user_type == 'regular physician'){
+                        if($detail_member->min_order_discount <= $total_sementara){
+
+                        if($detail_member->discount_type == 'amount'){
+                            $total_awal = $subtotal+$tax-$detail_member->discount_order;
+                            $total=$total_awal+$shipping;
+                        }
+                        else{
+                            $total_awal = $subtotal+$tax;
+                            $total_diskon = $detail_member->discount_order/100*$total_awal;
+                            $total=$total_awal-$total_diskon+$shipping;
+                        }
+                    }
+                    }
+                    else{
+                        if($detail_user->min_order_discount <= $total_sementara){
+
+                        if($detail_user->type_discount == 'amount'){
+                            $total_awal = $subtotal+$tax-$detail_user->discount;
+                            $total=$total_awal+$shipping;
+                            if(isset($poin_use)){
+                                $total = $total_awal-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                            
+                        }
+                        }
+                        else{
+                            $total_awal = $subtotal+$tax;
+                            $total_diskon = $detail_user->discount/100*$total_awal;
+                            $total=$total_awal-$total_diskon+$shipping;
+                            if(isset($poin_use)){
+                                $convertp=$poin_use->poin*$club_point_convert_rate->value;
+                                $total=$total_awal-$total_diskon-$convertp+$shipping;
+                            
+                        }
+                        }
+                        
+                        }
+                        else{
+                            if(Auth::user()->user_type == 'partner physician'){
+                                if(isset($poin_use)){
+                                $total -= $poin_use->poin*$club_point_convert_rate->value;
+                                }
+                            }
+                        }
+                    }
+                    
                     if(Session::has('coupon_discount')){
                         $total -= Session::get('coupon_discount');
                     }
-                    if(isset($poin_use)){
-                        $total -= $poin_use->poin*$club_point_convert_rate->value;
-                    }
+                    
                 @endphp
 
                 <tr class="cart-total">

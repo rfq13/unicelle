@@ -94,7 +94,7 @@
                             </td>
                             <td>
                                 <span class="badge badge--2 mr-4">
-                                    @if ($order->orderDetails->where('seller_id',  $admin_user_id)->first()->payment_status == 'paid')
+                                    @if ($order->orderDetails->where('is_product_digital',0)->first()->payment_status == 'paid')
                                         <i class="bg-green"></i> {{ translate('Dibayar') }}
                                     @else
                                         <i class="bg-red"></i> {{ translate('Tidak Dibayar') }}

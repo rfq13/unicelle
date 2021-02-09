@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\BusinessSetting;
 use App\ClubPointDetail;
 use App\ClubPoint;
+Use App\PoinUser;
+use App\Member;
 use App\UsePoin;
 use App\Product;
 use App\Wallet;
@@ -17,6 +19,7 @@ class ClubPointController extends Controller
 {
     public function configure_index()
     {
+        
         return view('club_points.config');
     }
 
@@ -25,7 +28,26 @@ class ClubPointController extends Controller
         $club_points = ClubPoint::latest()->paginate(15);
         return view('club_points.index', compact('club_points'));
     }
+    public function set_member_points(Request $request)
+    {
+        $members = Member::orderBy('id','asc')->get();
+        return view('club_points.member',compact('members'));
+    }
+    public function set_member_setting(Request $request)
+    {
+        
+        $member = Member::findOrfail($request->id);
+        $member->poin_order = $request->poin_order;
+        $member->min_order_poin = $request->min_order_poin;
+        $member->discount_order = $request->discount_order;
+        $member->min_order_discount = $request->min_order_discount;
+        $member->discount_type = $request->discount_type;
+        $member->save();
+        flash(__('Submit has been updated successfully'))->success();
+        // return redirect()->route('club_points.configs');
+        return back();
 
+    }
     public function userpoint_index()
     {
         $club_points = ClubPoint::where('user_id', Auth::user()->id)->latest()->paginate(15);
@@ -86,20 +108,20 @@ class ClubPointController extends Controller
         $user = $order->user;
         $club_point = new ClubPoint;
         $club_point->user_id = $user->id;
-        $club_point->points = 0;
-        foreach ($order->orderDetails as $key => $orderDetail) {
-            $total_pts = ($orderDetail->product->earn_point) * $orderDetail->quantity;
-            $club_point->points += $total_pts;
-        }
+        $club_point->points = $order->get_poin;
+        // foreach ($order->orderDetails as $key => $orderDetail) {
+        //     $total_pts = ($orderDetail->product->earn_point) * $orderDetail->quantity;
+        //     $club_point->points += $total_pts;
+        // }
         $club_point->convert_status = 0;
         $club_point->save();
-        foreach ($order->orderDetails as $key => $orderDetail) {
-            $club_point_detail = new ClubPointDetail;
-            $club_point_detail->club_point_id = $club_point->id;
-            $club_point_detail->product_id = $orderDetail->product_id;
-            $club_point_detail->point = $total_pts;
-            $club_point_detail->save();
-        }
+        // foreach ($order->orderDetails as $key => $orderDetail) {
+        //     $club_point_detail = new ClubPointDetail;
+        //     $club_point_detail->club_point_id = $club_point->id;
+        //     $club_point_detail->product_id = $orderDetail->product_id;
+        //     $club_point_detail->point = $total_pts;
+        //     $club_point_detail->save();
+        // }
 
         $user->poin += $club_point->points;
         $user->save();

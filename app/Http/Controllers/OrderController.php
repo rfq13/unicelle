@@ -87,9 +87,10 @@ class OrderController extends Controller
         $orders = DB::table('orders')
         ->orderBy('code', 'desc')
         ->join('order_details', 'orders.id', '=', 'order_details.order_id')
-        ->where('order_details.seller_id', $admin_user_id)
-        ->select('orders.id')
-        ->distinct();
+        //->where('order_details.seller_id', $admin_user_id)
+        ->where('is_product_digital',0)
+                    ->distinct()
+                    ->select(['orders.id']);
 
         if ($request->payment_type != null){
             $orders = $orders->where('order_details.payment_status', $request->payment_type);
@@ -227,6 +228,7 @@ class OrderController extends Controller
     public function store(Request $request)
     {
         $ccdetails=false;
+
         if ($request->session()->has('ccdetails')) {
             $ccdetails = $request->session()->get('ccdetails');
             $request->session()->forget('ccdetails');
@@ -247,9 +249,18 @@ class OrderController extends Controller
             flash("pilih alamat pengiriman terlebih dahulu");
             return redirect(route('checkout.shipping_info'));
         }
+        if($request->discount != null){
+            $poin_total=$request->get_poin;
+            $order->get_poin= $poin_total;
 
+        }
+        if($request->discount != null){
+            $discount_total=$request->discount;
+            $order->discount= $discount_total;
+        }
         $shipping_info = decrypt($request->shipping_info);
         $order->shipping_address = $defaultAddr->id;
+        $order->type_discount= $request->type_discount;
         $order->shipping_info = json_encode($shipping_info);
         $order->payment_type = json_decode($request->payment_option)->option;
         $order->delivery_viewed = '0';
@@ -315,23 +326,71 @@ class OrderController extends Controller
                 $product->save();
             }
 
-            $order->grand_total = $subtotal + $tax + $shipping;
             
-            if(Session::has('coupon_discount')){
-                $order->grand_total -= Session::get('coupon_discount');
-                $order->coupon_discount = Session::get('coupon_discount');
-
-                $coupon_usage = new CouponUsage;
-                $coupon_usage->user_id = Auth::user()->id;
-                $coupon_usage->coupon_id = Session::get('coupon_id');
-                $coupon_usage->save();
-            }
+            $total_beli=$subtotal + $tax + $shipping;
             $poin_use = UsePoin::where('user_id',Auth::user()->id)->first();
+            $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
+
+            if(Auth::user()->user_type == 'regular physician'){
+                $member= \App\UserMember::where('user_id',Auth::user()->id)->first();
+                $detail_member = \App\Member::where('id',$member->member_id)->first();
+                $diskon=$detail_member->discount_order;
+                if($detail_member->min_order_discount <= $subtotal){
+                            if($detail_member->discount_type == 'amount'){
+                            $total2 =$subtotal + $tax -$diskon;
+                            $total_beli =$total2+$shipping;
+                            if(isset($poin_use)){
+                                $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                
+                            }
+                            }
+                            else{
+                                    $total_diskon = $diskon/100*$total;
+                                    $total_beli = $subtotal + $tax -$total_diskon+ $shipping;
+                                    if(isset($poin_use)){
+                                        $total_beli = $subtotal + $tax -$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                    }
+                            }
+                }
+                else{
+                    if(isset($poin_use)){
+                        $total_beli = $subtotal + $tax - $poin_use->poin*$club_point_convert_rate->value+$shipping;
+                    }
+                }
+            }
+            if(Auth::user()->user_type == 'pasien reg' || Auth::user()->user_type == 'partner physician' ){
+                $detail_user = \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
+                if($detail_user->min_order_discount <= $subtotal){
+                $diskon=$detail_user->discount;
+                if($detail_user->type_discount == 'amount'){
+                    $total2 =$subtotal+$tax-$diskon;
+                        $total_beli =$total2+$shipping;
+                        if(isset($poin_use)){
+                            $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                        
+                    }
+                                }
+                                else{
+                                    $total2=$subtotal + $tax;
+                                    $total_diskon = $diskon/100*$total2;
+                                    $total_beli =  $total2-$total_diskon+ $shipping;
+                                    if(isset($poin_use)){
+                                        $total_beli = $total2-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                    
+                                }
+                                }
+                }
+                else{
+                    if(Auth::user()->user_type == 'partner physician'){
+                        if(isset($poin_use)){
+                        $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$shipping;
+                        }
+                    }
+                }
+            }
 
             if(isset($poin_use)){
-                $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
                 $total = $poin_use->poin*$club_point_convert_rate->value;
-                $order->grand_total -= $total;
                 $order->poin_convert = $total;
                 $order->use_poin =$poin_use->poin;
                 Auth::user()->poin -= $poin_use->poin;
@@ -345,6 +404,17 @@ class OrderController extends Controller
                 UsePoin::destroy($poin_use->id);
 
             }
+            if(Session::has('coupon_discount')){
+                $order->grand_total -= Session::get('coupon_discount');
+                $order->coupon_discount = Session::get('coupon_discount');
+
+                $coupon_usage = new CouponUsage;
+                $coupon_usage->user_id = Auth::user()->id;
+                $coupon_usage->coupon_id = Session::get('coupon_id');
+                $coupon_usage->save();
+            }
+            $order->grand_total = $total_beli;
+            
             
             if(Session::has('data_dropshiper')){
               

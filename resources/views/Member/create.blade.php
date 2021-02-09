@@ -14,10 +14,11 @@
 
                 <input type="number" placeholder="periode" name="periode" id="input-periode" class="form-control" style="margin-top: 13px">
                 <select name="unit" aria-placeholder="unit" id="input-unit" class="form-control" style="margin-top: 13px">
-                    <option value="unit" selected disabled>unit</option>
-                    <option value="hari">hari</option>
-                    <option value="bulan">bulan</option>
-                    <option value="tahun">tahun</option>
+                <option selected disabled>Unit</option>
+                                        @php($periods = \App\Membership_period::all())
+                                        @foreach($periods as $period)
+                                            <option value="{{$period->id}}">{{$period->member_period}}</option>
+                                        @endforeach
                 </select>
                 <button class="btn" id="btn-store" style="margin-top:13px;float:right;background-color:#1d2d50;color:white" type="submit">{{translate('Save')}}</button>
                 <a href="#" class="btn" id="btnUpdate" style="display:none;background-color: #132743; color:white;margin-top:13px;float:right">Simpan</a>

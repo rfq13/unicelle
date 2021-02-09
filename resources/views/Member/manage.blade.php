@@ -49,11 +49,12 @@
                                     <span id="min">{{$member->min}}</span>
                                 </td>
                                 @php
-                                    $periode = json_decode($member->periode);
+                                    $periode = $member->periode;
+                                    $periods = \App\Membership_period::where('id',$member->period_unit)->first();
                                 @endphp
 
                                 <td>
-                                    <span id="periode">{{$periode[0]}}</span> <span id="unit">{{$periode[1]}}</span>
+                                    <span id="periode">{{$periode}}</span> <span id="unit">{{$periods->member_period}}</span>
                                 </td>
                                 <td>
                                     <div class="btn-group dropdown">
@@ -62,7 +63,7 @@
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
                                             <li>
-                                                <a id="btnEdit" data-id="{{$member->id}}" href="#">
+                                                <a href="{{route('regular-physician-member.edit', encrypt($member->id))}}">
                                                     {{translate('Edit')}}
                                                 </a>
                                             </li>
@@ -114,9 +115,9 @@
             let title = row.find("#title").text()
             let min = row.find("#min").text()
             let periode = row.find("#periode").text()
-            let unit = row.find("#unit").text()
+            let unit = row.find("#period_unit").text()
             let urL = "{{route('regular-physician-member.update','id-membership')}}".replace("id-membership",id)
-
+            console.log(periode);
             $("#input-title").val(title)
             $("#input-min").val(min)
             $("#input-min").change()

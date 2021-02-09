@@ -60,7 +60,9 @@ class memberController extends Controller
         $data = [
             "title" => $request->title,
             "min" => $min,
-            "periode" => json_encode([$request->periode, $request->unit])
+            "periode" =>$request->periode,
+            "period_unit" => $request->unit
+
         ];
 
         $member->create($data);
@@ -87,7 +89,8 @@ class memberController extends Controller
      */
     public function edit($id)
     {
-        //
+        $member= Member::findOrFail(decrypt($id));
+        return view('Member.edit', compact('member'));
     }
 
     /**
@@ -107,10 +110,11 @@ class memberController extends Controller
         $member = Member::findOrFail($id);
         $member->title = $request->title;
         $member->min = $min;
-        $member->periode = json_encode([$request->periode, $request->unit]);
+        $member->periode = $request->periode;
+        $member->period_unit = $request->unit;
         if ($member->save()) {
             flash("Berhasil merubah jenis member")->success();
-            return "sukses";
+            return redirect(route('regular-physician-member.index'));
         }
         return "gagal";
     }

@@ -15,7 +15,10 @@ use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\PaytmController;
 use App\Order;
 use App\Product;
+use App\UserPoin;
+use App\Member;
 use App\BusinessSetting;
+use App\UserMember;
 use App\Coupon;
 use App\CouponUsage;
 use App\User;
@@ -39,6 +42,7 @@ class CheckoutController extends Controller
         if ($request->payment_option != null && $request->shipping_info != null) {
 
             $orderController = new OrderController;
+            //dd($request);
             $order = $orderController->store($request);
 
             $request->session()->put('payment_type', 'cart_payment');
@@ -153,7 +157,7 @@ class CheckoutController extends Controller
                     // if($qty <= 0) flash("$product->name kosong")->warning(); return back();
                 }
             }
-
+            
             return view('frontend.shipping_info', compact('categories','carts'));
         }
         flash(translate('Your cart is empty'));

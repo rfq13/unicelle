@@ -372,10 +372,31 @@ if($ship != null || $ship != 0){
                                     <span class="text-italic">{{ single_price($order->coupon_discount) }}</span>
                                 </td>
                             </tr> --}}
+                            @if(Auth::user()->user_type == 'regular physician' || Auth::user()->user_type == 'partner physician')
                             <tr>
                                 <th>{{ translate('Point Diskon')}}</th>
                                 <td class="text-right">
                                     <span class="text-italic">{{ single_price($order->poin_convert) }}</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>{{ translate('Diskon')}}</th>
+                                <td class="text-right">
+                                <span class="text-italic">@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif</span>
+                                </td>
+                            </tr>
+                            @else
+                            <tr>
+                                <th>{{ translate('Diskon')}}</th>
+                                <td class="text-right">
+                                    <span class="text-italic">@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif</span>
+                                </td>
+                            </tr>
+                            @endif
+                            <tr>
+                                <th>{{ translate('Poin')}}</th>
+                                <td class="text-right">
+                                    <span class="text-italic">{{$order->get_poin}}</span>
                                 </td>
                             </tr>
                             <tr>
