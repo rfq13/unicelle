@@ -6,10 +6,12 @@
     $orderU = \App\Order::where('user_id', Auth::user()->id);
     $log = new \App\userMember;
     $tiers = new \App\Member;    
-    
+    $logs = new \App\Membership_user_log;
+
     $myMember = Auth::user()->member;
     $userMember = \App\userMember::where(['member_id'=>$myMember->id,'user_id'=>Auth::user()->id])->orderBy('created_at','desc')->first();
     $from = date_format($userMember->created_at, "Y-m-d");
+    
     $to = $userMember->ended_at;
     $orders = Auth::user()->orders;
     $active_m_order = $orders->where("payment_status", "paid")->whereBetween('created_at', [$from, $to]);
@@ -18,22 +20,40 @@
     $u_log = $userMember;
 
     $n_tier = $tiers->where('min',">",$grand_total)->first();
+    $up_tier = $tiers->where('min',"<",$grand_total)->orderBy('min','desc')->first();
     $next = '';
     $next_max = 0;
     $to_next = 0;
     $ct = $u_log->member->title;
-    if(isset($n_tier)){
-        if ($grand_total > $n_tier->min) {
+    if($n_tier != null){
+        if ($grand_total < $n_tier->min) {
             // dd(Auth::user()->member_id);
-            $newMember = \App\Member::where('min','>',$grand_total)->orderBy('min','desc')->first();
+            $newMember = \App\Member::where('min','<',$grand_total)->orderBy('min','desc')->first();
             Auth::user()->member_id = $newMember->id;
             Auth::user()->save();
-
-            $newUserMmber = new \App\userMember;
+            $id_user_member= \App\userMember::where('user_id',Auth::user()->id)->first();
+            $newUserMmber = \App\userMember::find($id_user_member->id);
             $newUserMmber->member_id = $newMember->id;
-            $newUserMmber->user_id = Auth::user()->id;
-            $newUserMmber->ended_at = app('\App\Http\Controllers\memberController')->ended_at($newMember);
-            $newUseMember->save();
+            $unit = $newMember->period_unit;
+                $d='';
+                if($unit == 1){$d = 365;}elseif($unit == 2){$d = 30;}elseif($unit == 3){$d = 7;}
+                    $d = (int)$d * $unit;
+                    $d = "+$d day";
+                $start_date = strtotime(date('d-m-Y'));
+                $end_date = strtotime($d, $start_date);
+                $end_date = date("Y-m-d H:i:s",$end_date);
+            $newUserMmber->ended_at = $end_date;
+            $newUserMmber->save();
+            $tier = $tiers->orderBy('id','desc')->first();
+            $lebihan = $grand_total - $tier->min;
+
+            $data = [
+                        'user_id' => Auth::user()->id,
+                        'member_id' => $newMember->id,
+                        'ends_on' => $end_date,
+                        'lebihan' => $lebihan < 0 ? 0 : $lebihan
+                    ];
+                    $logs->create($data);
         }
 
         $next = $n_tier->title;

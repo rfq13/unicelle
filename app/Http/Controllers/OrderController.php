@@ -12,6 +12,8 @@ use App\Color;
 use App\OrderDetail;
 use App\ClubPoint;
 use App\UsePoin;
+use App\Member;
+use App\UserMember;
 use App\CouponUsage;
 use App\ClubPointExchange;
 use App\OtpConfiguration;
@@ -265,6 +267,7 @@ class OrderController extends Controller
         $order->payment_type = json_decode($request->payment_option)->option;
         $order->delivery_viewed = '0';
         $order->payment_status_viewed = '0';
+        $order->delivery_status = 'pending';
         $order->code = date('Ymd-His').rand(10,99);
         $order->date = strtotime('now');
 
@@ -798,6 +801,8 @@ class OrderController extends Controller
     {
         $order = order::with('orderDetails')->where('id',decrypt($id))->first();
         $order->user_status_konfrimasi = 1;
+        $order->delivery_status = 'delivered';
+
         foreach ($order->orderDetails as $key => $value) {
             $value->delivery_status = "delivered";
             $value->save();
@@ -809,6 +814,7 @@ class OrderController extends Controller
         }
 
         $au_id = Auth::user()->referred_by;
+       
         if ($au_id != null) {
             $affiliate = new AffiliateController;
             $affiliate->affiliateProccessPoint($au_id);         

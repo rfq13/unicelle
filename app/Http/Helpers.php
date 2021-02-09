@@ -302,8 +302,12 @@ if (! function_exists('xenditRequest')) {
             if (strtolower($payment->option) == "cc") return "ok";
             switch ($payment->type) {
                 case 'va':
+                    // dd($params["name"]);
                     $params["bank_code"] = $payment->option;
-                    // dd($params);
+                    $string = $params["name"];
+                    $result = preg_replace("/[^a-zA-Z]/", "", $string);
+                    $params["name"]=$result;
+                    // dd([$params,$payment]);
                     $data = is_array($params) ? \Xendit\VirtualAccounts::create($params) : $data;
                     break;
                 case 'retail':
