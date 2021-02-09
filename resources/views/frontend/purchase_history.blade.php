@@ -172,7 +172,12 @@
                                                     <div class="mb-2">
                                                         <span class="status-pesanan__">
                                                             <span class="badge badge--2 mr-4">
-                                                                @if ($order->payment_status == 'paid')
+                                                            
+                                                                @if($order->delivery_status == 'delivered')
+                                                                <i class="bg-green"
+                                                                        style="text-transform: capitalize"></i>
+                                                                    {{ translate('Pesanan Selesai') }}
+                                                                @elseif ($order->payment_status == 'paid')
                                                                     <i class="bg-green"
                                                                         style="text-transform: capitalize"></i>
                                                                     {{ translate('Terbayar') }}

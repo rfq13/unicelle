@@ -203,6 +203,9 @@
                     <div class="row ">
 
                             @foreach($voucher as $key => $v)
+                            @php
+                                $tgl_berakhir = \Carbon\Carbon::parse(date('Y-m-d', $v->end_date));
+                                @endphp
                         <div class="col-md-4 col-12 my-2">
                         <a onclick="showDetailVoucher(event,{{ $v->id }})">                            
                         <div class="card">
@@ -228,8 +231,12 @@
                                             font-size: 20px;
                                             line-height: 27px;
                                             color: #FF6F00;"> {{$v->point}}</span>
+                                             @if($tgl_berakhir < $tes)
+                                            <button class=" mt-3 btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;background-color: #A9A9A9;" disabled>Tukar Poinku</button>
+                                            @else
                                             <a href="javascript:void(0)" onclick="addvoucher(event,{{$v->id}});">
                                             <button class=" mt-3 btn btn-primary1 w-100">Tukar Poinku</button>
+                                            @endif
 
                                         </a>
                                         </div>
