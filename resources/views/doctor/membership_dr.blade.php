@@ -16,7 +16,6 @@
     $orders = Auth::user()->orders;
     $active_m_order = $orders->where("payment_status", "paid")->whereBetween('created_at', [$from, $to]);
     $grand_total = $active_m_order->sum("grand_total");
-
     $u_log = $userMember;
 
     $n_tier = $tiers->where('min',">",$grand_total)->first();
@@ -28,7 +27,7 @@
     if($n_tier != null){
         if ($grand_total < $n_tier->min) {
             // dd(Auth::user()->member_id);
-            $newMember = \App\Member::where('min','<',$grand_total)->orderBy('min','desc')->first();
+            $newMember = \App\Member::where('min','<=',$grand_total)->orderBy('min','desc')->first();
             Auth::user()->member_id = $newMember->id;
             Auth::user()->save();
             $id_user_member= \App\userMember::where('user_id',Auth::user()->id)->first();
@@ -46,7 +45,6 @@
             $newUserMmber->save();
             $tier = $tiers->orderBy('id','desc')->first();
             $lebihan = $grand_total - $tier->min;
-
             $data = [
                         'user_id' => Auth::user()->id,
                         'member_id' => $newMember->id,
