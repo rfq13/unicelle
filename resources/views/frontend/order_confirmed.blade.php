@@ -3,12 +3,19 @@
 @section('content')
 @php
     $payment = "";
-    if (array_key_exists('bank_code', $va)) {
-        $payment = $va["bank_code"];
-        $pay_number = $va["account_number"];
-    }elseif(array_key_exists('retail_outlet_name', $va)) {
-        $payment = $va["retail_outlet_name"];
-        $pay_number = $va["payment_code"];
+    if (!$creditCard && is_array($va)) {
+        if (array_key_exists('bank_code', $va)) {
+            $payment = $va["bank_code"];
+            $pay_number = $va["account_number"];
+        }elseif(array_key_exists('retail_outlet_name', $va)) {
+            $payment = $va["retail_outlet_name"];
+            $pay_number = $va["payment_code"];
+        }
+    }else {
+        $cc = json_decode($order->payment_details);
+        // dd($order);
+        $payment = $cc->card_brand;
+        $pay_number = $cc->masked_card_number;
     }
 
     $logo = strtolower($payment);
@@ -27,8 +34,10 @@
                         <div class="border-bottom pb-lg-3 pb-1">
                             <table>
                                 <tr>
+                                    @if (env('APP_DEBUG'))
                                     <td class="w-100" style="font-size: 18px;">Total Pembayaran</td>
                                     <th  style="color: #B71C1C; font-size: 18px;">{{ single_price($va['expected_amount']) }}</th>
+                                    @endif
                                 </tr>
                             </table>
                         </div>
@@ -53,7 +62,7 @@
                                 <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ $config->BANK_ATAS_NAMA }}</span>
                             </div> --}}
                             <div class="mt-2">
-                                <span style="font-size: 16px; color: #424242;">Jumlah yang Dibayar</span><br>
+                                <span style="font-size: 16px; color: #424242;">Jumlah yang harus dibayar</span><br>
                                 <span class="font-weight-bold" style="font-size: 20px; color: #B71C1C;">{{ single_price($mustPay) }}</span>
                             </div>
                             <div class="mt-4">
@@ -72,7 +81,12 @@
                             <a href="{{ url('purchase_history') }}" class="btn btn-secondary1 mx-lg-5 mx-3">Cek Pesanan</a>
                         </div>
                         @else
+                        <div class="img-konfimasi__ mx-2">
+                            <img src="{{my_asset("images/icon/payment/$logo-02.png")}}" alt="" style="width: 50px; height: 50px;">
+                        </div>
                         <h1>Bayar Pakai credit card berhasil!</h1>
+                        <h2>Nomor Kartu : {{ $pay_number }}</h2>
+                        <a href="{{ url('purchase_history') }}" class="btn btn-secondary1 mx-lg-5 mx-3">Cek Pesanan</a>
                         @endif
                     </div>
                 </div>

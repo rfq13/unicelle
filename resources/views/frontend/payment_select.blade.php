@@ -335,10 +335,10 @@
         <div class="modal-dialog modal-dialog-centered" data-backdrop="false" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <h5 class="modal-title" id="exampleModalLongTitle">Credit Card Payment</h5>
+              {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
-              </button>
+              </button> --}}
             </div>
             <div class="modal-body">
               <div class="container-fluid" id="modal-body"></div>

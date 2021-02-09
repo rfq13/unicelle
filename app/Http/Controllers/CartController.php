@@ -34,7 +34,6 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        // dd($request->all());
         $product = Product::find($request->id);
 
         $data = array();
@@ -167,7 +166,7 @@ class CartController extends Controller
             $save_cart->shipping_cost = $data["shipping"];
         }
         $save_cart->save();
-        // dd([$data,$save_cart]);
+        
         return view('frontend.partials.addedToCart', compact('product', 'data'));
     }
 
