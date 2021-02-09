@@ -120,6 +120,7 @@
                         @php
                             $membership = \App\Member::orderBy("min")->get();
                             $min = $membership->pluck("min")->toArray();
+
                         @endphp
                         {{-- <h1>{{ toRp($grand_total)." ".Auth::user()->member->title }}</h1> --}}
                         <table class="table table-hover text-center mt-3">
@@ -150,10 +151,12 @@
                                 </tr>
                                 <tr>
                                     <th scope="row" class="text-left">Diskon Belanja</th>
-                                    <td scope="row"><i class="fa fa-check"></i></td>
-                                    <td scope="row"><i class="fa fa-times"></i></td>
-                                    <td scope="row"><i class="fa fa-check"></i></td>
+                                    @foreach ($membership as $d)
+                                    <td scope="row">@if($d->discount_type == 'amount')<span style="color: #818a91;">Rp </span>@endif{{$d->discount_order}}@if($d->discount_type == 'percent')<span style="color: #818a91;"> %</span>@endif</td>
+                                    @endforeach
+                                   
                                 </tr>
+                                
                             </tbody>
                         </table>
 
