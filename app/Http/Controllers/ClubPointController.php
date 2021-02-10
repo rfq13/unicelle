@@ -102,7 +102,21 @@ class ClubPointController extends Controller
         flash(__('Point convert rate has been updated successfully'))->success();
         return redirect()->route('club_points.configs');
     }
-
+    public function convert_rate_poin_user(Request $request)
+    {
+        $poin_pasien = PoinUser::where('type_user', $request->type)->first();
+        if ($poin_pasien != null) {
+            $pasien = PoinUser::findOrFail($poin_pasien->id);
+            $pasien->min_order_poin = $request->min_order_poin;
+            $pasien->poin= $request->poin;
+            $pasien->min_order_discount=$request->min_order_discount;
+            $pasien->discount = $request->discount;
+            $pasien->type_discount = $request->type_discount;
+        }
+        $pasien->save();
+        flash(__('Point convert rate has been updated successfully'))->success();
+        return redirect()->route('club_points.configs');
+    }
     public function processClubPoints(Order $order)
     {
         $user = $order->user;

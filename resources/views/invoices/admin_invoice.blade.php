@@ -153,13 +153,17 @@
 	    <div style="padding:0 1.5rem;">
 	        <table style="width: 40%;margin-left:auto;" class="text-right sm-padding small strong">
 		        <tbody>
-			        <tr>
+					<tr>
 			            <th class="gry-color text-left">{{ translate('Sub Total') }}</th>
 			            <td class="currency">{{ single_price($order->orderDetails->sum('price')) }}</td>
 			        </tr>
 			        <tr>
 			            <th class="gry-color text-left">{{ translate('Shipping Cost') }}</th>
-			            <td class="currency">{{ single_price($order->orderDetails->sum('shipping_cost')) }}</td>
+			            <td class="currency">{{ single_price($order->shipping_cost) }}</td>
+			        </tr>
+					<tr>
+			            <th class="gry-color text-left">{{ translate('Discount') }}</th>
+			            <td class="currency">@if($order->type_discount == 'amount')<span>Rp </span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span> %</span>@endif</td>
 			        </tr>
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">{{ translate('Total Tax') }}</th>

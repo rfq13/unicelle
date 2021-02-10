@@ -161,7 +161,7 @@
 			        </tr>
 					<tr>
 			            <th class="gry-color text-left">{{ translate('Discount') }}</th>
-			            <td class="currency">@if($order->type_discount != null)@if($order->type_discount == 'amount')<span>Rp </span>@endif@endif{{ $order->discount }}@if($order->type_discount != null)@if($order->type_discount == 'percent')<span> %</span>@endif@endif</td>
+			            <td class="currency">@if($order->type_discount == 'amount')<span>Rp </span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span> %</span>@endif</td>
 			        </tr>
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">{{ translate('Total Tax') }}</th>

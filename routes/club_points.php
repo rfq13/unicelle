@@ -21,6 +21,7 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
     Route::get('club-point-details/{id}', 'ClubPointController@club_point_detail')->name('club_point.details');
     Route::post('set-club-points/update/{id}', 'ClubPointController@update_product_point')->name('product_point.update');
     Route::post('club-point-convert-rate/store', 'ClubPointController@convert_rate_store')->name('point_convert_rate_store');
+    Route::post('club-point-user/store', 'ClubPointController@convert_rate_poin_user')->name('point_convert_rate_user');
     Route::get('set_member_points','ClubPointController@set_member_points')->name('set_member_points');
     Route::post('set_member_setting','ClubPointController@set_member_setting')->name('set_member_setting');
 });

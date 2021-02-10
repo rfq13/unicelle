@@ -161,7 +161,7 @@
 							$user_id = \App\User::where('user_type', 'admin')->first()->id;
 						}
 					@endphp
-	                @foreach ($order->orderDetails->where('seller_id', $user_id) as $key => $orderDetail)
+	                @foreach ($order->orderDetails as $key => $orderDetail)
 		                @if ($orderDetail->product)
 							<tr class="">
 								<td>{{ $orderDetail->product->name }} @if($orderDetail->variation != null) ({{ $orderDetail->variation }}) @endif</td>
@@ -188,21 +188,26 @@
 	    <div style="padding:0 1.5rem;">
 	        <table style="width: 40%;margin-left:auto;" class="text-right sm-padding small strong">
 		        <tbody>
-			        <tr>
+					<tr>
 			            <th class="gry-color text-left">{{ translate('Sub Total') }}</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price')) }}</td>
+			            <td class="currency">{{ single_price($order->orderDetails->sum('price')) }}</td>
 			        </tr>
 			        <tr>
 			            <th class="gry-color text-left">{{ translate('Shipping Cost') }}</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost')) }}</td>
+			            <td class="currency">{{ single_price($order->shipping_cost) }}</td>
+			        </tr>
+					
+					<tr>
+			            <th class="gry-color text-left">{{ translate('Discount') }}</th>
+			            <td class="currency">@if($order->type_discount == 'amount')<span>Rp </span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span> %</span>@endif</td>
 			        </tr>
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">{{ translate('Total Tax') }}</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
+			            <td class="currency">{{ single_price($order->orderDetails->sum('tax')) }}</td>
 			        </tr>
 			        <tr>
 			            <th class="text-left strong">{{ translate('Grand Total') }}</th>
-			            <td class="currency">{{ single_price($order->orderDetails->where('seller_id', $user_id)->sum('price') + $order->orderDetails->where('seller_id', $user_id)->sum('shipping_cost') + $order->orderDetails->where('seller_id', $user_id)->sum('tax')) }}</td>
+			            <td class="currency">{{ single_price($order->grand_total) }}</td>
 			        </tr>
 		        </tbody>
 		    </table>

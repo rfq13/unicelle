@@ -44,9 +44,9 @@
                     <h3 class="panel-title text-center">{{__('Poin dan Diskon Pasien Reguler')}}</h3>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" action="{{ route('point_convert_rate_store') }}" method="POST">
+                    <form class="form-horizontal" action="{{ route('point_convert_rate_user') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="type" value="club_point_convert_rate">
+                        <input type="hidden" name="type" @if (isset($pasien))value="{{$pasien->type_user}}"@endif>
                         <div class="form-group">
                             <p style="font-weight:bold">Konfigurasi Poin</p>
                             <div class="row" style="margin-bottom:20px">
@@ -54,7 +54,7 @@
                                 <label class="control-label">{{__('Minimal Belanja(Rp)')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($pasien)) value="{{ $pasien->min_order_poin }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="min_order_poin" @if (isset($pasien)) value="{{ $pasien->min_order_poin }}" @endif placeholder="" required>
                             </div>
                             </div>
                             <div class="row" style="margin-bottom:20px">
@@ -62,7 +62,7 @@
                                 <label class="control-label">{{__('Poin Belanja')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($pasien)) value="{{ $pasien->poin }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="poin" @if (isset($pasien)) value="{{ $pasien->poin }}" @endif placeholder="" required>
                             </div>
                             <div class="col-lg-3">
                                 <label class="control-label">{{__('%')}}</label>
@@ -76,7 +76,7 @@
                                 <label class="control-label">{{__('Minimal Belanja(Rp)')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($pasien)) value="{{ $pasien->min_order_discount }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="min_order_discount" @if (isset($pasien)) value="{{ $pasien->min_order_discount }}" @endif placeholder="" required>
                             </div>
                             </div>
                             <div class="row" style="margin-bottom:20px">
@@ -84,10 +84,10 @@
                                 <label class="control-label">{{__('Discount Belanja')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($pasien)) value="{{ $pasien->discount }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="discount" @if (isset($pasien)) value="{{ $pasien->discount }}" @endif placeholder="" required>
                             </div>
                             <div class="col-lg-3">
-                            <select class="demo-select2" name="discount_type">
+                            <select class="demo-select2" name="type_discount">
                             <option value="amount" <?php if($pasien->type_discount == 'amount') echo "selected";?> >Rp</option>
 	                                	<option value="percent" <?php if($pasien->type_discount == 'percent') echo "selected";?> >%</option>
 									</select>                           
@@ -109,9 +109,9 @@
                     <h3 class="panel-title text-center">{{__('Poin dan Diskon Partner Physician')}}</h3>
                 </div>
                 <div class="panel-body">
-                    <form class="form-horizontal" action="{{ route('point_convert_rate_store') }}" method="POST">
+                    <form class="form-horizontal" action="{{ route('point_convert_rate_user') }}" method="POST">
                         @csrf
-                        <input type="hidden" name="type" value="club_point_convert_rate">
+                        <input type="hidden" name="type" @if (isset($physician))value="{{$physician->type_user}}"@endif>
                         <div class="form-group">
                             <p style="font-weight:bold">Konfigurasi Poin</p>
                             <div class="row" style="margin-bottom:20px">
@@ -119,7 +119,7 @@
                                 <label class="control-label">{{__('Minimal Belanja(Rp)')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($physician)) value="{{ $physician->min_order_poin }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="min_order_poin" @if (isset($physician)) value="{{ $physician->min_order_poin }}" @endif placeholder="" required>
                             </div>
                             </div>
                             <div class="row" style="margin-bottom:20px">
@@ -127,7 +127,7 @@
                                 <label class="control-label">{{__('Poin Belanja')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($physician)) value="{{ $physician->poin }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="poin" @if (isset($physician)) value="{{ $physician->poin }}" @endif placeholder="" required>
                             </div>
                             <div class="col-lg-3">
                                 <label class="control-label">{{__('%')}}</label>
@@ -141,7 +141,7 @@
                                 <label class="control-label">{{__('Minimal Belanja(Rp)')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($physician)) value="{{ $physician->min_order_discount }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="min_order_discount" @if (isset($physician)) value="{{ $physician->min_order_discount }}" @endif placeholder="" required>
                             </div>
                             </div>
                             <div class="row" style="margin-bottom:20px">
@@ -149,10 +149,10 @@
                                 <label class="control-label">{{__('Discount Belanja')}}</label>
                             </div>
                             <div class="col-lg-5">
-                                <input type="number" min="0" step="0.01" class="form-control" name="value" @if (isset($physician)) value="{{ $physician->discount }}" @endif placeholder="" required>
+                                <input type="number" min="0" step="0.01" class="form-control" name="discount" @if (isset($physician)) value="{{ $physician->discount }}" @endif placeholder="" required>
                             </div>
                             <div class="col-lg-3">
-                            <select class="demo-select2" name="discount_type">
+                            <select class="demo-select2" name="type_discount">
                             <option value="amount" <?php if($physician->type_discount == 'amount') echo "selected";?> >Rp</option>
 	                                	<option value="percent" <?php if($physician->type_discount == 'percent') echo "selected";?> >%</option>
 									</select>                           
