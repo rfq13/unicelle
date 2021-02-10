@@ -159,6 +159,10 @@
 			            <th class="gry-color text-left">{{ translate('Shipping Cost') }}</th>
 			            <td class="currency">{{ single_price($order->shipping_cost) }}</td>
 			        </tr>
+					<tr>
+			            <th class="gry-color text-left">{{ translate('Discount') }}</th>
+			            <td class="currency">@if($order->type_discount != null)@if($order->type_discount == 'amount')<span>Rp </span>@endif@endif{{ $order->discount }}@if($order->type_discount != null)@if($order->type_discount == 'percent')<span> %</span>@endif@endif</td>
+			        </tr>
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">{{ translate('Total Tax') }}</th>
 			            <td class="currency">{{ single_price($order->orderDetails->sum('tax')) }}</td>

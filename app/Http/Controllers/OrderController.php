@@ -13,7 +13,7 @@ use App\OrderDetail;
 use App\ClubPoint;
 use App\UsePoin;
 use App\Member;
-use App\UserMember;
+use App\userMember;
 use App\CouponUsage;
 use App\ClubPointExchange;
 use App\OtpConfiguration;
@@ -336,7 +336,7 @@ class OrderController extends Controller
             $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
 
             if(Auth::user()->user_type == 'regular physician'){
-                $member= \App\UserMember::where('user_id',Auth::user()->id)->first();
+                $member= \App\userMember::where('user_id',Auth::user()->id)->first();
                 $detail_member = \App\Member::where('id',$member->member_id)->first();
                 $diskon=$detail_member->discount_order;
                 if($detail_member->min_order_discount <= $subtotal){

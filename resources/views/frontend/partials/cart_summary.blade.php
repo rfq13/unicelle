@@ -92,7 +92,7 @@
                         $total_sementara = $subtotal+$tax;
 
                         if(Auth::user()->user_type == 'regular physician'){
-                            $member= \App\UserMember::where('user_id',Auth::user()->id)->first();
+                            $member= \App\userMember::where('user_id',Auth::user()->id)->first();
                             $detail_member = \App\Member::where('id',$member->member_id)->first();
                             $total_poin = $detail_member->poin_order/100*$total_sementara;
 

@@ -6,7 +6,7 @@
     $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
     $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
     if(Auth::user()->user_type == 'regular physician'){
-            $member= \App\UserMember::where('user_id',Auth::user()->id)->first();
+            $member= \App\userMember::where('user_id',Auth::user()->id)->first();
             $detail_member = \App\Member::where('id',$member->member_id)->first();
             $jenis_diskon=$detail_member->discount_type;
             $diskon=$detail_member->discount_order;
