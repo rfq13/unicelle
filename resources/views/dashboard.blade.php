@@ -47,13 +47,13 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <div class="panel">
+                <!-- <div class="panel">
                     <div class="pad-top text-center dash-widget">
                         <p class="text-normal text-main">{{translate('Total Produk Brand')}}</p>
                         <p class="text-semibold text-3x text-main">{{ \App\Brand::all()->count() }}</p>
                         <a href="{{ route('brands.create') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{translate('Tambah Brand')}}</a>
                     </div>
-                </div>  
+                </div>  -->
                 <!--<div class="panel">
                     <div class="pad-top text-center dash-widget">
                         <p class="text-normal text-main">{{translate('Total product sub category')}}</p>
