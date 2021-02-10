@@ -13,7 +13,7 @@ use App\OrderDetail;
 use App\ClubPoint;
 use App\UsePoin;
 use App\Member;
-use App\userMember;
+use App\UserMember;
 use App\CouponUsage;
 use App\ClubPointExchange;
 use App\OtpConfiguration;
@@ -268,7 +268,6 @@ class OrderController extends Controller
         $order->delivery_viewed = '0';
         $order->payment_status_viewed = '0';
         $order->delivery_status = 'pending';
-        $order->is_product_digital = '0';
         $order->code = date('Ymd-His').rand(10,99);
         $order->date = strtotime('now');
 
@@ -336,7 +335,7 @@ class OrderController extends Controller
             $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
 
             if(Auth::user()->user_type == 'regular physician'){
-                $member= \App\userMember::where('user_id',Auth::user()->id)->first();
+                $member= \App\UserMember::where('user_id',Auth::user()->id)->first();
                 $detail_member = \App\Member::where('id',$member->member_id)->first();
                 $diskon=$detail_member->discount_order;
                 if($detail_member->min_order_discount <= $subtotal){
@@ -810,10 +809,8 @@ class OrderController extends Controller
         }
         $order->save();
         if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
-            if($order->get_poin != null){
             $clubpointController = new ClubPointController;
             $clubpointController->processClubPoints($order);
-            }
         }
 
         $au_id = Auth::user()->referred_by;
@@ -822,59 +819,7 @@ class OrderController extends Controller
             $affiliate = new AffiliateController;
             $affiliate->affiliateProccessPoint($au_id);         
         }
-        if(Auth::user()->user_type == 'regular physician'){
-            $orderU = \App\Order::where('user_id', Auth::user()->id);
-            $log = new \App\userMember;
-            $tiers = new \App\Member;    
-            $logs = new \App\Membership_user_log;
 
-            $myMember = Auth::user()->member;
-            $userMember = \App\userMember::where(['member_id'=>$myMember->id,'user_id'=>Auth::user()->id])->orderBy('created_at','desc')->first();
-            $from = date_format($userMember->created_at, "Y-m-d");
-    
-            $to = $userMember->ended_at;
-            $orders = Auth::user()->orders;
-            $active_m_order = $orders->where("payment_status", "paid")->whereBetween('created_at', [$from, $to]);
-            $grand_total = $active_m_order->sum("grand_total");
-            $u_log = $userMember;
-
-            $n_tier = $tiers->where('min',">",$grand_total)->first();
-            $up_tier = $tiers->where('min',"<",$grand_total)->orderBy('min','desc')->first();
-            $next = '';
-            $next_max = 0;
-            $to_next = 0;
-            $ct = $u_log->member->title;
-            if($n_tier != null){
-                if ($grand_total < $n_tier->min) {
-                 // dd(Auth::user()->member_id);
-                $newMember = \App\Member::where('min','<=',$grand_total)->orderBy('min','desc')->first();
-                Auth::user()->member_id = $newMember->id;
-                Auth::user()->save();
-                $id_user_member= \App\userMember::where('user_id',Auth::user()->id)->first();
-                $newUserMmber = \App\userMember::find($id_user_member->id);
-                $newUserMmber->member_id = $newMember->id;
-                $unit = $newMember->period_unit;
-                $d='';
-                if($unit == 1){$d = 365;}elseif($unit == 2){$d = 30;}elseif($unit == 3){$d = 7;}
-                    $d = (int)$d * $unit;
-                    $d = "+$d day";
-                    $start_date = strtotime(date('d-m-Y'));
-                    $end_date = strtotime($d, $start_date);
-                    $end_date = date("Y-m-d H:i:s",$end_date);
-                $newUserMmber->ended_at = $end_date;
-                $newUserMmber->save();
-                $tier = $tiers->orderBy('id','desc')->first();
-                $lebihan = $grand_total - $tier->min;
-                $data = [
-                        'user_id' => Auth::user()->id,
-                        'member_id' => $newMember->id,
-                        'ends_on' => $end_date,
-                        'lebihan' => $lebihan < 0 ? 0 : $lebihan
-                    ];
-                    $logs->create($data);
-                }
-            }
-        }
         flash('berhasil melakukan konfimasi')->success();
         return redirect()->back();
     }
