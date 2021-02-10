@@ -53,9 +53,10 @@
                     ];
                     $logs->create($data);
         }
+        $next_tier = $tiers->where('min',">",$grand_total)->orderBy('min','asc')->first();
 
-        $next = $n_tier->title;
-        $next_max = $n_tier->min;
+        $next = $next_tier->title;
+        $next_max = $next_tier->min;
         $to_next = (int)$next_max - (int)$grand_total;
     }
     $persen = $grand_total != 0 && $next_max != 0 ? ($grand_total/$next_max)*100 : 0;
@@ -102,14 +103,14 @@
                         </section>
                         @if ($n_tier != null)
                         <div class="progres-membership mt-3">
-                            <span class="text-comment-member">Selesaikan <span class="font-weight-bold">{{toRp($to_next)}}</span> Total Belanja untuk menjadi <span class="font-weight-bold">{{$n_tier->title}}
+                            <span class="text-comment-member">Selesaikan <span class="font-weight-bold">{{toRp($to_next)}}</span> Total Belanja untuk menjadi <span class="font-weight-bold">{{$next_tier->title}}
                                 Membership</span> </span>
                                 <div class="progress my-1">
                                     <div class="progress-bar" role="progressbar" style="width: {{$persen}}%;" aria-valuenow="{{$persen}}"
                                     aria-valuemin="0" aria-valuemax="100">{{$persen}}%</div>
                                 </div>
                                 <div class="text-right">
-                                    <span class="nominal-range-membership">{{$n_tier != null ? toRp($grand_total)." / ". toRp($n_tier->min): ""}}</span>
+                                    <span class="nominal-range-membership">{{$next_tier != null ? toRp($grand_total)." / ". toRp($next_tier->min): ""}}</span>
                                 </div>
                         </div>
                         @else

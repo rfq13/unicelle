@@ -4,8 +4,8 @@
 @php
     $club_point_pasien_reg_convert = \App\BusinessSetting::where('type', 'club_point_pasien_reg_convert')->first();
     $club_point_partner_physician_convert = \App\BusinessSetting::where('type', 'club_point_partner_physician_convert')->first();
-    $pasien= \App\PoinUser::where('type_user','pasien_reg')->first();
-    $physician = \App\PoinUser::where('type_user','regular physician')->first();
+    $pasien= \App\PoinUser::where('type_user','pasien reg')->first();
+    $physician = \App\PoinUser::where('type_user','partner physician')->first();
 @endphp
     <div class="row">
         {{-- <div class="col-lg-6">
