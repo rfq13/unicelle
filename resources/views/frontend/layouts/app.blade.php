@@ -43,7 +43,7 @@
     <meta property="og:site_name" content="{{ env('APP_NAME') }}" />
     <meta property="fb:app_id" content="{{ env('FACEBOOK_PIXEL_ID') }}">
 @endif
-
+{{-- hei --}}
 <!-- Favicon -->
 <link type="image/x-icon" href="{{ my_asset(\App\GeneralSetting::first()->favicon) }}" rel="shortcut icon" />
 
