@@ -12,9 +12,9 @@
             <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-2" aria-expanded="true">{{ translate('Banner Beranda 1') }}</a>
             </li>
-            <li class="">
+            {{-- <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-4" aria-expanded="false">{{ translate('Kategori Beranda') }}</a>
-            </li>
+            </li> --}}
             {{-- <li class="">
                 <a data-toggle="tab" href="#demo-lft-tab-3" aria-expanded="false">{{ translate('Banner Beranda 2') }}</a>
             </li> --}}

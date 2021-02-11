@@ -40,7 +40,7 @@
                     <label for="update_payment_status">{{translate('Status Pembayaran')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_payment_status">
                         <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Pembayaran Berhasil')}}</option>
-                        <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Pending Payment')}}</option>
+                        <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Belum Dibayar')}}</option>
                     </select>
                 </div>
                 <div class="col-lg-3">
@@ -49,7 +49,7 @@
 					</div>
 					<input type="hidden" id="status-order" value="{{ $delivery_status }}">
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Processing')}}</option>
+                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pesanan Diproses')}}</option>
                         {{-- <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option> --}}
 						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('Dikirim')}}</option>
                         @if ($delivery_status == 'delivered')<option value="delivered" selected>{{translate('Terkirim')}}</option>@endif
@@ -70,9 +70,11 @@
     		<div class="invoice-bill row">
     			<div class="col-sm-6 text-xs-center">
     				<address>
-                        
-                        <strong class="text-main">{{ translate('ALAMAT PENGIRIMAN') }}</strong>
-        				<strong class="text-main">{{ $order->addresse->name }}</strong><br>
+					<strong class="text-main">{{ translate('DETAIL PENERIMA') }}</strong><br>
+                        {{$order->addresse->receiver}}<br>
+						{{$order->user->email}}<br>
+                        <strong class="text-main">{{ translate('ALAMAT PENGIRIMAN') }}</strong><br>
+        				{{ $order->addresse->address }}<br>
                          {{ $order->addresse->phone }}<br>
         				 {{ $order->addresse->address }}, {{ $order->addresse->subdistrict }}, {{ $order->addresse->city }}<br>{{ $order->addresse->province }},{{ $order->addresse->postal_code }}
                     </address>
@@ -193,13 +195,18 @@
         				<tbody>
                             @php
                                 $admin_user_id = \App\User::where('user_type', 'admin')->first()->id;
+								$obj=json_decode($order->shipping_info);
+
                             @endphp
-                            @foreach ($order->orderDetails->where('seller_id', $admin_user_id) as $key => $orderDetail)
+                            @foreach ($order->orderDetails as $key => $orderDetail)
+							@php
+                            $photo = $orderDetail->product->thumbnail_img != null ? $orderDetail->product->thumbnail_img : json_decode($OrderDetail->product->photos)[0];
+                        @endphp
                                 <tr>
                                     <td>{{ $key+1 }}</td>
                                     <td>
                                         @if ($orderDetail->product != null)
-                    						<a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank"><img height="50" src={{ my_asset($orderDetail->product->thumbnail_img) }}/></a>
+                    						<a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank"><img height="50" src="{{ my_asset($photo) }}"></a>
                                         @else
                                             <strong>{{ translate('N/A') }}</strong>
                                         @endif
@@ -212,25 +219,16 @@
                                             <strong>{{ translate('Produk Tidak Tersedia') }}</strong>
                                         @endif
                 					</td>
-                                    <td>
-                                        @if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
-                                            {{ translate('Pengiriman Dirumah') }}
-                                        @elseif ($orderDetail->shipping_type == 'pickup_point')
-                                            @if ($orderDetail->pickup_point != null)
-                                                {{ $orderDetail->pickup_point->name }} ({{ translate('Titik Penjemputan') }})
-                                            @else
-                                                {{ translate('Titik Penjemputan') }}
-                                            @endif
-                                        @endif
+                                    <td>{{$obj->code}}
                                     </td>
                 					<td class="text-center">
                 						{{ $orderDetail->quantity }}
                 					</td>
                 					<td class="text-center">
-                						{{ single_price($orderDetail->price/$orderDetail->quantity) }}
+                						{{ single_price($orderDetail->price) }}
                 					</td>
                                     <td class="text-center">
-                						{{ single_price($orderDetail->price) }}
+                						{{ single_price($orderDetail->price*$orderDetail->quantity) }}
                 					</td>
                 				</tr>
                             @endforeach
@@ -246,7 +244,7 @@
     					<strong>{{translate('Sub Total')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('price')) }}
+    					{{ single_price($order->orderDetails->sum('price')*$order->orderDetails->sum('quantity')) }}
     				</td>
     			</tr>
     			<tr>
@@ -254,7 +252,7 @@
     					<strong>{{translate('Pajak')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->where('seller_id', $admin_user_id)->sum('tax')) }}
+    					{{ single_price($order->orderDetails->sum('tax')) }}
     				</td>
     			</tr>
                 <tr>

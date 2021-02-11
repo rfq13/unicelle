@@ -149,9 +149,9 @@
                                         }
                                         
                                     @endphp
-                                    <li class="mr-1">
+                                    {{-- <li class="mr-1">
                                         <span class="badge badge-pill badge-md badge-primary" style="font-weight: bold;">{{ $detailedProduct->earn_point > 0 ? $detailedProduct->earn_point : ''}} Point</span>
-                                    </li>
+                                    </li> --}}
                                     @if ($qty > 0)
                                         <li>
                                             <span class="badge badge-pill badge-md badge-success" style="font-weight: 900;">{{ translate('In stock')}}</span>

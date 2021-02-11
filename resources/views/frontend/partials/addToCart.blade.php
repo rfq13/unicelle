@@ -85,7 +85,7 @@
                     </div>
                 @endif
 
-                @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated && $product->earn_point > 0)
+                <!-- @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated && $product->earn_point > 0)
                     <div class="row no-gutters mt-4">
                         <div class="col-2">
                             <div class="product-description-label">{{  translate('Club Point') }}:</div>
@@ -96,7 +96,7 @@
                             </div>
                         </div>
                     </div>
-                @endif
+                @endif -->
 
                 <hr>
 

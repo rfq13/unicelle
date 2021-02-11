@@ -49,11 +49,11 @@ class VoucherController extends Controller
     {
         $sort_search = null;
         $load_id = null;
-        $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->limit(4)->get();
+        $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->orderBy('created_at','desc')->limit(4)->get();
         if($request->has('load')){
             $load_id= $request->load;
             if($load_id == '1'){
-            $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->get();
+            $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->orderBy('created_at','desc')->get();
             }
         }
         $voucher =\App\CouponVoucher::where('is_delete','0')->get();
@@ -62,7 +62,7 @@ class VoucherController extends Controller
             $voucher =\App\CouponVoucher::where('is_delete','0')->where('judul','like',"%$sort_search%")->get();
             $idvoucher = $voucher->pluck('id')->toArray();
 
-            $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->where('voucher_id',$idvoucher)->with('voucher')->get();
+            $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->where('voucher_id',$idvoucher)->with('voucher')->orderBy('created_at','desc')->get();
 
         }
 
@@ -165,7 +165,7 @@ class VoucherController extends Controller
         $history->user_id = Auth::user()->id;
         $history->voucher_id = $coupons_voucher->id;
         $history->point = '-'.$coupons_voucher->point;
-        $history->keterangan = "Tukar Voucher";
+        $history->keterangan = "Tukar Poin";
         $history->save();
         $user = User::findOrFail(Auth::user()->id);
         $update_poin = Auth::user()->poin - $coupons_voucher->point;

@@ -95,7 +95,7 @@
                         @if($type == 'Seller')
                             <td>{{ $product->user->name }}</td>
                         @endif
-                        <td>{{ $product->num_of_sale }} {{translate('times')}}</td>
+                        <td>{{ $product->num_of_sale }}</td>
                         <td>
                             @php
                                 $qty = 0;

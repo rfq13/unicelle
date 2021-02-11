@@ -461,7 +461,7 @@ class HomeController extends Controller
             $search = $request->search;
             $products = $products->where('name', 'like', '%' . $search . '%');
         }
-        $products = $products->paginate(10);
+        $products = $products->paginate(12);
         return view('frontend.seller.products', compact('products', 'search'));
     }
 

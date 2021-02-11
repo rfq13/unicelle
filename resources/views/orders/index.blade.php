@@ -71,7 +71,7 @@
                                 {{ $order->code }} @if($order->viewed == 0) <span class="pull-right badge badge-info">{{ translate('Baru') }}</span> @endif
                             </td>
                             <td>
-                                {{ count($order->orderDetails->where('seller_id', $admin_user_id)) }}
+                                {{ count($order->orderDetails) }}
                             </td>
                             <td>
                                 @if ($order->user != null)
@@ -93,13 +93,15 @@
                                 {{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}
                             </td>
                             <td>
-                                <span class="badge badge--2 mr-4">
                                     @if ($order->orderDetails->where('is_product_digital',0)->first()->payment_status == 'paid')
-                                        <i class="bg-green"></i> {{ translate('Dibayar') }}
+                                    <span style="background-color:#007944" class="badge badge--2 mr-4">
+                                        <i class="bg-green">{{ translate('Dibayar') }}</i> 
+                                    </span>
                                     @else
-                                        <i class="bg-red"></i> {{ translate('Tidak Dibayar') }}
+                                    <span style="background-color:#ec4646" class="badge badge--2 mr-4">
+                                        <i class="bg-red">{{ translate('Belum Dibayar') }}</i>
+                                    </span> 
                                     @endif
-                                </span>
                             </td>
                             @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
                                 <td>
