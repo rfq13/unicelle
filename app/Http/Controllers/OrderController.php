@@ -653,7 +653,7 @@ class OrderController extends Controller
         $order->save();
 
         if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller'){
-            foreach($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail){
+            foreach($order->orderDetails as $key => $orderDetail){
                 $orderDetail->payment_status = $request->status;
                 $orderDetail->save();
             }

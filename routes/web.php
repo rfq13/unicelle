@@ -328,6 +328,7 @@ Route::get('/{slug}', 'PageController@show_custom_page')->name('custom-pages.sho
 Route::get('/voucher/pdf', 'VoucherController@print_pdf')->name('voucher.pdf');
 Route::get('invoice/Voucher/{id}', 'VoucherController@code_voucher')->name('myvoucher.code');
 Route::post('/voucher/show', 'VoucherController@showVoucherModal')->name('voucher.showVoucherModal');
+Route::post('/voucher/klaim', 'VoucherController@klaimVoucher')->name('voucher.klaim');
 
 
 //payhere below

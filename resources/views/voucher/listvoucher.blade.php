@@ -234,7 +234,7 @@
                                             font-size: 20px;
                                             line-height: 27px;
                                             color: #FF6F00;"> {{$v->point}}</span>
-                                            <a href="javascript:void(0)" onclick="addvoucher(event,{{$v->id}});">
+                                            <a href="javascript:void(0)" onclick="show_confirm(event,{{$v->id}});">
                                             <button class=" mt-3 btn btn-primary1 w-100">Tukar Poinku</button>
 
                                         </a>
@@ -257,6 +257,18 @@
                                                         <div id="exampleModal-body" class="modal-body">
 
                                                         </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end -->
+                                              <!-- modal confirm -->
+   <div class="modal fade" id="modalconfirm" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div id="modalconfirm-body" class="modal-body">
+                                                        
                                                       
                                                     </div>
                                                 </div>
@@ -304,6 +316,7 @@
 @endforeach
 @section('script')
 <script type="text/javascript">
+        
         function sort_voucher(el){
             $('#sort_voucher').submit();
         }

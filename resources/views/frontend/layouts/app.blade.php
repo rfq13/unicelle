@@ -1428,6 +1428,27 @@ background: #428bca;
                 });
             });
         }
+        function show_confirm(e,id){
+            $('#modalconfirm-body').html(null);
+            $('#modalconfirm').modal();
+            $('.c-preloader').show();
+            let data = {
+            _token:'{{csrf_token()}}',
+            id: id
+        }
+            $.post('{{ route("voucher.klaim") }}', data,
+            function(d) {
+                $('.c-preloader').hide();
+                $('#modalconfirm-body').html(d);
+                $('.xzoom, .xzoom-gallery').xzoom({
+                    Xoffset: 20,
+                    bg: true,
+                    tint: '#000',
+                    defaultScale: -1
+                });
+            });
+            
+        }
     function addvoucher(e,key){
         e.preventDefault()
         $.post('{{ route('tukar.voucher') }}', {_token:'{{ csrf_token() }}',id:key}, function(data){
