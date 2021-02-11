@@ -101,7 +101,7 @@
                                 </div>
                             </div>
                         </section>
-                        @if ($next_tier != null)
+                        @if ($n_tier != null)
                         <div class="progres-membership mt-3">
                             <span class="text-comment-member">Selesaikan <span class="font-weight-bold">{{toRp($to_next)}}</span> Total Belanja untuk menjadi <span class="font-weight-bold">{{$next_tier->title}}
                                 Membership</span> </span>
