@@ -39,6 +39,7 @@
                     <th>{{translate('Nomor Telepon')}}</th>
                     <th>{{translate('Tipe Pelanggan')}}</th>
                     <th>{{translate('Membership')}}</th>
+                    <th>{{translate('Poin')}}</th>
                     {{-- <th>{{translate('Paket')}}</th> --}}
                     {{-- <th>{{translate('Saldo wallet')}}</th> --}}
                     <th width="10%">{{translate('Opsi')}}</th>
@@ -56,6 +57,7 @@
                         <td>{{$customer->user->phone}}</td>
                         <td>{{$customer->user->user_type == "pasien reg" ? "pasien regular" : $customer->user->user_type}}</td>
                         <td>{{$customer->user->member == null ? "" : $customer->user->member->title}}</td>
+                        <td>{{$customer->user->poin}}</td>
                         {{-- <td>
                             @if ($customer->user->customer_package != null)
                                 {{$customer->user->customer_package->name}}
@@ -81,6 +83,7 @@
                                 </div>
                             @endif
                         </td>
+                        
                     </tr>
                 @endforeach
             </tbody>
