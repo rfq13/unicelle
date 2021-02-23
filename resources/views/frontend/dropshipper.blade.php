@@ -115,11 +115,31 @@ return;
                                                     </div>
                                                     <div class="col-4">
                                                         <p class="receiver-dropshipper">Pembayaran</p>
+                                                        @if ($order->payment_details !=null)
+                                                        @php
+                                                        $payment = json_decode($order->payment_details);
+                                                        if (property_exists($payment,'bank_code')){
+                                                            $pay_opt = "$payment->bank_code Virtual Account";
+                                                            $pay_num = $payment->account_number;
+                                                            $title = "VA";
+                                                        }
+                                                        elseif (property_exists($payment,'retail_outlet_name')) {
+                                                            $pay_opt = $payment->retail_outlet_name;
+                                                            $pay_num = $payment->payment_code;
+                                                            $title = 'kode Pembayaran';
+                                                        }
+                                                        elseif (property_exists($payment,'card_brand')) {
+                                                            $pay_opt = $payment->card_brand." (kartu kredit)";
+                                                            $pay_num = $payment->masked_card_number;
+                                                            $title = 'kode Kartu';
+                                                        }
+                                                        @endphp
                                                         <p class="text-dropshipper text-capitalize" style="margin-bottom: 0%;">
-                                                            {{ $config->BANK_NAME }}
+                                                            {{ $pay_opt }}
                                                         </p>
                                                         <p class="content-dropshipper" style="margin-bottom: 0%;">
-                                                            No.{{ $config->BANK_NO_REK }}</p>
+                                                            No.{{ $pay_num }}</p>
+                                                        @endif
                                                         @if ($order->manual_payment && is_array(json_decode($order->manual_payment, true)))
                                                             <div class="jumlah-produk-pesanan mt-3">
                                                                 @php $norek = $order->payment_type == "cash_on_delivery"
@@ -139,11 +159,36 @@ return;
                                                                 @endif
                                                             </div>
                                                         @elseif($order->status != "paid")
-                                                            <div class="jumlah-produk-pesanan mt-3">
+                                                            {{-- <div class="jumlah-produk-pesanan mt-3">
                                                                 <a href="{{ route('payment.create', $order->id) }}"
                                                                     class="btn btn-primary1 w-80">Konfirmasi
                                                                     Pembayaran</a>
-                                                            </div>
+                                                            </div> --}}
+                                                            
+                                                    <div class="mb-2">
+                                                        <span class="status-pesanan__">
+                                                            <span class="badge badge--2 mr-4">
+                                                            
+                                                                @if($order->delivery_status == 'delivered')
+                                                                <i class="bg-green"
+                                                                        style="text-transform: capitalize"></i>
+                                                                    {{ translate('Pesanan Selesai') }}
+                                                                @elseif ($order->payment_status == 'paid')
+                                                                    <i class="bg-green"
+                                                                        style="text-transform: capitalize"></i>
+                                                                    {{ translate('Terbayar') }}
+                                                                @else
+                                                                    <i class="bg-red"
+                                                                        style="text-transform: capitalize"></i>
+                                                                    {{ translate('perlu dibayar') }}
+                                                                @endif
+                                                                @if ($order->payment_status_viewed == 0)
+                                                                    <span class="ml-2"
+                                                                        style="color:green"><strong>*</strong></span>
+                                                                @endif
+                                                            </span>
+                                                        </span>
+                                                    </div>
                                                         @endif
                                                     </div>
                                                     <div class="col-3">
@@ -398,12 +443,37 @@ return;
                                 <div class="col mt-3">
                                     <div class="metode-pembayaran">
                                         <span class="font-weight-bold">Metode Pembayaran</span>
+                                        @foreach ($orders as $key => $order)
+
+                                        @if ($order->payment_details !=null)
+                                        @php
+                                        $payment = json_decode($order->payment_details);
+
+                                        if (property_exists($payment,'bank_code')){
+                                            $pay_opt = "$payment->bank_code Virtual Account";
+                                            $pay_num = $payment->account_number;
+                                            $title = "VA";
+                                        }
+                                        elseif (property_exists($payment,'retail_outlet_name')) {
+                                            $pay_opt = $payment->retail_outlet_name;
+                                            $pay_num = $payment->payment_code;
+                                            $title = 'kode Pembayaran';
+                                            }
+                                        elseif (property_exists($payment,'card_brand')) {
+                                            $pay_opt = $payment->card_brand." (kartu kredit)";
+                                            $pay_num = $payment->masked_card_number;
+                                            $title = 'kode Kartu';
+                                        }
+                                        @endphp
+
                                         <div class="platform-bank mt-2">
-                                            <span class="address-detail-pesanan">Bank BNI</span>
+                                            <span class="address-detail-pesanan">{{ $pay_opt }}</span>
                                         </div>
                                         <div class="norek">
                                             <span class="no-rek-modal">No. 8806 0821441</span>
                                         </div>
+                                        @endif
+                                        @endforeach
                                     </div>
                                     <div class="address-ship mt-3">
                                         <span class="font-weight-bold">Alamat Pengiriman</span>

@@ -2,11 +2,11 @@
 
     <div class="col-lg-3">
         <div class="card mb-2" style="box-shadow: 0px 0px 6px 4px rgba(0, 0, 0, 0.25);
-            border-radius: 10px">
+            border-radius: 10px;padding:5px;height:260px">
             <a href="{{ route('detail.blog', encrypt($blog->id)) }}" class="text-center p-0 m-0">
                 <img class="img-fluid" src="{{ my_asset($blog->thumbnail) }}" width="" height="130" style="
                     border-radius: 10px 10px 0px 0px; 
-                    max-height: 130px; max-width: 255px;" >
+                    max-height: 130px; max-width: 100%;" >
                 <div class="mt-3 p-2">
                     <p style="
                         left: 5.47%;
@@ -19,7 +19,7 @@
                         font-size: 16px;
                         line-height: 22px;
                         color: #212121;
-                        ">{{ $blog->title }}</p>
+                        ">{!!\Illuminate\Support\Str::limit($blog->title,45)!!}</p>
                     <p style="
                         left: 5.47%;
                         right: 5.47%;

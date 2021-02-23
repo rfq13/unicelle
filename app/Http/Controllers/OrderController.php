@@ -487,7 +487,7 @@ class OrderController extends Controller
 
             // $request->session()->put('order_id', $order->id);
 
-
+            $request->session()->forget('data_dropshiper');
             \App\Cart::where("user_id",Auth::id())->delete();
         }
         return ['xendit' => $xendit,'id'=>$order->id,'creditcard'=>$ccdetails ? true : false];
