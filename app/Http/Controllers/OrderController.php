@@ -350,6 +350,7 @@ class OrderController extends Controller
                             }
                             }
                             else{
+                                    $total=$subtotal + $tax ;
                                     $total_diskon = $diskon/100*$total;
                                     $total_beli = $subtotal + $tax -$total_diskon+ $shipping;
                                     if(isset($poin_use)){
