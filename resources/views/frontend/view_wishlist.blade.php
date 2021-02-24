@@ -183,12 +183,12 @@
                                             <h2 class="product-title p-0">
                                                 <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{  __($product->name) }}</a>
                                             </h2>
-                                            @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
+                                           {{-- @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
                                                 <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
                                                     {{  translate('Point') }}:
                                                     <span class="strong-700 float-right">{{ $product->earn_point }}</span>
                                                 </div>
-                                            @endif
+                                            @endif --}}
                                         </div>
                                         <a class="btn btn-default" onclick="addToCart({{ $product->id }})" style="width: 100%">Tambah</a>
                                     </div>
