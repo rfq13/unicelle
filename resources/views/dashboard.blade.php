@@ -47,6 +47,13 @@
                 </div>
             </div>
             <div class="col-sm-6">
+            <div class="panel">
+                    <div class="pad-top text-center dash-widget">
+                        <p class="text-normal text-main">{{translate('Log Admin')}}</p>
+                        <p class="text-semibold text-3x text-main">{{ \App\Admin_log::all()->count() }}</p>
+                        <a href="{{ route('log.index') }}" class="btn btn-primary mar-top btn-block top-border-radius-no">{{translate('Lihat')}}</a>
+                    </div>
+                </div>
                 <!-- <div class="panel">
                     <div class="pad-top text-center dash-widget">
                         <p class="text-normal text-main">{{translate('Total Produk Brand')}}</p>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use App\User;
+use App\Admin_log;
 use App\Customer;
 use Illuminate\Http\Request;
 use CoreComponentRepository;
@@ -150,6 +151,12 @@ class LoginController extends Controller
     {
         if (auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'staff') {
             // CoreComponentRepository::instantiateShopRepository();
+            $log = new Admin_log;
+            $log->user_id = auth()->user()->id;
+            $log->order_id = '-';
+            $log->konsumen = '-';
+            $log->event = 'Login';
+            $log->save();
             return redirect()->route('admin.dashboard');
         } else {
             auth()->guard()->logout();

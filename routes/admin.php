@@ -185,6 +185,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::get('/seller_sale_report', 'ReportController@seller_sale_report')->name('seller_sale_report.index');
 	Route::get('/wish_report', 'ReportController@wish_report')->name('wish_report.index');
 
+	//log
+	Route::get('/log_admin', 'LogController@index')->name('log.index');
+
 	//Coupons
 	Route::resource('coupon', 'CouponController');
 	Route::post('/coupon/get_form', 'CouponController@get_coupon_form')->name('coupon.get_coupon_form');

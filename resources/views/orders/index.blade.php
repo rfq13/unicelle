@@ -85,9 +85,15 @@
                             </td>
                             <td>
                                 @php
-                                    $status = $order->orderDetails->first()->delivery_status;
+                                    $status = $order->delivery_status;
                                 @endphp
+                                @if($status == 'on_delivery')
+                                Dikirim
+                                @elseif($status == 'delivered')
+                                Terkirim
+                                @else
                                 {{ ucfirst(str_replace('_', ' ', $status)) }}
+                                @endif
                             </td>
                             <td>
                                 {{ ucfirst(str_replace('_', ' ', $order->payment_type)) }}

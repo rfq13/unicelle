@@ -12,6 +12,7 @@ use App\Color;
 use App\OrderDetail;
 use App\ClubPoint;
 use App\UsePoin;
+use App\Admin_log;
 use App\Member;
 use App\userMember;
 use App\CouponUsage;
@@ -621,6 +622,17 @@ class OrderController extends Controller
     {
         $order = Order::findOrFail($request->order_id);
         $order->delivery_viewed = '0';
+        $nama_user= User::where('id',$order->user_id)->first();
+
+        $detail= 'Mengubah status pengiriman dari "'.$order->delivery_status.'" menjadi "'.$request->status.'" ';
+        $log= new Admin_log;
+        $log->user_id= Auth::user()->id;
+        $log->order_id= $order->code;
+        $log->konsumen= $nama_user->name;
+
+        $log->event= $detail;
+        $log->save();
+        $order->delivery_status = $request->status;
         $order->save();
         if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller'){
             foreach($order->orderDetails->where('seller_id', Auth::user()->id) as $key => $orderDetail){
@@ -651,6 +663,16 @@ class OrderController extends Controller
         $order = Order::findOrFail($request->order_id);
         $order->payment_status_viewed = '0';
         $order->save();
+        $nama_user= User::where('id',$order->user_id)->first();
+
+        $detail= 'Mengubah status pembayaran dari " '.$order->payment_status.' " menjadi "'.$request->status.'" ';
+        $log= new Admin_log;
+        $log->user_id= Auth::user()->id;
+        $log->order_id= $order->code;
+        $log->konsumen= $nama_user->name;
+
+        $log->event= $detail;
+        $log->save();
 
         if(Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'seller'){
             foreach($order->orderDetails as $key => $orderDetail){

@@ -266,6 +266,7 @@ class blogController extends Controller
         $banner->position = 1;
         $banner->published = 1;
         $banner->save();
+
         flash("berhasil update banner")->success();
         return redirect(route('blog.index'));
     }
