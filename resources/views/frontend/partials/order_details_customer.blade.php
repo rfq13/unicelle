@@ -285,11 +285,14 @@ if($ship != null || $ship != 0){
                                                 $no_of_max_day = \App\BusinessSetting::where('type', 'refund_request_time')->first()->value;
                                                 $last_refund_date = $orderDetail->created_at->addDays($no_of_max_day);
                                                 $today_date = Carbon\Carbon::now();
+                                                $search = \App\RefundRequest::where('order_id',$order->id)->get();
                                                 // $point_use = 
                                             @endphp
                                             <td class="text-center">
-                                                @if ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $orderDetail->refund_request == null && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' &&$order->user_status_konfrimasi != 1)
-                                                    <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $orderDetail->product->earn_point }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Pengembalian Dana') }}</a>
+                                                @if ($search != null && $search->count() > 0)
+                                                <span class="strong-600">{{  translate('Dalam Proses Penukaran / Refund') }}</span>
+                                                @elseif ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' &&$order->user_status_konfrimasi != 1)
+                                                <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $orderDetail->product->earn_point }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Pengembalian Dana') }}</a>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
                                                     <span class="strong-600">{{  translate('Tertunda') }}</span>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
@@ -454,8 +457,8 @@ if($ship != null || $ship != 0){
 
 <script>
     function confirm_refund(link,nama,poin) {
-        let authpoin = $("#authpoin").val()
-        if(authpoin > poin){
+        let authpoin = $("#authpoin").val();
+        if(poin >= authpoin){
             $("#bodi-konfir").html(`
             <span>Melakukan refund pada produk ${nama} akan mengurangi ${poin} poin, <br> poin anda saat ini ${authpoin}</span>
             `)

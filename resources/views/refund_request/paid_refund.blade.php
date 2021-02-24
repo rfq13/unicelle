@@ -36,7 +36,7 @@
                             @if ($refund->orderDetail != null && $refund->orderDetail->product != null)
                                 <a href="{{ route('product', $refund->orderDetail->product->slug) }}" target="_blank" class="media-block">
                                     <div class="media-left">
-                                        <img loading="lazy"  class="img-md" src="{{ asset($refund->orderDetail->product->thumbnail_img)}}" alt="Image">
+                                        <img loading="lazy"  class="img-md" src="{{ my_asset($refund->orderDetail->product->thumbnail_img)}}" alt="Image">
                                     </div>
                                     <div class="media-body">{{ __($refund->orderDetail->product->name) }}</div>
                                 </a>

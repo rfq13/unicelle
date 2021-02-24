@@ -35,6 +35,7 @@ class RefundRequestController extends Controller
         $refund->refund_amount = $order_detail->price + $order_detail->tax;
         $refund->refund_status = 0;
         if ($refund->save()) {
+            
             flash("Permintaan Pengembalian Dana telah berhasil dikirim")->success();
             return redirect()->route('purchase_history.index');
         }
@@ -145,7 +146,7 @@ class RefundRequestController extends Controller
      */
     public function paid_index()
     {
-        $refunds = RefundRequest::where('refund_status', 1)->latest()->paginate(15);
+        $refunds = RefundRequest::where('refund_status', 1)->with('order')->latest()->paginate(15);
         return view('refund_request.paid_refund', compact('refunds'));
     }
 
@@ -200,6 +201,7 @@ class RefundRequestController extends Controller
         $user->save();
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
             $refund->admin_approval = 1;
+            $refund->seller_approval = 1;
             $refund->refund_status = 1;
         }
         if ($refund->save()) {
