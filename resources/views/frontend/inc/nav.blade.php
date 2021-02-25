@@ -23,7 +23,7 @@ $point = Auth::user()->poin;
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <div class=" input-group w-100 mx-lg-4 mx-0 mt-lg-0 mt-2">
-                <input class="form-control border-right-0" type="search" id="inputSearchNav" placeholder="Cari Produk">
+                <input class="form-control border-right-0" type="search" name="q" id="inputSearchNav" placeholder="Cari Produk">
                 <div class="input-group-append">
                     <button class=" btn bg-light border-right rounded-right border-top border-bottom"
                         data-href="{{ route('suggestion.search', 'slug') }}" id="btnSearchNav">
