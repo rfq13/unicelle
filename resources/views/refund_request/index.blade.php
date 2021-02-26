@@ -26,7 +26,7 @@
                 @foreach($refunds as $key => $refund)
                     <tr>
                         <td>{{ ($key+1) + ($refunds->currentPage() - 1)*$refunds->perPage() }}</td>
-                        <td><a onClick="modalDetailPesanan(event,{{ $refund->order->id }})">{{ $refund->order->code }}</a></td>
+                        <td><a onClick="modalDetailPesanan(event,{{ $refund->order->id }})">{{ $refund->order->code }}</a>@if($refund->admin_seen == 0) <span class="pull-right badge badge-info">{{ translate('Baru') }}</span> @endif</td>
                         {{-- <td>
                             @if ($refund->seller != null)
                                 {{ $refund->seller->name }}

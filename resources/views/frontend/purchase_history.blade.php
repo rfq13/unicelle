@@ -173,15 +173,24 @@
                                                         <span class="status-pesanan__">
                                                             <span class="badge badge--2 mr-4">
                                                                 @php
-                                                                $search = \App\RefundRequest::where('order_id',$order->id)->get();
+                                                                $search = \App\RefundRequest::where('order_id',$order->id)->first();
                                                                 @endphp
                                                                 @if($order->delivery_status == 'delivered')
                                                                     @if($search != null && $search->count() > 0)
-                                                                    
-                                                                    <i class="bg-green"
+                                                                        @if($search->admin_seen == 1)
+                                                                        <i class="bg-green"
                                                                         style="text-transform: capitalize"></i>
-                                                                    {{ translate('Permintaan pengembalian') }}
-                                                                    
+                                                                        {{ translate('Permintaan Komplain') }}</br>
+                                                                        {{ translate('Diproses') }}
+                                                                        @elseif($search->admin_approval == 1)
+                                                                        <i class="bg-green"
+                                                                        style="text-transform: capitalize"></i>
+                                                                        {{ translate('Komplain Selesai') }}
+                                                                        @else
+                                                                        <i class="bg-green"
+                                                                        style="text-transform: capitalize"></i>
+                                                                        {{ translate('Pengajuan Komplain') }}
+                                                                        @endif
                                                                     @else
                                                                     <i class="bg-green"
                                                                         style="text-transform: capitalize"></i>

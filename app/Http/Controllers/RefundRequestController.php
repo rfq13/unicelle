@@ -7,6 +7,7 @@ use App\BusinessSetting;
 use App\RefundRequest;
 use App\OrderDetail;
 use App\Order;
+use App\ClubPointExchange;
 use App\Seller;
 use App\Wallet;
 use App\User;
@@ -225,6 +226,11 @@ class RefundRequestController extends Controller
         $user->balance += $refund->refund_amount;
         $user->poin -= $potongan_poin;
         $user->save();
+        $history = new ClubPointExchange;
+        $history->user_id = $refund->user_id;
+        $history->point = '-'.$potongan_poin;
+        $history->keterangan = "Komplain";
+        $history->save();
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
             $refund->admin_approval = 1;
             $refund->seller_approval = 1;
@@ -286,8 +292,14 @@ class RefundRequestController extends Controller
     public function showReasonModal(Request $request)
     {
         $refund = RefundRequest::where('id', $request->id)->first();
-       
-        return view('refund_request.modal_reason', compact('refund'));
+        $update = RefundRequest::findOrFail($request->id);
+        if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
+            if ($update->orderDetail != null) {
+                $update->admin_seen = 1;
+                $update->save();
+                return view('refund_request.modal_reason', compact('refund'));
+            }
+        }
     }
     public function showDetailPesanan(Request $request)
     {

@@ -49,7 +49,52 @@
 </table>
 </div>
     </div>
-    
+    <div class="clearfix">
+    			<table class="table invoice-total">
+    			<tbody>
+    			<tr>
+    				<td>
+    					<strong>{{translate('Sub Total')}} :</strong>
+    				</td>
+    				<td>
+    					{{ single_price($order->orderDetails->sum('price')*$order->orderDetails->sum('quantity')) }}
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>
+    					<strong>{{translate('Pajak')}} :</strong>
+    				</td>
+    				<td>
+    					{{ single_price($order->orderDetails->sum('tax')) }}
+    				</td>
+    			</tr>
+                <tr>
+                    <td>
+                        <strong>{{translate('Pengiriman')}} :</strong>
+                    </td>
+                    <td>
+                        {{ single_price($order->shipping_cost) }}
+                    </td>
+                </tr>
+                <tr>
+    				<td>
+    					<strong>{{translate('Point Discount')}} :</strong>
+    				</td>
+    				<td>
+    					{{ single_price($order->poin_convert) }}
+    				</td>
+    			</tr>
+    			<tr>
+    				<td>
+    					<strong>{{translate('TOTAL')}} :</strong>
+    				</td>
+    				<td class="text-bold h4">
+    					{{ single_price($order->grand_total) }}
+    				</td>
+    			</tr>
+    			</tbody>
+    			</table>
+    		</div>
 </div>
 <div style="border-top:none" class="modal-footer border-0">
 <button type="button" class="btn btn-danger mr-3"
