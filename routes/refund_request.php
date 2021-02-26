@@ -19,6 +19,11 @@ Route::group(['prefix' =>'admin', 'middleware' => ['auth', 'admin']], function()
     Route::post('/refund-request-pay', 'RefundRequestController@refund_pay')->name('refund_request_money_by_admin');
     Route::post('/refund-request-time-store', 'RefundRequestController@refund_time_update')->name('refund_request_time_config');
     Route::post('/refund-request-sticker-store', 'RefundRequestController@refund_sticker_update')->name('refund_sticker_config');
+    Route::post('/refund-request-poin-store', 'RefundRequestController@refund_poin_update')->name('refund_request_poin_config');
+    Route::post('/refund_reason/show', 'RefundRequestController@showReasonModal')->name('reason.showReasonModal');
+    Route::post('/detail/pesanan/refund', 'RefundRequestController@showDetailPesanan')->name('refund.showDetailPesanan');
+    Route::post('/refund/store/dana', 'RefundRequestController@confirmDanaModal')->name('confirmDanaModal');
+
 });
 
 //FrontEnd User panel

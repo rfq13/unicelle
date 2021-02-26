@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\BusinessSetting;
 use App\RefundRequest;
 use App\OrderDetail;
+use App\Order;
 use App\Seller;
 use App\Wallet;
 use App\User;
@@ -128,6 +129,22 @@ class RefundRequestController extends Controller
         return back();
     }
 
+    public function refund_poin_update(Request $request){
+        $business_settings = BusinessSetting::where('type', $request->type)->first();
+        if ($business_settings != null) {
+            $business_settings->value = $request->value;
+            $business_settings->save();
+        }
+        else {
+            $business_settings = new BusinessSetting;
+            $business_settings->type = $request->type;
+            $business_settings->value = $request->value;
+            $business_settings->save();
+        }
+        flash("Poin Potongan Pengembalian Dana berhasil diperbarui")->success();
+        return back();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -135,8 +152,9 @@ class RefundRequestController extends Controller
      */
     public function admin_index()
     {
+        $refund2 = null;
         $refunds = RefundRequest::where('refund_status', 0)->latest()->paginate(15);
-        return view('refund_request.index', compact('refunds'));
+        return view('refund_request.index', compact('refunds','refund2'));
     }
 
     /**
@@ -183,6 +201,13 @@ class RefundRequestController extends Controller
     public function refund_pay(Request $request)
     {
         $refund = RefundRequest::findOrFail($request->el);
+        $business_settings = BusinessSetting::where('type', 'refund_request_poin')->first();
+        if ($business_settings != null) {
+            $potongan_poin=$business_settings->value;
+        }
+        else{
+            $potongan_poin='0';
+        }
         if ($refund->seller_approval == 1) {
             $seller = Seller::where('user_id', $refund->seller_id)->first();
             if ($seller != null) {
@@ -198,6 +223,7 @@ class RefundRequestController extends Controller
         $wallet->save();
         $user = User::findOrFail($refund->user_id);
         $user->balance += $refund->refund_amount;
+        $user->poin -= $potongan_poin;
         $user->save();
         if (Auth::user()->user_type == 'admin' || Auth::user()->user_type == 'staff') {
             $refund->admin_approval = 1;
@@ -256,5 +282,24 @@ class RefundRequestController extends Controller
         else {
             return view('refund_request.frontend.refund_request.reason', compact('refund'));
         }
+    }
+    public function showReasonModal(Request $request)
+    {
+        $refund = RefundRequest::where('id', $request->id)->first();
+       
+        return view('refund_request.modal_reason', compact('refund'));
+    }
+    public function showDetailPesanan(Request $request)
+    {
+        $order = Order::where('id', $request->key)->with('orderDetails','user','addresse')->first();
+        $orderDetails = OrderDetail::where('order_id',$request->key)->with('product')->get();
+        // dd($orderDetails);
+        return view('refund_request.modal_detail', compact('order','orderDetails'));
+    }
+    public function confirmDanaModal(Request $request)
+    {
+        $refund2 = RefundRequest::where('id', $request->key)->first();
+        return view('refund_request.confirm', compact('refund2'));
+
     }
 }

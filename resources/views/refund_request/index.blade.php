@@ -26,7 +26,7 @@
                 @foreach($refunds as $key => $refund)
                     <tr>
                         <td>{{ ($key+1) + ($refunds->currentPage() - 1)*$refunds->perPage() }}</td>
-                        <td>{{ $refund->order->code }}</td>
+                        <td><a onClick="modalDetailPesanan(event,{{ $refund->order->id }})">{{ $refund->order->code }}</a></td>
                         {{-- <td>
                             @if ($refund->seller != null)
                                 {{ $refund->seller->name }}
@@ -81,8 +81,9 @@
                                     {{__('Aksi')}} <i class="dropdown-caret"></i>
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-right">
-                                    <li><a onclick="refund_request_money('{{ $refund->id }}')">{{__('Kembalikan Dana Sekarang')}}</a></li>
-                                    <li><a href="{{ route('reason_show', $refund->id) }}" target="_blank">{{__('Lihat Alasan')}}</a></li>
+                                    <li><a onclick="confirmDana(event,{{ $refund->id }})">{{__('Kembalikan Dana Sekarang')}}</a></li>
+                                    <li><a onclick="modalShowReason(event,{{ $refund->id }})">{{__('Lihat Alasan')}}</a></li>
+                                    <li><a onClick="modalDetailPesanan(event,{{ $refund->order->id }})">{{__('Detail Pesanan')}}</a></li>
                                 </ul>
                             </div>
                         </td>
@@ -97,7 +98,44 @@
         </div>
     </div>
 </div>
+   <!-- modal -->
+   <div class="modal fade" id="exampleModal" tabindex="-1"
+                                                aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div id="exampleModal-body" class="modal-body">
 
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end -->
+                                               <!-- modal -->
+   <div class="modal fade" id="detailModal" tabindex="-1"
+                                                aria-labelledby="detailModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div id="detailModal-body" class="modal-body">
+
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end -->
+                                               <!-- modal -->
+   <div class="modal fade" id="confirmModal" tabindex="-1"
+                                                aria-labelledby="confirmModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                    <div id="confirmModal-body" class="modal-body">
+                                                    </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end -->
 @endsection
 @section('script')
     <script type="text/javascript">
@@ -112,15 +150,83 @@
             });
         }
 
-        function refund_request_money(el){
-            $.post('{{ route('refund_request_money_by_admin') }}',{_token:'{{ @csrf_token() }}', el:el}, function(data){
-                if (data == 1) {
-                    location.reload();
-                    showAlert('success', 'Pengembalian dana telah berhasil dikirim');
-                }
-                else {
-                    showAlert('danger', 'Ada yang salah');
-                }
+        
+        function modalShowReason(e,id) {
+        e.preventDefault();
+        if (!$('#modal-size').hasClass('modal-lg')) {
+            $('#modal-size').addClass('modal-lg');
+        }
+        $('#exampleModal-body').html(null);
+        $('#exampleModal').modal();
+        $('.c-preloader').show();
+        
+        let data = {
+            _token:'{{csrf_token()}}',
+            id: id
+        }
+       
+        $.post('{{ route("reason.showReasonModal") }}', data,
+            function(d) {
+                $('.c-preloader').hide();
+                $('#exampleModal-body').html(d);
+                $('.xzoom, .xzoom-gallery').xzoom({
+                    Xoffset: 20,
+                    bg: true,
+                    tint: '#000',
+                    defaultScale: -1
+                });
+            });
+        }
+        function modalDetailPesanan(e,key) {
+        e.preventDefault();
+        if (!$('#modal-size').hasClass('modal-lg')) {
+            $('#modal-size').addClass('modal-lg');
+        }
+        $('#detailModal-body').html(null);
+        $('#detailModal').modal();
+        $('.c-preloader').show();
+        
+        let data = {
+            _token:'{{csrf_token()}}',
+            key: key
+        }
+       
+        $.post('{{ route("refund.showDetailPesanan") }}', data,
+            function(d) {
+                $('.c-preloader').hide();
+                $('#detailModal-body').html(d);
+                $('.xzoom, .xzoom-gallery').xzoom({
+                    Xoffset: 20,
+                    bg: true,
+                    tint: '#000',
+                    defaultScale: -1
+                });
+            });
+        }
+        function confirmDana(e,key) {
+        e.preventDefault();
+        if (!$('#modal-size').hasClass('modal-lg')) {
+            $('#modal-size').addClass('modal-lg');
+        }
+        $('#confirmModal-body').html(null);
+        $('#confirmModal').modal();
+        $('.c-preloader').show();
+        
+        let data = {
+            _token:'{{csrf_token()}}',
+            key: key
+        }
+       
+        $.post('{{ route("confirmDanaModal") }}', data,
+            function(d) {
+                $('.c-preloader').hide();
+                $('#confirmModal-body').html(d);
+                $('.xzoom, .xzoom-gallery').xzoom({
+                    Xoffset: 20,
+                    bg: true,
+                    tint: '#000',
+                    defaultScale: -1
+                });
             });
         }
     </script>

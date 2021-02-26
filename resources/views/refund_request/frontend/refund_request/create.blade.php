@@ -27,7 +27,7 @@
                             <div class="row align-items-center">
                                 <div class="col-md-6 col-12 d-flex align-items-center">
                                     <h2 class="heading heading-6 text-capitalize strong-600 mb-0">
-                                        {{__('Send Refund Request')}}
+                                        {{__('Kirim Permintaan Pengembalian Dana')}}
                                     </h2>
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                                 <div class="form-box-content p-3">
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label>{{__('Product Name')}} <span class="required-star">*</span></label>
+                                            <label>{{__('Nama Produk')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
                                             <input type="text" class="form-control mb-3" name="name" placeholder="{{__('Product Name')}}" value="{{ $order_detail->product->name }}" readonly>
@@ -47,7 +47,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label>{{__('Product Price')}} <span class="required-star">*</span></label>
+                                            <label>{{__('Harga Produk')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
                                             <input type="number" class="form-control mb-3" name="name" placeholder="{{__('Product Price')}}" value="{{ $order_detail->product->unit_price }}" readonly>
@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-md-2">
-                                            <label>{{__('Refund Reason')}} <span class="required-star">*</span></label>
+                                            <label>{{__('Alasan Pengembalian')}} <span class="required-star">*</span></label>
                                         </div>
                                         <div class="col-md-10">
                                             <textarea name="reason" rows="8" class="form-control mb-3"></textarea>
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="form-box mt-4 text-right">
-                                <button type="submit" class="btn btn-styled btn-base-1">{{ __('Send Request') }}</button>
+                                <button type="submit" class="btn btn-styled btn-base-1">{{ __('Kirim Permintaan') }}</button>
                             </div>
                         </form>
                     </div>

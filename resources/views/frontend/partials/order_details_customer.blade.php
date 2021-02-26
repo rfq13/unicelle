@@ -286,13 +286,22 @@ if($ship != null || $ship != 0){
                                                 $last_refund_date = $orderDetail->created_at->addDays($no_of_max_day);
                                                 $today_date = Carbon\Carbon::now();
                                                 $search = \App\RefundRequest::where('order_id',$order->id)->get();
+                                                $business_settings = \App\BusinessSetting::where('type', 'refund_request_poin')->first();
+                                                if($business_settings != null){
+                                                    $potongan_poin=$business_settings->value;
+                                                }
+                                                else{
+                                                    $potongan_poin='0';
+                                                }
                                                 // $point_use = 
                                             @endphp
                                             <td class="text-center">
                                                 @if ($search != null && $search->count() > 0)
                                                 <span class="strong-600">{{  translate('Dalam Proses Penukaran / Refund') }}</span>
-                                                @elseif ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' &&$order->user_status_konfrimasi != 1)
-                                                <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $orderDetail->product->earn_point }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Pengembalian Dana') }}</a>
+                                                @elseif ($orderDetail->product->refundable != 0 && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' && $order->user_status_konfrimasi != 0)
+                                                    <a href="#" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $potongan_poin }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Komplain') }}</a>
+                                                @elseif ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $today_date <= $last_refund_date && $order->delivery_status == 'on_delivery' && $order->user_status_konfrimasi != 1)
+                                                    <a href="#" onclick="refundConfirm()" class="btn btn-styled btn-sm btn-base-1">{{  translate('Komplain') }}</a> 
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
                                                     <span class="strong-600">{{  translate('Tertunda') }}</span>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
@@ -454,16 +463,39 @@ if($ship != null || $ship != 0){
     </div>
   </div>
 </div>
-
+<!-- modal confirm komplain -->
+    <div class="modal fade" id="modalConfirmRefund" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div id="modalConfirmRefundbody" class="modal-body">
+                    <div class="modal-body">
+                        <div class="col-md-12">
+                            <div class="text-center">
+                                <p>Pastikan Klik Button Konfirmasi terlebih dahulu untuk proses komplain/Refund</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer border-0" style="display:flex;justify-content: center;">
+                        <div style="display: flex;justify-content: space-between;">
+                        <a onclick="refundConfirmClose()">
+                            <button class="btn btn-primary1 w-100">Cancel</button>
+                        </a>
+                        </div>
+                    </div>
+                                                      
+                 </div>
+            </div>
+        </div>
+    </div>
 <script>
     function confirm_refund(link,nama,poin) {
         let authpoin = $("#authpoin").val();
-        if(poin >= authpoin){
+        if(poin <= authpoin){
             $("#bodi-konfir").html(`
             <span>Melakukan refund pada produk ${nama} akan mengurangi ${poin} poin, <br> poin anda saat ini ${authpoin}</span>
             `)
             $("#footer-konfir").append(`
-            <a href="${link}" id="lakukan-refund" class="btn btn-primary">Tetap Refund ?</a>
+            <a href="${link}" id="lakukan-refund" class="btn btn-primary">Tetap Komplain ?</a>
             `)
         }else{
             $("#bodi-konfir").html(`
@@ -475,5 +507,11 @@ if($ship != null || $ship != 0){
 
     function modal_hide() {
         $("#modalConfirm").modal("hide")
+    }
+    function refundConfirm() {
+        $("#modalConfirmRefund").modal("show")
+    }
+    function refundConfirmClose() {
+        $("#modalConfirmRefund").modal("hide")
     }
 </script>

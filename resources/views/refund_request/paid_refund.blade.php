@@ -26,7 +26,7 @@
                 @foreach($refunds as $key => $refund)
                     <tr>
                         <td>{{ ($key+1) + ($refunds->currentPage() - 1)*$refunds->perPage() }}</td>
-                        <td>{{ $refund->order->code }}</td>
+                        <td><a onClick="modalDetailPesanan(event,{{ $refund->order->id }})">{{ $refund->order->code }}</a></td>
                         <td>
                             @if ($refund->seller != null)
                                 {{ $refund->seller->name }}
@@ -87,5 +87,47 @@
         </div>
     </div>
 </div>
+                                               <!-- modal -->
+                                               <div class="modal fade" id="detailModal" tabindex="-1"
+                                                aria-labelledby="detailModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div id="detailModal-body" class="modal-body">
 
+                                                        </div>
+                                                      
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- end -->
+@endsection
+@section('script')
+<script type="text/javascript">
+function modalDetailPesanan(e,key) {
+        e.preventDefault();
+        if (!$('#modal-size').hasClass('modal-lg')) {
+            $('#modal-size').addClass('modal-lg');
+        }
+        $('#detailModal-body').html(null);
+        $('#detailModal').modal();
+        $('.c-preloader').show();
+        
+        let data = {
+            _token:'{{csrf_token()}}',
+            key: key
+        }
+       
+        $.post('{{ route("refund.showDetailPesanan") }}', data,
+            function(d) {
+                $('.c-preloader').hide();
+                $('#detailModal-body').html(d);
+                $('.xzoom, .xzoom-gallery').xzoom({
+                    Xoffset: 20,
+                    bg: true,
+                    tint: '#000',
+                    defaultScale: -1
+                });
+            });
+        }
+    </script>
 @endsection

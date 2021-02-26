@@ -464,9 +464,7 @@
                                         </div>
                                     </div>
                                 @endforeach --}}
-                                @foreach($products as $key => $p)
-                                <p>{{$p->name}}</p>
-                                @endforeach
+                                @include('frontend.inc.products')
                             </div>
                         </div>
                         <div class="products-pagination bg-white p-3">

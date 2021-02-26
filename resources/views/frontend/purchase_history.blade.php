@@ -172,11 +172,21 @@
                                                     <div class="mb-2">
                                                         <span class="status-pesanan__">
                                                             <span class="badge badge--2 mr-4">
-                                                            
+                                                                @php
+                                                                $search = \App\RefundRequest::where('order_id',$order->id)->get();
+                                                                @endphp
                                                                 @if($order->delivery_status == 'delivered')
-                                                                <i class="bg-green"
+                                                                    @if($search != null && $search->count() > 0)
+                                                                    
+                                                                    <i class="bg-green"
+                                                                        style="text-transform: capitalize"></i>
+                                                                    {{ translate('Permintaan pengembalian') }}
+                                                                    
+                                                                    @else
+                                                                    <i class="bg-green"
                                                                         style="text-transform: capitalize"></i>
                                                                     {{ translate('Pesanan Selesai') }}
+                                                                    @endif
                                                                 @elseif ($order->payment_status == 'paid')
                                                                     <i class="bg-green"
                                                                         style="text-transform: capitalize"></i>
