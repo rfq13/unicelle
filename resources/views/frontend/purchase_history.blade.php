@@ -177,12 +177,12 @@
                                                                 @endphp
                                                                 @if($order->delivery_status == 'delivered')
                                                                     @if($search != null && $search->count() > 0)
-                                                                        @if($search->admin_seen == 1)
+                                                                        @if($search->admin_seen == 1 && $search->admin_approval == 0)
                                                                         <i class="bg-green"
                                                                         style="text-transform: capitalize"></i>
                                                                         {{ translate('Permintaan Komplain') }}</br>
                                                                         {{ translate('Diproses') }}
-                                                                        @elseif($search->admin_approval == 1)
+                                                                        @elseif($search->admin_seen == 1 && $search->admin_approval == 1)
                                                                         <i class="bg-green"
                                                                         style="text-transform: capitalize"></i>
                                                                         {{ translate('Komplain Selesai') }}
