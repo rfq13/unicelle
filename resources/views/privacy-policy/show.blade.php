@@ -8,7 +8,7 @@
       <div class="head-text-syarat-ketentuan">
           <span class="syarat__">SYARAT DAN KETENTUAN UNICELLE</span>
           <div >
-              <img class="img__ img-fluid" src="{{my_asset("images/img/banner-syarat&ketentuan.jpg")}}" alt="">
+              <img style="height:auto;" class="img__ img-fluid" src="{{my_asset("images/img/banner-syarat&ketentuan.jpg")}}" alt="">
           </div>
       </div>
       @php

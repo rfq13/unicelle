@@ -52,14 +52,16 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function bindUser($number)
+    public function bindUser(Request $request,$number)
     {
-        $user = User::where('phone', $number)->first();
-        if (isset($user)) {
+        $user = User::where('phone', $request->tlp)->first();
+        if ($user != null && $user->count() > 0) {
             auth()->login($user, true);
             return "sukses";
         }
+        else{
         return "user not found";
+        }
     }
 
     public function regUser(User $user,$userData)

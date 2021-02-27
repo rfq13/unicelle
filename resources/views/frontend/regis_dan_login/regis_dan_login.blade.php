@@ -169,7 +169,7 @@
             var number = document.getElementById('number').value;
             var token = $("meta[name='csrf-token']").attr("content");
             document.getElementById("p2").innerHTML = document.getElementById('number').value;
-
+            $("input[name='phoneform']").val(number);
             // console.log(number);
 
             if(number.length == "") {
@@ -279,7 +279,7 @@
             }
 
             function codeverify(type = 'login'){
-
+                var tlp = $("input[name='phoneform']").attr("value");
                 var satu = document.getElementById('satu').value;
                 var dua = document.getElementById('dua').value;
                 var tiga = document.getElementById('tiga').value;
@@ -288,10 +288,16 @@
                 var enam = document.getElementById('enam').value;
 
                 var code = satu + dua + tiga + empat + lima + enam;
+                let data = {
+                _token:'{{csrf_token()}}',
+                tlp: tlp
+                }
+                // alert(tlp);
                 coderesult.confirm(code).then(function (result){
                     let verifiedTelp = $("#verifikasi").find("#verifiedTelp").val()
                     let UrL = type == "regis" ? "{{route('regUser','register')}}".replace('register',verifiedTelp) : "{{route('bindUser','verified')}}".replace('verified',verifiedTelp);
                     // alert(UrL);
+                    
                     $.get(UrL, function (data) {
                         if (data == "sukses") {
                             window.location.href = "{{route('home')}}"
@@ -309,7 +315,7 @@
                     $('form#form_lanjutan').submit();
 
                     }).catch(function (error){
-                    console.log(error);
+                    // console.log(error);
                     showFrontendAlert('danger','kode otp yang anda masukkan tidak valid')
                 })
                 // alert(code);

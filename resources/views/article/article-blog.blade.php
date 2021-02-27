@@ -9,7 +9,7 @@
                         @php
                             $banner = \App\Banner::where("url","#blog")->first();
                         @endphp
-                        <img class="img__ img-fluid" src="{{isset($banner) ? my_asset($banner->photo) : my_asset('images/placeholder.jpg')}}" alt="">
+                        <img style="height:auto;" class="img__ img-fluid" src="{{isset($banner) ? my_asset($banner->photo) : my_asset('images/placeholder.jpg')}}" alt="">
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
                                 <input class="form-control mr-sm-2" name="q" type="search" placeholder="Cari Blog" aria-label="Search">
                                 <input type="hidden" name="category_id" id="ctg-id">
                             </div>
-                            <div class="col btn btn-search mr-3 ml-3 " style="height:10%">
+                            <div class="col btn btn-search mr-3 ml-3 " style="height:10%;margin-bottom: 20px;">
                                 <button type="submit" id="btnSubmit" class="nav-box-link"style="border-style:none;">
                                     <img class="img-fluid" src="{{ my_asset('img/header_dan_footer/icon/search.png') }}" >
                                 </button>

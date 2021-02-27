@@ -8,7 +8,7 @@
     <div class="head-text-syarat-ketentuan">
         <span class="syarat__">TENTANG UNICELLE</span>
         <div >
-            <img class="img__ img-fluid" src="{{my_asset("images/img/banner-about.jpg")}}" alt="">
+            <img style="height:auto;" class="img__ img-fluid" src="{{my_asset("images/img/banner-about.jpg")}}" alt="">
         </div>
     </div>
     <div class="text-syarat-ketentuan">
