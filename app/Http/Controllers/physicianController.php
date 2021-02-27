@@ -16,7 +16,7 @@ class physicianController extends Controller
     {
         $users = \App\physician_verificationModel::with(["user"=> function ($u)
         {
-          $u->where("email_verified_at","!=",null);
+          $u->get();
         },'user.instansi'])->paginate(10);
 
         return view('physician.verify', compact('users'));
