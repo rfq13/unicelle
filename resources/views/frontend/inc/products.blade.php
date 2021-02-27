@@ -127,9 +127,6 @@
         $qty = $product->current_stock;
         }
     @endphp
-        @if ($qty < 1)
-            @continue
-        @endif
         <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6" style="margin-bottom: 20px;">
             <div class="card bg-white my-md-3">
                 <div class="position-relative overflow-hidden">

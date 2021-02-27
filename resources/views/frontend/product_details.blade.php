@@ -299,7 +299,11 @@
                             <hr>
                             <strong id="chosen_price"></strong>
                             <div class="d-flex align-items-center mt-3">
-                                <a class="btn btn-primary1 mr-4" href="#" onclick="addToCart()">Tambah Keranjang</a>
+                            @if ($qty > 0)
+                            <a class="btn btn-primary1 mr-4" href="#" onclick="addToCart()">Tambah Keranjang</a>
+                            @else
+                            <a class="btn btn-primary1 mr-4" style="background-color: #808080;" href="#" onclick="showFrontendAlert('warning','Maaf produk {{ $detailedProduct->name }} sedang kosong')">Tambah Keranjang</a>
+                            @endif
                                 <a class="add__wishlist" id="add-wl" href="#" onclick="addToWishList({{ $detailedProduct->id }})">+Tambah Ke Wishlist</a>
                             </div>
                             
@@ -327,6 +331,7 @@
                             </div>
                         </div>
                     </div>
+                   
                 </div>
             </div>
         </div>
