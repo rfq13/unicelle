@@ -51,13 +51,12 @@
                                     <div class="mr-lg-3 mr-2">
                                         <span class="text-ic-share__ ">Share to : </span>
                                     </div>
-                                    <a href="" style="text-decoration: none;">
-                                        <img class="icon-referal-share__" src="{{my_asset('/images/icon/whatsapp.png')}}" alt="">
-                                        <img class="icon-referal-share__" src="{{my_asset('/images/icon/facebook.png')}}" alt="">
-                                        <img class="icon-referal-share__" src="{{my_asset('/images/icon/instagram.png')}}" alt="">
-                                        <img class="icon-referal-share__" src="{{my_asset('/images/icon/line.png')}}" alt="">
-                                        <img class="icon-referal-share__" src="{{my_asset('/images/icon/twitter.png')}}" alt="">
-                                    </a>
+
+                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/whatsapp.png')}}" alt=""></a>
+                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/facebook.png')}}" alt=""></a>
+                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/instagram.png')}}" alt=""></a>
+                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/line.png')}}" alt=""></a>
+                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/twitter.png')}}" alt=""></a>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +77,13 @@
         document.execCommand("copy");
         showFrontendAlert("success","Copied the text: \n" + copyText.value);
     }
-    
+    function copyFunction() {
+  var copyText = document.getElementById("myInput");
+  copyText.select();
+  copyText.setSelectionRange(0, 99999)
+  document.execCommand("copy");
+  alert("Text Copied");
+}
 </script>
 
 

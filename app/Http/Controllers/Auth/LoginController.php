@@ -56,7 +56,7 @@ class LoginController extends Controller
     {
         $user = User::where('phone', $request->tlp)->first();
         if ($user != null && $user->count() > 0) {
-            auth()->login($user, true);
+            auth()->login($user->id, true);
             return "sukses";
         }
         else{
