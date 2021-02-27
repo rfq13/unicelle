@@ -44,7 +44,20 @@
                                 <td>
                                     <span id="title">{{isset($user->user) ? $user->user->name :""}}</span>
                                 </td>
-                                <td class="text-center">{{ isset($user->user) ? $user->user->email_verified_at :""}}</td>
+                                @php
+                                $check_email=null;
+                                if(isset($user->user)){
+                                    $check_email=$user->user->email_verified_at;
+                                }
+                                
+                                @endphp
+                                @if($check_email != null)
+                                <td class="text-center">{{ isset($user->user) ? $user->user->email_verified_at : ""}}</td>
+                                @else
+                                <td class="text-center"><span style="background-color:#ec4646" class="badge badge--2 mr-4">
+                                        <i class="bg-red">{{ translate('User belum verifikasi email') }}</i>
+                                    </span> </td>
+                                @endif
                                 <td>
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
