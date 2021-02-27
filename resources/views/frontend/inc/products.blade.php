@@ -115,8 +115,7 @@
     @php
         $flash_deal = \App\FlashDeal::where('status', 1)->where('start_date' ,'<=',
         strtotime(date('d-m-Y')))->where('end_date' ,'>=', strtotime(date('d-m-Y')))->first();
-        $flash_product = isset($flash_deal) ? \App\FlashDealProduct::where('product_id',
-        $product->id)->where('flash_deal_id', $flash_deal->id)->first() : null;
+        $flash_product = isset($flash_deal) ? \App\FlashDealProduct::where('product_id',$product->id)->where('flash_deal_id', $flash_deal->id)->first() : null;
         $product_variant=json_decode($product->choice_options);
         $qty = 0;
         if($product->variant_product){
