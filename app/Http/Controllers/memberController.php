@@ -208,7 +208,7 @@ class memberController extends Controller
                 "stts" => 'sukses',
                 'btn' => 'Nonaktifkan',
                 "msg" => "berhasil mengaktifkan dr $username",
-                "time" => $now
+                "time" => $now->format('Y-m-d H:i:s')
             ];
         } else {
             $user->verify = 0;
