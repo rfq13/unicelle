@@ -197,7 +197,11 @@ class memberController extends Controller
         $return = '';
         if ($user->verify == 0) {
             $user->verify = 1;
-            $user->email_verified_at = Carbon::now();
+            if ($user->has('user')) {
+                $pengguna = $user->user;
+                $pengguna->email_verified_at = Carbon::now();
+                $pengguna->save();
+            }
             $user->save();
             $return = [
                 "stts" => 'sukses',
