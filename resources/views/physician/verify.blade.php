@@ -69,7 +69,7 @@
                                             <li>
                                                 <a id="btnEdit{{$user->id}}" {{$user->verify == 0 ? "" : 'class="btn btn-danger"'}} href="#" onclick=" 
                                                 @if($user->user != null) 
-                                                    activation({{$user->id}}) 
+                                                    activation(event,{{$user->id}})
                                                 @else 
                                                     showAlert('danger','user tidak ditemukan') 
                                                 @endif">
@@ -169,7 +169,8 @@
         }
 
 
-        function activation(id) {
+        function activation(e,id) {
+            e.preventDefault()
           $.get("{{route('physician.activation','upid')}}".replace('upid',id), function (dat) {
             if (dat.stts=="sukses") {
               showAlert("success",`${dat.msg}`)
