@@ -195,18 +195,20 @@ class memberController extends Controller
         $user = \App\physician_verificationModel::with("user")->where("id", $id)->first();
         $username = $user->user->name;
         $return = '';
+        $now = Carbon::now();
         if ($user->verify == 0) {
             $user->verify = 1;
             if ($user->has('user')) {
                 $pengguna = $user->user;
-                $pengguna->email_verified_at = Carbon::now();
+                $pengguna->email_verified_at = $now;
                 $pengguna->save();
             }
             $user->save();
             $return = [
                 "stts" => 'sukses',
                 'btn' => 'Nonaktifkan',
-                "msg" => "berhasil mengaktifkan dr $username"
+                "msg" => "berhasil mengaktifkan dr $username",
+                "time" => $now
             ];
         } else {
             $user->verify = 0;

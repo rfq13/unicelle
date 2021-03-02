@@ -51,13 +51,15 @@
                                 }
                                 
                                 @endphp
+                                <td class="text-center" id="verifiedat{{ $user->id }}">
                                 @if($check_email != null)
-                                <td class="text-center">{{ isset($user->user) ? $user->user->email_verified_at : ""}}</td>
-                                @else
-                                <td class="text-center"><span style="background-color:#ec4646" class="badge badge--2 mr-4">
+                                    {{ isset($user->user) ? $user->user->email_verified_at : ""}}
+                                @else 
+                                    <span style="background-color:#ec4646" class="badge badge--2 mr-4">
                                         <i class="bg-red">{{ translate('User belum verifikasi email') }}</i>
-                                    </span> </td>
-                                @endif
+                                    </span>
+                                    @endif
+                                </td>
                                 <td>
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
@@ -172,6 +174,7 @@
             if (dat.stts=="sukses") {
               showAlert("success",`${dat.msg}`)
               $("#btnEdit"+id).text(dat.btn)
+              if(dat.btn == "Nonaktifkan") $("#verifiedat"+id).html(dat.time);
             }
           })
         }
