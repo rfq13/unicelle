@@ -73,7 +73,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-3 col-form-label pr-4">Tanggal Lahir</label>
                                         <div class="col-sm-9">
-                                        <input type="text" value={{Auth::user()->birth}} class="form-control datepicker" name="birth" id="datepicker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Lahir">
+                                        <input type="text" value="{{Auth::user()->birth}}" class="form-control datepicker" name="birth" id="datepicker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Lahir">
                                             <!-- 
                                                         <select class="custom-select my-1"  id="date">
                                                         <option selected="">Hari</option>

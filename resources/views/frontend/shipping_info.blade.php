@@ -193,7 +193,7 @@ div.pac-container {
                                 <label>{{ translate('Kode Pos')}}</label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Your Postal Code')}}" id="kode_pos_alamat" name="postal_code" value="" required>
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kode Pos')}}" id="kode_pos_alamat" name="postal_code" value="" required>
                             </div>
                         </div>
                         <div class="row">
@@ -206,7 +206,7 @@ div.pac-container {
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Nomor telepone')}}</label>
+                                <label>{{ translate('Nomor telepon')}}</label>
                             </div>
                             <div class="col-md-10">
                                 <input type="text" class="form-control mb-3" placeholder="Nomor telepon penerima" name="phone" value="" id="phone" required>

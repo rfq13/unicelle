@@ -44,7 +44,7 @@ return;
                         <form action="{{ route('dropshipper') }}" method="get">
                             <div class="row mt-4 mb-4">
                                 <div class="col-3 ml-3">
-                                    <input class="form-date" type="date" id="birthday" value="{{ $tgl }}" name="tgl"
+                                    <input class="form-control datepicker" placeholder="Pilih Tanggal" type="text" id="datepicker" value="{{ $tgl }}" name="tgl"
                                         onchange="filter()">
                                 </div>
                                 <div class="col">
@@ -74,7 +74,7 @@ return;
                         @php
                         $msg = "";
                         $span = "";
-                        if (count($orders) < 1) { $msg='kosong' ; if ($tgl !=null) { $msg
+                        if (count($orders) < 1) { $msg='Data tidak tersedia' ; if ($tgl !=null) { $msg
                             .=", pada tanggal $tgl tidak ada order " ; } if ($q !=null) { $msg
                             .=", hasil pencarian $q tidak ditemukan" ; }else { } }
                             $span="<span class='text-center py-4' style='color: #d1caca'>$msg</span>" ; @endphp {!! $span
@@ -517,8 +517,18 @@ return;
     </section>
 @endsection
 @section('script')
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
     <script type="text/javascript">
+      $( "#datepicker" ).datepicker({
+        changeMonth: true,
+      changeYear: true,
+      yearRange: "-100:+0",
+dateFormat: "yy-mm-dd",
+});
         $('#order_details').on('hidden.bs.modal', function() {
             location.reload();
         })

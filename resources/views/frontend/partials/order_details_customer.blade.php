@@ -304,10 +304,10 @@ if($ship != null || $ship != 0){
                                                     <span class="strong-600">{{  translate('Tertunda') }}</span>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
                                                     <span class="strong-600">{{  translate('Disetujui') }}</span>
-                                                @elseif ($orderDetail->product->refundable != 0)
-                                                    <span class="strong-600">{{  translate('N/A') }}</span>
+                                                @elseif ($orderDetail->product->refundable == 0)
+                                                    <span class="strong-600">{{  translate('Produk tidak bisa dikembalikan') }}</span>
                                                 @else
-                                                    <span class="strong-600">{{  translate('Tidak bisa dikembalikan') }}</span>
+                                                    <span class="strong-600">{{  translate('') }}</span>
                                                 @endif
                                             </td>
                                         @endif
