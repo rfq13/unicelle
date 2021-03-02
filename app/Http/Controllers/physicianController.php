@@ -14,10 +14,7 @@ class physicianController extends Controller
      */
     public function verification()
     {
-        $users = \App\physician_verificationModel::with(["user"=> function ($u)
-        {
-          $u->get();
-        },'user.instansi'])->paginate(10);
+        $users = \App\physician_verificationModel::with(["user",'user.instansi'])->paginate(10);
 
         return view('physician.verify', compact('users'));
     }
