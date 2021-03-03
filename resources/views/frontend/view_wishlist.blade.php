@@ -1,5 +1,5 @@
 @extends('frontend.layouts.app')
-@section('title','Wishlits')
+@section('title','Wishlist')
 @section('content')
 
     <section class="gry-bg py-4 profile">

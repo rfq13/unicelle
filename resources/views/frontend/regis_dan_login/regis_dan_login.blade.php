@@ -92,6 +92,30 @@
     font-size: 18px;
     color: #000000;
     }
+    .date-dropdowns{
+        display:flex;
+        width: 100%;
+    }
+    .hai {
+    width: 30%;
+    margin-right: 3%;
+    }
+    .custom-select {
+    display: inline-block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem 1.75rem .375rem .75rem;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+    background: #fff url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='%23343a40' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E) no-repeat right .75rem center;
+    background-size: 8px 10px;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    }
     .link-verifikasi-email__ {
     font-family: "Open Sans";
     font-style: normal;
@@ -121,6 +145,18 @@
     <script src="{{ my_asset('vendor/fontawesome-free-5.14.0-web/fontawesome-free-5.14.0-web/js/fontawesome.min.js') }}"></script>
     <script src="{{ my_asset('vendor/fontawesome-free-5.14.0-web/fontawesome-free-5.14.0-web/js/all.min.js') }}"></script>
 <script>
+ function showFrontendAlert(type, message){
+            if(type == 'danger'){
+                type = 'error';
+            }
+            swal({
+                position: 'top-end',
+                type: type,
+                title: message,
+                showConfirmButton: false,
+                timer: 3000
+            });
+        }
     @foreach (session('flash_notification', collect())->toArray() as $message)
         showFrontendAlert('{{ $message['level'] }}', '{{ $message['message'] }}');
     @endforeach

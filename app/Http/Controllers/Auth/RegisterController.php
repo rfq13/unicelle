@@ -72,6 +72,8 @@ class RegisterController extends Controller
             'email' => 'required|email',
             'phone' => 'required|numeric',
             'password' => 'required|string|min:6|confirmed',
+            'birth' => 'required',
+            'gender' => 'required',
         ];
 
         if (array_key_exists("user_type", $data)) {
@@ -105,14 +107,13 @@ class RegisterController extends Controller
                 'password' => Hash::make($data['password']),
                 'user_type' => array_key_exists("user_type", $data) ? $data['user_type'] : "pasien reg",
                 'email' => $data['email'],
-                'phone' => $data['phone']
-
-
-
-
+                'phone' => $data['phone'],
+                'birth' => $data['birth'],
+                'gender' => $data['gender']
+                
+                
             ];
             // dd(substr($referral_code,strlen($referral_code)-6));
-
 
             $user = User::create($udata);
             $userid = $user->id;
@@ -187,13 +188,17 @@ class RegisterController extends Controller
         } else {
             // create a new user
             $tlp = (int)str_replace("+62","0",$request->no_telepon);
-
+            $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            $random = substr(str_shuffle(str_repeat($pool, 5)), 0, 10);
             $datetime = new \DateTime();
             $nama_lengkap = $request->nama_depan.' '.$request->nama_belakang;
             $newUser                  = new User;
             $newUser->name            = $nama_lengkap;
             $newUser->user_type       = 'pasien reg';
             $newUser->phone           = $tlp;
+            $newUser->birth           = $request->birth;
+            $newUser->gender          = $request->gender;
+            $newUser->referral_code   = $random;
             $newUser->email_verified_at = date('Y-m-d H:m:s');
             $newUser->provider_id     = $request->uid;
             if($request->email)
@@ -231,6 +236,7 @@ class RegisterController extends Controller
     }
     public function register(Request $request)
     {
+        $this->validator($request->all())->validate();
 
         if (filter_var($request->email, FILTER_VALIDATE_EMAIL)) {
             if (User::where('email', $request->email)->first() != null) {
@@ -243,7 +249,6 @@ class RegisterController extends Controller
         }
 
 
-        $this->validator($request->all())->validate();
 
         if ($request->get('referral_code')) {
             $userRc = User::where('referral_code',$request->referral_code)->first();

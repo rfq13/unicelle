@@ -134,7 +134,7 @@
         <div class="panel">
             <!--Panel heading-->
             <div class="panel-heading">
-                <h3 class="panel-title">{{translate('Penjualan Produk Berdasarkan Kategori')}}</h3>
+                <h3 class="panel-title">{{translate('Penjualan Produk')}}</h3>
             </div>
 
             <!--Panel body-->
@@ -164,7 +164,7 @@
         <div class="panel">
             <!--Panel heading-->
             <div class="panel-heading">
-                <h3 class="panel-title">{{translate('Stok Produk Berdasarkan Kategori')}}</h3>
+                <h3 class="panel-title">{{translate('Stok Produk')}}</h3>
             </div>
 
             <!--Panel body-->

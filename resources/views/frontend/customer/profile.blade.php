@@ -114,12 +114,13 @@
                                             @endif
                                         </div>
                                     </div>
+                                    {{--
                                     <div class="form-group row">
                                         <label for="inputpassword__" class="col-sm-3 col-form-label pr-4">Password</label>
                                         <div class="col-sm-9">
                                             <input type="password" name="password" class="form-control" id="inputpassword__">
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="form-group row">
                                         <label for="inputnama__" class="col-sm-3 col-form-label pr-4">Telepon</label>
                                         <div class="col-sm-9">

@@ -44,7 +44,7 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>{{translate('Kode Pesanan')}}</th>
+                    <th style="min-width:170px">{{translate('Kode Pesanan')}}</th>
                     <th>{{translate('Jumlah Produk')}}</th>
                     <th>{{translate('Pelanggan')}}</th>
                     <th>{{translate('Jumlah')}}</th>

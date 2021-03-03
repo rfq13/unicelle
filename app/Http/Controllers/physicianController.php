@@ -12,13 +12,42 @@ class physicianController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function verification()
+    public function verification(Request $request)
     {
-        $users = \App\physician_verificationModel::with(["user",'user.instansi'])->paginate(10);
+        $user_type = null;
+        $sort_by = null;
+        $sort_search= null;
 
-        return view('physician.verify', compact('users'));
+        $users = \App\physician_verificationModel::with(["user",'user.instansi']);
+        if ($request->user_type != null) {
+           $check = \App\User::where('user_type',$request->user_type)->get();
+            $idUser = $check->pluck('id')->toArray();
+            $users = \App\physician_verificationModel::whereIn('user_id',$idUser)->with(["user",'user.instansi']);
+
+            $user_type = $request->user_type;
+        }
+        if ($request->sort_by != null) {
+            if($request->sort_by == 'terbaru'){
+                $users = $users->orderBy('created_at','desc');
+            }
+            else{
+                $users = $users->orderBy('created_at','asc');
+            }
+            $sort_by = $request->sort_by;
+        }
+        if ($request->has('sort_search')){
+            $sort_search = $request->sort_search;
+            
+            $getname = \App\User::select('id')->where('name','like',"%$sort_search%")->orWhere('email','like',"%$sort_search%")->orWhere('phone','like',"%$sort_search%")->get();
+            if ($getname != null && $getname->count() > 0) {
+                $users = \App\physician_verificationModel::whereIn('user_id',$getname)->with(["user",'user.instansi']);
+
+            }
+
+        }
+        $users = $users->paginate(15);
+        return view('physician.verify', compact('users','user_type','sort_by','sort_search'));
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -37,7 +66,7 @@ class physicianController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       //
     }
 
     /**
@@ -59,7 +88,8 @@ class physicianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $userDetail = \App\User::findOrFail($id);
+        return view('physician.edit', compact('userDetail'));
     }
 
     /**
@@ -71,7 +101,23 @@ class physicianController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $userDetail = \App\User::findOrFail($id);
+        $userDetail->name = $request->name;
+        $userDetail->email = $request->email;
+        $userDetail->phone = $request->phone;
+        $userDetail->gender = $request->gender;
+        $userDetail->birth = $request->birth;
+        $userDetail->poin = $request->poin;
+        if ($userDetail->save()) {
+            flash('Data has been saved successfully')->success();
+            return redirect()->route('physician.verify');
+        }
+        else{
+            flash('Something went wrong')->error();
+            return back();
+        }
+
+
     }
 
     /**

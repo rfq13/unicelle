@@ -48,7 +48,7 @@
                                 <!--  -->
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan">
+                                        <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan" required>
                                         @if ($errors->has('nama_depan'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_depan') }}</strong>
@@ -56,7 +56,7 @@
                                         @endif
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang">
+                                        <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang" required>
                                         @if ($errors->has('nama_belakang'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_belakang') }}</strong>
@@ -67,7 +67,7 @@
                                 <!--  -->
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('nama_instansi') ? ' is-invalid' : '' }}" value="{{ old('nama_instansi') }}" placeholder="{{  translate('Nama Klinik / Rumah Sakit / Intitusi') }}" name="nama_instansi">
+                                        <input type="text" class="form-control {{ $errors->has('nama_instansi') ? ' is-invalid' : '' }}" value="{{ old('nama_instansi') }}" placeholder="{{  translate('Nama Klinik / Rumah Sakit / Intitusi') }}" name="nama_instansi" required>
                                         @if ($errors->has('nama_instansi'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_instansi') }}</strong>
@@ -75,7 +75,7 @@
                                         @endif
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('alamat_instansi') ? ' is-invalid' : '' }}" value="{{ old('alamat_instansi') }}" placeholder="{{  translate('Alamat Klinik / Praktek Dokter') }}" name="alamat_instansi">
+                                        <input type="text" class="form-control {{ $errors->has('alamat_instansi') ? ' is-invalid' : '' }}" value="{{ old('alamat_instansi') }}" placeholder="{{  translate('Alamat Klinik / Praktek Dokter') }}" name="alamat_instansi" required>
                                         @if ($errors->has('alamat_instansi'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('alamat_instansi') }}</strong>
@@ -86,7 +86,7 @@
                                 <!--  -->
                                 <div class="row mb-4 align-items-center">
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomer Klinik/Surat Izin Praktek Dokter') }}" name="izin">
+                                        <input type="text" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomer Klinik/Surat Izin Praktek Dokter') }}" name="izin" required>
                                         @if ($errors->has('izin'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('izin') }}</strong>
@@ -110,7 +110,7 @@
                                 <!--  -->
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <input type="text" id="telp" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{  translate('Nomor Telepon') }}" name="phone" onkeypress="return hanyaAngka(event)"  maxlength="14">
+                                        <input type="text" id="telp" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{  translate('Nomor Telepon') }}" name="phone" onkeypress="return hanyaAngka(event)"  maxlength="14" required>
                                     @if ($errors->has('phone'))
                                         <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('phone') }}</strong>
@@ -118,7 +118,7 @@
                                     @endif
                                     </div>
                                     <div class="col">
-                                        <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
+                                        <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email" required>
                                     @if ($errors->has('email'))
                                         <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -129,7 +129,7 @@
                                 <!--  -->
                                 <div class="row mb-4">
                                     <div class="col">
-                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Kata Sandi') }}" name="password">
+                                        <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Kata Sandi') }}" name="password" required>
                                     @if ($errors->has('password'))
                                         <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -138,9 +138,37 @@
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
-                                            <input type="password" class="form-control" placeholder="{{  translate('Konfirmasi Kata Sandi') }}" name="password_confirmation">
+                                            <input type="password" class="form-control" placeholder="{{  translate('Konfirmasi Kata Sandi') }}" name="password_confirmation" required>
                                         </div> 
                                     </div>
+                                </div>
+                                <div class="form-group" style="text-align: left;display:flex">
+                                    <input class="d-none" id="dropdate" name="birth" placeholder="Tanggal Lahir"/>
+                                    @if ($errors->has('birth'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('birth') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                
+                                <div class="form-group" style="text-align:left;margin-bottom:20px">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label pr-4">Jenis
+                                            Kelamin</label>
+                                            <div class="col-md-12">
+                                        <div class="form-check form-check-inline col-sm-3">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1" required>
+                                            <label class="form-check-label" for="inlineRadio1">Laki-Laki</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-sm-4">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2" required>
+                                            <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                        </div>
+                                        @if ($errors->has('gender'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('gender') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
                                 </div>
                                 @php
                                     $rc = "";
@@ -200,7 +228,7 @@
                                 <h5 class="mb-4 mt-2">Register</h5>
                                 <div class="row mb-3">
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan">
+                                        <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan" required>
                                         @if ($errors->has('nama_depan'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_depan') }}</strong>
@@ -208,7 +236,7 @@
                                         @endif
                                     </div>
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang">
+                                        <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang" required>
                                         @if ($errors->has('nama_belakang'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_belakang') }}</strong>
@@ -218,14 +246,43 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
+                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email" required>
                                     @if ($errors->has('email'))
                                         <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-                                <!-- <div class="form-group" style="text-align:left">
+                                <div class="form-group">
+                                    <input type="text" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{  translate('Nomor Telepon') }}" name="phone" onkeypress="return hanyaAngka(event)"  maxlength="14" required>
+                                    @if ($errors->has('phone'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('phone') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group mt-1">
+                                    <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Kata Sandi') }}" name="password" required>
+                                    @if ($errors->has('password'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" class="form-control" placeholder="{{  translate('Konfirmasi Kata Sandi') }}" name="password_confirmation" required>
+                                </div>
+                                <div class="form-group" style="text-align: left;display:flex">
+                                    <input class="d-none" id="dropdate" name="birth" placeholder="Tanggal Lahir"/>
+                                    @if ($errors->has('birth'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('birth') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group" style="text-align:left">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label pr-4">Jenis
                                             Kelamin</label>
                                             <div class="col-md-12">
@@ -237,33 +294,14 @@
                                             <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2" required>
                                             <label class="form-check-label" for="inlineRadio2">Perempuan</label>
                                         </div>
-                                        </div>
-                                    </div>
-                                <div class="form-group" style="text-align: left;">
-                                <input type="text" class="form-control datepicker" name="birth" id="datepicker" data-date-format="yyyy-mm-dd" placeholder="Tanggal Lahir">
-                                </div> -->
-                                <div class="form-group">
-                                    <input type="text" class="form-control {{ $errors->has('phone') ? ' is-invalid' : '' }}" value="{{ old('phone') }}" placeholder="{{  translate('Nomor Telepon') }}" name="phone" onkeypress="return hanyaAngka(event)"  maxlength="14">
-                                    @if ($errors->has('phone'))
+                                        @if ($errors->has('gender'))
                                         <span style="display: flex;" class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('phone') }}</strong>
+                                            <strong>{{ $errors->first('gender') }}</strong>
                                         </span>
                                     @endif
                                 </div>
-
-                                <div class="form-group mt-1">
-                                    <input type="password" class="form-control {{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{  translate('Kata Sandi') }}" name="password">
-                                    @if ($errors->has('password'))
-                                        <span style="display: flex;" class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('password') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-
-                                <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="{{  translate('Konfirmasi Kata Sandi') }}" name="password_confirmation">
-                                </div>
-
+                            </div>
+                                
                                 @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
                                     <div class="form-group">
                                         <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
@@ -454,19 +492,29 @@
 
 @section('script')
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="{{ my_asset('js/dropdown-date-picker/dist/jquery-dropdown-datepicker.min.js') }}"></script>
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  
+
     <script type="text/javascript">
-    $( "#datepicker" ).datepicker({
-        changeMonth: true,
-      changeYear: true,
-      yearRange: "-100:+0",
-dateFormat: "yy-mm-dd",
-});
+   
         //making the CAPTCHA  a required field for form submission
         $(document).ready(function(){
+            const x = document.querySelectorAll("#dropdate")
+        x.forEach(el => {
+            $(el).dropdownDatepicker({
+                dropdownClass:"custom-select hai",
+                required:true,
+                dayLabel:'Tanggal',
+                monthLabel:'Bulan',
+                yearLabel:'Tahun',
+                monthFormat:'short',
+                sortYear:'asc',
+                minAge:10,
+                monthShortValues: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agust','Sep','Okt','Nov','Des'],
+                daySuffixValues: ['','','','']
+            })
+        });
             // alert('helloman');
             $("#reg-form").on("submit", function(evt)
             {
@@ -531,5 +579,6 @@ dateFormat: "yy-mm-dd",
                 return false;
             return true;
         }
+       
     </script>
 @endsection

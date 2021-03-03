@@ -16,15 +16,33 @@
         <div class="col">
         <div class="panel">
             <div class="panel-heading bord-btm clearfix pad-all h-100">
-                <h3 class="panel-title pull-left pad-no">{{translate('Member Dokter Reguler')}}</h3>
+                <h3 class="panel-title pull-left pad-no">{{translate('Member Dokter')}}</h3>
                 <div class="pull-right clearfix">
-                    {{-- <form class="" id="sort_flash_deals" action="" method="GET">
-                        <div class="box-inline pad-rgt pull-left">
-                            <div class="" style="min-width: 200px;">
-                                <input type="text" class="form-control" id="search" name="search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Type name & Enter') }}">
-                            </div>
-                        </div>
-                    </form> --}}
+                <form class="" id="sort_users" action="" method="GET">
+                <div class="box-inline pad-rgt pull-left">
+                    <div class="select" style="min-width: 300px;">
+                        <select class="form-control demo-select2" name="user_type" id="user_type" onchange="sort_users()">
+                            <option value="">{{translate('Filter Berdasarkan Type User')}}</option>
+                            <option value="partner physician"  @isset($user_type) @if($user_type == 'partner physician') selected @endif @endisset>{{translate('Partner Physician')}}</option>
+                            <option value="regular physician"  @isset($user_type) @if($user_type == 'regular physician') selected @endif @endisset>{{translate('Regular Physician')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="box-inline pad-rgt pull-left">
+                    <div class="select" style="min-width: 300px;">
+                        <select class="form-control demo-select2" name="sort_by" id="sort_by" onchange="sort_users()">
+                            <option value="">{{translate('Urutkan')}}</option>
+                            <option value="terbaru"  @isset($sort_by) @if($sort_by == 'terbaru') selected @endif @endisset>{{translate('Terbaru')}}</option>
+                            <option value="terlama"  @isset($sort_by) @if($sort_by == 'terlama') selected @endif @endisset>{{translate('Terlama')}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="box-inline pad-rgt pull-left">
+                    <div class="" style="min-width: 200px;">
+                        <input type="text" class="form-control" id="search" name="sort_search"@isset($sort_search) value="{{ $sort_search }}" @endisset placeholder="{{ translate('Ketik Nama/Email') }}">
+                    </div>
+                </div>
+                </form>
                 </div>
             </div>
             <div class="panel-body" id="panel-body">
@@ -33,6 +51,8 @@
                         <tr>
                             <th>#</th>
                             <th>{{translate('Nama')}}</th>
+                            <th>{{translate('Email')}}</th>
+                            <th>{{translate('Telepon')}}</th>
                             <th class="text-center">{{ translate('Diverifikasi') }}</th>
                             <th width="10%" style="text-right">{{translate('Opsi')}}</th>
                         </tr>
@@ -43,6 +63,12 @@
                                 <td>{{ ($key+1) + ($users->currentPage() - 1)*$users->perPage() }}</td>
                                 <td>
                                     <span id="title">{{isset($user->user) ? $user->user->name :""}}</span>
+                                </td>
+                                <td>
+                                    <span id="title">{{isset($user->user) ? $user->user->email :""}}</span>
+                                </td>
+                                <td>
+                                    <span id="title">{{isset($user->user) ? $user->user->phone :""}}</span>
                                 </td>
                                 @php
                                 $check_email=null;
@@ -77,9 +103,10 @@
                                                 </a>
                                             </li>
                                             <li>
-                                                <a onclick="confirm_modal(`{{route('admin.usermember.destroy', $user->id)}}`);" style="background-color:#428df5;color:white">{{translate('Hapus')}}</a>
+                                                <a onclick="confirm_modal(`{{route('admin.usermember.destroy', $user->id)}}`);">{{translate('Hapus')}}</a>
                                             </li>
                                             <li><a href="#" id="btnDetail" onclick="@if($user->user != null) detail({{ json_encode($user->user) }},{{ json_encode($user->user->instansi) }})@else showAlert('danger','user tidak ditemukan') @endif">Detail</a></li>
+                                            <li><a href="{{route('physician.edit', $user->user_id)}}">{{translate('Edit')}}</a></li>
                                         </ul>
                                     </div>
                                 </td>
@@ -154,7 +181,9 @@
         $('#btnDetail').click(function(e){
             e.preventDefault()
         })
-
+        function sort_users(el){
+            $('#sort_users').submit();
+        }
         function detail(dokter,instansi){
             let src = "{{ my_asset('potro') }}".replace('potro',instansi.fhoto)
             console.log(dokter)

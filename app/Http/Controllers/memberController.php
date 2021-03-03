@@ -196,11 +196,14 @@ class memberController extends Controller
         $username = $user->user->name;
         $return = '';
         $now = Carbon::now();
+        $pool = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $random = substr(str_shuffle(str_repeat($pool, 5)), 0, 10);
         if ($user->verify == 0) {
             $user->verify = 1;
             if ($user->has('user')) {
                 $pengguna = $user->user;
                 $pengguna->email_verified_at = $now;
+                $pengguna->referral_code = $random;
                 $pengguna->save();
             }
             $user->save();

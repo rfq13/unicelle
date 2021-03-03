@@ -80,7 +80,7 @@
                                                    
                                                             <div class="row">
                                                             <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan">
+                                        <input type="text" class="form-control {{ $errors->has('nama_depan') ? ' is-invalid' : '' }}" value="{{ old('nama_depan') }}" placeholder="{{  translate('Nama Depan') }}" name="nama_depan" required>
                                         @if ($errors->has('nama_depan'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_depan') }}</strong>
@@ -89,7 +89,7 @@
                                     </div>
 
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang">
+                                        <input type="text" class="form-control {{ $errors->has('nama_belakang') ? ' is-invalid' : '' }}" value="{{ old('nama_belakang') }}" placeholder="{{  translate('Nama Belakang') }}" name="nama_belakang" required>
                                         @if ($errors->has('nama_belakang'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('nama_belakang') }}</strong>
@@ -100,7 +100,7 @@
                                     <input type="hidden" name="uid" value={{$uid}}>
 
                                     <div class="form-group" style="margin-top:20px">
-                                    <input type="text" id="number" class="form-control" name="no_telepon" placeholder="No. Telepon" @if(isset($nomor_hp))value="{{$nomor_hp}}"@endif  maxlength="12">
+                                    <input type="text" id="number" class="form-control" name="no_telepon" placeholder="No. Telepon" @if(isset($nomor_hp))value="{{$nomor_hp}}"@endif  maxlength="12" required>
                                     @if ($errors->has('no_telepon'))
                                         <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('no_telepon') }}</strong>
@@ -108,13 +108,40 @@
                                     @endif
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email">
+                                    <input type="email" class="form-control {{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" placeholder="{{  translate('Email') }}" name="email" required>
                                     @if ($errors->has('email'))
                                         <span style="display: flex;" class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
                                 </div>
+                                <div class="form-group" style="text-align: left;display:flex">
+                                    <input class="d-none" id="dropdate" name="birth" placeholder="Tanggal Lahir"/>
+                                    @if ($errors->has('birth'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('birth') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                                <div class="form-group" style="text-align:left">
+                                        <label for="inputPassword3" class="col-form-label pr-4">Jenis
+                                            Kelamin</label>
+                                            <div class="col-md-12">
+                                        <div class="form-check form-check-inline col-sm-3">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio1" value="1" required>
+                                            <label class="form-check-label" for="inlineRadio1">Laki-Laki</label>
+                                        </div>
+                                        <div class="form-check form-check-inline col-sm-4">
+                                            <input class="form-check-input" type="radio" name="gender" id="inlineRadio2" value="2" required>
+                                            <label class="form-check-label" for="inlineRadio2">Perempuan</label>
+                                        </div>
+                                        @if ($errors->has('gender'))
+                                        <span style="display: flex;" class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('gender') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                                 @if(\App\BusinessSetting::where('type', 'google_recaptcha')->first()->value == 1)
                                     <div class="form-group">
                                         <div class="g-recaptcha" data-sitekey="{{ env('CAPTCHA_KEY') }}"></div>
@@ -143,6 +170,8 @@
 @section('script')
 @section('script')
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="{{ my_asset('js/dropdown-date-picker/dist/jquery-dropdown-datepicker.min.js') }}"></script>
+
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <script>
@@ -151,7 +180,21 @@
                 <button type="button" class="btn btn-secondary1 mb-3" style="width: 100%;" onclick="codeverify('regis');">Register</button>
             `);
             $('#confirm').modal('show');
-
+            const x = document.querySelectorAll("#dropdate")
+        x.forEach(el => {
+            $(el).dropdownDatepicker({
+                dropdownClass:"custom-select hai",
+                required:true,
+                dayLabel:'Tanggal',
+                monthLabel:'Bulan',
+                yearLabel:'Tahun',
+                monthFormat:'short',
+                sortYear:'asc',
+                minAge:10,
+                monthShortValues: ['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agust','Sep','Okt','Nov','Des'],
+                daySuffixValues: ['','','','']
+            })
+        });
         })
     </script>
 @endsection

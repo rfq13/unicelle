@@ -365,9 +365,9 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li class="{{ areActiveRoutes(['activation.index'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['activation.index'])}}">
                                     <a class="nav-link" href="{{route('activation.index')}}">{{translate('Aktivasi')}}</a>
-                                </li>
+                                </li> --}}
                                 {{-- <li class="{{ areActiveRoutes(['payment_method.index'])}}">
                                     <a class="nav-link" href="{{ route('payment_method.index') }}">{{translate('Metode Pembayaran')}}</a>
                                 </li> --}}
@@ -383,15 +383,15 @@
                                 {{-- <li class="{{ areActiveRoutes(['facebook_chat.index'])}}">
                                     <a class="nav-link" href="{{ route('facebook_chat.index') }}">{{translate('Facebook Chat & Pixel')}}</a>
                                 </li> --}}
-                                <li class="{{ areActiveRoutes(['social_login.index'])}}">
+                                {{-- <li class="{{ areActiveRoutes(['social_login.index'])}}">
                                     <a class="nav-link" href="{{ route('social_login.index') }}">{{translate('Social Media Login')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['currency.index'])}}">
+                                </li> --}}
+                                {{-- <li class="{{ areActiveRoutes(['currency.index'])}}">
                                     <a class="nav-link" href="{{route('currency.index')}}">{{translate('Mata Uang')}}</a>
-                                </li>
-                                <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
+                                </li> --}}
+                                {{-- <li class="{{ areActiveRoutes(['languages.index', 'languages.create', 'languages.store', 'languages.show', 'languages.edit'])}}">
                                     <a class="nav-link" href="{{route('languages.index')}}">{{translate('Bahasa')}}</a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
                         @endif
