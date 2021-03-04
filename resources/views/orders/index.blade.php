@@ -51,9 +51,9 @@
                     <th>{{translate('Status Pengiriman')}}</th>
                     <th>{{translate('Metode Pembayaran')}}</th>
                     <th>{{translate('Status Pembayaran')}}</th>
-                    @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+                    {{-- @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
                         <th>{{translate('Pengembalian Dana')}}</th>
-                    @endif
+                    @endif --}}
                     <th width="10%">{{translate('Opsi')}}</th>
                 </tr>
             </thead>
@@ -109,7 +109,7 @@
                                     </span> 
                                     @endif
                             </td>
-                            @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
+                            {{-- @if ($refund_request_addon != null && $refund_request_addon->activated == 1)
                                 <td>
                                     @if (count($order->refund_requests) > 0)
                                         {{ count($order->refund_requests) }} {{ translate('Refund') }}
@@ -117,7 +117,7 @@
                                         {{ translate('Tidak Ada Pengembalian Dana') }}
                                     @endif
                                 </td>
-                            @endif
+                            @endif --}}
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">

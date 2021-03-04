@@ -166,6 +166,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::get('/orders/destroy/{id}', 'OrderController@destroy')->name('orders.destroy');
 	Route::put("tambah-resi-pengiriman/{id}","OrderController@add_resi")->name('add.resi');
 	Route::get('/sales', 'OrderController@sales')->name('sales.index');
+	Route::get('/order/confirm/admin/{id}','OrderController@confirm_order_admin')->name('confirm.order.admin');
 
 	Route::resource('links', 'LinkController');
 	Route::get('/links/destroy/{id}', 'LinkController@destroy')->name('links.destroy');
@@ -204,6 +205,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::post('/voucher/update/{id}', 'VoucherController@update_voucher')->name('voucher.update');
 	Route::get("/voucher/{id}/delete","VoucherController@delete_voucher")->name("voucher.delete");
 	Route::get('invoice/voucher_usage/{id}', 'VoucherController@voucher_usage')->name('admin.voucher.usage');
+	Route::post('/voucher/visibility', 'VoucherController@visibility')->name('coupon.visibility');
+
 
 
 	//Reviews

@@ -55,16 +55,40 @@
                         @if ($delivery_status == 'delivered')<option value="delivered" selected>{{translate('Terkirim')}}</option>@endif
 					</select>
 				</div>
-				<div class="col-lg-3">
+				<div class="col-lg-2">
 					<div class="row">
 						<label for="update_delivery_status">{{ translate('Resi Pengiriman :')}}</label>
-					</div>
-				</div>  
-				<div class="col-lg-3">
-					<div class="row" style="margin-top: 6px;{{ isset($order->resi) ? '' : 'font-style:italic' }}" id="row-resi">
+						<div class="row" style="margin-top: 6px;margin-left:1px;{{ isset($order->resi) ? '' : 'font-style:italic' }}" id="row-resi">
 						<a data-toggle="modal" data-target="#modalResi" id="span-resi" style="color: #{{ isset($order->resi) ? '3b78e2' : '717171' }}">{{ isset($order->resi) ? $order->resi : "resi pengiriman masih kosong" }}</a>
 					</div>
-                </div>
+					</div>
+				</div>  
+				
+				<div class="col-lg-1">
+				<div class="row">
+				@php
+				$dt = \Carbon\Carbon::now();
+                $now=$dt->toDateString();				
+				$check= \App\Log_resi::where('order_id',$order->id)->first();
+				if ($check != null && $check->count() > 0) {
+				$tgl_berakhir = $check->created_at->format('Y-m-d');
+				$now_date = str_replace("-", "", $now);
+				$created_date = str_replace("-", "", $tgl_berakhir);
+				$datadata=$now_date-$created_date;
+				}
+				@endphp
+				@if($check != null && $check->count() > 0) 
+				@if($datadata >= '14' && $delivery_status == 'on_delivery')
+				<a href="{{ route('confirm.order.admin',encrypt($order->id)) }}" >
+                         <button type="button" style="background-color:#007944;color:#ffffff" class="btn btn-primary1">Selesai</button></a>
+				@else
+				<a href="#" >
+                         <button type="button" style="background-color:#E6E6FA;color:#808080" class="btn btn-primary1">Selesai</button></a>
+				@endif
+				@endif
+					</div>
+					
+				</div>
             </div>
             <hr>
     		<div class="invoice-bill row">
@@ -150,7 +174,7 @@
     						{{translate('Total')}}
     					</td>
     					<td class="text-right">
-    						{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}
+    					{{ single_price($order->grand_total) }}
     					</td>
     				</tr>
                     <tr>
@@ -269,6 +293,14 @@
     				</td>
     				<td>
     					{{ single_price($order->poin_convert) }}
+    				</td>
+    			</tr>
+				<tr>
+    				<td>
+    					<strong>{{translate('Discount')}} :</strong>
+    				</td>
+    				<td>
+    					{{ single_price($order->discount) }}
     				</td>
     			</tr>
     			<tr>

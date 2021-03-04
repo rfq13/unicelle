@@ -135,36 +135,50 @@
 
                             @endphp
                             @foreach($list as $key => $l)
-                        <div class="col-md-3 col-sm-6 my-2">
+                            @php
+                                $tgl_berakhir = \Carbon\Carbon::parse(date('Y-m-d', $l->voucher->end_date));
+                                @endphp
+                            <div class="col-md-4 col-12 my-2">
                             <div class="card">
                                 <div class="p-1">
-                                    <div class="d-flex flex-row bd-highlight mb-3">
+                                <div class="d-flex flex-row bd-highlight mb-3">
                                         <div class="p-2 bd-highlight">
-                                            <img src="{{my_asset($l->voucher->thumbnail)}}" alt="" style="width: 50px;
-                                            height: 50px;
+                                            <img src="{{my_asset($l->voucher->thumbnail)}}" alt="" style="width: 67px;
+                                            height: 65px;
                                             border: 1px solid #C4C4C4;
                                             box-sizing: border-box; border-radius: 100px;">
                                         </div>
                                         <div class="p-2 bd-highlight">
-                                            <span class="d-block pb-2">{!!\Illuminate\Support\Str::limit($l->voucher->judul,10)!!}</span>
-                                            <span style="
+                                        <h5 style="font-size:15px;font-weight: 600;">{!!\Illuminate\Support\Str::limit($l->voucher->judul,17)!!}</h5>
+                                        @if($tgl_berakhir < $tes)
+                                        <span style="
                                             font-family: Open Sans;
                                             font-style: normal;
                                             font-weight: bold;
                                             font-size: 14px;
                                             line-height: 27px;
-                                            color: #FF6F00;">Rp. </span><span style="    font-family: Open Sans;
+                                            color:#FF0000;">Expired</span>
+                                            
+                                        @else
+                                        <span style="
+                                            font-family: Open Sans;
+                                            font-style: normal;
+                                            font-weight: bold;
+                                            font-size: 14px;
+                                            line-height: 27px;
+                                            color: #FF6F00;">Poin </span>
+                                            <span style="    font-family: Open Sans;
                                             font-style: normal;
                                             font-weight: bold;
                                             font-size: 20px;
                                             line-height: 27px;
-                                            color: #FF6F00;">{{$l->voucher->potongan}}</span>
+                                            color: #FF6F00;">{{$l->voucher->point}}</span>
+                                            
+                                        @endif   
                                         </div>
                                     </div>
                                 </div>
-                                @php
-                                $tgl_berakhir = \Carbon\Carbon::parse(date('Y-m-d', $l->voucher->end_date));
-                                @endphp
+                                
                                 @if($tgl_berakhir < $tes)
                                 <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;background-color: #A9A9A9;" disabled>Pakai
                                     Voucher</button>
@@ -215,13 +229,13 @@
                                 <div class="p-1">
                                     <div class="d-flex flex-row bd-highlight mb-3">
                                         <div class="p-2 bd-highlight">
-                                            <img src="{{my_asset($v->thumbnail)}}" alt="" style="width: 50px;
-                                            height: 50px;
+                                            <img src="{{my_asset($v->thumbnail)}}" alt="" style="width: 67px;
+                                            height: 65px;
                                             border: 1px solid #C4C4C4;
                                             box-sizing: border-box; border-radius: 100px;">
                                         </div>
                                         <div class="p-2 bd-highlight">
-                                            <h5 style="font-size:15px">{!!\Illuminate\Support\Str::limit($v->judul,12)!!}</h5>
+                                            <h5 style="font-size:15px;font-weight: 600;">{!!\Illuminate\Support\Str::limit($v->judul,17)!!}</h5>
                                             <span style="
                                             font-family: Open Sans;
                                             font-style: normal;

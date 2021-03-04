@@ -75,9 +75,31 @@ class VoucherController extends Controller
         $coupons_voucher->judul = $request->judul;
         $coupons_voucher->point = $request->point;
         $coupons_voucher->potongan = $request->potongan;
+        $coupons_voucher->discount_type = $request->discount_type;
         $coupons_voucher->slug = str_replace(" ","-",$request->judul);
         $coupons_voucher->syarat = $request->syarat;
         $coupons_voucher->cara = $request->cara;
+        $messages = [
+            'required' => ' :attribute harus diisi',
+            'string'    => ' :attribute harus berformat teks',
+            'file'    => ' :attribute harus berformat file',
+            'mimes' => 'format :attribute harus :mimes',
+            'max'      => 'ukuran maksimal :attribute => :max',
+            'dimensions' => 'Ukuran gambar harus=> 360 * 180 ',
+        ];
+
+        $fields = [
+            "thumbnail"  => "dimensions:max_width=360,max_height=180|required|mimes:jpeg,bmp,png,gif",
+        ];
+        $validator = \Validator::make($request->all(), $fields, $messages);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->messages() as $msgs) {
+                foreach ($msgs as $msg) {
+                    flash(__("Terjadi kesalahan pada server. $msg"))->error();
+                }
+            }
+            return back();
+        }
         $coupons_voucher->thumbnail = $request->thumbnail->store('uploads/voucher/thumbnail');
         ImageOptimizer::optimize(base_path('public/').$coupons_voucher->thumbnail);   
         $coupons_voucher->start_date = strtotime($request->start_date);
@@ -217,5 +239,21 @@ class VoucherController extends Controller
                         'tempDir' => storage_path('logs/')
                     ])->loadView('voucher.list_user', compact('detail','coupon'));
         return $pdf->download('voucher-usage-'.$coupon->slug.'.pdf');
+    }
+    public function visibility(Request $request)
+    {
+        $coupon = CouponVoucher::findOrFail($request->id);
+        if ($coupon) {
+            $st = 1;
+            $msg = "aktif";
+            if ($coupon->is_active === 1) {
+                $msg = "non aktif";
+                $st = 0;
+            }
+            $coupon->is_active = $st;
+            $coupon->save();
+            return ['msg'=>"berhasil $msg kupon $coupon->judul",'st'=>'sukses'];
+        }
+        return ['msg'=>"gagal $msg kupon $coupon->judul",'st'=>'hah'];
     }
 }

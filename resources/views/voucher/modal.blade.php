@@ -14,7 +14,7 @@
                                                                 <table class="w-100">
                                                                     <tr>
                                                                         <td class="py-1 anormal">Potongan</td>
-                                                                        <td class="text-right anormal" style="font-size: 14px;">Rp <span class=" anormal" style="font-size: 20px;">{{$voucher->potongan}}</span>
+                                                                        <td class="text-right anormal" style="font-size: 14px;">@if($voucher->discount_type =='amount')<span>Rp </span>@endif<span class=" anormal" style="font-size: 20px;">{{$voucher->potongan}}</span>@if($voucher->discount_type =='percent')<span>%</span>@endif
                                                                         </td>
                                                                     </tr>
                                                                     <tr>

@@ -22,6 +22,7 @@
                         <th>{{translate('Poin')}}</th>
                         <th>{{translate('Mulai Tanggal')}}</th>
                         <th>{{translate('Selesai Tanggal')}}</th>
+                        <th>{{__('Aktif')}}</th>
                         <th width="10%">{{translate('Pilihan')}}</th>
                     </tr>
                 </thead>
@@ -38,6 +39,14 @@
 
                             <td>{{ date('d-m-Y', $coupon->start_date) }}</td>
                             <td>{{ date('d-m-Y', $coupon->end_date) }}</td>
+                            <td><label class="switch">
+                                <input onchange="update_activation(this,'visibility')" value="{{ $coupon->id }}"type="checkbox"
+                                    <?php
+                                        if($coupon->is_active == 1) echo "checked";
+                                    ?>
+                                >
+                                <span class="slider round"></span></label>
+                            </td>
                             <td>
                                 <div class="btn-group dropdown">
                                     <button class="btn btn-primary dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
@@ -58,4 +67,24 @@
         </div>
     </div>
 
+@endsection
+@section('script')
+<script>
+    function update_activation(ini,command=false) {
+        let data = {
+            _token:"{{ csrf_token() }}",
+            id:$(ini).val()
+        }
+        let urL = command && command == "visibility" ? "{{ route('coupon.visibility') }}" : "";
+        $.post(urL,data, function (respon) {
+            if (respon.st === "sukses") {
+                showAlert('success',respon.msg)
+            } else {
+                showAlert('danger',"ada kesalahan")
+            }
+        })
+    }
+
+</script>
+    
 @endsection

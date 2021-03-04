@@ -295,12 +295,13 @@ if($ship != null || $ship != 0){
                                                 }
                                                 // $point_use = 
                                             @endphp
-                                            <td class="text-center">
+
+                                            {{-- <td class="text-center">
                                                 @if ($search != null && $search->count() > 0)
                                                 <span class="strong-600">{{  translate('Dalam Proses Penukaran / Refund') }}</span>
                                                 @elseif ($orderDetail->product != null && $orderDetail->product->refundable != 0 && $today_date <= $last_refund_date && $order->delivery_status == 'on_delivery' && $order->user_status_konfrimasi != 1)
-                                                    <a href="#" onclick="refundConfirm()" class="btn btn-styled btn-sm btn-base-1">{{  translate('Komplain') }}</a> 
-                                                @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
+                                                    <a href="#" onclick="refundConfirm()" class="btn btn-styled btn-sm btn-base-1">{{  translate('Komplain') }}</a>
+                                                @if ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 0)
                                                     <span class="strong-600">{{  translate('Tertunda') }}</span>
                                                 @elseif ($orderDetail->refund_request != null && $orderDetail->refund_request->refund_status == 1)
                                                     <span class="strong-600">{{  translate('Disetujui') }}</span>
@@ -309,7 +310,7 @@ if($ship != null || $ship != 0){
                                                 @else
                                                     <span class="strong-600">{{  translate('') }}</span>
                                                 @endif
-                                            </td>
+                                            </td> --}}
                                         @endif
                                         
                                     </tr>
@@ -434,10 +435,11 @@ if($ship != null || $ship != 0){
             @if ($order->user_status_konfrimasi == null )
                     <a href="{{ route('confirm.order',['id'=>encrypt($order->id),'poin'=>array_sum($totalPoint)]) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%;"><span style="font-size:15px;color:#FFFFFF">{{  translate('Konfirmasi') }}</span></a>
                     <cite style="color: darkslategrey;font-size:12px">*lakukan konfirmasi order telah selesai</cite>
-                @else
-                @if ($orderDetail->product->refundable != 0 && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' && $order->user_status_konfrimasi != 0)
+                    {{-- @else
+                 @if ($orderDetail->product->refundable != 0 && $today_date <= $last_refund_date && $orderDetail->delivery_status == 'delivered' && $order->user_status_konfrimasi != 0)
                                                     <a href="#" class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%;" onclick="confirm_refund('{{route('refund_request_send_page', ['id'=>$orderDetail->id,'poin'=>$orderDetail->product->earn_point])}}','{{ $orderDetail->product->name }}','{{ $potongan_poin }}')" class="btn btn-styled btn-sm btn-base-1">{{  translate('Komplain') }}</a>
-                @endif
+                @endif --}}
+                
                 @endif
             @endif
         </div>

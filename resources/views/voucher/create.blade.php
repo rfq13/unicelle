@@ -26,19 +26,29 @@
    </div>
 </div>
 <div class="form-group">
-   <label class="col-lg-3 control-label">{{translate('Total Point')}}</label>
+   <label class="col-lg-3 control-label">{{translate('Poin yang digunakan')}}</label>
    <div class="col-lg-9">
       <input type="number"  name="point" class="form-control" required>
    </div>
 </div>
 <div class="form-group">
+   <label class="col-lg-3 control-label">{{translate('Jenis Potongan')}}</label>
+   <div class="col-lg-2">
+							<select class="demo-select2" name="discount_type" required>
+								<option value="amount">{{translate('Rp')}}</option>
+								<option value="percent">{{translate('%')}}</option>
+							</select>
+						</div>
+</div>
+
+<div class="form-group">
    <label class="col-lg-3 control-label">{{translate('Potongan Harga')}}</label>
    <div class="col-lg-9">
-      <input type="number"  name="potongan" class="form-control" required>
+      <input type="number" name="potongan" class="form-control" placeholder="Dalam Rupiah" required>
    </div>
 </div>
 <div class="form-group">
-<label class="col-lg-3 control-label">{{translate('Thumbnail')}}</label>
+<label class="col-lg-3 control-label">{{translate('Thumbnail')}}</br><span style="color:#FF0000	">Ukuran 360*180</span></label>
 <div class="col-lg-9">
                         <input type="file" name="thumbnail" class="form-control">
                     </div>
@@ -81,8 +91,15 @@
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <script type="text/javascript">
-   
 
+$('select[name="discount_type"]').change(function(){
+    if ($(this).val() == "amount"){
+        $('input[name="potongan"]').attr("placeholder", "Dalam Rupiah");
+    }
+    else{
+        $('input[name="potongan"]').attr("placeholder", "Dalam Persen");
+    }        
+})
     $(document).ready(function(){
         $('.demo-select2').select2();
         $( "#datepicker" ).datepicker({
@@ -91,6 +108,7 @@
       minYear:'1990',
 dateFormat: "yy-mm-dd",
 });
+
 $( "#datepicker2" ).datepicker({
         changeMonth: true,
       changeYear: true,

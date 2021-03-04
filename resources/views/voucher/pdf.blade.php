@@ -105,7 +105,7 @@
     </style>
 </head>
 
-<body style="background-color: #f4f4f4; margin: 0 !important; padding: 0 !important;">
+<body style="margin: 0 !important; padding: 0 !important;">
     <!-- HIDDEN PREHEADER TEXT -->
     <div style="display: none; font-size: 1px; color: #fefefe; line-height: 1px; font-family: 'Lato', Helvetica, Arial, sans-serif; max-height: 0px; max-width: 0px; opacity: 0; overflow: hidden;"> We're thrilled to have you here! Get ready to dive into your new account. </div>
     
@@ -114,7 +114,7 @@
 		<div class="col-md-12" style="margin: 30px;">
 		<div class="row">
 				<div class="col-md-12" style="text-align:center">
-		<img loading="lazy" style="width: 300px;"  class="img-md" src="{{ my_asset($detail->voucher->thumbnail)}}" alt="Image">
+		<img loading="lazy" style="width: 360px;border: 1px solid #C4C4C4;"  class="img-md" src="{{ my_asset($detail->voucher->thumbnail)}}" alt="Image">
 			</div>
 			<div style="height:10px">
 			</div>
@@ -127,7 +127,7 @@
             <table class="table table-striped" style="width: 100%;color:#FFA500">
   <thead>
     <th style="text-align:left"><h3>Potongan</h3></th>
-    <th style="text-align:right"><h3>Rp. {{$detail->voucher->potongan}}</h3></th>
+    <th style="text-align:right"><h3>@if($detail->voucher->discount_type == 'amount')<span>Rp. </span>@endif{{$detail->voucher->potongan}}@if($detail->voucher->discount_type == 'percent')<span>%</span>@endif</h3></th>
     </thead>
     </table>
             </div>
@@ -139,15 +139,27 @@
     </thead>
     </table>
             </div>
+            @php
+        \Carbon\Carbon::setLocale('id');
+        $tgl = \Carbon\Carbon::parse(date('d-m-Y', $detail->voucher->end_date));
+        $tgl_start = \Carbon\Carbon::parse(date('d-m-Y', $detail->voucher->start_date));
+        @endphp
             <div>
-            <table class="table table-striped" style="width: 100%;color:#FFA500">
+            <table class="table table-striped" style="width: 100%;">
+  <thead>
+    <th style="text-align:left"><h3>Berlaku</h3></th>
+    <th style="text-align:right"><h3>{{$tgl_start->isoFormat('D MMMM Y')}} - {{$tgl->isoFormat('D MMMM Y')}}</h3></th>
+    </thead>
+    </table>
+            </div>
+            <div>
+            <table class="table table-striped" style="width: 100%;">
   <thead>
     <th style="text-align:left"><h3>Kode Voucher</h3></th>
     <th style="text-align:right"><h3>{{$detail->code}}</h3></th>
     </thead>
     </table>
             </div>
-
 <div style="height:10px">
 			</div>
 			<h2 style="font-weight:bold">
@@ -167,18 +179,10 @@
 		</div>
 		<div class="col-md-12" style="background: url('{{ my_asset('images/bg-date-pdf.png') }}');background-repeat: no-repeat;
   background-size: cover;">
-		<div class="row" style="    text-align: right;">
-			<p style="margin-bottom: 0;
+		<div class="row" style="text-align: center;padding:10px">
+        <p style="margin-bottom: 10px;
     font-weight: bold;
-    font-size: 18px;">Berlaku Sampai :</p>
-            @php
-        \Carbon\Carbon::setLocale('id');
-        $tgl = \Carbon\Carbon::parse(date('d-m-Y', $detail->voucher->end_date));
-       
-        @endphp
-			<p style="    margin-top: 0;
-    font-weight: bold;
-    font-size: 18px;color:#FFA500">{{ $tgl->isoFormat('D MMMM Y') }}</p>
+    font-size: 18px;color:#025955">PRINT DAN BAWA VOUCHER INI PADA SAAT TRANSAKSI</p>
 
 			</div>
 			</div>

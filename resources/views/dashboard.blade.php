@@ -133,8 +133,10 @@
 <div class="col-md-6">
         <div class="panel">
             <!--Panel heading-->
-            <div class="panel-heading">
+            <div class="panel-heading" style="display: flex;justify-content: space-between;">
                 <h3 class="panel-title">{{translate('Penjualan Produk')}}</h3>
+                <a href="{{ route('in_house_sale_report.index') }}" class="btn btn-primary" style="max-height: 35px;margin-top:5px;margin-right:20px">{{ translate('Selengkapnya') }} <i class="fa fa-long-arrow-right"></i></a>
+
             </div>
 
             <!--Panel body-->
@@ -143,15 +145,15 @@
                     <table class="table table-striped mar-no">
                         <thead>
                             <tr>
-                                <th>{{translate('Nama Kategori')}}</th>
+                                <th>{{translate('Nama Produk')}}</th>
                                 <th>{{translate('Terjual')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (\App\Category::all() as $key => $category)
+                            @foreach (\App\Product::where('published','1')->orderBy('num_of_sale','desc')->get() as $key => $productDetail)
                                 <tr>
-                                    <td>{{ __($category->name) }}</td>
-                                    <td>{{ \App\Product::where('category_id', $category->id)->sum('num_of_sale') }}</td>
+                                    <td>{{ __($productDetail->name) }}</td>
+                                    <td>{{$productDetail->num_of_sale}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -163,8 +165,11 @@
     <div class="col-md-6">
         <div class="panel">
             <!--Panel heading-->
-            <div class="panel-heading">
+            <div class="panel-heading" style="display: flex;justify-content: space-between;">
                 <h3 class="panel-title">{{translate('Stok Produk')}}</h3>
+                <a href="{{ route('stock_report.index') }}"class="btn btn-primary" style="max-height: 35px;margin-top:5px;margin-right:20px">{{ translate('Selengkapnya') }} <i class="fa fa-long-arrow-right"></i></a>
+
+
             </div>
 
             <!--Panel body-->
@@ -173,14 +178,14 @@
                     <table class="table table-striped mar-no">
                         <thead>
                             <tr>
-                                <th>{{translate('Nama Kategori')}}</th>
+                                <th>{{translate('Nama Produk')}}</th>
                                 <th>{{translate('Stok')}}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (\App\Category::all() as $key => $category)
+                            @foreach (\App\Product::where('published','1')->orderBy('current_stock','desc')->get() as $key => $category)
                                 @php
-                                    $products = \App\Product::where('category_id', $category->id)->get();
+                                    $products = \App\Product::where('id', $category->id)->get();
                                     $qty = 0;
                                     foreach ($products as $key => $product) {
                                         if ($product->variant_product) {
@@ -191,6 +196,7 @@
                                         else {
                                             $qty = $product->current_stock;
                                         }
+                                       
                                     }
                                 @endphp
                                 <tr>

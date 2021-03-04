@@ -209,7 +209,7 @@
                         </li>
                         @endif --}}
 
-                        @if (\App\Addon::where('unique_identifier', 'refund_request')->first() != null)
+                        {{-- @if (\App\Addon::where('unique_identifier', 'refund_request')->first() != null)
                             <li>
                                 <a href="#">
                                     <i class="fa fa-refresh"></i>
@@ -230,7 +230,7 @@
                                     </li>
                                 </ul>
                             </li>
-                        @endif
+                        @endif --}}
                         {{-- @if((Auth::user()->user_type == 'admin' || in_array('5', json_decode(Auth::user()   ->staff->role->permissions))) && \App\BusinessSetting::where('type', 'vendor_system_activation')->first()->value == 1)
                         <li>
                             <a href="#">
