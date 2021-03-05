@@ -56,10 +56,10 @@ class VoucherController extends Controller
             $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->with('voucher')->orderBy('created_at','desc')->get();
             }
         }
-        $voucher =\App\CouponVoucher::where('is_delete','0')->orderBy('created_at','desc')->get();
+        $voucher =\App\CouponVoucher::where('is_delete','0')->where('is_active','1')->orderBy('created_at','desc')->get();
         if ($request->has('search')){
             $sort_search=$request->search;
-            $voucher =\App\CouponVoucher::where('is_delete','0')->where('judul','like',"%$sort_search%")->orderBy('created_at','desc')->get();
+            $voucher =\App\CouponVoucher::where('is_delete','0')->where('is_active','1')->where('judul','like',"%$sort_search%")->orderBy('created_at','desc')->get();
             $idvoucher = $voucher->pluck('id')->toArray();
 
             $list =\App\VoucherUsage::where('user_id',Auth::user()->id)->where('voucher_id',$idvoucher)->with('voucher')->orderBy('created_at','desc')->get();
