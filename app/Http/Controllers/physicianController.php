@@ -19,6 +19,16 @@ class physicianController extends Controller
         $sort_search= null;
 
         $users = \App\physician_verificationModel::with(["user",'user.instansi']);
+        if ($request->has('sort_search')){
+            $sort_search = $request->sort_search;
+            
+            $getname = \App\User::select('id')->where('name','like',"%$sort_search%")->orWhere('email','like',"%$sort_search%")->orWhere('phone','like',"%$sort_search%")->get();
+            if ($getname != null && $getname->count() > 0) {
+                $users = \App\physician_verificationModel::whereIn('user_id',$getname)->with(["user",'user.instansi']);
+
+            }
+
+        }
         if ($request->user_type != null) {
            $check = \App\User::where('user_type',$request->user_type)->get();
             $idUser = $check->pluck('id')->toArray();
@@ -35,16 +45,7 @@ class physicianController extends Controller
             }
             $sort_by = $request->sort_by;
         }
-        if ($request->has('sort_search')){
-            $sort_search = $request->sort_search;
-            
-            $getname = \App\User::select('id')->where('name','like',"%$sort_search%")->orWhere('email','like',"%$sort_search%")->orWhere('phone','like',"%$sort_search%")->get();
-            if ($getname != null && $getname->count() > 0) {
-                $users = \App\physician_verificationModel::whereIn('user_id',$getname)->with(["user",'user.instansi']);
-
-            }
-
-        }
+        
         $users = $users->paginate(15);
         return view('physician.verify', compact('users','user_type','sort_by','sort_search'));
     }

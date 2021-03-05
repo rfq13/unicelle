@@ -149,7 +149,7 @@
                                             box-sizing: border-box; border-radius: 100px;">
                                         </div>
                                         <div class="p-2 bd-highlight">
-                                        <h5 style="font-size:15px;font-weight: 600;">{!!\Illuminate\Support\Str::limit($l->voucher->judul,17)!!}</h5>
+                                        <h5 style="font-size:15px;font-weight: 600;">{!!\Illuminate\Support\Str::limit($l->voucher->judul,10)!!}</h5>
                                         @if($tgl_berakhir < $tes)
                                         <span style="
                                             font-family: Open Sans;
@@ -235,7 +235,7 @@
                                             box-sizing: border-box; border-radius: 100px;">
                                         </div>
                                         <div class="p-2 bd-highlight">
-                                            <h5 style="font-size:15px;font-weight: 600;">{!!\Illuminate\Support\Str::limit($v->judul,17)!!}</h5>
+                                            <h5 style="font-size:15px;font-weight: 600;">{!!\Illuminate\Support\Str::limit($v->judul,10)!!}</h5>
                                             <span style="
                                             font-family: Open Sans;
                                             font-style: normal;
@@ -249,7 +249,7 @@
                                             line-height: 27px;
                                             color: #FF6F00;"> {{$v->point}}</span>
                                             <a href="javascript:void(0)" onclick="show_confirm(event,{{$v->id}});">
-                                            <button class=" mt-3 btn btn-primary1 w-100">Tukar Poinku</button>
+                                            <button style="font-size:12px" class=" mt-3 btn btn-primary1 w-100">Tukar Poinku</button>
 
                                         </a>
                                         </div>

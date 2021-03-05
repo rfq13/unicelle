@@ -180,7 +180,6 @@
                                 </div>
                                 <hr>
                             </div>
-                            <div class="profi-user-akun__ d-flex align-items-center m-4" style="text-align: center;font-weight: 600;">
                             @php
                             if(Auth::user()->user_type == "regular physician"){
                                 $member_check= \App\Member::where('id',Auth::user()->member_id)->first();
@@ -195,18 +194,26 @@
                                 $type=$member_check->type_discount;
                             }
                             @endphp
-                            <div class="col-md-4">
-                            <p>Poin</p>
-                            <p>{{$poin}} %</p>
+                            <div style="border:none;padding-bottom: 0px;" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <img style="width:20px;height:20px" class="img-sidebar-akun__ mr-3" src="{{my_asset('images/ic_PS.png')}}" alt="">
+                                        <span class="menu-collapsed">Poin Sekarang</span>
+                                        <span class="submenu-icon ml-auto">{{Auth::user()->poin}}</span>
+                                    </div>
                             </div>
-                            <div class="col-md-4">
-                            <p>Diskon</p>
-                            <p>@if($type == 'amount')<span>Rp. </span>@endif{{$discount}}@if($type =='percent')<span> %</span>@endif</p>
+                            <div style="border:none;padding-bottom: 0px;" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <img style="width:20px;height:20px" class="img-sidebar-akun__ mr-3" src="{{my_asset('images/ic_RP.png')}}" alt="">
+                                        <span class="menu-collapsed">Rate Poin</span>
+                                        <span class="submenu-icon ml-auto">{{$poin}} %</span>
+                                    </div>
                             </div>
-                            <div class="col-md-4">
-                            <p>Poin Saya</p>
-                            <p>{{Auth::user()->poin}}</p>
-                            </div>
+                            <div style="border:none;padding-bottom: 0px;" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="d-flex w-100 justify-content-start align-items-center">
+                                        <img style="width:20px;height:20px" class="img-sidebar-akun__ mr-3" src="{{my_asset('images/ic_RT.png')}}" alt="">
+                                        <span class="menu-collapsed">Rate Diskon</span>
+                                        <span class="submenu-icon ml-auto">@if($type == 'amount')<span>Rp. </span>@endif{{$discount}}@if($type =='percent')<span> %</span>@endif</span>
+                                    </div>
                             </div>
                             <ul class="list-group">
                                 <a href="#submenu1" data-toggle="collapse" aria-expanded="false"

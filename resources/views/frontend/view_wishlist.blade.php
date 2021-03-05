@@ -31,6 +31,7 @@
                                         <span class="head-card-akun__">Produk Disimpan</span>
                                     </div>
                                     <hr>
+
                                     <div class="pad" style="padding:12px">
                                 @foreach ($wishlists as $key => $wishlist)
                                     @if ($wishlist->product != null)
@@ -103,7 +104,9 @@
                                         </div>  
                                     @endif
                                 @endforeach
+                                
                                     </div>
+
                             </div>
 
                             <div class="pagination-wrapper py-4">
@@ -120,6 +123,8 @@
                         </div>
                         <div class="card-body mx-4 px-0 pt-0 mb-2">
                             <div class="row">
+                            @if (count($wishlists) > 0)
+
                             @foreach ($wishlists as $key => $wishlist)
                                 @if ($wishlist->product != null)
                                 {{-- <div class="col-md-2 col-6 col-lg-4 mt-4">
@@ -196,6 +201,11 @@
                                 @endif
                             @endforeach
                             </div>
+                            @else
+                            <div style="justify-content: center;display: flex;">
+                            <img style="align-self: center;width: 50%;margin: 10px;" src="{{ my_asset('images/Belum-Ada-Disukai.png') }}" alt="">
+                            </div>
+                            @endif
                         </div>
                         <div class="pagination-wrapper py-4">
                             <ul class="pagination justify-content-end">
