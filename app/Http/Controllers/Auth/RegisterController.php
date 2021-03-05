@@ -65,6 +65,7 @@ class RegisterController extends Controller
             'file'    => 'attribute harus berformat file',
             'mimes' => 'format :attribute harus :mimes',
             'max'      => 'ukuran maksimal :attribute => :max',
+            'confirmed' => 'Konfirmasi Password Salah',
         ];
         $validate = [
             'nama_depan' => 'required|string|max:255',

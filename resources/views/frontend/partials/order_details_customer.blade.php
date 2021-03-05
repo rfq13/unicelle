@@ -103,7 +103,7 @@ if($ship != null || $ship != 0){
                         </tr>
                         <tr>
                             <td class="w-50 strong-600">{{ translate('Jumlah Total Pesanan')}}:</td>
-                            <td>{{ single_price($order->orderDetails->sum('price') + $order->orderDetails->sum('tax')) }}</td>
+                            <td>{{ single_price($order->grand_total) }}</td>
                         </tr>
                         
                         {{-- <tr>

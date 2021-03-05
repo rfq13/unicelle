@@ -18,6 +18,7 @@ use App\Log_resi;
 use App\userMember;
 use App\CouponUsage;
 use App\ClubPointExchange;
+use App\Mail\NotifikasiManager;
 use App\OtpConfiguration;
 use App\User;
 use App\BusinessSetting;
@@ -450,6 +451,7 @@ class OrderController extends Controller
             $order->payment_details = json_encode($xendit);
 
             $order->save();
+            
             // $point_club = new ClubPoint;
             // $point_club->user_id = Auth::user()->id;
             // $point_club->points = $request->totalpoin;
@@ -492,6 +494,19 @@ class OrderController extends Controller
 
             $request->session()->forget('data_dropshiper');
             \App\Cart::where("user_id",Auth::id())->delete();
+            $generalsetting = \App\GeneralSetting::first();
+            
+            $email= $generalsetting->email;
+            try {
+            $array['view'] = 'invoices.invoice_notifikasi';
+            $array['from'] = env('MAIL_USERNAME');
+            $array['subject'] = "Ada Pesanan Baru";
+            $array['order_id'] = $order->id;
+           
+            Mail::to($email)->queue(new NotifikasiManager($array));
+            } catch (\Exception $e) {
+            dd($e);
+            }
         }
         return ['xendit' => $xendit,'id'=>$order->id,'creditcard'=>$ccdetails ? true : false];
     }
@@ -532,7 +547,9 @@ class OrderController extends Controller
                         Log::info($e);
                     }
                 }
+                
             }
+            
         }
 
         return response()->json([
