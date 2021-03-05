@@ -250,14 +250,13 @@
                                                                 @endphp
                                                                 @if($order->delivery_status == 'delivered')
                                                                     {{ translate('Pesanan Selesai') }}
-                                                                @elseif ($order->payment_status == 'paid' && $order->delivery_status == 'pending')
+                                                                @elseif ($order->payment_status == 'paid' && $order->orderDetails->first()->delivery_status == 'pending')
                                                                     {{ translate('Terbayar') }}
-                                                                @elseif($order->payment_status == 'paid')
+                                                                @elseif($order->orderDetails->first()->delivery_status == 'on_review')
                                                                     {{ translate('Sedang Diproses') }}
                                                                 @elseif($order->delivery_status == 'on_delivery' && $order->payment_status == 'paid')
                                                                     {{ translate('Dalam Pengiriman') }}
                                                                 @else
-                                                                    
                                                                     {{ translate('Belum dibayar') }}
                                                                 @endif
                                                                 @if ($order->payment_status_viewed == 0)
