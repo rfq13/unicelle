@@ -46,11 +46,11 @@ if($ship != null || $ship != 0){
 
     <div class="pt-4">
         <ul class="process-steps clearfix">
-            <li style="width:20%;" @if($status == 'pending') class="active"  @else class="done"  @endif >
+            <li style="width:20%;" @if($testt ==  'unpaid') class="active"  @else class="done"  @endif >
                 <div class="icon">{{ translate('1')}}</div>
                 <div class="title">{{ translate('Belum Dibayar')}}</div>
             </li>
-            <li style="width:20%;" @if($testt ==  'paid') class="done"  @else class="active"  @endif >
+            <li style="width:20%;" @if($testt ==  'paid') class="done"@endif >
                 <div class="icon">{{ translate('2')}}</div>
                 <div class="title">{{ translate('Terbayar')}}</div>
             </li>
