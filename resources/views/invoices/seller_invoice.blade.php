@@ -132,6 +132,7 @@
 					$shipping_address = json_decode($order->shipping_address);
 				@endphp
 				<tr><td class="strong small gry-color">{{ translate('Bill to') }}:</td></tr>
+				<tr><td class="gry-color small">{{ $order->addresse->receiver }}</td></tr>
 				<tr><td class="strong">{{ $order->addresse->name }}</td></tr>
 				<tr><td class="gry-color small">{{ $order->addresse->address }}, {{ $order->addresse->subdistrict }}, {{ $order->addresse->city }}</td></tr>
 				<tr><td class="gry-color small">{{ $order->addresse->province }},{{ $order->addresse->postal_code }}</td></tr>

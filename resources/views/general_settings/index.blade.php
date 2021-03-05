@@ -45,6 +45,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-sm-3 control-label" for="email">{{translate('Email Notifikasi')}}</label>
+                        <div class="col-sm-9">
+                            <input type="text" id="email_notif" name="email_notif" value="{{ $generalsetting->email_notif }}" class="form-control" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-3 control-label" for="email">{{translate('Email')}}</label>
                         <div class="col-sm-9">
                             <input type="text" id="email" name="email" value="{{ $generalsetting->email }}" class="form-control" required>

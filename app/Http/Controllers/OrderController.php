@@ -496,7 +496,8 @@ class OrderController extends Controller
             \App\Cart::where("user_id",Auth::id())->delete();
             $generalsetting = \App\GeneralSetting::first();
             
-            $email= $generalsetting->email;
+            $email= $generalsetting->email_notif;
+            if($email != null){
             try {
             $array['view'] = 'invoices.invoice_notifikasi';
             $array['from'] = env('MAIL_USERNAME');
@@ -506,6 +507,7 @@ class OrderController extends Controller
             Mail::to($email)->queue(new NotifikasiManager($array));
             } catch (\Exception $e) {
             dd($e);
+            }
             }
         }
         return ['xendit' => $xendit,'id'=>$order->id,'creditcard'=>$ccdetails ? true : false];

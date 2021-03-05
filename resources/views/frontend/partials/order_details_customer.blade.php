@@ -36,6 +36,7 @@ if($ship != null || $ship != 0){
     }
     
     $payment = json_decode($order->payment_details);
+    $testt=$order->payment_status;
     // dd($payment);
 @endphp
 
@@ -45,20 +46,24 @@ if($ship != null || $ship != 0){
 
     <div class="pt-4">
         <ul class="process-steps clearfix">
-            <li @if($status == 'pending') class="active"  @else class="done"  @endif >
-                <div class="icon">{{ translate('0')}}</div>
-                <div class="title">{{ translate('Perlu Dibayar')}}</div>
-            </li>
-            <li @if($status == 'on_review') class="active" @elseif($status == 'on_delivery' || $status == 'delivered') class="done"  @endif>
+            <li style="width:20%;" @if($status == 'pending') class="active"  @else class="done"  @endif >
                 <div class="icon">{{ translate('1')}}</div>
-                <div class="title">{{ translate('Diproses Admin')}}</div>
+                <div class="title">{{ translate('Belum Dibayar')}}</div>
             </li>
-            <li @if($status == 'on_delivery') class="active" @elseif($status == 'delivered') class="done"  @endif>
+            <li style="width:20%;" @if($testt ==  'paid') class="done"  @else class="active"  @endif >
                 <div class="icon">{{ translate('2')}}</div>
+                <div class="title">{{ translate('Terbayar')}}</div>
+            </li>
+            <li style="width:20%;" @if($status == 'on_review') class="active" @elseif($status == 'on_delivery' || $status == 'delivered') class="done"  @endif>
+                <div class="icon">{{ translate('3')}}</div>
+                <div class="title">{{ translate('Sedang Diproses')}}</div>
+            </li>
+            <li style="width:20%;" @if($status == 'on_delivery') class="active" @elseif($status == 'delivered') class="done"  @endif>
+                <div class="icon">{{ translate('4')}}</div>
                 <div class="title">{{ translate('Dalam Pengiriman')}}</div>
             </li>
-            <li @if($status == 'delivered') class="done" @endif>
-                <div class="icon" >{{ translate('3')}}</div>
+            <li style="width:20%;" @if($status == 'delivered') class="done" @endif>
+                <div class="icon" >{{ translate('5')}}</div>
                 <div class="title">{{ translate('Selesai')}}</div>
             </li>
         </ul>
@@ -431,7 +436,7 @@ if($ship != null || $ship != 0){
                     <button onclick="show_make_payment_modal({{ $order->id }})" class="btn btn-block btn-base-1">{{ translate('Make Payment')}}</button>
                 @endif --}}
             </div>
-            @if ($order->payment_status == "paid")
+            @if ($order->payment_status == "paid" && $order->delivery_status == "on_delivery")
             @if ($order->user_status_konfrimasi == null )
                     <a href="{{ route('confirm.order',['id'=>encrypt($order->id),'poin'=>array_sum($totalPoint)]) }}"class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 100%;"><span style="font-size:15px;color:#FFFFFF">{{  translate('Konfirmasi') }}</span></a>
                     <cite style="color: darkslategrey;font-size:12px">*lakukan konfirmasi order telah selesai</cite>

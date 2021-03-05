@@ -127,11 +127,7 @@
         <th style="text-align:left">Alamat Pengiriman</th>
         <th style="text-align:left">: {{$order->addresse->address}}</th>
         </thead>
-    </table>
-        </div>
-        <div style="padding: 1.5rem;padding-bottom: 0;width: 83%;">
-        <table class="table table-striped" style="width: 80%;">
-        <thead>
+		<thead>
         <th style="text-align:left"><h4 style="color:#3B6CB6">{{ translate('Status Pembayaran') }}:</h4></th>
         @if($order->payment_status == 'paid')
         <th style="text-align:left"><h4 style="color:#3B6CB6">: Terbayar</h4></th>
@@ -139,8 +135,7 @@
         <th style="text-align:left"><h4 style="color:#3B6CB6">: Belum Terbayar</h4></th>
         @endif
         </thead>
-        </table>
-		</div>
+    </table>
 	    <div style="padding: 1.5rem;overflow-x:auto;">
 			<table class="padding text-left small border-bottom">
 				<thead>
@@ -161,20 +156,14 @@
 						else {
 							$user_id = \App\User::where('user_type', 'admin')->first()->id;
 						}
+						$obj=json_decode($order->shipping_info);
+
 					@endphp
 	                @foreach ($order->orderDetails as $key => $orderDetail)
 		                @if ($orderDetail->product)
 							<tr class="">
 								<td>{{ $orderDetail->product->name }} @if($orderDetail->variation != null) ({{ $orderDetail->variation }}) @endif</td>
-								<td>
-									@if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
-										{{ translate('Home Delivery') }}
-									@elseif ($orderDetail->shipping_type == 'pickup_point')
-										@if ($orderDetail->pickup_point != null)
-											{{ $orderDetail->pickup_point->name }} ({{ translate('Pickip Point') }})
-										@endif
-									@endif
-								</td>
+								<td>{{$obj->code}}</td>
 								<td class="gry-color">{{ $orderDetail->quantity }}</td>
 								<td class="gry-color currency">{{ single_price($orderDetail->price/$orderDetail->quantity) }}</td>
 								<td class="gry-color currency">{{ single_price($orderDetail->tax/$orderDetail->quantity) }}</td>

@@ -157,6 +157,7 @@ class GeneralSettingController extends Controller
         $generalsetting->youtube = $request->youtube;
         $generalsetting->google_plus = $request->google_plus;
         $generalsetting->text_whatsapp = $request->text_whatsapp;
+        $generalsetting->email_notif = $request->email_notif;
 
         if($generalsetting->save()){
             $businessSettingsController = new BusinessSettingsController;

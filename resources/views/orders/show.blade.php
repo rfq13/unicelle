@@ -49,7 +49,7 @@
 					</div>
 					<input type="hidden" id="status-order" value="{{ $delivery_status }}">
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pesanan Diproses')}}</option>
+                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
                         {{-- <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option> --}}
 						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('Dikirim')}}</option>
                         @if ($delivery_status == 'delivered')<option value="delivered" selected>{{translate('Terkirim')}}</option>@endif
@@ -300,7 +300,7 @@
     					<strong>{{translate('Discount')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->discount) }}
+    					@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif
     				</td>
     			</tr>
     			<tr>

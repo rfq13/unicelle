@@ -105,8 +105,10 @@
 					$shipping_address = $order->addresse;
 				@endphp
 				<tr><td class="strong small gry-color">{{ translate('Bill to') }}:</td></tr>
-				<tr><td class="strong">{{ $shipping_address->receiver }}</td></tr>
+				<tr><td class="gry-color small">{{ $shipping_address->receiver }}</td></tr>
 				<tr><td class="gry-color small">{{ $shipping_address->address }}, {{ $shipping_address->subdistrict }}, {{ $shipping_address->city }}</td></tr>
+				<tr><td class="gry-color small">{{ $shipping_address->province }},{{ $shipping_address->postal_code }}</td></tr>
+				@if ($order->user->email != null)<tr><td class="gry-color small">{{ translate('Email') }}: {{ $order->user->email }}</td></tr>@endif
 				<tr><td class="gry-color small">{{ translate('Phone') }}: {{ $shipping_address->phone }}</td></tr>
 			</table>
 		</div>
