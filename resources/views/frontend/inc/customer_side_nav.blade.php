@@ -180,7 +180,34 @@
                                 </div>
                                 <hr>
                             </div>
-                
+                            <div class="profi-user-akun__ d-flex align-items-center m-4" style="text-align: center;font-weight: 600;">
+                            @php
+                            if(Auth::user()->user_type == "regular physician"){
+                                $member_check= \App\Member::where('id',Auth::user()->member_id)->first();
+                                $poin=$member_check->poin_order;
+                                $discount=$member_check->discount_order;
+                                $type=$member_check->discount_type;
+                            }
+                            else{
+                                $member_check= \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
+                                $poin=$member_check->poin;
+                                $discount=$member_check->discount;
+                                $type=$member_check->type_discount;
+                            }
+                            @endphp
+                            <div class="col-md-4">
+                            <p>Poin</p>
+                            <p>{{$poin}} %</p>
+                            </div>
+                            <div class="col-md-4">
+                            <p>Diskon</p>
+                            <p>@if($type == 'amount')<span>Rp. </span>@endif{{$discount}}@if($type =='percent')<span> %</span>@endif</p>
+                            </div>
+                            <div class="col-md-4">
+                            <p>Poin Saya</p>
+                            <p>{{Auth::user()->poin}}</p>
+                            </div>
+                            </div>
                             <ul class="list-group">
                                 <a href="#submenu1" data-toggle="collapse" aria-expanded="false"
                                     class=" list-group-item list-group-item-action flex-column align-items-start {{ areActiveRoutesHome(['addresses.index','profile'])}}">

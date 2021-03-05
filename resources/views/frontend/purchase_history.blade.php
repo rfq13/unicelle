@@ -273,6 +273,10 @@
                                         </div>
                                     </div>
                                 @endforeach
+                            @else
+                            <div style="justify-content: center;display: flex;">
+                            <img style="align-self: center;width: 60%;margin: 10px;" src="{{ my_asset('images/imgtransaksi-none-min.png') }}" alt="">
+                            </div>
                             @endif
                             <div class="pagination-wrapper py-4">
                                 <ul class="pagination justify-content-end">

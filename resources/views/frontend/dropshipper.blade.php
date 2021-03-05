@@ -71,14 +71,10 @@ return;
                             </div>
                             <button type="submit" id="btnSubmit" style="display: none"></button>
                         </form>
-                        @php
-                        $msg = "";
-                        $span = "";
-                        if (count($orders) < 1) { $msg='Data tidak tersedia' ; if ($tgl !=null) { $msg
-                            .=", pada tanggal $tgl tidak ada order " ; } if ($q !=null) { $msg
-                            .=", hasil pencarian $q tidak ditemukan" ; }else { } }
-                            $span="<span class='text-center py-4' style='color: #d1caca'>$msg</span>" ; @endphp {!! $span
-                            !!} <!--Card-->
+                       
+                            @if (count($orders) < 1)
+                            <img style="align-self: center;width: 60%;margin: 10px;margin-bottom: 40px;" src="{{ my_asset('images/imgtransaksi-none-min.png') }}" alt="">
+                            @else
                             @foreach ($orders as $key => $order)
                                 @if ($order->orderDetails[0]->product != null)
                                     <div class="card-body mt-3 px-3 pt-0 mb-2">
@@ -238,7 +234,7 @@ return;
                                 @endif
 
                             @endforeach
-
+                            @endif                                    
 
                             {{-- <div class="card-body mt-3 px-3 pt-0 mb-2">
                                 <div class="card card-pesanan__ ">
