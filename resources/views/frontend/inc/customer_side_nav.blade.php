@@ -181,6 +181,13 @@
                                 <hr>
                             </div>
                             @php
+                            $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
+                            if($check_custom != null && $check_custom->count() > 0){
+                                $poin=$check_custom->poin;
+                                $discount=$check_custom->discount;
+                                $type=$check_custom->type_discount;
+                            }
+                            else{
                             if(Auth::user()->user_type == "regular physician"){
                                 $member_check= \App\Member::where('id',Auth::user()->member_id)->first();
                                 $poin=$member_check->poin_order;
@@ -192,6 +199,7 @@
                                 $poin=$member_check->poin;
                                 $discount=$member_check->discount;
                                 $type=$member_check->type_discount;
+                            }
                             }
                             @endphp
                             <div style="border:none;padding-bottom: 0px;" class="list-group-item list-group-item-action flex-column align-items-start">

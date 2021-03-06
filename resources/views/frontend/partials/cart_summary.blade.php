@@ -90,7 +90,11 @@
                             $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
                         }
                         $total_sementara = $subtotal+$tax;
-
+                        $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
+                        if($check_custom != null && $check_custom->count() > 0){
+                            $total_poin = $check_custom->poin/100*$total_sementara;
+                        }
+                        else{
                         if(Auth::user()->user_type == 'regular physician'){
                             $member= \App\userMember::where('user_id',Auth::user()->id)->first();
                             $detail_member = \App\Member::where('id',$member->member_id)->first();
@@ -102,7 +106,7 @@
                             $detail_user = \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
                             $total_poin = $detail_user->poin/100*$total_sementara;
                         }
-                        
+                        }
                     @endphp
                     <tr class="cart_item">
                         <td class="product-name">
@@ -133,6 +137,25 @@
                         <span class="text-italic">{{ single_price($tax) }}</span>
                     </td>
                 </tr> --}}
+                @if($check_custom != null && $check_custom->count() > 0)
+                @if($total_sementara >= $check_custom->min_order_discount)
+
+                <tr class="cart-shipping">
+                    <th>{{translate('Discount')}}</th>
+                    <td class="text-right">
+                        <span class="text-italic">@if($check_custom->type_discount == 'amount')<span>Rp</span>@endif{{ $check_custom->discount }}@if($check_custom->type_discount == 'percent')<span> %</span>@endif</span>
+                    </td>
+                </tr>
+                @endif
+                @if($check_custom->min_order_poin <= $total_sementara)
+                <tr class="cart-shipping">
+                    <th>{{translate('Poin yang didapatkan')}}</th>
+                    <td class="text-right">
+                        <span class="text-italic">{{ $total_poin }}</span>
+                    </td>
+                </tr>
+                @endif
+                @else
                 @if(Auth::user()->user_type == 'regular physician')
                     @if($detail_member->min_order_discount <= $total_sementara)
 
@@ -170,6 +193,7 @@
                 </tr>
                 @endif
                 @endif
+                @endif
                 <tr class="cart-shipping">
                     <th>{{translate('Total Shipping')}}</th>
                     <td class="text-right">
@@ -199,17 +223,46 @@
                 @php
 
                     $total = $subtotal+$tax+$shipping;
+                    if($check_custom != null && $check_custom->count() > 0){
+                        if($check_custom->min_order_discount <= $total_sementara){
+                            if($check_custom->type_discount == 'amount'){
+                                $total_awal = $subtotal+$tax-$check_custom->discount;
+                                $total=$total_awal+$shipping;
+                                if(isset($poin_use)){
+                                    $total = $total_awal-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                }
+                            }
+                            else{
+                                $total_awal = $subtotal+$tax;
+                                $total_diskon = $check_custom->discount/100*$total_awal;
+                                $total=$total_awal-$total_diskon+$shipping;
+                                    if(isset($poin_use)){
+                                        $convertp=$poin_use->poin*$club_point_convert_rate->value;
+                                        $total=$total_awal-$total_diskon-$convertp+$shipping;
+                                    }
+                            }
+                        }
+                    }
+                    else{
                     if(Auth::user()->user_type == 'regular physician'){
                         if($detail_member->min_order_discount <= $total_sementara){
 
                         if($detail_member->discount_type == 'amount'){
                             $total_awal = $subtotal+$tax-$detail_member->discount_order;
                             $total=$total_awal+$shipping;
+                            if(isset($poin_use)){
+                                $total = $total_awal-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                            
+                            }
                         }
                         else{
                             $total_awal = $subtotal+$tax;
                             $total_diskon = $detail_member->discount_order/100*$total_awal;
                             $total=$total_awal-$total_diskon+$shipping;
+                            if(isset($poin_use)){
+                                $convertp=$poin_use->poin*$club_point_convert_rate->value;
+                                $total=$total_awal-$total_diskon-$convertp+$shipping;
+                            }
                         }
                     }
                     }
@@ -222,7 +275,7 @@
                             if(isset($poin_use)){
                                 $total = $total_awal-$poin_use->poin*$club_point_convert_rate->value+$shipping;
                             
-                        }
+                            }
                         }
                         else{
                             $total_awal = $subtotal+$tax;
@@ -231,8 +284,7 @@
                             if(isset($poin_use)){
                                 $convertp=$poin_use->poin*$club_point_convert_rate->value;
                                 $total=$total_awal-$total_diskon-$convertp+$shipping;
-                            
-                        }
+                            }
                         }
                         
                         }
@@ -244,7 +296,7 @@
                             }
                         }
                     }
-                    
+                    }
                     if(Session::has('coupon_discount')){
                         $total -= Session::get('coupon_discount');
                     }

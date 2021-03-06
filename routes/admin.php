@@ -53,6 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
 	Route::resource('customers', 'CustomerController');
 	Route::get('customers_ban/{customer}', 'CustomerController@ban')->name('customers.ban');
+	Route::get('/edit/poin/diskon/{id}', 'CustomerController@edit_poin')->name('edit.poin');
+	Route::post('/override/poin/diskon', 'CustomerController@override_poin')->name('override_mutlak_poin');
 	Route::get('/customers/login/{id}', 'CustomerController@login')->name('customers.login');
 	Route::get('/customers/destroy/{id}', 'CustomerController@destroy')->name('customers.destroy');
 

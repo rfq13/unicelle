@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Customer;
 use App\User;
 use App\Order;
+use App\MemberCustom;
 
 class CustomerController extends Controller
 {
@@ -129,5 +130,40 @@ class CustomerController extends Controller
         $customer->user->save();
 
         return back();
+    }
+    public function edit_poin($id)
+    {
+
+        $customer = $id;
+
+
+        return view('customers.set_poin', compact('customer'));
+    }
+    public function override_poin(Request $request){
+        $id_user = $request->user_id;
+        $check = MemberCustom::where('user_id',$id_user)->first();
+        if($check != null && $check->count() > 0){
+            $create = MemberCustom::findOrFail($check->id);
+            $create->user_id = $request->user_id;
+            $create->min_order_poin = $request->min_order_poin;
+            $create->poin = $request->poin;
+            $create->min_order_discount = $request->min_order_discount;
+            $create->discount = $request->discount;
+            $create->type_discount = $request->type_discount;
+            $create->save();
+        }
+        else{
+            $create = new MemberCustom;
+            $create->user_id = $request->user_id;
+            $create->min_order_poin = $request->min_order_poin;
+            $create->poin = $request->poin;
+            $create->min_order_discount = $request->min_order_discount;
+            $create->discount = $request->discount;
+            $create->type_discount = $request->type_discount;
+            $create->save();
+        }
+        flash(translate('Diskon dan poin mutlak berhasil disimpan'))->success();
+        return redirect()->route('customers.index');
+
     }
 }

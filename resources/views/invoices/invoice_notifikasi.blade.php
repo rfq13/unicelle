@@ -75,24 +75,24 @@
 							@if(Auth::user()->shop->logo != null)
                             <div style="display: flex;">
 								<img loading="lazy"  src="{{ my_asset(Auth::user()->shop->logo) }}" height="40" style="display:inline-block;">
-                                <span style="padding-top: 10px;padding-left: 10px;">Unicelle</span>
+                                <span style="padding-top: 10px;padding-left: 10px;font-size: 18px;font-weight: 600;">Unicelle</span>
                             </div>
                             @else
                             <div style="display: flex;">
 								<img loading="lazy"  src="{{ my_asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">
-                                <span style="padding-top: 10px;padding-left: 10px;">Unicelle</span>
+                                <span style="padding-top: 10px;padding-left: 10px;font-size: 18px;font-weight: 600;">Unicelle</span>
                             </div>
 							@endif
 						@else
 							@if($generalsetting->logo != null)
                             <div style="display: flex;">
 								<img loading="lazy"  src="{{ my_asset($generalsetting->logo) }}" height="40" style="display:inline-block;">
-                                <span style="padding-top: 10px;padding-left: 10px;">Unicelle</span>
+                                <span style="padding-top: 10px;padding-left: 10px;font-size: 18px;font-weight: 600;">Unicelle</span>
                             </div>
                             @else
                             <div style="display: flex;">
 								<img loading="lazy"  src="{{ my_asset('frontend/images/logo/logo.png') }}" height="40" style="display:inline-block;">
-                                <span style="padding-top: 10px;padding-left: 10px;">Unicelle</span>
+                                <span style="padding-top: 10px;padding-left: 10px;font-size: 18px;font-weight: 600;">Unicelle</span>
                             </div>
                             @endif
 						@endif
@@ -187,10 +187,21 @@
 			            <td class="currency">{{ single_price($order->shipping_cost) }}</td>
 			        </tr>
 					
-					<tr>
-			            <th class="gry-color text-left">{{ translate('Diskon') }}</th>
-			            <td class="currency">@if($order->type_discount == 'amount')<span>Rp </span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span> %</span>@endif</td>
-			        </tr>
+					@if(Auth::user()->user_type == 'regular physician' || Auth::user()->user_type == 'partner physician')
+                            <tr>
+							<th class="gry-color text-left">{{ translate('Point Diskon')}}</th>
+							<td class="currency">{{ single_price($order->poin_convert) }}</td>
+                            </tr>
+                            <tr>
+							<th class="gry-color text-left">{{ translate('Diskon')}}</th>
+                            <td class="currency">@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif</td>
+                            </tr>
+                            @else
+                            <tr>
+							<th class="gry-color text-left">{{ translate('Diskon')}}</th>
+                            <td class="currency">@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif</td>
+                            </tr>
+                            @endif
 			        <tr class="border-bottom">
 			            <th class="gry-color text-left">{{ translate('Total Pajak') }}</th>
 			            <td class="currency">{{ single_price($order->orderDetails->sum('tax')) }}</td>

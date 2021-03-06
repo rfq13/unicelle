@@ -305,7 +305,7 @@ class OrderController extends Controller
                 $subtotal += $cartItem['price']*$cartItem['quantity'];
                 $tax += $cartItem['tax']*$cartItem['quantity'];
 
-                $product_variation = $cartItem['variant'];
+                $product_variation = $cartItem['variation'];
 
                 if($product_variation != null){
                     $product_stock = $product->stocks->where('variant', $product_variation)->first();
@@ -337,66 +337,91 @@ class OrderController extends Controller
             $total_beli=$subtotal + $tax + $shipping;
             $poin_use = UsePoin::where('user_id',Auth::user()->id)->first();
             $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
-
-            if(Auth::user()->user_type == 'regular physician'){
-                $member= \App\userMember::where('user_id',Auth::user()->id)->first();
-                $detail_member = \App\Member::where('id',$member->member_id)->first();
-                $diskon=$detail_member->discount_order;
-                if($detail_member->min_order_discount <= $subtotal){
-                            if($detail_member->discount_type == 'amount'){
-                            $total2 =$subtotal + $tax -$diskon;
+            $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
+            if($check_custom != null && $check_custom->count() > 0){
+                if($check_custom->min_order_discount <= $subtotal){
+                    $diskon=$check_custom->discount;
+                    if($check_custom->type_discount == 'amount'){
+                        $total2 =$subtotal+$tax-$diskon;
                             $total_beli =$total2+$shipping;
                             if(isset($poin_use)){
                                 $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
-                                
                             }
+                    }
+                    else{
+                        $total2=$subtotal + $tax;
+                        $total_diskon = $diskon/100*$total2;
+                        $total_beli =  $total2-$total_diskon+ $shipping;
+                            if(isset($poin_use)){
+                                $total_beli = $total2-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                            }
+                    }
+                }
+                else{
+                    if(Auth::user()->user_type == 'partner physician' || Auth::user()->user_type == 'regular physician'){
+                            if(isset($poin_use)){
+                            $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$shipping;
+                            }
+                    }
+                }
+            }
+            else{
+                if(Auth::user()->user_type == 'regular physician'){
+                    $member= \App\userMember::where('user_id',Auth::user()->id)->first();
+                    $detail_member = \App\Member::where('id',$member->member_id)->first();
+                    $diskon=$detail_member->discount_order;
+                        if($detail_member->min_order_discount <= $subtotal){
+                            if($detail_member->discount_type == 'amount'){
+                                $total2 =$subtotal + $tax -$diskon;
+                                $total_beli =$total2+$shipping;
+                                    if(isset($poin_use)){
+                                    $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                }
                             }
                             else{
-                                    $total=$subtotal + $tax ;
-                                    $total_diskon = $diskon/100*$total;
-                                    $total_beli = $subtotal + $tax -$total_diskon+ $shipping;
+                                $total=$subtotal + $tax ;
+                                $total_diskon = $diskon/100*$total;
+                                $total_beli = $subtotal + $tax -$total_diskon+ $shipping;
                                     if(isset($poin_use)){
                                         $total_beli = $subtotal + $tax -$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$shipping;
                                     }
                             }
+                        }
+                        else{
+                            if(isset($poin_use)){
+                                $total_beli = $subtotal + $tax - $poin_use->poin*$club_point_convert_rate->value+$shipping;
+                            }
+                        }
                 }
                 else{
-                    if(isset($poin_use)){
-                        $total_beli = $subtotal + $tax - $poin_use->poin*$club_point_convert_rate->value+$shipping;
-                    }
-                }
-            }
-            if(Auth::user()->user_type == 'pasien reg' || Auth::user()->user_type == 'partner physician' ){
-                $detail_user = \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
-                if($detail_user->min_order_discount <= $subtotal){
-                $diskon=$detail_user->discount;
-                if($detail_user->type_discount == 'amount'){
-                    $total2 =$subtotal+$tax-$diskon;
-                        $total_beli =$total2+$shipping;
-                        if(isset($poin_use)){
-                            $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
-                        
-                    }
+                    $detail_user = \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
+                        if($detail_user->min_order_discount <= $subtotal){
+                            $diskon=$detail_user->discount;
+                            if($detail_user->type_discount == 'amount'){
+                                $total2 =$subtotal+$tax-$diskon;
+                                $total_beli =$total2+$shipping;
+                                if(isset($poin_use)){
+                                    $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
                                 }
-                                else{
-                                    $total2=$subtotal + $tax;
-                                    $total_diskon = $diskon/100*$total2;
-                                    $total_beli =  $total2-$total_diskon+ $shipping;
+                            }
+                            else{
+                                $total2=$subtotal + $tax;
+                                $total_diskon = $diskon/100*$total2;
+                                $total_beli =  $total2-$total_diskon+ $shipping;
                                     if(isset($poin_use)){
                                         $total_beli = $total2-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$shipping;
-                                    
-                                }
-                                }
-                }
-                else{
-                    if(Auth::user()->user_type == 'partner physician'){
-                        if(isset($poin_use)){
-                        $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$shipping;
+                                    }
+                            }
                         }
-                    }
+                        else{
+                            if(Auth::user()->user_type == 'partner physician'){
+                                if(isset($poin_use)){
+                                    $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$shipping;
+                                }
+                            }
+                         }
                 }
             }
-
             if(isset($poin_use)){
                 $total = $poin_use->poin*$club_point_convert_rate->value;
                 $order->poin_convert = $total;

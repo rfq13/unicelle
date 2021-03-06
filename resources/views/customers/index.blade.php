@@ -56,7 +56,7 @@
                         <td>{{$customer->user->email}}</td>
                         <td>{{$customer->user->phone}}</td>
                         <td>{{$customer->user->user_type == "pasien reg" ? "pasien regular" : $customer->user->user_type}}</td>
-                        <td>{{$customer->user->member == null ? "" : $customer->user->member->title}}</td>
+                        <td>{{$customer->user->member == null ? "Tidak ada" : $customer->user->member->title}}</td>
                         <td>{{$customer->user->poin}}</td>
                         {{-- <td>
                             @if ($customer->user->customer_package != null)
@@ -79,6 +79,7 @@
                                         @endif
                                         
                                         <li><a onclick="confirm_modal('{{route('customers.destroy', $customer->id)}}');">{{translate('Hapus')}}</a></li>
+                                        <li><a href="{{route('edit.poin', $customer->user->id)}}">{{translate('Diskon dan Poin Mutlak')}}</a></li>
                                     </ul>
                                 </div>
                             @endif

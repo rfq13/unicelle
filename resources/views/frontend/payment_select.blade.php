@@ -5,6 +5,38 @@
     $total_beli =$total + $spi->cost;
     $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
     $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
+    $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
+    if($check_custom != null && $check_custom->count() > 0){
+        if($check_custom->min_order_discount <= $total){
+                $jenis_diskon=$check_custom->type_discount;
+                $diskon=$check_custom->discount;
+                    if($check_custom->type_discount == 'amount'){
+                        $total2 =$total-$diskon;
+                        $total_beli =$total2+$spi->cost;
+                            if(isset($poin_use)){
+                                $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                            }
+                    }
+                    else{
+                        $total_diskon = $diskon/100*$total;
+                        $total_beli = $total-$total_diskon+$spi->cost;
+                            if(isset($poin_use)){
+                                $total_beli = $total-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                            }
+                    }
+            }
+            else{
+                if(Auth::user()->user_type == 'partner physician' || Auth::user()->user_type == 'regular physician'){
+                    if(isset($poin_use)){
+                        $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$spi->cost;
+                    }
+                }
+            }
+            if($check_custom->min_order_poin <= $total){
+                $total_poin=$check_custom->poin/100*$total;
+            }
+    }
+    else{
     if(Auth::user()->user_type == 'regular physician'){
             $member= \App\userMember::where('user_id',Auth::user()->id)->first();
             $detail_member = \App\Member::where('id',$member->member_id)->first();
@@ -69,7 +101,7 @@
                 $total_poin=$detail_user->poin/100*$total;
             }
     }
-
+    }
 
 @endphp
 @extends('frontend.layouts.app')

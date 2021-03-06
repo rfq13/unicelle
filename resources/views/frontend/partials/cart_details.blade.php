@@ -26,8 +26,8 @@
                                     $total += $cartItem['price']*$cartItem['quantity'];
                                     $product_name_with_choice = $product->name;
                                     $keyi = $cartItem->id;
-                                    if ($cartItem['variant'] != null) {
-                                        $product_name_with_choice = $product->name.' - '.$cartItem['variant'];
+                                    if ($cartItem['variation'] != null) {
+                                        $product_name_with_choice = $product->name.' - '.$cartItem['variation'];
                                     }
                                         $qty = 0;
                                             if($product->variant_product){
