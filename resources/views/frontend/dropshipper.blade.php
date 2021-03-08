@@ -44,8 +44,7 @@ return;
                         <form action="{{ route('dropshipper') }}" method="get">
                             <div class="row mt-4 mb-4">
                                 <div class="col-3 ml-3">
-                                    <input class="form-control datepicker" placeholder="Pilih Tanggal" type="text" id="datepicker" value="{{ $tgl }}" name="tgl"
-                                        onchange="filter()">
+                                <input placeholder="Pilih Tanggal" class="form-date" type="text" onfocus="(this.type='date')" id="birthday" value="{{ $tgl }}" name="tgl" onchange="filter()">
                                 </div>
                                 <div class="col">
                                     <div class="row">
@@ -494,7 +493,10 @@ return;
                 </div>
             </div>
 
-            <div class="modal fade" id="order_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+           
+
+        </div>
+        <div class="modal fade" id="order_details" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
                 aria-hidden="true">
                 <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-zoom product-modal" id="modal-size"
                     role="document">
@@ -508,23 +510,14 @@ return;
                     </div>
                 </div>
             </div>
-
-        </div>
     </section>
 @endsection
 @section('script')
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bar-rating/1.2.2/jquery.barrating.min.js"></script>
     <script type="text/javascript">
-      $( "#datepicker" ).datepicker({
-        changeMonth: true,
-      changeYear: true,
-      yearRange: "-100:+0",
-dateFormat: "yy-mm-dd",
-});
         $('#order_details').on('hidden.bs.modal', function() {
             location.reload();
         })
@@ -555,6 +548,7 @@ dateFormat: "yy-mm-dd",
                 if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
             }
         });
+        
 
     </script>
 
