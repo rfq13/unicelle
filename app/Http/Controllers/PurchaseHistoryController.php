@@ -57,7 +57,22 @@ class PurchaseHistoryController extends Controller
         $compact = ['order','ship'];
         return view('frontend.partials.order_details_customer', compact($compact));
     }
-
+    public function shipping_details(Request $request)
+    {
+        $order = Order::findOrFail($request->order_id);
+        $order->delivery_viewed = 1;
+        $order->payment_status_viewed = 1;
+        $order->save();
+        $status = $order->orderDetails->first()->delivery_status;
+        $ship = 0;
+        $ship_info = 0;
+        if ($status == "on_delivery" || $status == "delivered") {
+            $ship_info = json_decode($order->shipping_info);
+            $ship = app('\App\Http\Controllers\OrderController')->statusPengiriman($order->resi,$ship_info->code);
+        }
+        $compact = ['order','ship'];
+        return view('frontend.tracking', compact($compact));
+    }
     /**
      * Show the form for creating a new resource.
      *

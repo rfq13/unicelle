@@ -4,8 +4,8 @@
     <div class="container">
     <nav aria-label="breadcrumb">
             <ul class="breadcrumb mb-5 mt-5">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Artikel</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('home')}}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{route('blog.article')}}">Artikel</a></li>
                 <li class="breadcrumb-item active" style="color:#3BB6B1" aria-current="page">{{ $blog->title }}</li>
             </ul>
         </nav>

@@ -1501,7 +1501,21 @@ background: #428bca;
             $('.c-preloader').hide();
         });
     }
+    function pengiriman_details(order_id)
+    {
+        $('#shipping-details-modal-body').html(null);
 
+        if(!$('#modal-size').hasClass('modal-lg')){
+            $('#modal-size').addClass('modal-lg');
+        }
+
+        $.post('{{ route('shipping.details') }}', { _token : '{{ @csrf_token() }}', order_id : order_id}, function(data){
+            $('#shipping-details-modal-body').html(data);
+            $('#shipping_details').modal();
+            $('.c-preloader').hide();
+
+        });
+    }
     function show_order_details(order_id)
     {
         $('#order-details-modal-body').html(null);

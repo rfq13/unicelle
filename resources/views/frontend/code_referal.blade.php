@@ -52,11 +52,11 @@
                                         <span class="text-ic-share__ ">Share to : </span>
                                     </div>
 
-                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/whatsapp.png')}}" alt=""></a>
-                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/facebook.png')}}" alt=""></a>
-                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/instagram.png')}}" alt=""></a>
-                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/line.png')}}" alt=""></a>
-                                        <a onClick="copyFunction()"><img class="icon-referal-share__" src="{{my_asset('/images/icon/twitter.png')}}" alt=""></a>
+                                        <a href="https://api.whatsapp.com/send?text={{ route('user.registration') }}?referral_code={{ urlencode(Auth::user()->referral_code) }}" data-action="share/whatsapp/share" target="_blank"><img class="icon-referal-share__" src="{{my_asset('/images/icon/whatsapp.png')}}" alt=""></a>
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('user.registration') }}?referral_code={{ urlencode(Auth::user()->referral_code) }}" target="_blank"><img class="icon-referal-share__" src="{{my_asset('/images/icon/facebook.png')}}" alt=""></a>
+                                        {{-- <a href="https://www.instagram.com/share?url={{ route('user.registration') }}?referral_code={{ urlencode(Auth::user()->referral_code) }}"><img class="icon-referal-share__" src="{{my_asset('/images/icon/instagram.png')}}" alt=""></a> --}}
+                                        <a href="https://line.me/R/msg/text/?{{ route('user.registration') }}?referral_code={{ urlencode(Auth::user()->referral_code) }}"><img class="icon-referal-share__" src="{{my_asset('/images/icon/line.png')}}" alt=""></a>
+                                        <a href="https://twitter.com/intent/tweet?text={{ route('user.registration') }}?referral_code={{ urlencode(Auth::user()->referral_code) }}" target="_blank"><img class="icon-referal-share__" src="{{my_asset('/images/icon/twitter.png')}}" alt=""></a>
                                 </div>
                             </div>
                         </div>

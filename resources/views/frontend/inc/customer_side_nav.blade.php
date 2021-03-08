@@ -216,7 +216,7 @@
                                         <span class="submenu-icon ml-auto">{{$poin}} %</span>
                                     </div>
                             </div>
-                            <div style="border:none;padding-bottom: 0px;" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div style="border:none;padding-bottom: 0px;margin-bottom: 30px;" class="list-group-item list-group-item-action flex-column align-items-start">
                                     <div class="d-flex w-100 justify-content-start align-items-center">
                                         <img style="width:20px;height:20px" class="img-sidebar-akun__ mr-3" src="{{my_asset('images/ic_RT.png')}}" alt="">
                                         <span class="menu-collapsed">Rate Diskon</span>
