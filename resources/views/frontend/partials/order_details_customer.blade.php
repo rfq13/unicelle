@@ -207,7 +207,7 @@ if($ship != null || $ship != 0){
                 @if ($shp->status->code == 200)
                 <a onClick="pengiriman_details({{ $order->id }})" class="btn btn-styled btn-sm btn-base-1 mt-3" style="width: 80%;background-color: #3B6CB6;"><span style="font-size:15px;color:#FFFFFF">{{  translate('Detail Pengiriman') }}</span></a>
                 @elseif($shp->status->code == 400)
-                <span>{{ "nomor resi yang dimasukkan tidak valid" }}</span>
+                <cite style="color: darkslategrey;font-size:12px;margin-bottom:40px">*nomor resi yang dimasukkan tidak valid</cite>
                 @endif
                 @endif
                 @if ($order->payment_status == "paid" && $order->delivery_status == "on_delivery")
