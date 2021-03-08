@@ -223,11 +223,15 @@ if($ship != null || $ship != 0){
                 <p style="margin-bottom:0px">Total Pesanan</p>
                 <span style="color:#3B6CB6;font-weight:bold">{{ single_price($order->grand_total) }}</span>
                 </div>
+                
                 <div style="margin-bottom: 20px;">
                 <p style="margin-bottom:0px">Metode Pembayaran</p>
                 <span style="color:#000000;font-weight:bold">{{ $pay_opt }}</span>
                 </div>
-
+                <div style="margin-bottom: 20px;">
+                <p style="margin-bottom:0px">{{ $title }}:</p>
+                <span style="color:#000000;font-weight:bold">{{ $pay_num }}</span>
+                </div>
                 @if (property_exists($payment,'bank_code'))
                         @php
                         $logo= strtolower($payment->bank_code);
