@@ -496,6 +496,7 @@ class OrderController extends Controller
                 if(Auth::user()->user_type == 'pasien reg'){
                     $detail_data = \App\VoucherUsage::where('user_id',Auth::user()->id)->where('voucher_id',$voucher->id)->first();
                     $user_voucher= \App\VoucherUsage::findOrFail($detail_data->id);
+                    $order->kupon =$user_voucher->code;
                     $user_voucher->is_active= '0';
                     $user_voucher->save();
                     UsePoin::destroy($poin_use->id);

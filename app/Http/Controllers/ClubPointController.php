@@ -174,61 +174,67 @@ class ClubPointController extends Controller
     public function cart_club_poin(Request $request)
     {
         $subtotal = 0;
-
+        //cek pasien regular potongan voucher
         if(Auth::user()->user_type == 'pasien reg'){
             $search= UsePoin::where('user_id',Auth::user()->id)->first();
             $detail= VoucherUsage::where('code',$request->kode)->where('is_active',1)->first();
+            //jika voucher ditemukan
             if(isset($detail)){
                 $voucher = CouponVoucher::where('id', $detail->voucher_id)->first();
-                if($voucher->discount_type == 'amount'){
-                    $cart = \App\Cart::where('user_id',Auth::user()->id)->get();
-                    foreach ($cart as $key => $cartItem){
-                        $subtotal += $cartItem['price']*$cartItem['quantity'];
-                        if($subtotal <= $voucher->potongan){
-                            flash(__('Total belanja kurang dari potongan harga'))->error();
-                            return redirect()->back();
+                if($voucher->jenis == 1){
+                    //jika jenis potongan nominal rupiah
+                    if($voucher->discount_type == 'amount'){
+                        $cart = \App\Cart::where('user_id',Auth::user()->id)->get();
+                            foreach ($cart as $key => $cartItem){
+                                $subtotal += $cartItem['price']*$cartItem['quantity'];
+                                    //jika total belanja kurang dari diskon potongan jadi gagal
+                                    if($subtotal <= $voucher->potongan){
+                                        flash(__('Total belanja kurang dari potongan harga'))->error();
+                                        return redirect()->back();
+                                    }
+                                    else{
+                                        if(isset($search)){
+                                            $update = UsePoin::findOrFail($search->id);
+                                            $update->poin=$detail->voucher_id;
+                                            $update->save();
+                                        }
+                                        else{
+                                            $history = new UsePoin;
+                                            $history->user_id = Auth::user()->id;
+                                            $history->poin=$detail->voucher_id;
+                                            $history->save();
+                                        }  
+                                        flash(__('sukses'))->success();
+                                        return redirect()->back();
+                                    }
+                            }
+                    }
+                    else{
+                        if(isset($search)){
+                            $update = UsePoin::findOrFail($search->id);
+                            $update->poin=$detail->voucher_id;
+                            $update->save();
                         }
                         else{
-                            if(isset($search)){
-                                $update = UsePoin::findOrFail($search->id);
-                                $update->poin=$detail->voucher_id;
-                                $update->save();
-                            }
-                            else{
-                                $history = new UsePoin;
-                                $history->user_id = Auth::user()->id;
-                                $history->poin=$detail->voucher_id;
-                                $history->save();
-                            }  
-                            return redirect()->back();
-                            flash(__('sukses'))->success();
+                        $history = new UsePoin;
+                        $history->user_id = Auth::user()->id;
+                        $history->poin=$detail->voucher_id;
+                        $history->save();
                         }
+                        flash(__('sukses'))->success();  
+                        return redirect()->back();
                     }
-
                 }
                 else{
-            if(isset($search)){
-                $update = UsePoin::findOrFail($search->id);
-                $update->poin=$detail->voucher_id;
-                $update->save();
+                    flash(__('Kupon tidak valid'))->error();
+                    return redirect()->back();
+                }
+                    
             }
-            else{
-                $history = new UsePoin;
-                $history->user_id = Auth::user()->id;
-                $history->poin=$detail->voucher_id;
-                $history->save();
-            }  
-            return redirect()->back();
-            flash(__('sukses'))->success();
-        }
-
-        }
             else{
                 flash(__('Kode voucher sudah terpakai'))->error();
-
                 return redirect()->back();
             }
-
         }
         else{
         if($request->has('jml'))
