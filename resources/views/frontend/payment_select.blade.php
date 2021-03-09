@@ -5,7 +5,10 @@
     $total_beli =$total + $spi->cost;
     $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
     $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
+    if(isset($poin_use)){
+
     $voucher = \App\CouponVoucher::where('id', $poin_use->poin)->first();
+    }
     $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
     if($check_custom != null && $check_custom->count() > 0){
         if($check_custom->min_order_discount <= $total){
