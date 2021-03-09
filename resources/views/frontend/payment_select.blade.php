@@ -80,9 +80,10 @@
     if(Auth::user()->user_type == 'regular physician'){
             $member= \App\userMember::where('user_id',Auth::user()->id)->first();
             $detail_member = \App\Member::where('id',$member->member_id)->first();
-            $jenis_diskon=$detail_member->discount_type;
-            $diskon=$detail_member->discount_order;
+
             if($detail_member->min_order_discount <= $total){
+                $jenis_diskon=$detail_member->discount_type;
+                $diskon=$detail_member->discount_order;
                 if($detail_member->discount_type == 'amount'){
                     $total2 =$total-$diskon;
                     $total_beli =$total2+$spi->cost;

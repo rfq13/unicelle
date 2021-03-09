@@ -266,7 +266,7 @@
                                         $total = $total_awal-$voucher->potongan+$shipping;
                                         }
                                         else{
-                                        $convertp = $total_awal*$voucher->potongan/100;
+                                        $convertp = $subtotal+$tax*$voucher->potongan/100;
                                         $total=$total_awal-$convertp+$shipping;
                                         }
                                     }
@@ -318,6 +318,11 @@
                                 $convertp=$poin_use->poin*$club_point_convert_rate->value;
                                 $total=$total_awal-$total_diskon-$convertp+$shipping;
                             }
+                        }
+                    }
+                    else{
+                        if(isset($poin_use)){
+                            $total -= $poin_use->poin*$club_point_convert_rate->value;
                         }
                     }
                     }
