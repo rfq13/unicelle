@@ -14,6 +14,15 @@
                 <div class="panel-heading">
 </div>
 <div class="form-group">
+   <label class="col-lg-3 control-label">{{translate('Jenis Voucher')}}</label>
+   <div class="col-lg-2">
+							<select class="demo-select2" name="jenis" required>
+								<option value="1"<?php if($coupon_voucher->jenis == 1) echo "selected"; ?>>{{translate('Internal Unicelle')}}</option>
+								<option value="0"<?php if($coupon_voucher->jenis == 0) echo "selected"; ?>>{{translate('External')}}</option>
+							</select>
+						</div>
+</div>
+<div class="form-group">
     <label class="col-lg-3 control-label" for="coupon_code">{{translate('Nama Merchant')}}</label>
     <div class="col-lg-9">
         <input type="text"  id="coupon_code" name="merchant" value="{{$coupon_voucher->merchant}}" class="form-control" required>
@@ -31,6 +40,15 @@
    <div class="col-lg-9">
       <input type="number"  name="point" value="{{$coupon_voucher->point}}" class="form-control" required>
    </div>
+</div>
+<div class="form-group">
+   <label class="col-lg-3 control-label">{{translate('Jenis Potongan')}}</label>
+   <div class="col-lg-2">
+							<select class="demo-select2" name="discount_type" required>
+								<option value="amount"<?php if($coupon_voucher->discount_type == 'amount') echo "selected"; ?>>{{translate('Rp')}}</option>
+								<option value="percent"<?php if($coupon_voucher->discount_type == 'percent') echo "selected"; ?>>{{translate('%')}}</option>
+							</select>
+						</div>
 </div>
 <div class="form-group">
    <label class="col-lg-3 control-label">{{translate('Potongan Harga')}}</label>

@@ -5,6 +5,7 @@
     $total_beli =$total + $spi->cost;
     $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
     $poin_use = \App\UsePoin::where('user_id',Auth::user()->id)->first();
+    $voucher = \App\CouponVoucher::where('id', $poin_use->poin)->first();
     $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
     if($check_custom != null && $check_custom->count() > 0){
         if($check_custom->min_order_discount <= $total){
@@ -14,14 +15,36 @@
                         $total2 =$total-$diskon;
                         $total_beli =$total2+$spi->cost;
                             if(isset($poin_use)){
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                        if($voucher->discount_type == 'amount'){
+                                        $total_beli = $total2-$voucher->potongan+$spi->cost;
+                                        }
+                                        else{
+                                        $convertp = $total*$voucher->potongan/100;
+                                        $total_beli=$total2-$convertp+$spi->cost;
+                                        }
+                                }
+                                else{
                                 $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                                }
                             }
                     }
                     else{
                         $total_diskon = $diskon/100*$total;
                         $total_beli = $total-$total_diskon+$spi->cost;
                             if(isset($poin_use)){
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                        if($voucher->discount_type == 'amount'){
+                                        $total_beli = $total-$total_diskon-$voucher->potongan+$spi->cost;
+                                        }
+                                        else{
+                                        $convertp = $total*$voucher->potongan/100;
+                                        $total_beli=$total-$total_diskon-$convertp+$spi->cost;
+                                        }
+                                }
+                                else{
                                 $total_beli = $total-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                                }
                             }
                     }
             }
@@ -31,10 +54,23 @@
                         $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$spi->cost;
                     }
                 }
+                else{
+                    if(isset($poin_use)){
+                        if($voucher->discount_type == 'amount'){
+                            $total_beli = $total-$voucher->potongan+$spi->cost;
+                        }
+                        else{
+                             $convertp = $total*$voucher->potongan/100;
+                            $total_beli=$total-$convertp+$spi->cost;
+                            
+                    }
+
+                }
             }
             if($check_custom->min_order_poin <= $total){
                 $total_poin=$check_custom->poin/100*$total;
             }
+        }
     }
     else{
     if(Auth::user()->user_type == 'regular physician'){
@@ -79,21 +115,54 @@
                         $total2 =$total-$diskon;
                         $total_beli =$total2+$spi->cost;
                             if(isset($poin_use)){
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                    if($voucher->discount_type == 'amount'){
+                                        $total_beli = $total2-$voucher->potongan+$spi->cost;
+                                        }
+                                        else{
+                                        $convertp = $total*$voucher->potongan/100;
+                                        $total_beli=$total2-$convertp+$spi->cost;
+                                        }
+                                }
+                                else{
                                 $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                                }
                             }
                     }
                     else{
                         $total_diskon = $diskon/100*$total;
                         $total_beli = $total-$total_diskon+$spi->cost;
                             if(isset($poin_use)){
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                    if($voucher->discount_type == 'amount'){
+                                        $total_beli = $total-$total_diskon-$voucher->potongan+$spi->cost;
+                                        }
+                                        else{
+                                        $convertp = $total*$voucher->potongan/100;
+                                        $total_beli=$total-$total_diskon-$convertp+$spi->cost;
+                                        }
+                                }
+                                else{
                                 $total_beli = $total-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$spi->cost;
+                                }
                             }
                     }
             }
             else{
-                if(Auth::user()->user_type == 'partner physician'){
+                if(Auth::user()->user_type == 'partner physician' || Auth::user()->user_type == 'pasien reg'){
                     if(isset($poin_use)){
+                        if(Auth::user()->user_type == 'pasien reg'){
+                            if($voucher->discount_type == 'amount'){
+                                        $total_beli = $total-$voucher->potongan+$spi->cost;
+                            }
+                            else{
+                            $convertp = $total*$voucher->potongan/100;
+                            $total_beli=$total-$convertp+$spi->cost;
+                            }
+                        }
+                        else{
                         $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$spi->cost;
+                        }
                     }
                 }
             }

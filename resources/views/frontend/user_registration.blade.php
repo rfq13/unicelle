@@ -86,7 +86,7 @@
                                 <!--  -->
                                 <div class="row mb-4 align-items-center">
                                     <div class="col">
-                                        <input type="text" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomer Klinik/Surat Izin Praktek Dokter') }}" name="izin" required>
+                                        <input type="text" class="form-control {{ $errors->has('izin') ? ' is-invalid' : '' }}" value="{{ old('izin') }}" placeholder="{{  translate('Nomor Klinik/Surat Izin Praktek Dokter') }}" name="izin" required>
                                         @if ($errors->has('izin'))
                                             <span style="display: flex;" class="invalid-feedback" role="alert">
                                                 <strong>{{ $errors->first('izin') }}</strong>
@@ -318,7 +318,7 @@
 
                                 <hr>
                                 <a type="button" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration-otp') }}">
-                                       Daftar Via Nomer Telepon</a>
+                                       Daftar Via Nomor Telepon</a>
                                        
                                        @php
                                            $params = ['physician'=>'physician'];

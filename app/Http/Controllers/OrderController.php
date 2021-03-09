@@ -337,6 +337,7 @@ class OrderController extends Controller
             $total_beli=$subtotal + $tax + $shipping;
             $poin_use = UsePoin::where('user_id',Auth::user()->id)->first();
             $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
+            $voucher = \App\CouponVoucher::where('id', $poin_use->poin)->first();
             $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
             if($check_custom != null && $check_custom->count() > 0){
                 if($check_custom->min_order_discount <= $subtotal){
@@ -345,7 +346,18 @@ class OrderController extends Controller
                         $total2 =$subtotal+$tax-$diskon;
                             $total_beli =$total2+$shipping;
                             if(isset($poin_use)){
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                    if($voucher->discount_type == 'amount'){
+                                        $total_beli = $total2-$voucher->potongan+$shipping;
+                                        }
+                                    else{
+                                        $convertp = $subtotal+$tax*$voucher->potongan/100;
+                                        $total_beli=$total2-$convertp+$shipping;
+                                    }                                
+                                }
+                                else{
                                 $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                }
                             }
                     }
                     else{
@@ -353,7 +365,18 @@ class OrderController extends Controller
                         $total_diskon = $diskon/100*$total2;
                         $total_beli =  $total2-$total_diskon+ $shipping;
                             if(isset($poin_use)){
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                    if($voucher->discount_type == 'amount'){
+                                    $total_beli = $total2-$total_diskon-$voucher->potongan+$shipping;
+                                    }
+                                    else{
+                                    $convertp = $total2*$voucher->potongan/100;
+                                    $total_beli=$total2-$total_diskon-$convertp+$shipping;
+                                    }
+                                }
+                                else{
                                 $total_beli = $total2-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                }
                             }
                     }
                 }
@@ -362,6 +385,17 @@ class OrderController extends Controller
                             if(isset($poin_use)){
                             $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$shipping;
                             }
+                    }
+                    else{
+                        if(isset($poin_use)){
+                            if($voucher->discount_type == 'amount'){
+                                $total_beli = $total-$voucher->potongan+$shipping;
+                                }
+                                else{
+                                $convertp = $total*$voucher->potongan/100;
+                                $total_beli=$total-$convertp+$shipping;
+                                }
+                        }
                     }
                 }
             }
@@ -401,7 +435,18 @@ class OrderController extends Controller
                                 $total2 =$subtotal+$tax-$diskon;
                                 $total_beli =$total2+$shipping;
                                 if(isset($poin_use)){
+                                    if(Auth::user()->user_type == 'pasien reg'){
+                                        if($voucher->discount_type == 'amount'){
+                                            $total_beli = $total2-$voucher->potongan+$spi->cost;
+                                            }
+                                            else{
+                                            $convertp = $subtotal+$tax*$voucher->potongan/100;
+                                            $total_beli=$total2-$convertp+$spi->cost;
+                                            }
+                                    }
+                                    else{
                                     $total_beli = $total2-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                    }
                                 }
                             }
                             else{
@@ -409,7 +454,18 @@ class OrderController extends Controller
                                 $total_diskon = $diskon/100*$total2;
                                 $total_beli =  $total2-$total_diskon+ $shipping;
                                     if(isset($poin_use)){
+                                        if(Auth::user()->user_type == 'pasien reg'){
+                                            if($voucher->discount_type == 'amount'){
+                                                $total_beli = $total2-$total_diskon-$voucher->potongan+$shipping;
+                                                }
+                                                else{
+                                                $convertp = $total2*$voucher->potongan/100;
+                                                $total_beli=$total2-$total_diskon-$convertp+$shipping;
+                                                }
+                                        }
+                                        else{
                                         $total_beli = $total2-$total_diskon-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                        }
                                     }
                             }
                         }
@@ -419,10 +475,27 @@ class OrderController extends Controller
                                     $total_beli =$total- $poin_use->poin*$club_point_convert_rate->value +$shipping;
                                 }
                             }
+                            if(Auth::user()->user_type == 'pasien reg'){
+                                if($voucher->discount_type == 'amount'){
+                                    $total_beli = $total-$voucher->potongan+$shipping;
+                                    }
+                                    else{
+                                    $convertp = $total*$voucher->potongan/100;
+                                    $total_beli=$total-$convertp+$shipping;
+                                    }
+                            }
                          }
                 }
             }
             if(isset($poin_use)){
+                if(Auth::user()->user_type == 'pasien reg'){
+                    $detail_data = \App\VoucherUsage::where('user_id',Auth::user()->id)->where('voucher_id',$voucher->id)->first();
+                    $user_voucher= \App\VoucherUsage::findOrFail($detail_data->id);
+                    $user_voucher->is_active= '0';
+                    $user_voucher->save();
+                    UsePoin::destroy($poin_use->id);
+                }
+                else{
                 $total = $poin_use->poin*$club_point_convert_rate->value;
                 $order->poin_convert = $total;
                 $order->use_poin =$poin_use->poin;
@@ -435,6 +508,7 @@ class OrderController extends Controller
                 $history->keterangan = "Tukar Poin";
                 $history->save();
                 UsePoin::destroy($poin_use->id);
+                }
 
             }
             if(Session::has('coupon_discount')){

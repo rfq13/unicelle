@@ -1402,7 +1402,7 @@ background: #428bca;
             $.get("{{route('list.voucher')}}", function (data) {
             })
         }
-        function showDetailVoucher(e,id) {
+        function showDetailVoucher(e,id,type = 0) {
         e.preventDefault();
         if (!$('#modal-size').hasClass('modal-lg')) {
             $('#modal-size').addClass('modal-lg');
@@ -1413,9 +1413,9 @@ background: #428bca;
         
         let data = {
             _token:'{{csrf_token()}}',
-            id: id
+            id: id,
+            type:type
         }
-       
         $.post('{{ route("voucher.showVoucherModal") }}', data,
             function(d) {
                 $('.c-preloader').hide();

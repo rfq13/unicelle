@@ -8,6 +8,7 @@ use App\SubCategory;
 use App\SubSubCategory;
 use App\CouponVoucher;
 use App\User;
+use App\Admin_log;
 use App\VoucherUsage;
 use App\ClubPointExchange;
 use Schema;
@@ -71,6 +72,7 @@ class VoucherController extends Controller
     public function store(Request $request)
     {
         $coupons_voucher = new CouponVoucher;
+        $coupons_voucher->jenis = $request->jenis;
         $coupons_voucher->merchant = $request->merchant;
         $coupons_voucher->judul = $request->judul;
         $coupons_voucher->point = $request->point;
@@ -121,9 +123,11 @@ class VoucherController extends Controller
     {
 
         $coupons_voucher = CouponVoucher::findOrFail($id);
+        $coupons_voucher->jenis = $request->jenis;
         $coupons_voucher->merchant = $request->merchant;
         $coupons_voucher->judul = $request->judul;
         $coupons_voucher->point = $request->point;
+        $coupons_voucher->discount_type = $request->discount_type;
         $coupons_voucher->potongan = $request->potongan;
         $coupons_voucher->slug = str_replace(" ","-",$request->judul);
         $coupons_voucher->syarat = $request->syarat;
@@ -220,9 +224,14 @@ class VoucherController extends Controller
     }
     public function showVoucherModal(Request $request)
     {
+        $type = $request->type;
+        $detail = null;
         $voucher = CouponVoucher::where('id', $request->id)->first();
-       
-        return view('voucher.modal', compact('voucher'));
+       if($type == '1'){
+        $detail= VoucherUsage::where('id',$request->id)->first();
+        $voucher = CouponVoucher::where('id', $detail->voucher_id)->first();
+       }
+        return view('voucher.modal', compact('voucher','type','detail'));
     }
     public function klaimVoucher(Request $request)
     {
@@ -240,6 +249,12 @@ class VoucherController extends Controller
                     ])->loadView('voucher.list_user', compact('detail','coupon'));
         return $pdf->download('voucher-usage-'.$coupon->slug.'.pdf');
     }
+    public function list_voucher_usage($id){
+        $coupon= CouponVoucher::where('id',$id)->first();
+        $detail= VoucherUsage::where('voucher_id',$id)->with('user')->get();
+        return view('voucher.detail', compact('coupon','detail'));
+
+    }
     public function visibility(Request $request)
     {
         $coupon = CouponVoucher::findOrFail($request->id);
@@ -252,6 +267,32 @@ class VoucherController extends Controller
             }
             $coupon->is_active = $st;
             $coupon->save();
+            return ['msg'=>"berhasil $msg kupon $coupon->judul",'st'=>'sukses'];
+        }
+        return ['msg'=>"gagal $msg kupon $coupon->judul",'st'=>'hah'];
+    }
+    public function kupon_active(Request $request)
+    {
+        $coupon = VoucherUsage::findOrFail($request->id);
+        $detail= $coupon->with('user')->first();
+        if ($coupon) {
+            $st = 1;
+            $msg = "aktif";
+            $log= new Admin_log;
+            $log->user_id= Auth::user()->id;
+            $log->order_id= $detail->code;
+            $log->konsumen= $detail->user->name;
+            $log->event= "Mengubah dari sudah terpakai dipakai menjadi belum dipakai";
+
+            if ($coupon->is_active === 1) {
+                $msg = "non aktif";
+                $st = 0;
+                $log->event= "Mengubah dari belum dipakai menjadi sudah terpakai";
+            }
+            $coupon->is_active = $st;
+            $coupon->save();
+            $log->save();
+
             return ['msg'=>"berhasil $msg kupon $coupon->judul",'st'=>'sukses'];
         }
         return ['msg'=>"gagal $msg kupon $coupon->judul",'st'=>'hah'];

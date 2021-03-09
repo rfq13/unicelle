@@ -55,7 +55,9 @@
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a href="{{route('voucher.edit', encrypt($coupon->id))}}">{{translate('Ubah')}}</a></li>
                                         <li><a onclick="confirm_modal('{{route('voucher.delete', $coupon->id)}}');">{{translate('Hapus')}}</a></li>
-                                        <li><a href="{{ route('admin.voucher.usage', $coupon->id) }}">{{translate('Download List User')}}</a></li>
+                                        {{-- <li><a href="{{ route('admin.voucher.usage', $coupon->id) }}">{{translate('Download List User')}}</a></li> --}}
+                                        <li><a href="{{ route('list.voucher.usage', $coupon->id) }}">{{translate('List User')}}</a></li>
+
 
                                     </ul>
                                 </div>

@@ -18,8 +18,8 @@
                                                                         </td>
                                                                     </tr>
                                                                     <tr>
-                                                                        <td class="py-1 anormal">Koin Ditukarkan</td>
-                                                                        <td class="text-right anormal">{{$voucher->point}}</td>
+                                                                        <td class="py-1 anormal">Poin Ditukarkan</td>
+                                                                        <td class="text-right anormal">{{$voucher->point}} poin</td>
                                                                     </tr>
                                                                     @php
                                                                     \Carbon\Carbon::setLocale('id');
@@ -32,6 +32,12 @@
                                                                         <td class="py-1 font-weight-bold" style="color: #464646;">Berlaku</td>
                                                                         <td class="text-right font-weight-bold"style="color: #464646;">{{$tgl->isoFormat('D MMMM')}} - {{$tgl_akhir->isoFormat('D MMMM Y')}}</td>
                                                                     </tr>
+                                                                    @if($type == 1)
+                                                                    <tr>
+                                                                        <td class="py-1 font-weight-bold" style="color: #464646;">Kode Voucher</td>
+                                                                        <td class="text-right font-weight-bold"style="color: #464646;"><span id="myInput">{{$detail->code}}</span><a href="javascript:void(0)" onclick="myFunction()"><img style="width: 5%;margin-left: 5px;" src="{{ my_asset('images/unnamed.png') }}" alt=""></a></td>
+                                                                    </tr>
+                                                                    @endif
                                                                 </table>
                                                             </div>
                                                             <div class="col-12 mt-3 p-1">
@@ -50,6 +56,15 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        @if($type == 1)
+                                                        <div class="modal-footer border-0">
+                                                        <button type="button" class="btn btn-danger mr-3"
+                                                                data-dismiss="modal">Close</button>
+                                                                <a href="{{ route('myvoucher.code', $detail->id) }}">
+                                                            <button type="button" class="btn btn-primary1">Cetak Voucher</button></a>
+
+                                                        </div>
+                                                        @else
                                                         <div class="modal-footer border-0">
                                                             <button type="button" class="btn btn-danger mr-3"
                                                                 data-dismiss="modal">Close</button>
@@ -58,8 +73,15 @@
                                                                 Poin</button></a>
 
                                                         </div>
+                                                        @endif
 
 <script>
+function myFunction() {
+        var copyText = document.getElementById("myInput").innerHTML;
+        copyText.select();
+        copyText.setSelectionRange(0, 99999)
+        document.execCommand("copy");
+    }
     function addvoucher(e,key){
         e.preventDefault()
         $.post('{{ route('tukar.voucher') }}', {_token:'{{ csrf_token() }}',id:key}, function(data){
@@ -73,5 +95,6 @@
         });
                 
     }
+    
 </script>
                                                

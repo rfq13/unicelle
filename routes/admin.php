@@ -207,7 +207,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::post('/voucher/update/{id}', 'VoucherController@update_voucher')->name('voucher.update');
 	Route::get("/voucher/{id}/delete","VoucherController@delete_voucher")->name("voucher.delete");
 	Route::get('invoice/voucher_usage/{id}', 'VoucherController@voucher_usage')->name('admin.voucher.usage');
+	Route::get('list/voucher_usage/{id}', 'VoucherController@list_voucher_usage')->name('list.voucher.usage');
 	Route::post('/voucher/visibility', 'VoucherController@visibility')->name('coupon.visibility');
+	Route::post('/voucher/use/visibility', 'VoucherController@kupon_active')->name('coupon.visibility.update');
 
 
 

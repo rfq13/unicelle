@@ -14,6 +14,15 @@
                 <div class="panel-heading">
 </div>
 <div class="form-group">
+   <label class="col-lg-3 control-label">{{translate('Jenis Voucher')}}</label>
+   <div class="col-lg-2">
+							<select class="demo-select2" name="jenis" required>
+								<option value="1">{{translate('Internal Unicelle')}}</option>
+								<option value="0">{{translate('External')}}</option>
+							</select>
+						</div>
+</div>
+<div class="form-group">
     <label class="col-lg-3 control-label" for="coupon_code">{{translate('Nama Merchant')}}</label>
     <div class="col-lg-9">
         <input type="text"  id="coupon_code" name="merchant" class="form-control" required>

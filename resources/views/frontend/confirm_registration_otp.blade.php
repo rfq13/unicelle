@@ -106,7 +106,7 @@
 
                                 <hr>
                                 <a type="button" class="btn btn-primary1 my-2" style="width: 100%;"  href="{{ route('user.registration-otp') }}">
-                                       Daftar Via Nomer Telepon</a>
+                                       Daftar Via Nomor Telepon</a>
                                        
                                        @php
                                            $params = ['physician'=>'physician'];

@@ -81,7 +81,7 @@
 
                             <hr>
 
-                            <a href="{{ route('user.login-otp') }}" class="btn btn-primary1" style="width: 100%;"> Login Via Nomer
+                            <a href="{{ route('user.login-otp') }}" class="btn btn-primary1" style="width: 100%;"> Login Via Nomor
                                 Telepon</a>
                                 <a type="submit" class="btn btn-primary1 my-2" style="width: 100%;background-color: #ec4646;"  href="{{ route('home') }}">
                                        Kembali Ke Halaman Utama

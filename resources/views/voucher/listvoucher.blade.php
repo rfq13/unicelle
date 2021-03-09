@@ -183,7 +183,12 @@
                                 <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;background-color: #A9A9A9;" disabled>Pakai
                                     Voucher</button>
                                 @else
-                                <a href="{{ route('myvoucher.code', $l->id) }}">
+                                
+                                {{-- <a href="{{ route('myvoucher.code', $l->id) }}">
+                                <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;">Pakai
+                                    Voucher</button>
+                                    </a> --}}
+                                    <a onClick="showDetailVoucher(event,{{ $l->id }},1)">
                                 <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;">Pakai
                                     Voucher</button>
                                     </a>

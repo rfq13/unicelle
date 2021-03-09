@@ -42,8 +42,18 @@
                 </div>
             </div>
           @if(Auth::user()->user_type == 'pasien reg')
-            <p>&nbsp</p>
-            @else
+          <form  action="{{ route('use_poin') }}" method="POST">
+            @csrf
+            <div class="row" style="margin-top: 8px;margin-bottom: 16px;">
+               
+               <div class="row_poin">
+                    <input type="text" name="kode" class="form-control" @if(isset($poin_use)) value="{{$poin_use->poin}}" @endif id="inlineFormInputName2" placeholder="Kode Voucher Anda">
+                </div>
+                <div class="col-4" style="text-align: end;">
+                    <button type="submit" class="btn btn-primary1 px-4">Pakai</button>
+                </div>  
+            </div>
+            </form>            @else
             <form  action="{{ route('use_poin') }}" method="POST">
             @csrf
             <div class="row" style="margin-top: 8px;margin-bottom: 16px;">
@@ -213,15 +223,31 @@
                 
 
                  @if (isset($poin_use))
+                    @if(Auth::user()->user_type == 'pasien reg')
+                    @php
+                    $voucher = \App\CouponVoucher::where('id', $poin_use->poin)->first();
+
+                    @endphp
+                    <tr class="cart-shipping">
+                        <th>{{translate('Diskon Poin')}}</th>
+                        <td class="text-right">
+                            <span class="text-italic">@if($voucher->discount_type == 'amount'){{single_price($voucher->potongan)}}@else($voucher->discount_type == 'percent'){{ $voucher->potongan}}<span>%</span>@endif</span>
+                        </td>
+                    </tr>
+                    @else
                     <tr class="cart-shipping">
                         <th>{{translate('Diskon Poin')}}</th>
                         <td class="text-right">
                             <span class="text-italic">{{ single_price($poin_use->poin*$club_point_convert_rate->value) }}</span>
                         </td>
                     </tr>
+                    @endif
                 @endif
                 @php
+                if(isset($poin_use)){
 
+                $voucher = \App\CouponVoucher::where('id', $poin_use->poin)->first();
+                }
                     $total = $subtotal+$tax+$shipping;
                     if($check_custom != null && $check_custom->count() > 0){
                         if($check_custom->min_order_discount <= $total_sementara){
@@ -229,7 +255,18 @@
                                 $total_awal = $subtotal+$tax-$check_custom->discount;
                                 $total=$total_awal+$shipping;
                                 if(isset($poin_use)){
+                                    if(Auth::user()->user_type == 'pasien reg'){
+                                        if($voucher->discount_type == 'amount'){
+                                        $total = $total_awal-$voucher->potongan+$shipping;
+                                        }
+                                        else{
+                                        $convertp = $total_awal*$voucher->potongan/100;
+                                        $total=$total_awal-$convertp+$shipping;
+                                        }
+                                    }
+                                    else{
                                     $total = $total_awal-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                    }
                                 }
                             }
                             else{
@@ -237,8 +274,20 @@
                                 $total_diskon = $check_custom->discount/100*$total_awal;
                                 $total=$total_awal-$total_diskon+$shipping;
                                     if(isset($poin_use)){
+                                        if(Auth::user()->user_type == 'pasien reg'){
+                                            if($voucher->discount_type == 'amount'){
+                                            $total = $total_awal-$total_diskon-$voucher->potongan+$shipping;
+                                        }
+                                        else{
+                                        $convertp = $total_awal*$voucher->potongan/100;
+                                        $total=$total_awal-$total-diskon-$convertp+$shipping;
+                                        }
+
+                                        }
+                                        else{
                                         $convertp=$poin_use->poin*$club_point_convert_rate->value;
                                         $total=$total_awal-$total_diskon-$convertp+$shipping;
+                                        }
                                     }
                             }
                         }
@@ -273,7 +322,19 @@
                             $total_awal = $subtotal+$tax-$detail_user->discount;
                             $total=$total_awal+$shipping;
                             if(isset($poin_use)){
-                                $total = $total_awal-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                    if($voucher->discount_type == 'amount'){
+                                        $total = $total_awal-$voucher->potongan+$shipping;
+                                    }
+                                    else{
+                                        $convertp = $total_awal*$voucher->potongan/100;
+                                        $total=$total_awal-$convertp+$shipping;
+                                    }
+
+                                }
+                                else{
+                                    $total = $total_awal-$poin_use->poin*$club_point_convert_rate->value+$shipping;
+                                }
                             
                             }
                         }
@@ -282,8 +343,20 @@
                             $total_diskon = $detail_user->discount/100*$total_awal;
                             $total=$total_awal-$total_diskon+$shipping;
                             if(isset($poin_use)){
+                                if(Auth::user()->user_type == 'pasien reg'){
+                                    if($voucher->discount_type == 'amount'){
+                                        $total = $total_awal-$total_diskon-$voucher->potongan+$shipping;
+                                    }
+                                    else{
+                                        $convertp = $total_awal*$voucher->potongan/100;
+                                        $total=$total_awal-$total-diskon-$convertp+$shipping;
+                                    }
+
+                                }
+                                else{
                                 $convertp=$poin_use->poin*$club_point_convert_rate->value;
-                                $total=$total_awal-$total_diskon-$convertp+$shipping;
+                                $total=$total_awal-$total_diskon-$convertp+$shipping;                                
+                                }
                             }
                         }
                         
@@ -292,6 +365,20 @@
                             if(Auth::user()->user_type == 'partner physician'){
                                 if(isset($poin_use)){
                                 $total -= $poin_use->poin*$club_point_convert_rate->value;
+                                }
+                            }
+                            elseif(Auth::user()->user_type == 'pasien reg'){
+                                if(isset($poin_use)){
+                                    if($voucher->discount_type == 'amount'){
+                                        $total -= $voucher->potongan;
+                                    }
+                                    else{
+                                        $total_awal = $subtotal+$tax;
+                                        $convertp = $total_awal*$voucher->potongan/100;
+                                        $total -= $convertp;
+
+                                    }
+                                    
                                 }
                             }
                         }

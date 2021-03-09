@@ -31,4 +31,6 @@ Route::group(['middleware' => ['user', 'verified']], function(){
     Route::get('earning-points', 'ClubPointController@userpoint_index')->name('earnng_point_for_user');
     Route::post('convert-point-into-wallet', 'ClubPointController@convert_point_into_wallet')->name('convert_point_into_wallet');
     Route::post('use_poin', 'ClubPointController@cart_club_poin')->name('use_poin');
+    Route::post('use_voucher', 'ClubPointController@cart_club_voucher')->name('use_voucher');
+
 });

@@ -45,7 +45,7 @@ if($ship != null || $ship != 0){
 <h5 class="modal-title strong-600 heading-5" >{{ translate('#')}}{{ $order->code }}</h5>
     <div style="margin-top:20px;font-size: 14px;">
     <div class="row">
-                <div class="col-lg-5">
+                <div class="col-lg-4">
                 @foreach ($order->orderDetails as $key => $orderDetail)
                 @php
                     $totalPoint = [];
@@ -67,7 +67,7 @@ if($ship != null || $ship != 0){
                     \Carbon\Carbon::setLocale('id');
                 @endphp
                 @if ($orderDetail->product != null)
-                <div class="row" style="margin-bottom: 20px;">
+                {{-- <div class="row" style="margin-bottom: 20px;">
                 <div class="col-lg-6" style="max-width:40%">
                 <a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">
                     <img style="border: 1px solid #f0f0f0;border-radius: 10px;" src="{{ my_asset($orderDetail->product->thumbnail_img) }}" alt="" class="img-fluid mr-2">
@@ -143,12 +143,18 @@ if($ship != null || $ship != 0){
                 <span style="color:#000000;font-weight:bold">{{ $orderDetail->quantity }}</span>
                 <p style="color:#818a91;margin-bottom: 0px;">Harga</p>
                 <span style="color:#000000;font-weight:bold">{{ single_price($orderDetail->price) }}</span>
-                </div>
-                </div>
+                </div> 
+                </div> --}}
+                <span class="judul-pesanan__ font-weight-bold" style="font-size: 14px; text-transform:capitalize">{{ $orderDetail->product->name }} <span>{{ $orderDetail->variation }}</span></span>
+                <p style="color:#818a91;margin-bottom: 0px;">Jumlah Pesanan</p>
+                <span style="color:#000000;font-weight:bold">{{ $orderDetail->quantity }}</span>
+                <p style="color:#818a91;margin-bottom: 0px;">Harga</p>
+                <span style="color:#000000;font-weight:bold">{{ single_price($orderDetail->price) }}</span>
+                
                 @endif
                 @endforeach
                 </div>
-                <div class="col-lg-4">
+                <div class="col-lg-5">
                 <div style="margin-bottom: 20px;">
                 <p style="margin-bottom:0px">Kode pesanan</p>
                 <span style="color:#000000;font-weight:bold">{{ $order->code }}</span>

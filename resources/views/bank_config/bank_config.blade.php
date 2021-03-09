@@ -59,7 +59,7 @@
                                 <label class="control-label">No. Rekening</label>
                             </div>
                             <div class="col-lg-8">
-                                <input type="text" class="form-control"  name="BANK_NO_REK" value="{{ $config->BANK_NO_REK }}" placeholder="nomer rekening bank" required>
+                                <input type="text" class="form-control"  name="BANK_NO_REK" value="{{ $config->BANK_NO_REK }}" placeholder="nomor rekening bank" required>
                             </div>
                         </div>
                         <div class="form-group">

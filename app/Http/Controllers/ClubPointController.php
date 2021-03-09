@@ -7,6 +7,8 @@ use App\BusinessSetting;
 use App\ClubPointDetail;
 use App\ClubPoint;
 Use App\PoinUser;
+use App\VoucherUsage;
+use App\CouponVoucher;
 use App\Member;
 use App\UsePoin;
 use App\Product;
@@ -171,6 +173,64 @@ class ClubPointController extends Controller
 
     public function cart_club_poin(Request $request)
     {
+        $subtotal = 0;
+
+        if(Auth::user()->user_type == 'pasien reg'){
+            $search= UsePoin::where('user_id',Auth::user()->id)->first();
+            $detail= VoucherUsage::where('code',$request->kode)->where('is_active',1)->first();
+            if(isset($detail)){
+                $voucher = CouponVoucher::where('id', $detail->voucher_id)->first();
+                if($voucher->discount_type == 'amount'){
+                    $cart = \App\Cart::where('user_id',Auth::user()->id)->get();
+                    foreach ($cart as $key => $cartItem){
+                        $subtotal += $cartItem['price']*$cartItem['quantity'];
+                        if($subtotal <= $voucher->potongan){
+                            flash(__('Total belanja kurang dari potongan harga'))->error();
+                            return redirect()->back();
+                        }
+                        else{
+                            if(isset($search)){
+                                $update = UsePoin::findOrFail($search->id);
+                                $update->poin=$detail->voucher_id;
+                                $update->save();
+                            }
+                            else{
+                                $history = new UsePoin;
+                                $history->user_id = Auth::user()->id;
+                                $history->poin=$detail->voucher_id;
+                                $history->save();
+                            }  
+                            return redirect()->back();
+                            flash(__('sukses'))->success();
+                        }
+                    }
+
+                }
+                else{
+            if(isset($search)){
+                $update = UsePoin::findOrFail($search->id);
+                $update->poin=$detail->voucher_id;
+                $update->save();
+            }
+            else{
+                $history = new UsePoin;
+                $history->user_id = Auth::user()->id;
+                $history->poin=$detail->voucher_id;
+                $history->save();
+            }  
+            return redirect()->back();
+            flash(__('sukses'))->success();
+        }
+
+        }
+            else{
+                flash(__('Kode voucher sudah terpakai'))->error();
+
+                return redirect()->back();
+            }
+
+        }
+        else{
         if($request->has('jml'))
         {
             if($request->jml <= Auth::user()->poin)
@@ -201,5 +261,6 @@ class ClubPointController extends Controller
         }
         
         return redirect()->back();
+        }
     } 
 }

@@ -60,7 +60,7 @@
                                 <div class="row mb-4 align-items-center">
                                     <div class="col">
                                         <input type="text" class="form-control"
-                                            placeholder="Nomer Klinik/Surat Izin Praktek Dokter ">
+                                            placeholder="Nomor Klinik/Surat Izin Praktek Dokter ">
                                     </div>
                                     <div class="col">
                                         <label for="exampleFormControlFile1" class="font-weight-light">Pilih File Foto</label>
