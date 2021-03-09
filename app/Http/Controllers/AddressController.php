@@ -42,7 +42,7 @@ class AddressController extends Controller
     public function store(Request $request)
     {
         if ($request->has('id') && $request->id != null) {
-            dd($request->all());
+            // dd($request->all());
             # code...
             $address = Address::findOrFail($request->id);
         }else{
