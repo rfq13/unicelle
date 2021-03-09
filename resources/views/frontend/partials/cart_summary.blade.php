@@ -42,12 +42,18 @@
                 </div>
             </div>
           @if(Auth::user()->user_type == 'pasien reg')
+         
+          @if(isset($poin_use))
+          @php
+          $detail_data = \App\VoucherUsage::where('user_id',Auth::user()->id)->where('voucher_id',$poin_use->poin)->first();
+            @endphp
+            @endif
           <form  action="{{ route('use_poin') }}" method="POST">
             @csrf
             <div class="row" style="margin-top: 8px;margin-bottom: 16px;">
                
                <div class="row_poin">
-                    <input type="text" name="kode" class="form-control" @if(isset($poin_use)) value="{{$poin_use->poin}}" @endif id="inlineFormInputName2" placeholder="Kode Voucher Anda">
+                    <input type="text" name="kode" class="form-control" @if(isset($poin_use)) value="{{$detail_data->code}}" @endif id="inlineFormInputName2" placeholder="Kode Voucher Anda">
                 </div>
                 <div class="col-4" style="text-align: end;">
                     <button type="submit" class="btn btn-primary1 px-4">Pakai</button>

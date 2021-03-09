@@ -160,6 +160,7 @@
                                             color:#FF0000;">Expired</span>
                                             
                                         @else
+                                            @if($l->is_active == 1)
                                         <span style="
                                             font-family: Open Sans;
                                             font-style: normal;
@@ -173,7 +174,15 @@
                                             font-size: 20px;
                                             line-height: 27px;
                                             color: #FF6F00;">{{$l->voucher->point}}</span>
-                                            
+                                            @else
+                                            <span style="
+                                            font-family: Open Sans;
+                                            font-style: normal;
+                                            font-weight: bold;
+                                            font-size: 14px;
+                                            line-height: 27px;
+                                            color:#008000;">Sudah dipakai</span>
+                                            @endif
                                         @endif   
                                         </div>
                                     </div>
@@ -188,10 +197,15 @@
                                 <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;">Pakai
                                     Voucher</button>
                                     </a> --}}
+                                    @if($l->is_active == 1)
                                     <a onClick="showDetailVoucher(event,{{ $l->id }},1)">
                                 <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;">Pakai
                                     Voucher</button>
                                     </a>
+                                    @else
+                                    <button class="btn btn-primary1 w-100" style="border-radius: 0px 0px 5px 5px;background-color: #A9A9A9;" disabled>Pakai
+                                    Voucher</button>
+                                    @endif
                                 @endif
                             </div>
 

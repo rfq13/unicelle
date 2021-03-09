@@ -337,7 +337,9 @@ class OrderController extends Controller
             $total_beli=$subtotal + $tax + $shipping;
             $poin_use = UsePoin::where('user_id',Auth::user()->id)->first();
             $club_point_convert_rate = \App\BusinessSetting::where('type', 'club_point_convert_rate')->first();
+            if(isset($poin_use)){
             $voucher = \App\CouponVoucher::where('id', $poin_use->poin)->first();
+            }
             $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
             if($check_custom != null && $check_custom->count() > 0){
                 if($check_custom->min_order_discount <= $subtotal){
@@ -476,6 +478,8 @@ class OrderController extends Controller
                                 }
                             }
                             if(Auth::user()->user_type == 'pasien reg'){
+                                if(isset($poin_use)){
+
                                 if($voucher->discount_type == 'amount'){
                                     $total_beli = $total-$voucher->potongan+$shipping;
                                     }
@@ -483,6 +487,7 @@ class OrderController extends Controller
                                     $convertp = $total*$voucher->potongan/100;
                                     $total_beli=$total-$convertp+$shipping;
                                     }
+                                }
                             }
                          }
                 }
