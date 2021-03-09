@@ -70,10 +70,11 @@
 
                 }
             }
-            if($check_custom->min_order_poin <= $total){
+            
+        }
+        if($check_custom->min_order_poin <= $total){
                 $total_poin=$check_custom->poin/100*$total;
             }
-        }
     }
     else{
     if(Auth::user()->user_type == 'regular physician'){
