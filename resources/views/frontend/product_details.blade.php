@@ -77,7 +77,7 @@
                         $rekomendasi = \App\Product::where("id",'!=',$detailedProduct->id)->withCount('orderDetails')->orderBy('order_details_count','desc')->limit(3)->get();
                     @endphp
 
-                    <div class="card produk-serupa mt-3 p-3 d-xl-block d-none">
+                    {{-- <div class="card produk-serupa mt-3 p-3 d-xl-block d-none">
                         <span class="judul_produk">Produk Rekomendasi</span>
                         <div class="produk-lainnya mt-4">
                         @foreach ($rekomendasi as $key=>$product)    
@@ -110,7 +110,7 @@
                             </div>
                         <hr>
 
-                    </div>
+                    </div> --}}
                     <!-- end -->
                 </div>
 
@@ -126,10 +126,10 @@
                                             $total = 0;
                                             $total += $detailedProduct->reviews->count();
                                         @endphp
-                                        <span class="star-rating">
+                                        {{-- <span class="star-rating">
                                             {{ renderStarRating($detailedProduct->rating) }}
                                         </span>
-                                        <span class="rating-count ml-1">({{ $total }} {{ translate('reviews')}})</span>
+                                        <span class="rating-count ml-1">({{ $total }} {{ translate('reviews')}})</span> --}}
                                     </div>
                                 </div>
                                 <div class="col-6 text-right">

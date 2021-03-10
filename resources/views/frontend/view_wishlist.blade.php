@@ -163,17 +163,17 @@
                                             <a href="{{ route('product', $product->slug) }}" class="d-block  h-100 text-center" tabindex="0">
                                                 <img class="img-fluid w-100 lazyload" src="{{ my_asset('frontend/images/placeholder.jpg') }}" data-src="{{ my_asset($product->thumbnail_img) }}" alt="{{  __($product->name) }}">
                                             </a>
-                                            <div class="product-btns clearfix">
+                                            {{-- <div class="product-btns clearfix">
                                                 <button class="btn add-wishlist" title="Add to Wishlist" onclick="addToWishList({{ $product->id }})" type="button">
                                                     <i class="la la-heart-o"></i>
                                                 </button>
                                                 <button class="btn add-compare" title="Add to Compare" onclick="addToCompare({{ $product->id }})" type="button">
                                                     <i class="la la-refresh"></i>
-                                                </button>
+                                                </button> 
                                                 <button class="btn quick-view" title="Quick view" onclick="showAddToCartModal({{ $product->id }})" type="button">
                                                     <i class="la la-eye"></i>
                                                 </button>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div class="p-md-3 p-2">
                                             <div class="price-box">
@@ -182,9 +182,9 @@
                                                 @endif
                                                 <span class="product-price strong-600">{{ home_discounted_base_price($product->id) }}</span>
                                             </div>
-                                            <div class="star-rating star-rating-sm mt-1">
+                                            {{-- <div class="star-rating star-rating-sm mt-1">
                                                 {{ renderStarRating($product->rating) }}
-                                            </div>
+                                            </div> --}}
                                             <h2 class="product-title p-0">
                                                 <a href="{{ route('product', $product->slug) }}" class=" text-truncate">{{  __($product->name) }}</a>
                                             </h2>

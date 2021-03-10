@@ -197,9 +197,9 @@
                             <cite style="color: #95adab;font-size:85%">Login untuk melihat harga</cite>
                         @endauth
                     </div>
-                    <div class="star-rating star-rating-sm mt-1">
+                    {{-- <div class="star-rating star-rating-sm mt-1">
                         {{ renderStarRating($product->rating) }}
-                    </div>
+                    </div> --}}
                     <h2 class="product-title font-weight-bold p-0">
                         <a href="{{ route('product', $product->slug) }}"
                             class="text-truncate">{{ __($product->name) }}</a>

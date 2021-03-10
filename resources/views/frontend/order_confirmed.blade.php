@@ -70,7 +70,7 @@
                                     untuk menghindari pembatalan otomatis dan silahkan lakukan konfirmasi pembayaran
                                     jika kamu sudah melakukan pembayaran jika kamu sudah melakukan pembayaran di
                                     halaman akun profil.</span>
-                                <span>pembayaran akan hangus pada {{ \Carbon\Carbon::parse($va['expiration_date']) }}</span>
+                                <span>pembayaran akan hangus pada <span style="color:#FF0000">{{ \Carbon\Carbon::parse($va['expiration_date']) }}</span></span>
                             </div>
                         </div>
 
