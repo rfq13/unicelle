@@ -33,11 +33,11 @@
                                                                         <td class="text-right font-weight-bold"style="color: #464646;">{{$tgl->isoFormat('D MMMM')}} - {{$tgl_akhir->isoFormat('D MMMM Y')}}</td>
                                                                     </tr>
                                                                     @if($type == 1)
-                                                                    <input id="myInput" style="display:none" type="text" value="{{$detail->code}}">
+                                                                    
 
                                                                     <tr>
                                                                         <td class="py-1 font-weight-bold" style="color: #464646;">Kode Voucher</td>
-                                                                        <td class="text-right font-weight-bold"style="color: #464646;"><span>{{$detail->code}}</span><a href="javascript:void(0)" onclick="myFunction()"><img style="width: 5%;margin-left: 5px;" src="{{ my_asset('images/unnamed.png') }}" alt=""></a></td>
+                                                                        <td class="text-right font-weight-bold"style="color: #464646;"><input id="myInput" style="border: none;font-weight: 600;text-align:right" type="text" value="{{$detail->code}}"><a href="javascript:void(0)" onclick="myFunction()"><img style="width: 5%;margin-left: 5px;" src="{{ my_asset('images/unnamed.png') }}" alt=""></a></td>
                                                                     </tr>
                                                                     @endif
                                                                 </table>

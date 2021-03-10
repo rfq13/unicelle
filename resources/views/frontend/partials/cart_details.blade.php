@@ -10,7 +10,7 @@
                                 <tr>
                                     <th class="product-image text-center"></th>
                                     <th class="product-name text-center" style="font-size: 14px;text-transform:capitalize">{{ translate('Nama')}}</th>
-                                    <th class="product-price d-lg-table-cell text-center" style="font-size: 14px;text-transform:lowercase">{{ translate('@pcs')}}</th>
+                                    <th class="product-price d-lg-table-cell text-center" style="font-size: 14px;text-transform:lowercase">{{ translate('Harga Satuan')}}</th>
                                     <th class="product-quanity d-md-table-cell text-center" style="font-size: 14px;text-transform:capitalize">{{ translate('Jumlah')}}</th>
                                     <th class="product-total text-center" style="font-size: 14px;text-transform:capitalize">{{ translate('Total Harga')}}</th>
                                     <th class="product-remove text-center"></th>
@@ -47,7 +47,7 @@
                                         </td>
 
                                         <td class="product-name">
-                                            <span class="pr-4 d-block">{{ $product_name_with_choice }}</span>
+                                            <span class="pr-4 d-block">{{ $product_name_with_choice }} / {{$product->unit}}</span>
                                         </td>
 
                                         <td class="product-price d-lg-table-cell">

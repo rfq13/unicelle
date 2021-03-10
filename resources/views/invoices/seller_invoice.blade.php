@@ -165,7 +165,7 @@
 	                @foreach ($order->orderDetails as $key => $orderDetail)
 		                @if ($orderDetail->product)
 							<tr class="">
-								<td>{{ $orderDetail->product->name }} @if($orderDetail->variation != null) ({{ $orderDetail->variation }}) @endif</td>
+								<td>{{ $orderDetail->product->name }} @if($orderDetail->variation != null) ({{ $orderDetail->variation }}) @endif / {{$orderDetail->product->unit}}</td>
 								<td>
 									@if ($orderDetail->shipping_type != null && $orderDetail->shipping_type == 'home_delivery')
 										{{ translate('Home Delivery') }}

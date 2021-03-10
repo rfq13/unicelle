@@ -237,7 +237,7 @@
                                     </td>
                 					<td>
                                         @if ($orderDetail->product != null)
-                    						<strong><a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">{{ $orderDetail->product->name }}</a></strong>
+                    						<strong><a href="{{ route('product', $orderDetail->product->slug) }}" target="_blank">{{ $orderDetail->product->name }} / {{$orderDetail->product->unit}}</a></strong>
                     						<small>{{ $orderDetail->variation }}</small>
                                         @else
                                             <strong>{{ translate('Produk Tidak Tersedia') }}</strong>
