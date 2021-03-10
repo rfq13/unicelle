@@ -55,7 +55,7 @@
                         @if ($delivery_status == 'delivered')<option value="delivered" selected>{{translate('Terkirim')}}</option>@endif
 					</select>
 				</div>
-				<div class="col-lg-2">
+				<div class="col-lg-3">
 					<div class="row">
 						<label for="update_delivery_status">{{ translate('Resi Pengiriman :')}}</label>
 						<div class="row" style="margin-top: 6px;margin-left:1px;{{ isset($order->resi) ? '' : 'font-style:italic' }}" id="row-resi">
@@ -64,7 +64,7 @@
 					</div>
 				</div>  
 				
-				<div class="col-lg-1">
+				{{-- <div class="col-lg-1">
 				<div class="row">
 				@php
 				$dt = \Carbon\Carbon::now();
@@ -88,7 +88,7 @@
 				@endif
 					</div>
 					
-				</div>
+				</div> --}}
             </div>
             <hr>
     		<div class="invoice-bill row">

@@ -17,6 +17,47 @@ class PurchaseHistoryController extends Controller
      */
     public function index()
     {
+        $dt = \Carbon\Carbon::now();
+        $hari= date('Y-m-d H:i:s', time() - (60 * 60 * 24 * 14));
+        //check log resi lebih dari 14 hari
+        // dd(Auth::user()->id);
+        $check= \App\Log_resi::where('updated_at','<=',$hari)->where('user_id',Auth::user()->id)->get();
+        // dd($check);
+        if ($check != null && $check->count() > 0) {
+            $id_order = $check->pluck("order_id")->toArray();
+            $order_data = order::with('orderDetails')->whereIn('id',$id_order)->where('delivery_status','on_delivery')->get();
+            //check jika ada data yg resi lebih 14 hari
+            if ($order_data != null && $order_data->count() > 0) {
+                foreach ($order_data as $key => $o) {
+                    $o->user_status_konfrimasi = 1;
+                    $o->delivery_status = 'delivered';
+                    $detail_id_order = $order_data->pluck("id")->toArray();
+                    $order_detail_data = OrderDetail::whereIn('order_id',$detail_id_order)->get();
+                foreach ($order_detail_data as $key => $value) {
+                    $value->delivery_status = "delivered";
+                    $value->save();
+                }
+                if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
+                    $detail_user_order = $order_data->pluck("user_id")->toArray();
+                    if($o->get_poin != null){
+                        $user = $o['user_id'];
+                        $cp = new \App\ClubPoint;
+                        $cp->user_id = $user;
+                        $cp->points = $o['get_poin'];
+                        $cp->convert_status = 0;
+                        $user_add = \App\User::whereIn('id',$detail_user_order)->get();
+                        foreach ($user_add as $key => $us) {
+                            $us->poin += $cp->points;
+                            $us->save();
+                        }
+                        $cp->save();
+                    
+                    }
+                }
+                $o->save();
+                }
+            }
+        }
         $orders = Order::where('user_id', Auth::user()->id)
         ->whereNull("dropsiper")            
         ->with(['orderDetails','orderDetails.product'])

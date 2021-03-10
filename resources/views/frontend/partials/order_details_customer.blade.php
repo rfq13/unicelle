@@ -206,7 +206,7 @@ if($ship != null || $ship != 0){
                 @endif
                 <div style="margin-bottom: 20px;">
                 <p style="margin-bottom:0px">Poin</p>
-                <span style="color:#000000;font-weight:bold">{{$order->get_poin}}</span>
+                <span style="color:#000000;font-weight:bold">{{number_format($order->get_poin,0,0,".")}}</span>
                 </div>
                 @if($order->kupon != null)
                 <div style="margin-bottom: 20px;">

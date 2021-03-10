@@ -270,7 +270,9 @@ class HomeController extends Controller
         return back();
     }
 
-
+    public function tes(){
+        return view('auth.verify_physician');
+    }
     public function seller_update_profile(Request $request)
     {
         if (env('DEMO_MODE') == 'On') {

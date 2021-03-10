@@ -63,7 +63,6 @@
                                 <table class="table table-sm table-responsive-md mb-0">
                                     <thead>
                                         <tr>
-                                            <th>#</th>
                                             <th>{{ __('Tanggal') }}</th>
                                             <th>{{__('Point')}}</th>
                                            {{-- <th>{{__('Dikonversi')}}</th> --}}
@@ -74,7 +73,6 @@
                                     @if (isset($point_exchange))
                                 <?php foreach ($point_exchange as $key => $value): ?>
                                     <tr>
-                                    <td>{{ $key+1 }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($value->created_at)) }}</td>
                                                     <td>{{ $value->point }} {{ __(' pts') }}</td>
                                                     {{-- <td><span class="ml-2" style="color:green"><strong>-</strong></span>
@@ -86,7 +84,6 @@
                                         @if(count($club_points) > 0)
                                             @foreach ($club_points as $key => $club_point)
                                                 <tr>
-                                                    <td>{{ $key+1 }}</td>
                                                     <td>{{ date('d-m-Y', strtotime($club_point->created_at)) }}</td>
                                                     <td>{{ $club_point->points }} {{ __(' pts') }}</td>
                                                     {{-- <td>

@@ -27,6 +27,7 @@ Route::get('regUser/{number}', 'Auth\LoginController@regUser')->name('regUser');
 Route::view(env('URL_ADMIN'),'auth.admin_login')->name("login.admin")->middleware('guest');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+
 Route::get('/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
 Route::get('/verification-confirmation/{code}', 'Auth\VerificationController@verification_confirmation')->name('email.verification.confirmation');
 Route::get('/mail_callback', 'HomeController@mail_callback')->name('mail_callback');
@@ -62,6 +63,7 @@ Route::post('/home/section/home_categories', 'HomeController@load_home_categorie
 Route::post('/home/section/best_sellers', 'HomeController@load_best_sellers_section')->name('home.section.best_sellers');
 //category dropdown menu ajax call
 Route::post('/category/nav-element-list', 'HomeController@get_category_items')->name('category.elements');
+Route::get('/ver', 'HomeController@tes');
 
 //Frontend Arju
 Route::get('/artikel/{slug}', 'blogController@show')->name('detail.blog');

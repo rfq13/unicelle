@@ -284,8 +284,13 @@ class RegisterController extends Controller
                 $user->save();
                 flash(translate('Pendaftaran Berhasil.'))->success();
             } else {
+                if ($request->user_type == "regular physician" || $request->user_type == "partner physician") {
+                    return view('auth.verify_physician');
+                }
+                else{
                 event(new Registered($user));
                 flash(translate('Registrasi Sukses. Mohon verifikasi email anda.'))->success();
+                }
             }
         }
 

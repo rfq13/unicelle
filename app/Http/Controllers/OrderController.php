@@ -83,7 +83,46 @@ class OrderController extends Controller
     public function admin_orders(Request $request)
     {
         CoreComponentRepository::instantiateShopRepository();
-
+        //date now
+        $dt = \Carbon\Carbon::now();
+        $hari= date('Y-m-d H:i:s', time() - (60 * 60 * 24 * 14));
+        //check log resi lebih dari 14 hari
+        $check= \App\Log_resi::where('updated_at','<=',$hari)->get();
+        if ($check != null && $check->count() > 0) {
+            $id_order = $check->pluck("order_id")->toArray();
+            $order_data = order::with('orderDetails')->whereIn('id',$id_order)->where('delivery_status','on_delivery')->get();
+            //check jika ada data yg resi lebih 14 hari
+            if ($order_data != null && $order_data->count() > 0) {
+                foreach ($order_data as $key => $o) {
+                    $o->user_status_konfrimasi = 1;
+                    $o->delivery_status = 'delivered';
+                    $detail_id_order = $order_data->pluck("id")->toArray();
+                    $order_detail_data = OrderDetail::whereIn('order_id',$detail_id_order)->get();
+                foreach ($order_detail_data as $key => $value) {
+                    $value->delivery_status = "delivered";
+                    $value->save();
+                }
+                if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated) {
+                    $detail_user_order = $order_data->pluck("user_id")->toArray();
+                    if($o->get_poin != null){
+                        $user = $o['user_id'];
+                        $cp = new ClubPoint;
+                        $cp->user_id = $user;
+                        $cp->points = $o['get_poin'];
+                        $cp->convert_status = 0;
+                        $user_add = User::whereIn('id',$detail_user_order)->get();
+                        foreach ($user_add as $key => $us) {
+                            $us->poin += $cp->points;
+                            $us->save();
+                        }
+                        $cp->save();
+                    
+                    }
+                }
+                $o->save();
+                }
+            }
+        }
         $payment_status = null;
         $delivery_status = null;
         $sort_search = null;
@@ -711,12 +750,28 @@ class OrderController extends Controller
         $order->resi = $request->resi;
         $order->save();
         $now = Carbon::now();
-
-        $log= new Log_resi;
-        $log->user_id = Auth::user()->id;
-        $log->order_id = $order->id;
-        $log->resi = $request->resi;
-        $log->tgl_input = strtotime($now);
+        $search= Log_resi::where('order_id',$order->id)->first();
+        if(isset($search)){
+            $log = Log_resi::findOrFail($search->id);
+            $log->user_id = $order->user_id;
+            $log->order_id = $order->id;
+            $log->resi = $request->resi;
+            $log->tgl_input = strtotime($now);
+            $log->save();
+        }else{
+            $log= new Log_resi;
+            $log->user_id = $order->user_id;
+            $log->order_id = $order->id;
+            $log->resi = $request->resi;
+            $log->tgl_input = strtotime($now);
+            $log->save();
+        }
+        $nama_user= User::where('id',$order->user_id)->first();
+        $log= new Admin_log;
+        $log->user_id= Auth::user()->id;
+        $log->order_id= $order->code;
+        $log->konsumen= $nama_user->name;
+        $log->event= 'Menambahkan kode resi'.$request->resi;
         $log->save();
         flash("Berhasil menambah resi")->success();
         return 1;

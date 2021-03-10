@@ -52,7 +52,7 @@ class ClubPointController extends Controller
     }
     public function userpoint_index()
     {
-        $club_points = ClubPoint::where('user_id', Auth::user()->id)->latest()->paginate(15);
+        $club_points = ClubPoint::where('user_id', Auth::user()->id)->orderBy('created_at','desc')->latest()->paginate(15);
         $point_exchange = DB::table('club_point_exchange')->where('user_id',Auth::user()->id)->where('point','!=',0)->orderBy('created_at','desc')->paginate(15); 
         return view('club_points.frontend.index', compact('club_points','point_exchange'));
     }

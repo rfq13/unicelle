@@ -153,7 +153,12 @@
                                                             </div>
                                                             <div class="jumlah-produk-pesanan mt-2 mb-2">
                                                                 <div class="jumlah-number-pesanan__">
-                                                                    <span style="color:#3B6CB6" class="number-pesanan__">+{{ count($order->orderDetails) }} Produk Lainnya</span>
+                                                                @php
+                                                                $total_produk=count($order->orderDetails)-1;
+                                                                @endphp
+                                                                @if($total_produk > 0)
+                                                                    <span style="color:#3B6CB6" class="number-pesanan__">+{{ $total_produk }} Produk Lainnya</span>
+                                                                @endif
                                                                 </div>
                                                             </div>
                                                         </div>
