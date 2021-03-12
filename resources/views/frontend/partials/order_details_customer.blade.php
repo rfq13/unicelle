@@ -199,14 +199,18 @@ if($ship != null || $ship != 0){
                 <span style="color:#000000;font-weight:bold">@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif</span>
                 </div>
                 @else
+                @php
+                    $total_sementara = \App\OrderDetail::where('order_id',$order->id)->sum('price');
+                    $convertdiskon=($order->discount/100)*$total_sementara;
+                @endphp
                 <div style="margin-bottom: 20px;">
                 <p style="margin-bottom:0px">Diskon</p>
-                <span style="color:#000000;font-weight:bold">@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif</span>
+                <span style="color:#000000;font-weight:bold">@if($order->type_discount == 'amount')<span>Rp</span>{{ $order->discount }}@else<span>{{single_price($convertdiskon)}}</span><span> ({{ $order->discount }}%)</span>@endif</span>
                 </div>
                 @endif
                 <div style="margin-bottom: 20px;">
                 <p style="margin-bottom:0px">Poin</p>
-                <span style="color:#000000;font-weight:bold">{{number_format($order->get_poin,0,0,".")}}</span>
+                <span style="color:#000000;font-weight:bold">{{$order->get_poin}}</span>
                 </div>
                 @if($order->kupon != null)
                 <div style="margin-bottom: 20px;">

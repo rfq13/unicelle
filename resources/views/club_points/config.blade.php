@@ -183,13 +183,13 @@
                         <input type="hidden" name="type" value="club_point_convert_rate">
                         <div class="form-group">
                             <div class="col-lg-4">
-                                <label class="control-label">{{__('Atur Nilai Poin ')}} {{ single_price(1) }}</label>
+                                <label class="control-label">{{__('Atur Nilai  1 Poin ')}}</label>
                             </div>
                             <div class="col-lg-5">
                                 <input type="number" min="0" step="0.01" class="form-control" name="value" @if ($club_point_convert_rate != null) value="{{ $club_point_convert_rate->value }}" @endif placeholder="100" required>
                             </div>
                             <div class="col-lg-3">
-                                <label class="control-label">{{__('Poin')}}</label>
+                                <label class="control-label">{{__('Rupiah')}}</label>
                             </div>
                         </div>
                         <div class="form-group">
@@ -198,7 +198,7 @@
                             </div>
                         </div>
                     </form>
-                    <p class="h5 mt-2">{{ __('Catatan: Anda harus mengaktifkan opsi dompet terlebih dahulu sebelum menggunakan addon poin klub.') }}</p>
+                    {{-- <p class="h5 mt-2">{{ __('Catatan: Anda harus mengaktifkan opsi dompet terlebih dahulu sebelum menggunakan addon poin klub.') }}</p> --}}
                 </div>
             </div>
         </div>

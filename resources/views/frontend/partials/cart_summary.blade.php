@@ -108,21 +108,83 @@
                         $total_sementara = $subtotal+$tax;
                         $check_custom = \App\MemberCustom::where('user_id',Auth::user()->id)->first();
                         if($check_custom != null && $check_custom->count() > 0){
-                            $total_poin = $check_custom->poin/100*$total_sementara;
+                            if($total_sementara >= $check_custom->min_order_poin){
+                            if($check_custom->type_discount == 'percent'){
+                                $diskon_rate=$check_custom->discount/100*$total_sementara;
+                                    if($total_sementara >= $check_custom->min_order_discount){
+                                        $rate=$total_sementara-$diskon_rate;
+                                    }
+                                    else{
+                                        $rate=$total_sementara;
+                                    }
+                                $total_poin=$check_custom->poin/100*$rate;
+                            }
+                            else{
+                                    if($total_sementara >= $check_custom->min_order_discount){
+                                        $rate=$total_sementara-$check_custom->discount;
+                                    }
+                                    else{
+                                        $rate=$total_sementara;
+                                    }
+                                    $total_poin=$check_custom->poin/100*$rate;
+                            }
+                            }
                         }
                         else{
                         if(Auth::user()->user_type == 'regular physician'){
                             $member= \App\userMember::where('user_id',Auth::user()->id)->first();
                             $detail_member = \App\Member::where('id',$member->member_id)->first();
-                            $total_poin = $detail_member->poin_order/100*$total_sementara;
-
-                            
-                        }
+                            if($detail_member->min_order_poin <= $total_sementara){
+                            if($detail_member->discount_type == 'percent'){
+                                $diskon_rate=$detail_member->discount_order/100*$total_sementara;
+                                if($total_sementara >= $detail_member->min_order_discount){
+                                    $rate=$total_sementara-$diskon_rate;
+                                }
+                                else{
+                                    $rate=$total_sementara;
+                                }
+                                $total_poin = $detail_member->poin_order/100*$rate;
+                            }
+                            else{
+                                if($total_sementara >= $detail_member->min_order_discount){
+                                    $rate=$total_sementara-$detail_member->discount_order;
+                                }
+                                else{
+                                    $rate=$total_sementara;
+                                }
+                                $total_poin = $detail_member->poin_order/100*$rate;
+                            }
+                            }
+                        }                           
+                        
                         else{
                             $detail_user = \App\PoinUser::where('type_user',Auth::user()->user_type)->first();
-                            $total_poin = $detail_user->poin/100*$total_sementara;
+                            if($detail_user->min_order_poin <= $total_sementara)
+                            {
+                            if($detail_user->type_discount == 'percent'){
+                                $diskon_rate=$detail_user->discount/100*$total_sementara;
+                                if($total_sementara >= $detail_user->min_order_discount)
+                                {
+                                    $rate=$total_sementara-$diskon_rate;
+                                }
+                                else{
+                                    $rate=$total_sementara;
+                                }
+                                $total_poin = $detail_user->poin/100*$rate;
+                            }
+                            else{
+                                if($total_sementara >= $detail_user->min_order_discount){
+                                $rate=$total_sementara-$detail_user->discount;
+                                }
+                                else{
+                                $rate=$total_sementara;
+                                }
+                                $total_poin = $detail_user->poin/100*$rate;
+                            }
+                            }
                         }
                         }
+                        
                     @endphp
                     <tr class="cart_item">
                         <td class="product-name">
@@ -159,7 +221,7 @@
                 <tr class="cart-shipping">
                     <th>{{translate('Discount')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">@if($check_custom->type_discount == 'amount')<span>Rp</span>@endif{{ $check_custom->discount }}@if($check_custom->type_discount == 'percent')<span> %</span>@endif</span>
+                        <span class="text-italic">@if($check_custom->type_discount == 'amount')<span>Rp</span>@else<span>{{single_price($diskon_rate)}}</span>@endif{{ $check_custom->discount }}@if($check_custom->type_discount == 'percent')<span> %</span>@endif</span>
                     </td>
                 </tr>
                 @endif
@@ -167,7 +229,7 @@
                 <tr class="cart-shipping">
                     <th>{{translate('Poin yang didapatkan')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ $total_poin }}</span>
+                        <span class="text-italic">{{ round($total_poin) }}</span>
                     </td>
                 </tr>
                 @endif
@@ -178,7 +240,7 @@
                 <tr class="cart-shipping">
                     <th>{{translate('Discount')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">@if($detail_member->discount_type == 'amount')<span>Rp</span>@endif{{ $detail_member->discount_order }}@if($detail_member->discount_type == 'percent')<span> %</span>@endif</span>
+                        <span class="text-italic">@if($detail_member->discount_type == 'amount')<span>Rp</span>@else<span>{{single_price($diskon_rate)}}</span>@endif{{ $detail_member->discount_order }}@if($detail_member->discount_type == 'percent')<span> %</span>@endif</span>
                     </td>
                 </tr>
                 @endif
@@ -186,7 +248,7 @@
                 <tr class="cart-shipping">
                     <th>{{translate('Poin yang didapatkan')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ $total_poin }}</span>
+                        <span class="text-italic">{{ round($total_poin) }}</span>
                     </td>
                 </tr>
                 @endif
@@ -196,7 +258,7 @@
                 <tr class="cart-shipping">
                     <th>{{translate('Discount')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">@if($detail_user->type_discount == 'amount')<span>Rp</span>@endif{{ $detail_user->discount }}@if($detail_user->type_discount == 'percent')<span> %</span>@endif</span>
+                        <span class="text-italic">@if($detail_user->type_discount == 'amount')<span>{{ single_price($detail_user->discount) }}</span>@else<span>{{single_price($diskon_rate)}} ({{ $detail_user->discount }} % )</span>@endif</span>
                     </td>
                 </tr>
                 @endif
@@ -204,7 +266,7 @@
                 <tr class="cart-shipping">
                     <th>{{translate('Poin yang didapatkan')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ $total_poin }}</span>
+                        <span class="text-italic">{{ round($total_poin) }}</span>
                     </td>
                 </tr>
                 @endif

@@ -441,6 +441,11 @@
                                         <span class="menu-title">{{translate('Tentang Unicelle')}}</span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a class="nav-link" href="{{ route('manage.petunjuk') }}">
+                                        <span class="menu-title">{{translate('Petunjuk Dropshipper')}}</span>
+                                    </a>
+                                </li>
                                 {{-- <li class="{{ areActiveRoutes(['pages.index', 'pages.create', 'pages.edit'])}}">
                                     <a class="nav-link" href="{{route('pages.index')}}">{{translate('Halaman Kustom')}}</a>
                                 </li> --}}

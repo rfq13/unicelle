@@ -73,8 +73,26 @@
             
         }
         if($check_custom->min_order_poin <= $total){
-                $total_poin=$check_custom->poin/100*$total;
+            if($check_custom->type_discount == 'percent'){
+                $diskon_rate=$check_custom->discount/100*$total;
+                    if($total >= $check_custom->min_order_discount){
+                        $rate=$total-$diskon_rate;
+                    }
+                    else{
+                        $rate=$total;
+                    }
+                $total_poin=$check_custom->poin/100*$rate;
             }
+            else{
+                if($total >= $check_custom->min_order_discount){
+                    $rate=$total-$check_custom->discount;
+                }
+                else{
+                    $rate=$total;
+                }
+                $total_poin=$check_custom->poin/100*$rate;
+            }
+        }
     }
     else{
     if(Auth::user()->user_type == 'regular physician'){
@@ -108,7 +126,25 @@
             }
             
             if($detail_member->min_order_poin <= $total){
-                $total_poin=$detail_member->poin_order/100*$total;
+                if($detail_member->discount_type == 'percent'){
+                        $diskon_rate=$detail_member->discount_order/100*$total;
+                        if($total >= $detail_member->min_order_discount){
+                            $rate=$total-$diskon_rate;
+                        }
+                        else{
+                            $rate=$total;
+                        }
+                        $total_poin = $detail_member->poin_order/100*$rate;
+                }
+                else{
+                    if($total >= $detail_member->min_order_discount){
+                        $rate=$total-$detail_member->discount_order;
+                    }
+                    else{
+                        $rate=$total;
+                    }
+                    $total_poin = $detail_member->poin_order/100*$rate;
+                }
             }
     }
     else{
@@ -172,7 +208,27 @@
                 }
             }
             if($detail_user->min_order_poin <= $total){
-                $total_poin=$detail_user->poin/100*$total;
+                if($detail_user->type_discount == 'percent'){
+                    $diskon_rate=$detail_user->discount/100*$total;
+                        if($total >= $detail_user->min_order_discount)
+                        {
+                            $rate=$total-$diskon_rate;
+                        }
+                        else{
+                            $rate=$total;
+                        }
+                    $total_poin = $detail_user->poin/100*$rate;
+
+                }
+                else{
+                    if($total >= $detail_user->min_order_discount){
+                        $rate=$total-$detail_user->discount;
+                    }
+                    else{
+                        $rate=$total;
+                    }
+                    $total_poin = $detail_user->poin/100*$rate;
+                }
             }
     }
     }
@@ -409,10 +465,13 @@
                                         <p class="text-ekspedisi">Point yang akan di dapat</p>
                                     </div>
                                     @if(isset($total_poin))
-                                    <input type="hidden" value="{{$total_poin}}" name="get_poin">
+                                    @php
+                                    $result = sprintf('%g',$total_poin);
+                                    @endphp                       
+                                    <input type="hidden" value="{{round($total_poin)}}" name="get_poin">
 
                                     <div class="col-5">
-                                        <p class="price__produk" style="text-align: right;">{{$total_poin}}</p>
+                                        <p class="price__produk" style="text-align: right;">{{round($total_poin)}}</p>
                                     </div>
                                     @else
                                     <input type="hidden" value="0" name="get_poin">

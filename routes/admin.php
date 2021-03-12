@@ -104,9 +104,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::get('/supportpolicy/{type}', 'PolicyController@index')->name('supportpolicy.index');
 	Route::get('/terms/{type}', 'PolicyController@index')->name('terms.index');
 	Route::get('/privacypolicy/{type}', 'PolicyController@index')->name('privacypolicy.index');
+	Route::get('/manage/petunjuk/dropshipper', 'PolicyController@manage_petunjuk')->name('manage.petunjuk');
 
 	//Policy Controller
 	Route::post('/policies/store', 'PolicyController@store')->name('policies.store');
+	Route::post('/petunjuk/dropshipper/store', 'PolicyController@store_info_dropshipper')->name('info.dropshipper.store');
 
 	Route::group(['prefix' => 'frontend_settings'], function () {
 		Route::resource('sliders', 'SliderController');
