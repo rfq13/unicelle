@@ -226,10 +226,13 @@
                 </tr>
                 @endif
                 @if($check_custom->min_order_poin <= $total_sementara)
+                @php
+                $poin_yoi=round($total_poin);
+                @endphp
                 <tr class="cart-shipping">
                     <th>{{translate('Poin yang didapatkan')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ round($total_poin) }}</span>
+                    <span class="text-italic">{{ number_format($poin_yoi,0,",",".") }}</span>
                     </td>
                 </tr>
                 @endif
@@ -245,10 +248,13 @@
                 </tr>
                 @endif
                 @if($detail_member->min_order_poin <= $total_sementara)
+                @php
+                $poin_yoi=round($total_poin);
+                @endphp
                 <tr class="cart-shipping">
                     <th>{{translate('Poin yang didapatkan')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ round($total_poin) }}</span>
+                    <span class="text-italic">{{ number_format($poin_yoi,0,",",".") }}</span>
                     </td>
                 </tr>
                 @endif
@@ -263,10 +269,13 @@
                 </tr>
                 @endif
                 @if($detail_user->min_order_poin <= $total_sementara)
+                @php
+                $poin_yoi=round($total_poin);
+                @endphp
                 <tr class="cart-shipping">
                     <th>{{translate('Poin yang didapatkan')}}</th>
                     <td class="text-right">
-                        <span class="text-italic">{{ round($total_poin) }}</span>
+                    <span class="text-italic">{{ number_format($poin_yoi,0,",",".") }}</span>
                     </td>
                 </tr>
                 @endif
