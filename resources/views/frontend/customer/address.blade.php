@@ -266,8 +266,8 @@
                         <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id">
-                        <input type="hidden" name="lat">
-                        <input type="hidden" name="lng">
+                        <input type="text" name="lat">
+                        <input type="text" name="lng">
                         <div class="row" style="margin-bottom: 15px;">
                             <div class="col-md-2">
                                 <label>{{ translate('Provinsi')}}<sup style="color: #F3795C;">*</sup></label>
@@ -425,34 +425,13 @@
     
 @endsection
 @section('script')
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 
 <script type="text/javascript">
 var drawingManager;
 var lat =  -7.20455898888842;
 var lng = 112.734314762056;
 var map,marker,infoWindow;
-$(document).ready(function(){
-    getProvisi();
-    getKabupaten();
-    getKecamatan();
-    $('#provinsi').on('change', function() {
-        var data = $('#provinsi').select2('data');
-        $('input[name="province"]').val(data[0].text);
-        getKabupaten();
-    });
-    $('#kota').on('change', function() {
-        var data = $('#kota').select2('data');
-        $('input[name="city"]').val(data[0].text);
-        getKecamatan();
-    });
-    $('#kecamatan').on('change', function() {
-         var data = $('#kecamatan').select2('data');
-        $('input[name="subdistrict"]').val(data[0].text);
-       console.log(data[0]);
-        getDetailCity(data[0].id);
-    });
-});
+
 function initMap() {
    
     map = new google.maps.Map(document.getElementById("map"), {
@@ -542,6 +521,88 @@ function initMap() {
    
     setsearchbox(map,marker);
 }
+
+
+//map enter
+function setsearchbox(map,marker)
+{
+
+    var input = document.getElementById('pac-input');
+        var searchBox = new google.maps.places.SearchBox(input);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+        
+        $("#pac-input").removeAttr('hidden');
+        // Bias the SearchBox results towards current map's viewport.
+        map.addListener('bounds_changed', function() {
+          searchBox.setBounds(map.getBounds());
+        });
+
+        var markers = [];
+        // Listen for the event fired when the user selects a prediction and retrieve
+        // more details for that place.
+        searchBox.addListener('places_changed', function() {
+            // $('#form_pertama').addClass('hide_form');
+            // $('#form_kedua').removeClass('hide_form');
+          var places = searchBox.getPlaces();
+
+          if (places.length == 0) {
+            return;
+          }
+
+          
+
+          // For each place, get the icon, name and location.
+          var bounds = new google.maps.LatLngBounds();
+          places.forEach(function(place) {
+            if (!place.geometry) {
+              // console.log("Returned place contains no geometry");
+              return;
+            }
+             $('#kode_pos_alamat').val("");
+            $.each(place.address_components,function(index,value){
+                //console.log(value);
+                if(value.types[0] == "administrative_area_level_1"){
+                    $('#provinsi2').val(value.long_name);
+                }else if(value.types[0] == "administrative_area_level_2"){
+                    $('#Kota2').val(value.long_name);
+                }else if(value.types[0] == "administrative_area_level_3"){
+                    $('#kecamatan2').val(value.long_name);
+                }else if(value.types[0] === "postal_code"){
+                    $('#kode_pos_alamat2').val(value.long_name);
+                }
+            });
+            // console.log(place.geometry.location.lat());
+            $('input[name="lat"]').val(place.geometry.location.lat());
+            $('input[name="lng"]').val(place.geometry.location.lng());
+            marker.setPosition(place.geometry.location);
+
+            if (place.geometry.viewport) {
+              // Only geocodes have viewport.
+              bounds.union(place.geometry.viewport);
+            } else {
+              bounds.extend(place.geometry.location);
+            }
+          });
+          map.fitBounds(bounds);
+        });
+
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
+<script>
+    $('.add').click(function () {
+        if ($(this).prev().val() < 12) {
+            $(this).prev().val(+$(this).prev().val() + 1);
+        }
+    });
+    $('.sub').click(function () {
+        if ($(this).next().val() > 1) {
+            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
+        }
+    });
+</script>
+
+<script type="text/javascript">
 function getProvisi(){
         blockui("#body-shiping");
         $.ajax({
@@ -685,88 +746,26 @@ function getAddress (latitude, longitude) {
     });
 };
 
-//map enter
-function setsearchbox(map,marker)
-{
-
-    var input = document.getElementById('pac-input');
-        var searchBox = new google.maps.places.SearchBox(input);
-        map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-        
-        $("#pac-input").removeAttr('hidden');
-        // Bias the SearchBox results towards current map's viewport.
-        map.addListener('bounds_changed', function() {
-          searchBox.setBounds(map.getBounds());
-        });
-
-        var markers = [];
-        // Listen for the event fired when the user selects a prediction and retrieve
-        // more details for that place.
-        searchBox.addListener('places_changed', function() {
-            // $('#form_pertama').addClass('hide_form');
-            // $('#form_kedua').removeClass('hide_form');
-          var places = searchBox.getPlaces();
-
-          if (places.length == 0) {
-            return;
-          }
-
-          
-
-          // For each place, get the icon, name and location.
-          var bounds = new google.maps.LatLngBounds();
-          places.forEach(function(place) {
-            if (!place.geometry) {
-              // console.log("Returned place contains no geometry");
-              return;
-            }
-             $('#kode_pos_alamat').val("");
-            $.each(place.address_components,function(index,value){
-                //console.log(value);
-                if(value.types[0] == "administrative_area_level_1"){
-                    $('#provinsi2').val(value.long_name);
-                }else if(value.types[0] == "administrative_area_level_2"){
-                    $('#Kota2').val(value.long_name);
-                }else if(value.types[0] == "administrative_area_level_3"){
-                    $('#kecamatan2').val(value.long_name);
-                }else if(value.types[0] === "postal_code"){
-                    $('#kode_pos_alamat2').val(value.long_name);
-                }
-            });
-            // console.log(place.geometry.location.lat());
-            $('input[name="lat"]').val(place.geometry.location.lat());
-            $('input[name="lng"]').val(place.geometry.location.lng());
-            marker.setPosition(place.geometry.location);
-
-            if (place.geometry.viewport) {
-              // Only geocodes have viewport.
-              bounds.union(place.geometry.viewport);
-            } else {
-              bounds.extend(place.geometry.location);
-            }
-          });
-          map.fitBounds(bounds);
-        });
-
-}
-</script>
-<script>
-    $('.add').click(function () {
-        if ($(this).prev().val() < 12) {
-            $(this).prev().val(+$(this).prev().val() + 1);
-        }
-    });
-    $('.sub').click(function () {
-        if ($(this).next().val() > 1) {
-            if ($(this).next().val() > 1) $(this).next().val(+$(this).next().val() - 1);
-        }
-    });
-</script>
-
-<script type="text/javascript">
-
     $(document).ready(function () {
-            // getProvince();
+    getProvisi();
+    getKabupaten();
+    getKecamatan();
+    $('#provinsi').on('change', function() {
+        var data = $('#provinsi').select2('data');
+        $('input[name="province"]').val(data[0].text);
+        getKabupaten();
+    });
+    $('#kota').on('change', function() {
+        var data = $('#kota').select2('data');
+        $('input[name="city"]').val(data[0].text);
+        getKecamatan();
+    });
+    $('#kecamatan').on('change', function() {
+         var data = $('#kecamatan').select2('data');
+        $('input[name="subdistrict"]').val(data[0].text);
+       console.log(data[0]);
+        getDetailCity(data[0].id);
+    });
         $("#new-address-modal").on('hidden.bs.modal', function (e) {
             clearFA()
             $("#exampleModalLabel").html("New Address")
