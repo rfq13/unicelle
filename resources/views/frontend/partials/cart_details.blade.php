@@ -42,7 +42,7 @@
                                     <tr class="cart-item">
                                         <td class="product-image">
                                             <a href="#" class="mr-3">
-                                                <img loading="lazy"  src="{{ my_asset($product->thumbnail_img) }}">
+                                                <img style="height: inherit;" loading="lazy"  src="{{ my_asset($product->thumbnail_img) }}">
                                             </a>
                                         </td>
 

@@ -39,7 +39,7 @@
                 <div class="col-lg-offset-3 col-lg-3">
                     <label for="update_payment_status">{{translate('Status Pembayaran')}}</label>
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_payment_status">
-                        <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Pembayaran Berhasil')}}</option>
+                        <option value="paid" @if ($payment_status == 'paid') selected @endif>{{translate('Sudah Dibayar')}}</option>
                         <option value="unpaid" @if ($payment_status == 'unpaid') selected @endif>{{translate('Belum Dibayar')}}</option>
                     </select>
                 </div>

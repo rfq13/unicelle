@@ -625,6 +625,11 @@
         color: #B71C1C;
         margin-left: 5px;
     }
+    .col-sm-32 {
+    flex: 0 0 25%;
+    max-width: 20%;
+}
+
     .ridge {
         border-style: ridge;
         border: 1px solid #DADBDC;
@@ -693,18 +698,19 @@
     list-style: none;
 }
     }
+
     .gambar{
-        max-height: 200px; 
-        max-width: 140px; 
-        min-height: 200px; 
-        min-width: 140px;
+    max-height: 140px;
+    max-width: 140px;
+    min-height: 140px;
+    min-width: 140px;
     }
     @media screen and (max-width: 431px) {
             .gambar{
-                max-height: 160px;
-    max-width: 120px;
-    min-height: 160px;
-    min-width: 120px;
+                max-height: 140px;
+    max-width: 140px;
+    min-height: 140px;
+    min-width: 140px;
             }
             .w-25 {
     width: 55%!important;

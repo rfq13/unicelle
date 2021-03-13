@@ -15,6 +15,7 @@
             $qty = $product->current_stock;
         }
     @endphp
+    
         <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-2 col-6">
             <div class="card bg-white alt-box my-md-3 ">
                 <div class="position-relative overflow-hidden  py-1">
@@ -127,9 +128,10 @@
         $qty = $product->current_stock;
         }
     @endphp
-        <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6" style="margin-bottom: 20px;">
-            <div class="card bg-white my-md-3">
-                <div class="position-relative overflow-hidden">
+
+    <div class="col-md-2 col-md-2 col-lg-2 col-md-2 col-6" style="margin-bottom: 20px;">            
+    <div class="card bg-white my-md-3">
+                <div class="position-relative overflow-hidden" style="display: flex;justify-content: center;">
                     <a href="{{ route('product', $product->slug) }}"
                         class="d-block product-image text-center p-2" tabindex="0">
                         <img class="img-fluid lazyload gambar"
@@ -153,14 +155,17 @@
                     </div> --}}
                 </div>
                 <div class="p-md-3 p-2">
+                <h2 class="product-title font-weight-bold p-0">
+                        <a href="{{ route('product', $product->slug) }}"
+                            class="text-truncate">{{ __($product->name) }}</a>
+                    </h2>
                     <div class="price-box" style="height: 50px">
                         @auth
                             @if (home_base_price($product->id) != home_discounted_base_price($product->id))
                                 <del
                                     class="old-product-price strong-400">{{ home_base_price($product->id) }}</del>
                             @endif
-                            <span
-                                class="product-price strong-600">{{ home_discounted_price($product->id) }}
+                            <span style="color:#B71C1C" class="product-price strong-600">{{ home_discounted_price($product->id) }}
                             </span>
                             @if (home_price($product->id) != home_discounted_price($product->id))
                                 @if ($flash_product)
@@ -200,10 +205,7 @@
                     {{-- <div class="star-rating star-rating-sm mt-1">
                         {{ renderStarRating($product->rating) }}
                     </div> --}}
-                    <h2 class="product-title font-weight-bold p-0">
-                        <a href="{{ route('product', $product->slug) }}"
-                            class="text-truncate">{{ __($product->name) }}</a>
-                    </h2>
+                    
                     <!-- @if (\App\Addon::where('unique_identifier', 'club_point')->first() != null && \App\Addon::where('unique_identifier', 'club_point')->first()->activated)
                         <div class="club-point mt-2 bg-soft-base-1 border-light-base-1 border">
                             {{ translate('Point') }}:
@@ -229,4 +231,5 @@
                 @endauth
             </div>
         </div>
+      
 @endforeach
