@@ -346,8 +346,8 @@
             <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id">
-                <input type="hidden" name="lat">
-                <input type="hidden" name="lng">
+                <input type="text" name="lat">
+                <input type="text" name="lng">
                         <div class="row" style="margin-bottom: 15px;">
                             <div class="col-md-2">
                                 <label>{{ translate('Provinsi')}}<sup style="color: #F3795C;">*</sup></label>
