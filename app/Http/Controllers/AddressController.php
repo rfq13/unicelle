@@ -75,7 +75,7 @@ class AddressController extends Controller
             $address->lng = '112.734314762056';
         }
         if($address->save()){
-            flash("Address added successfully")->success();
+            flash("Alamat berhasil ditambahkan")->success();
             return redirect()->back();
         }
         flash(translate('Something went wrong'))->error();
@@ -141,7 +141,7 @@ class AddressController extends Controller
         $address = Address::findOrFail($id);
         if(!$address->set_default){
             $address->delete();
-            flash(translate('Address deleted successfully'))->success();
+            flash(translate('Alamat berhasil dihapus'))->success();
             return back();
         }
         flash(translate('Default address can not be deleted'))->warning();
@@ -172,7 +172,7 @@ class AddressController extends Controller
         if ($add != null) {
             $add->set_default = 1;
             $add->save();
-            $return = ["default address has changed","sukses"];
+            $return = ["Default alamat berhasil diubah","sukses"];
         }else {
             $return = ["address not found","gagal"];
         }
