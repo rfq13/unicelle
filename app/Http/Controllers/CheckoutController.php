@@ -218,6 +218,12 @@ class CheckoutController extends Controller
 
     public function store_delivery_info(Request $request)
     {
+        // dd($request->shipping_info);
+        if($request->shipping_info == null){
+            flash(translate('Pilih metode pengiriman'))->warning();
+            return redirect()->route('checkout.shipping_info');
+        }
+        else{
         $cart = Auth::check() ? \App\Models\Cart::where("user_id",Auth::user()->id)->with("product")->get() : $cart; 
         
         if($cart && $cart->count() > 0){
@@ -249,6 +255,7 @@ class CheckoutController extends Controller
             flash(translate('Your Cart was empty'))->warning();
             return redirect()->route('home');
         }
+    }
     }
 
     public function get_payment_info(Request $request)

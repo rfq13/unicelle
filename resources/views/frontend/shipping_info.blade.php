@@ -1,4 +1,6 @@
 @extends('frontend.layouts.app')
+@section('title',"Pilih Pengiriman")
+
 @section('style')
 <style type="text/css">
 .select2-container{
@@ -7,6 +9,9 @@
 div.pac-container {
     z-index: 99999999999 !important;
 }
+.hide_form{
+            display: none;
+        }
 </style>
 @endsection
 
@@ -125,7 +130,7 @@ div.pac-container {
                                     <div class="mx-auto">
                                         <button class="ml-5 btn btn-default">Simpan</button>
                                         <li class="date-ekspedisi ml-4 mb-2 mt-2" style="list-style-type: none; color: #424242;">
-                                            <a style="color: #424242;" href="#">Petunjuk Dropshipper</li></a>
+                                            <a style="color: #424242;" target="_blank" href="{{route('petunjuk.dropshipper')}}">Petunjuk Dropshipper</li></a>
                                     </div>
                                 </div>
                                 </form>
@@ -134,7 +139,7 @@ div.pac-container {
                     </div>
                 
                     <div class="col-sm-5 summary" id="rincian_bayar" style="padding-bottom: 50%;">
-                        @include('frontend.partials.cart_summary')
+                        @include('frontend.partials.cart_summary2')
                     </div>
             </div>
         </div>
@@ -148,49 +153,62 @@ div.pac-container {
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel">{{ translate('New Address')}}</h6>
+                <h6 class="modal-title" id="exampleModalLabel">{{ translate('Alamat Baru')}}</h6>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
-                @csrf
-                <input type="hidden" name="id">
-                <input type="hidden" name="lat">
-                <input type="hidden" name="lng">
                 <div class="modal-body">
                     <div class="p-3">
                         <div class="form-group">
                             <input id="pac-input"  class="controls" type="text" placeholder="Cari Lokasi" hidden>
                             <div id="map" style="width: 100%;height: 350px;top: 8;font-size: 16pt;"></div>
                         </div>
-                        <div class="row">
+                        <div id="form_pertama">
+                        <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="id">
+                        <input type="hidden" name="lat">
+                        <input type="hidden" name="lng">
+                        <div class="row" style="margin-bottom: 15px;">
                             <div class="col-md-2">
-                                <label>{{ translate('Provinsi')}}</label>
+                                <label>{{ translate('Provinsi')}}<sup style="color: #F3795C;">*</sup></label>
                             </div>
                             <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Provinsi')}}" name="province" id="provinsi"  value="" readonly>
+                            <select class="form-control rounded my-2 p-2 select2" name="province" id="provinsi" aria-describedby="provinsiHelpId" required>
+                                    <option></option>
+                                </select>
+                                <input type="hidden" name="province">
+                                {{-- <input type="text" class="form-control mb-3" placeholder="{{ translate('Provinsi')}}" name="province" id="provinsi"  value=""> --}}
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kota/Kabupaten')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                            <select class="form-control rounded my-2 p-2 select2" name="city" id="kota" aria-describedby="provinsiHelpId" style="border-color: #F3795C;" required>
+                                    <option></option>
+                                    <input type="hidden" name="city">
+
+                                {{-- <input type="text" class="form-control mb-3" placeholder="{{ translate('Kota/Kabupaten')}}" name="city" id="Kota" value=""> --}}
+                            </div>
+                        </div>
+                         <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kecamatan')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                            <select class="form-control rounded my-2 p-2 select2" name="subdistrict" id="kecamatan" aria-describedby="provinsiHelpId" style="border-color: #F3795C;" required>
+                                    <option></option>
+                                </select>
+                                <input type="hidden" name="subdistrict">
+                                {{-- <input type="text" class="form-control mb-3" placeholder="{{ translate('Kecamatan')}}" name="subdistrict" id="kecamatan" value="" readonly> --}}
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Kota/Kabupaten')}}</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kota/Kabupaten')}}" name="city" id="Kota" value="" readonly>
-                            </div>
-                        </div>
-                         <div class="row">
-                            <div class="col-md-2">
-                                <label>{{ translate('Kecamatan')}}</label>
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kecamatan')}}" name="subdistrict" id="kecamatan" value="" readonly>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2">
-                                <label>{{ translate('Kode Pos')}}</label>
+                                <label>{{ translate('Kode Pos')}}<sup style="color: #F3795C;">*</sup></label>
                             </div>
                             <div class="col-md-10">
                                 <input type="text" class="form-control mb-3" placeholder="{{ translate('Kode Pos')}}" id="kode_pos_alamat" name="postal_code" value="" required>
@@ -214,18 +232,92 @@ div.pac-container {
                         </div>
                          <div class="row">
                             <div class="col-md-2">
-                                <label>{{ translate('Detail Alamat')}}</label>
+                                <label>{{ translate('Detail Alamat')}}<sup style="color: #F3795C;">*</sup></label>
                             </div>
                             <div class="col-md-10">
-                                <textarea class="form-control textarea-autogrow mb-3" id="txtaddress" placeholder="{{ translate('detail alamat Pengiriman')}}" rows="3" name="address" required></textarea>
+                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{ translate('detail alamat Pengiriman')}}" rows="3" name="address" id="txtaddress" required></textarea>
                             </div>
                         </div>
+                        <div class="row">
+                        <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
+                        </div>
+                        </form>
+                        </div>
+                        <!-- batas -->
+                        <div id="form_kedua" class="hide_form">
+            <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="id">
+                <input type="hidden" name="lat">
+                <input type="hidden" name="lng">
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Provinsi')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Provinsi')}}" name="province" id="provinsi2"  value="" readonly> 
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kota/Kabupaten')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kota/Kabupaten')}}" name="city" id="Kota2" value="" readonly> 
+                            </div>
+                        </div>
+                         <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kecamatan')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kecamatan')}}" name="subdistrict" id="kecamatan2" value="" readonly>
+                            </div>
+                        </div>
+                        <div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kode Pos')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kode Pos')}}" id="kode_pos_alamat2" name="postal_code" value="" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Nama')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="Nama penerima" name="receiver" value="" id="receiver" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Nomor telepon')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="Nomor telepon penerima" name="phone" value="" id="phone" required>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Detail Alamat')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{ translate('detail alamat Pengiriman')}}" rows="3" name="address" id="txtaddress" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
+                        </div>
+                        </form>
+                        </div>
+                        <!-- batas -->
                     </div>
                 </div>
-                <div class="modal-footer">
+                {{-- <div class="modal-footer">
                     <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
-                </div>
-            </form>
+                </div> --}}
         </div>
     </div>
 </div>
@@ -273,13 +365,13 @@ function initMap() {
                 $.each(place,function(index,value){
                     // console.log(value);
                     if(value.types[0] == "administrative_area_level_1"){
-                        $('#provinsi').val(value.long_name);
+                        $('#provinsi2').val(value.long_name);
                     }else if(value.types[0] == "administrative_area_level_2"){
-                        $('#Kota').val(value.long_name);
+                        $('#Kota2').val(value.long_name);
                     }else if(value.types[0] == "administrative_area_level_3"){
-                        $('#kecamatan').val(value.long_name);
+                        $('#kecamatan2').val(value.long_name);
                     }else if(value.types[0] === "postal_code"){
-                        $('#kode_pos_alamat').val(value.long_name);
+                        $('#kode_pos_alamat2').val(value.long_name);
                     }
                 });
             });
@@ -297,7 +389,8 @@ function initMap() {
     map.addListener('click', function(mapsMouseEvent) {
           // Close the current InfoWindow.
 
-       
+          $('#form_pertama').addClass('hide_form');
+          $('#form_kedua').removeClass('hide_form');
         marker.setPosition(mapsMouseEvent.latLng);
         $('input[name="lat"]').val(mapsMouseEvent.latLng.lat());
         $('input[name="lng"]').val(mapsMouseEvent.latLng.lng());
@@ -307,13 +400,13 @@ function initMap() {
             $.each(place,function(index,value){
                 // console.log(value);
                 if(value.types[0] == "administrative_area_level_1"){
-                    $('#provinsi').val(value.long_name);
+                    $('#provinsi2').val(value.long_name);
                 }else if(value.types[0] == "administrative_area_level_2"){
-                    $('#Kota').val(value.long_name);
+                    $('#Kota2').val(value.long_name);
                 }else if(value.types[0] == "administrative_area_level_3"){
-                    $('#kecamatan').val(value.long_name);
+                    $('#kecamatan2').val(value.long_name);
                 }else if(value.types[0] === "postal_code"){
-                    $('#kode_pos_alamat').val(value.long_name);
+                    $('#kode_pos_alamat2').val(value.long_name);
                 }
             });
         });
@@ -322,6 +415,145 @@ function initMap() {
    
     setsearchbox(map,marker);
 }
+function getProvisi(){
+        blockui("#body-shiping");
+        $.ajax({
+           type:"GET",
+           url:'{{ route('rajaongkir.provinsi') }}',
+           success: function(data){
+               $('#provinsi').select2({
+                data: data,
+                templateResult: function (repo) {
+                    if (repo.loading) return repo.text;
+
+                    var markup = "<div class='select2-result-repository clearfix'>" +
+                        "<div class='select2-result-repository__title'>" + repo.text + "</div></div>";
+
+                    return markup;
+                },
+
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                templateSelection: function (repo) {
+                    return repo.TEXT || repo.text;
+                },
+                placeholder: "Pilih provinsi",
+                allowClear: true,
+                minimumInputLength : -1
+            });
+           }
+       });
+    }
+    function getKabupaten(){
+        var provinsi= $('#provinsi').val();
+        $('#kota').html('<option></option>');
+        // $("#kota_kabupaten").select2("destroy").select2();
+        $.ajax({
+           type:"GET",
+           url:'{{ route('addresses.get_city') }}',
+           data: {
+                id_provinsi : provinsi
+           },
+           success: function(data){
+                unblockui("#body-shiping");
+               $('#kota').select2({
+                data: data,
+                templateResult: function (repo) {
+                    if (repo.loading) return repo.text;
+
+                    var markup = "<div class='select2-result-repository clearfix'>" +
+                        "<div class='select2-result-repository__title'>" + repo.text + "</div></div>";
+
+                    return markup;
+                },
+
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                templateSelection: function (repo) {
+                    return repo.TEXT || repo.text;
+                },
+                placeholder: "Pilih kota/kabupaten",
+                allowClear: true,
+                minimumInputLength : -1
+            });
+           }
+       });
+    }
+    function getKecamatan(){
+        var kabupaten= $('#kota').val();
+        $('#kecamatan').html('<option></option>');
+        // $("#kota_kabupaten").select2("destroy").select2();
+        $.ajax({
+           type:"GET",
+           url:'{{ route('addresses.get_subDistrict') }}',
+           data: {
+                id_kabupaten : kabupaten
+           },
+           success: function(data){
+               $('#kecamatan').select2({
+                data: data,
+                templateResult: function (repo) {
+                    if (repo.loading) return repo.text;
+
+                    var markup = "<div class='select2-result-repository clearfix'>" +
+                        "<div class='select2-result-repository__title'>" + repo.text + "</div></div>";
+
+                    return markup;
+                },
+
+                escapeMarkup: function (markup) {
+                    return markup;
+                },
+                templateSelection: function (repo) {
+                    return repo.TEXT || repo.text;
+                },
+                placeholder: "Pilih kecamatan",
+                allowClear: true,
+                minimumInputLength : -1
+            });
+           }
+       });
+    }
+    function getDetailCity(idKecamatan)
+    {
+        $.ajax({
+            url: "{{ route('rajaongkir.detail') }}",
+            method: "POST",
+            data: {
+                _token: "{{ csrf_token() }}",
+                idCity: idKecamatan
+            },
+            dataType: "json",
+            async: true,
+            success: function(msgd) {
+               
+                console.log(msgd);
+            }
+        });
+    }
+    $(document).ready(function(){
+    getProvisi();
+    getKabupaten();
+    getKecamatan();
+    $('#provinsi').on('change', function() {
+        var data = $('#provinsi').select2('data');
+        $('input[name="province"]').val(data[0].text);
+        getKabupaten();
+    });
+    $('#kota').on('change', function() {
+        var data = $('#kota').select2('data');
+        $('input[name="city"]').val(data[0].text);
+        getKecamatan();
+    });
+    $('#kecamatan').on('change', function() {
+         var data = $('#kecamatan').select2('data');
+        $('input[name="subdistrict"]').val(data[0].text);
+        //console.log(data[0]);
+        getDetailCity(data[0].id);
+    });
+});
 function getAddress (latitude, longitude) {
     return new Promise(function (resolve, reject) {
         var request = new XMLHttpRequest();
@@ -363,6 +595,8 @@ function setsearchbox(map,marker)
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', function() {
+            $('#form_pertama').addClass('hide_form');
+          $('#form_kedua').removeClass('hide_form');
           var places = searchBox.getPlaces();
 
           if (places.length == 0) {
@@ -382,13 +616,13 @@ function setsearchbox(map,marker)
             $.each(place.address_components,function(index,value){
                 // console.log(value);
                 if(value.types[0] == "administrative_area_level_1"){
-                    $('#provinsi').val(value.long_name);
+                    $('#provinsi2').val(value.long_name);
                 }else if(value.types[0] == "administrative_area_level_2"){
-                    $('#Kota').val(value.long_name);
+                    $('#Kota2').val(value.long_name);
                 }else if(value.types[0] == "administrative_area_level_3"){
-                    $('#kecamatan').val(value.long_name);
+                    $('#kecamatan2').val(value.long_name);
                 }else if(value.types[0] === "postal_code"){
-                    $('#kode_pos_alamat').val(value.long_name);
+                    $('#kode_pos_alamat2').val(value.long_name);
                 }
             });
             // console.log(place.geometry.location.lat());

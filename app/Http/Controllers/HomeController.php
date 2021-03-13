@@ -735,7 +735,15 @@ class HomeController extends Controller
 
         if ($str != null && $product->variant_product) {
             $product_stock = $product->stocks->where('variant', $str)->first();
-            $price = $product_stock->price;
+            if(Auth::user()->user_type == 'pasien reg'){
+                $price = $product_stock->pasien_regular_price;
+            }
+            else if(Auth::user()->user_type == 'regular physician'){
+                $price = $product_stock->regular_physician_price;
+            }
+            else{
+                $price = $product_stock->partner_physician_price;
+            }
             $quantity = $product_stock->qty;
         } else {
             $price = $product->unit_price;

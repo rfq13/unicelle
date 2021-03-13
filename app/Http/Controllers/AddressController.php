@@ -178,16 +178,15 @@ class AddressController extends Controller
     public function get_province()
     {
         try {
+
             $url = "province";
             $response = request_raja_ongkir($url,"GET","");
             $result =[];
-            // foreach ($response as $key => $value) {
-            //     # code...
-            //     array_push($result, ['province_id' => $value->province_id ,'province' => $value->province]);
-            // }
-            // dd($result);
-            // return $response;
-            return response()->json($response, 200);
+            foreach ($response as $key => $value) {
+                # code...
+                array_push($result, ['id' => $value->province_id ,'text' => $value->province]);
+            }
+            return response()->json($result, 200);
 
         } catch (Exception $e) {
             return  response()->json($response, 500);
@@ -195,44 +194,74 @@ class AddressController extends Controller
 
     }
 
-    public function get_city($id)
+    public function get_city(Request $request)
     {
         try {
-            $url = "city?province=$id";
+
+            $url = "city";
+            // dd($request->id_provinsi);
+            if ($request->id_provinsi) {
+                
+                $url = $url."?province=".$request->id_provinsi;
+            }
+
             $response = request_raja_ongkir($url,"GET","");
+            
             $result =[];
-            // foreach ($response as $key => $value) {
-            //     # code...
-            //     array_push($result, ['province_id' => $value->province_id ,'province' => $value->province]);
-            // }
-            // dd($result);
-            // return $response;
-            return response()->json($response, 200);
+            foreach ($response as $key => $value) {
+                # code...
+                array_push($result, ['id' => $value->city_id ,'text' => $value->city_name]);
+            }
+            return response()->json($result, 200);
 
         } catch (Exception $e) {
             return  response()->json($response, 500);
         }
     }
 
-    public function get_subdistrict($id)
+    public function get_subdistrict(Request $request)
     {
         try {
-            $url = "subdistrict?city=$id";
+
+            $url = "subdistrict";
+            if ($request->id_kabupaten) {
+                # code...
+                $url = $url."?city=".$request->id_kabupaten;
+            }
+
             $response = request_raja_ongkir($url,"GET","");
             $result =[];
-            // foreach ($response as $key => $value) {
-            //     # code...
-            //     array_push($result, ['province_id' => $value->province_id ,'province' => $value->province]);
-            // }
+            foreach ($response as $key => $value) {
+                # code...
+                array_push($result, ['id' => $value->subdistrict_id ,'text' => $value->subdistrict_name ]);
+            }
             // dd($result);
-            // return $response;
-            return response()->json($response, 200);
+            return response()->json($result, 200);
 
         } catch (Exception $e) {
-            return  response()->json($response, 500);
+            return  response()->json($e, 500);
         }
     }
+    public function getCityDetail(Request $request)
+    {
+        try {
 
+            $url = "city";
+            if ($request->id_kabupaten) {
+                # code...
+                $url = $url."?id=".$request->idCity;
+            }
+
+            $response = request_raja_ongkir($url,"GET","");
+            $result = $response->results;
+    
+            return response()->json($result, 200);
+
+        } catch (Exception $e) {
+            return  response()->json($e, 500);
+        }
+
+    }
 
     public function getCostDestination(Request $request)
     {

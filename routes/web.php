@@ -232,9 +232,11 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function () {
 	Route::get('/addresses/set_default/{id}', 'AddressController@set_default')->name('addresses.set_default');
 	Route::get('/adresses/get-province', 'AddressController@get_province')->name('addresses.get_province');
 	Route::get('/adresses/get-city', 'AddressController@get_city')->name('addresses.get_city');
-	Route::get('/adresses/get-subdistrict/{id}', 'AddressController@get_subdistrict')->name('addresses.get_subDistrict');
+	Route::get('/adresses/get-subdistrict', 'AddressController@get_subdistrict')->name('addresses.get_subDistrict');
 	Route::post('/addresses/get-cost', 'AddressController@getCostDestination')->name('addresse.cost');
 	Route::get('/get_provinsi', 'AddressController@get_province')->name("rajaongkir.provinsi");
+	Route::post('/get_detai_city', 'AddressController@getCityDetail')->name("rajaongkir.detail");
+
 });
 
 Route::get('/customer_products/destroy/{id}', 'CustomerProductController@destroy')->name('customer_products.destroy');

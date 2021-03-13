@@ -1338,7 +1338,9 @@ background: #428bca;
                url: '{{ route('products.variant_price') }}',
                data: $('#option-choice-form').serializeArray(),
                success: function(data){
+                   //console.log(data);
                    $('#option-choice-form #chosen_price_div').removeClass('d-none');
+                   $('#option-choice-form #chosen_price_div #chosen_pricek').html(data.price);
                    $('#chosen_pricek').html(data.price);
                    $('#available-quantity').html(data.quantity);
                    $('.input-number').prop('max', data.quantity);

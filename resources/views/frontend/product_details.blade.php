@@ -117,7 +117,7 @@
                 <div class="col-lg-8">
                     <div class="card deskripsi__produk">
                         <div class="head-detail-produk">
-                            <span class="nama_produk-detail">{{  __($detailedProduct->name) }}</span>
+                            <span class="nama_produk-detail">{{  __($detailedProduct->name) }} / {{$detailedProduct->unit}}</span>
                             <div class="row align-items-center my-1">
                                 <div class="col-6">
                                     <!-- Rating stars-->
@@ -249,11 +249,11 @@
                                     <!-- </div> -->
                                         <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
                                             <div class="col-3">
-                                                <div class="product-description-label font-size-1">{{ translate('Jumlah')}} :</div>
+                                                <div class="product-description-label font-size-1">{{ translate('Harga')}} :</div>
                                             </div>
                                             <div class="col-9">
                                                 <div class="product-price font-size-1 font-weight-bold">
-                                                    <strong id="chosen_pricek">
+                                                    <strong id="chosen_pricek" style="color:#B71C1C">
 
                                                     </strong>
                                                 </div>

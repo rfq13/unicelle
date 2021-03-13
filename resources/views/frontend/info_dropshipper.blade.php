@@ -1,6 +1,6 @@
 @extends('frontend.layouts.app')
 
-@section('title',"Petunjuk Dropshipper |")
+@section('title',"Petunjuk Dropshipper")
 
 @section('content')
 <div class="container">
@@ -10,7 +10,7 @@
          
       </div>
       @php
-          $dropshipper = \App\Policy::where('name', "info_dropshipper")->first();
+          $dropshipper = \App\InfoPetunjuk::where('name', "petunjuk_dropshipper")->first();
         //   dd($policy);
       @endphp
       <div class="text-syarat-ketentuan">

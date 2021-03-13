@@ -115,14 +115,14 @@
                 </div>
 
             </div>
-            <div class="row mb-1">
+            {{-- <div class="row mb-1">
                 <div class="col-md-6">
                     <a href="{{ route('home') }}" style="color: #006064" class="link link--style-3">
                         <i class="la la-mail-reply"></i>
                         {{ translate('Beranda')}}
                     </a>
                 </div>
-            </div>
+            </div> --}}
             <!-- </form> -->
         </div>
 

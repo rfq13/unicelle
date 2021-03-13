@@ -107,7 +107,18 @@
                 <form id="option-choice-form">
                     @csrf
                     <input type="hidden" name="id" value="{{ $product->id }}">
+                    <div class="row no-gutters pb-3 mt-2" id="chosen_price_div">
+                                            <div class="col-3">
+                                                <div class="product-description-label font-size-1">{{ translate('Harga')}} :</div>
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="product-price font-size-1 font-weight-bold">
+                                                    <strong id="chosen_pricek" style="color:#B71C1C">
 
+                                                    </strong>
+                                                </div>
+                                            </div>
+                                        </div>
                     <!-- Quantity + Add to cart -->
                     @if($product->digital !=1)
                         @if ($product->choice_options != null)
@@ -126,7 +137,7 @@
                                                 <li>
                                                     <input type="radio" id="{{ $choice->attribute_id }}-{{ $value }}"
                                                            name="attribute_id_{{ $choice->attribute_id }}"
-                                                           value="{{ $value }}" @if($key == 0) checked @endif>
+                                                           value="{{ $value }}" @if($key == 0) checked @endif onclick="getVariantPrice()">
                                                     <label
                                                         for="{{ $choice->attribute_id }}-{{ $value }}">{{ $value }}</label>
                                                 </li>
@@ -193,7 +204,7 @@
                         <hr>
                     @endif
 
-                    <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
+                    {{-- <div class="row no-gutters pb-3 d-none" id="chosen_price_div">
                         <div class="col-2">
                             <div class="product-description-label">{{ translate('Total Price')}}:</div>
                         </div>
@@ -204,7 +215,7 @@
                                 </strong>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                 </form>
 
@@ -243,8 +254,39 @@
 </div>
 
 <script type="text/javascript">
+    function getVariantPrice(){
+            $.ajax({
+               type:"POST",
+               url: '{{ route('products.variant_price') }}',
+               data: $('#option-choice-form').serializeArray(),
+               success: function(data){
+                   console.log(data);
+                   $('#option-choice-form #chosen_price_div').removeClass('d-none');
+                   $('#option-choice-form #chosen_price_div #chosen_pricek').html(data.price);
+                   $('#chosen_pricek').html(data.price);
+                   $('#available-quantity').html(data.quantity);
+                   $('.input-number').prop('max', data.quantity);
+                   $('.qty__number').prop('max', data.quantity)
+                   //console.log(data.quantity);
+                   if(parseInt(data.quantity) < 1 && data.digital  != 1){
+                       $('.buy-now').hide();
+                       $('.add-to-cart').hide();
+                   }
+                   else{
+                       $('.buy-now').show();
+                       $('.add-to-cart').show();
+                   }
+               }
+           });
+        }
+    
+        $(document).ready(function() {
+            getVariantPrice();
+
+        });
     cartQuantityInitialize();
     $('#option-choice-form input').on('change', function () {
         getVariantPrice();
     });
+
 </script>
