@@ -324,6 +324,7 @@ div.pac-container {
 @endsection
 
 @section('script')
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 <script type="text/javascript">
 var drawingManager;
 var lat =  -7.20455898888842;
@@ -642,7 +643,6 @@ function setsearchbox(map,marker)
 
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 <script type="text/javascript">
     function handle_ongkir(param){
         blockui("#rincian_bayar");

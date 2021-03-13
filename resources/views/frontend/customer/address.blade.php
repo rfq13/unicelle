@@ -266,8 +266,8 @@
                         <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id">
-                        <input type="hidden" name="lat">
-                        <input type="hidden" name="lng">
+                        <input type="text" name="lat">
+                        <input type="text" name="lng">
                         <div class="row" style="margin-bottom: 15px;">
                             <div class="col-md-2">
                                 <label>{{ translate('Provinsi')}}<sup style="color: #F3795C;">*</sup></label>
@@ -425,6 +425,7 @@
     
 @endsection
 @section('script')
+<script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 
 <script type="text/javascript">
 var drawingManager;
@@ -448,7 +449,7 @@ $(document).ready(function(){
     $('#kecamatan').on('change', function() {
          var data = $('#kecamatan').select2('data');
         $('input[name="subdistrict"]').val(data[0].text);
-        //console.log(data[0]);
+       console.log(data[0]);
         getDetailCity(data[0].id);
     });
 });
@@ -749,7 +750,6 @@ function setsearchbox(map,marker)
 
 }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API') }}&libraries=drawing,places&callback=initMap" async defer></script>
 <script>
     $('.add').click(function () {
         if ($(this).prev().val() < 12) {
