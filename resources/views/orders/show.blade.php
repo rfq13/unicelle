@@ -49,7 +49,7 @@
 					</div>
 					<input type="hidden" id="status-order" value="{{ $delivery_status }}">
                     <select class="form-control demo-select2"  data-minimum-results-for-search="Infinity" id="update_delivery_status">
-                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Pending')}}</option>
+                        <option value="pending" @if ($delivery_status == 'pending') selected @endif>{{translate('Sedang diproses')}}</option>
                         {{-- <option value="on_review" @if ($delivery_status == 'on_review') selected @endif>{{translate('On review')}}</option> --}}
 						<option value="on_delivery" @if ($delivery_status == 'on_delivery') selected @endif>{{translate('Dikirim')}}</option>
                         @if ($delivery_status == 'delivered')<option value="delivered" selected>{{translate('Terkirim')}}</option>@endif
@@ -135,7 +135,7 @@
     					</td>
 						@php
 						// dd([$order->orderDetails->first()->delivery_status,$order->orderDetails->first()->delivery_status=="delivered"]);
-						$status = $order->orderDetails->first()->delivery_status == "on_delivery" ? "Dikirim":"Pending";
+						$status = $order->orderDetails->first()->delivery_status == "on_delivery" ? "Dikirim":"Sedang diproses";
 						$status = $order->orderDetails->first()->delivery_status == "delivered" ? "Terkirim" : $status;
 						// if (isset($order->resi)) {
 						// 	if ($rajaongkir->status->code == 200) {
@@ -209,7 +209,7 @@
             						{{translate('Qty')}}
             					</th>
             					<th class="min-col text-center text-uppercase">
-            						{{translate('Harga')}}
+            						{{translate('Harga Satuan')}}
             					</th>
             					<th class="min-col text-right text-uppercase">
             						{{translate('Total')}}
@@ -249,10 +249,10 @@
                 						{{ $orderDetail->quantity }}
                 					</td>
                 					<td class="text-center">
-                						{{ single_price($orderDetail->price) }}
+                						{{ single_price($orderDetail->price/$orderDetail->quantity) }}
                 					</td>
                                     <td class="text-center">
-                						{{ single_price($orderDetail->price*$orderDetail->quantity) }}
+                						{{ single_price($orderDetail->price) }}
                 					</td>
                 				</tr>
                             @endforeach
@@ -268,7 +268,7 @@
     					<strong>{{translate('Sub Total')}} :</strong>
     				</td>
     				<td>
-    					{{ single_price($order->orderDetails->sum('price')*$order->orderDetails->sum('quantity')) }}
+    					{{ single_price($order->orderDetails->sum('price')) }}
     				</td>
     			</tr>
     			<tr>
@@ -299,8 +299,14 @@
     				<td>
     					<strong>{{translate('Discount')}} :</strong>
     				</td>
+					@php
+					$total_cart=$order->orderDetails->sum('price');
+					if($order->type_discount == 'percent'){
+						$convert_rupiah=$total_cart*$order->discount/100;
+					}
+					@endphp
     				<td>
-    					@if($order->type_discount == 'amount')<span>Rp</span>@endif{{ $order->discount }}@if($order->type_discount == 'percent')<span>%</span>@endif
+    					@if($order->type_discount == 'amount')<span>Rp</span>{{ $order->discount }}@else<span>{{single_price($convert_rupiah)}}</span><span> ({{ $order->discount }}%)</span>@endif
     				</td>
     			</tr>
     			<tr>

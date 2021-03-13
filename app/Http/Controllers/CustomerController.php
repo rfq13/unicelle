@@ -166,4 +166,13 @@ class CustomerController extends Controller
         return redirect()->route('customers.index');
 
     }
+    public function destroy_mutlak_set(Request $request)
+    {
+        $data = MemberCustom::findOrFail($request->id);
+        if ($data) {
+           
+            $data->delete();
+            return response()->json(['stts'=>false]);
+        }
+    }
 }

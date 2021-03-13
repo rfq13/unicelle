@@ -213,6 +213,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 	Route::post('/voucher/visibility', 'VoucherController@visibility')->name('coupon.visibility');
 	Route::post('/voucher/use/visibility', 'VoucherController@kupon_active')->name('coupon.visibility.update');
 
+	Route::post('/mutlak/destroy', 'CustomerController@destroy_mutlak_set')->name('destory.mutlak');
 
 
 	//Reviews

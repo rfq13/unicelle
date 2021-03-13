@@ -96,7 +96,7 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{translate('Foto')}}</th>
-                                    <th>{{translate('Posisi')}}</th>
+                                    {{-- <th>{{translate('Posisi')}}</th> --}}
                                     <th>{{translate('Terbit')}}</th>
                                     <th width="10%">{{translate('Pilihan')}}</th>
                                 </tr>
@@ -106,7 +106,7 @@
                                     <tr>
                                         <td>{{$key+1}}</td>
                                         <td><img loading="lazy"  class="img-md" src="{{ my_asset($banner->photo)}}" alt="banner Image"></td>
-                                        <td>{{ translate('Posisi Banner ') }}{{ $banner->position }}</td>
+                                        {{-- <td>{{ translate('Posisi Banner ') }}{{ $banner->position }}</td> --}}
                                         <td><label class="switch">
                                             <input onchange="update_banner_published(this)" value="{{ $banner->id }}" type="checkbox" <?php if($banner->published == 1) echo "checked";?> >
                                             <span class="slider round"></span></label></td>

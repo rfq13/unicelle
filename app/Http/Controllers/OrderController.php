@@ -481,7 +481,8 @@ class OrderController extends Controller
                                             $total_beli = $total2-$voucher->potongan+$spi->cost;
                                             }
                                             else{
-                                            $convertp = $subtotal+$tax*$voucher->potongan/100;
+                                            $total=$subtotal + $tax ;
+                                            $convertp = $total*$voucher->potongan/100;
                                             $total_beli=$total2-$convertp+$spi->cost;
                                             }
                                     }

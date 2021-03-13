@@ -64,7 +64,11 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-12 text-right">
-                                <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
+                            @if (isset($member_custom))
+                            <a href="javascript:void(0)"   onclick="deleteSetMutlak(event,{{$member_custom->id}});" >
+                            <button type="button" style="background-color: #FF0000;color: #ffffff;" class="btn btn-primary1">Hapus</button></a>
+                            @endif
+                            <button class="btn btn-purple" type="submit">{{__('Simpan')}}</button>
                             </div>
                         </div>
                     </form>
@@ -73,5 +77,24 @@
         </div>
          
     </div>
+
+@endsection
+@section('script')
+
+<script type="text/javascript">
+    function deleteSetMutlak(e,key){
+        e.preventDefault()
+        $.post('{{ route('destory.mutlak') }}', {_token:'{{ csrf_token() }}',id:key}, function(data){
+            if (data.stts === false) {
+                showAlert('success',"Setting diskon dan poin mutlak dihapus");
+                location.reload();
+            }else{
+                showAlert('danger',"ada kesalahan");
+                location.reload();
+            }
+        });
+                
+    }
+</script>
 
 @endsection

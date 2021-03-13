@@ -15,8 +15,8 @@
                     <div class="select" style="min-width: 300px;">
                         <select class="form-control demo-select2" name="payment_type" id="payment_type" onchange="sort_orders()">
                             <option value="">{{translate('Filter Berdasarkan Status Pembayaran')}}</option>
-                            <option value="paid"  @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{translate('Dibayar')}}</option>
-                            <option value="unpaid"  @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{translate('Tidak Dibayar')}}</option>
+                            <option value="paid"  @isset($payment_status) @if($payment_status == 'paid') selected @endif @endisset>{{translate('Sudah Dibayar')}}</option>
+                            <option value="unpaid"  @isset($payment_status) @if($payment_status == 'unpaid') selected @endif @endisset>{{translate('Belum Dibayar')}}</option>
                         </select>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                     <div class="select" style="min-width: 300px;">
                         <select class="form-control demo-select2" name="delivery_status" id="delivery_status" onchange="sort_orders()">
                             <option value="">{{translate('Filter Berdasarkan Status Pengiriman')}}</option>
-                            <option value="pending"   @isset($delivery_status) @if($delivery_status == 'pending') selected @endif @endisset>{{translate('Pending')}}</option>
+                            <option value="pending"   @isset($delivery_status) @if($delivery_status == 'pending') selected @endif @endisset>{{translate('Sedang diproses')}}</option>
                             {{-- <option value="on_review"   @isset($delivery_status) @if($delivery_status == 'on_review') selected @endif @endisset>{{translate('On review')}}</option> --}}
                             <option value="on_delivery"   @isset($delivery_status) @if($delivery_status == 'on_delivery') selected @endif @endisset>{{translate('Dikirim')}}</option>
                             <option value="delivered"   @isset($delivery_status) @if($delivery_status == 'delivered') selected @endif @endisset>{{translate('Terkirim')}}</option>
@@ -92,7 +92,7 @@
                                 @elseif($status == 'delivered')
                                 Terkirim
                                 @else
-                                {{ ucfirst(str_replace('_', ' ', $status)) }}
+                                Sedang diproses
                                 @endif
                             </td>
                             <td>
@@ -101,7 +101,7 @@
                             <td>
                                     @if ($order->orderDetails->where('is_product_digital',0)->first()->payment_status == 'paid')
                                     <span style="background-color:#007944" class="badge badge--2 mr-4">
-                                        <i class="bg-green">{{ translate('Dibayar') }}</i> 
+                                        <i class="bg-green">{{ translate('Sudah Dibayar') }}</i> 
                                     </span>
                                     @else
                                     <span style="background-color:#ec4646" class="badge badge--2 mr-4">
