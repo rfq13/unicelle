@@ -262,7 +262,7 @@
                             <input id="pac-input"  class="controls" type="text" placeholder="Cari Lokasi" hidden>
                             <div id="map" style="width: 100%;height: 350px;top: 8;font-size: 16pt;"></div>
                         </div>
-                        {{-- <div id="form_pertama">
+                        <div id="form_pertama">
                         <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id">
@@ -340,9 +340,9 @@
                         <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
                         </div>
                         </form>
-                        </div> --}}
+                        </div> 
                         <!-- batas -->
-                        <div id="form_kedua">
+                        {{-- <div id="form_kedua">
             <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id">
@@ -409,7 +409,7 @@
                         <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
                         </div>
                         </form>
-                        </div>
+                        </div> --}}
                         <!-- batas -->
                         </div>
                     </div>
