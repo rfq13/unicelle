@@ -766,6 +766,8 @@ function getAddress (latitude, longitude) {
        console.log(data[0]);
         getDetailCity(data[0].id);
     });
+    marker.setPosition({ lat:lat, lng:lng });
+
         $("#new-address-modal").on('hidden.bs.modal', function (e) {
             clearFA()
             $("#exampleModalLabel").html("New Address")
