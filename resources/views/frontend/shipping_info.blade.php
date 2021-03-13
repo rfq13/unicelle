@@ -244,7 +244,7 @@ div.pac-container {
                         </form>
                         </div>
                         <!-- batas -->
-                        <div id="form_kedua" class="hide_form">
+                        {{-- <div id="form_kedua" class="hide_form">
             <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                 @csrf
                 <input type="hidden" name="id">
@@ -311,7 +311,7 @@ div.pac-container {
                         <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
                         </div>
                         </form>
-                        </div>
+                        </div> --}}
                         <!-- batas -->
                     </div>
                 </div>
@@ -390,8 +390,8 @@ function initMap() {
     map.addListener('click', function(mapsMouseEvent) {
           // Close the current InfoWindow.
 
-          $('#form_pertama').addClass('hide_form');
-          $('#form_kedua').removeClass('hide_form');
+        //   $('#form_pertama').addClass('hide_form');
+        //   $('#form_kedua').removeClass('hide_form');
         marker.setPosition(mapsMouseEvent.latLng);
         $('input[name="lat"]').val(mapsMouseEvent.latLng.lat());
         $('input[name="lng"]').val(mapsMouseEvent.latLng.lng());
@@ -596,8 +596,8 @@ function setsearchbox(map,marker)
         // Listen for the event fired when the user selects a prediction and retrieve
         // more details for that place.
         searchBox.addListener('places_changed', function() {
-            $('#form_pertama').addClass('hide_form');
-          $('#form_kedua').removeClass('hide_form');
+        //     $('#form_pertama').addClass('hide_form');
+        //   $('#form_kedua').removeClass('hide_form');
           var places = searchBox.getPlaces();
 
           if (places.length == 0) {

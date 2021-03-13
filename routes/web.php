@@ -235,7 +235,7 @@ Route::group(['middleware' => ['user', 'verified', 'unbanned']], function () {
 	Route::get('/adresses/get-subdistrict', 'AddressController@get_subdistrict')->name('addresses.get_subDistrict');
 	Route::post('/addresses/get-cost', 'AddressController@getCostDestination')->name('addresse.cost');
 	Route::get('/get_provinsi', 'AddressController@get_province')->name("rajaongkir.provinsi");
-	Route::post('/get_detai_city', 'AddressController@getCityDetail')->name("rajaongkir.detail");
+	Route::post('/get_detail_city', 'AddressController@getCityDetail')->name("rajaongkir.detail");
 
 });
 

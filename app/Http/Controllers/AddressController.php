@@ -70,6 +70,10 @@ class AddressController extends Controller
         $address->phone = $request->phone;
         $address->lat = $request->lat;
         $address->lng = $request->lng;
+        if($request->lat == null || $request->lng == null){
+            $address->lat = '-7.20455898888842';
+            $address->lng = '112.734314762056';
+        }
         if($address->save()){
             flash("Address added successfully")->success();
             return redirect()->back();
@@ -253,7 +257,10 @@ class AddressController extends Controller
             }
 
             $response = request_raja_ongkir($url,"GET","");
-            $result = $response->results;
+            $result =[];
+
+            dd($result);
+            // $result = $response->results;
     
             return response()->json($result, 200);
 

@@ -266,8 +266,8 @@
                         <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="id">
-                        <input type="text" name="lat">
-                        <input type="text" name="lng">
+                        <input type="hidden" name="lat">
+                        <input type="hidden" name="lng">
                         <div class="row" style="margin-bottom: 15px;">
                             <div class="col-md-2">
                                 <label>{{ translate('Provinsi')}}<sup style="color: #F3795C;">*</sup></label>
@@ -342,7 +342,74 @@
                         </form>
                         </div> 
                         <!-- batas -->
-                        
+                        {{-- <div id="form_kedua">
+            <form class="form-default" role="form" action="{{ route('addresses.store') }}" method="POST">
+                @csrf
+                <input type="hidden" name="id">
+                        <input type="hidden" name="lat">
+                        <input type="hidden" name="lng">
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Provinsi')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Provinsi')}}" name="province" id="provinsi2"  value="" readonly> 
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kota/Kabupaten')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kota/Kabupaten')}}" name="city" id="Kota2" value="" readonly> 
+                            </div>
+                        </div>
+                         <div class="row" style="margin-bottom: 15px;">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kecamatan')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kecamatan')}}" name="subdistrict" id="kecamatan2" value="" readonly>
+                            </div>
+                        </div>
+                        <div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Kode Pos')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="{{ translate('Kode Pos')}}" id="kode_pos_alamat2" name="postal_code" value="" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Nama')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="Nama penerima" name="receiver" value="" id="receiver" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Nomor telepon')}}</label>
+                            </div>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control mb-3" placeholder="Nomor telepon penerima" name="phone" value="" id="phone" required>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-2">
+                                <label>{{ translate('Detail Alamat')}}<sup style="color: #F3795C;">*</sup></label>
+                            </div>
+                            <div class="col-md-10">
+                                <textarea class="form-control textarea-autogrow mb-3" placeholder="{{ translate('detail alamat Pengiriman')}}" rows="3" name="address" id="txtaddress" required></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                        <button type="submit" class="btn btn-base-1">{{  translate('Simpan') }}</button>
+                        </div>
+                        </form>
+                        </div> --}}
                         <!-- batas -->
                         </div>
                     </div>
