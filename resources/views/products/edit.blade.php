@@ -139,7 +139,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-lg-2 control-label">{{translate('Thumbnail')}} <small>(290x300)</small></label>
+						<label class="col-lg-2 control-label">{{translate('Thumbnail')}} {{-- <small>(290x300)</small> --}} <small>(500x500)</small></label>
 						<div class="col-lg-7">
 							<div id="thumbnail_img">
 								@if ($product->thumbnail_img != null)
@@ -598,7 +598,7 @@
 		$("#thumbnail_img").spartanMultiImagePicker({
 			fieldName:        'thumbnail_img',
 			maxCount:         1,
-			rowHeight:        '200px',
+			rowHeight:        '500px',
 			groupClassName:   'col-md-4 col-sm-4 col-xs-6',
 			maxFileSize:      '',
 			dropFileLabel : "Drop Here",
