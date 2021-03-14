@@ -598,7 +598,7 @@
 		$("#thumbnail_img").spartanMultiImagePicker({
 			fieldName:        'thumbnail_img',
 			maxCount:         1,
-			rowHeight:        '500px',
+			rowHeight:        '200px',
 			groupClassName:   'col-md-4 col-sm-4 col-xs-6',
 			maxFileSize:      '',
 			dropFileLabel : "Drop Here",
