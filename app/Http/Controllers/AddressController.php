@@ -274,6 +274,7 @@ class AddressController extends Controller
     {
         try {
 
+
             $items =[];
 
             foreach (Auth::user()->carts as $key => $cartItem) {
@@ -290,8 +291,9 @@ class AddressController extends Controller
                     "value" =>  $cartItem['price']*$cartItem['quantity']
                 ]);
 
-            }
 
+            }
+           
             $paramSwift=[
                 "origin_latitude" =>  floatval(env('SWIFT_ORIGIN_LAT')),
                 "origin_longitude" =>  floatval(env('SWIFT_ORIGIN_LNG')),

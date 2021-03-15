@@ -652,7 +652,7 @@ function setsearchbox(map,marker)
         });
 
     }
-    function getCostAddress(lat,lng)
+    function getCostAddress(lat,lng)    
     {   blockui("#data-ongkir");
         $.post('{{ route('addresse.cost') }}', { _token:'{{ csrf_token() }}', lat: lat,lng: lng}, function(data){
             $('#data-ongkir').html(data.shiping_item);
@@ -667,6 +667,8 @@ function setsearchbox(map,marker)
             let setDefault = $("#all-addr #setDefault")
             let _lat = $(this).data("lat");
             let _lng = $(this).data("lng");
+            let _kecamatan = $(this).data("subdistrict");
+            let _id = $(this).data("id");
             // alert(setDefault); return
             setDefault.removeClass("btn-default")
             setDefault.addClass("btn-secondary")
@@ -677,7 +679,7 @@ function setsearchbox(map,marker)
                     $("#defaulted"+key).html('')
                     setthis.removeClass("btn-secondary")
                     setthis.addClass("btn-default")
-                    getCostAddress(_lat,_lng);
+                    getCostAddress(_lat,_lng);                
                 }else{
                     showFrontendAlert("danger",data[0])
                 }
@@ -711,6 +713,7 @@ function setsearchbox(map,marker)
         });
 
         @if(isset(Auth::user()->addresseDefault) && Auth::user()->addresseDefault != null)
+        console.log
         var lat = {{ Auth::user()->addresseDefault->lat }};
         var lng = {{ Auth::user()->addresseDefault->lng }};
         getCostAddress(lat,lng);
